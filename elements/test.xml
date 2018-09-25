@@ -1,0 +1,8 @@
+
+TODO:
+
+1. em primitives.js, mudar o switch para um mapa de tags->funções.
+2. reescrever XMLYas
+3. capturar e detetar + erros
+4. escalonar mensagens de erro apropriadamente (cadeia de tags)
+5. adicionar mais primitives (circulo, poligono, piramide, piramide cortada, cone, ...)
