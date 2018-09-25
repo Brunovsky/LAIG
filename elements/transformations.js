@@ -48,14 +48,14 @@ class XMLTransformation extends XMLElement {
 			} else if (child.tagName == "scale") {
 				operation = new XMLScale(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!operation.isValid()) {
-				this.error = operation.error;
-				this.errorMessage = operation.errorMessage;
+			if (!operation.valid()) {
+				this.errorCode = operation.errorCode;
+				this.errorMessage = operation.type + " : " + operation.errorMessage;
 				return;
 			}
 
@@ -80,21 +80,21 @@ class XMLTransformations extends XMLElement {
 			if (child.tagName == "transformation") {
 				transf = new XMLTransformation(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!transf.isValid()) {
-				this.error = transf.error;
-				this.errorMessage = transf.errorMessage;
+			if (!transf.valid()) {
+				this.errorCode = transf.errorCode;
+				this.errorMessage = "transformation : " + transf.errorMessage;
 				return;
 			}
 
 			let id = transf.values.id;
 
 			if (this.transformations[id] != undefined) {
-				this.error = PARSE_ERROR_REPEATED_ID;
+				this.errorCode = XMLERROR_REPEATED_ID;
 				this.errorMessage = "Repeated child id";
 				return;
 			}

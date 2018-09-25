@@ -52,12 +52,12 @@ class XMLTorus extends XMLElement {
 
 class XMLPrimitive extends XMLElement {
 	constructor(node, reader) {
-		super(node, reader);
+		super(node, reader, {id:"ss"});
 
 		this.type = "primitive";
 
 		if (node.childElementCount != 1) {
-			this.error = PARSE_ERROR_MISSING_CHILD;
+			this.errorCode = XMLERROR_MISSING_CHILD;
 			this.errorMessage = "Primitive must have exactly one child";
 			return;
 		}
@@ -81,14 +81,14 @@ class XMLPrimitive extends XMLElement {
 			this.figure = new XMLTorus(child, reader);
 			break;
 		default:
-			this.error = PARSE_ERROR_BAD_CHILD;
+			this.errorCode = XMLERROR_BAD_CHILD;
 			this.errorMessage = "Primitive name not recognized";
 			return;
 		}
 
-		if (!this.figure.isValid()) {
-			this.error = this.figure.error;
-			this.errorMessage = this.figure.errorMessage;
+		if (!this.figure.valid()) {
+			this.errorCode = this.figure.errorCode;
+			this.errorMessage = this.figure.type + " : " + this.figure.errorMessage;
 			return;
 		}
 	}
@@ -110,21 +110,21 @@ class XMLPrimitives extends XMLElement {
 			if (child.tagName == "primitive") {
 				primitive = new XMLPrimitive(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!primitive.isValid()) {
-				this.error = primitive.error;
-				this.errorMessage = primitive.errorMessage;
+			if (!primitive.valid()) {
+				this.errorCode = primitive.errorCode;
+				this.errorMessage = "primitive : " + primitive.errorMessage;
 				return;
 			}
 
 			let id = primitive.values.id;
 
 			if (this.primitives[id] != undefined) {
-				this.error = PARSE_ERROR_REPEATED_ID;
+				this.errorCode = XMLERROR_REPEATED_ID;
 				this.errorMessage = "Repeated child id";
 				return;
 			}

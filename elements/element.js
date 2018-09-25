@@ -1,25 +1,37 @@
-var PARSE_ERROR_BAD_ATTRIBUTE = 0x01;
-var PARSE_ERROR_MISSING_ATTRIBUTE = 0x02;
-var PARSE_ERROR_BAD_CHILD = 0x04;
-var PARSE_ERROR_MISSING_CHILD = 0x08;
-var PARSE_ERROR_REPEATED_ID = 0x16;
-var PARSE_ERROR_BAD_TAGNAME = 0x32;
+// An element's attribute is present but the value is invalid.
+var XMLERROR_BAD_ATTRIBUTE = 0x01;
+
+// An element's attribute is missing.
+var XMLERROR_MISSING_ATTRIBUTE = 0x02;
+
+// An element's child has an unexpected tag or the number of such children is unexpected.
+var XMLERROR_BAD_CHILD = 0x04;
+
+// An element does not have an expected or required child.
+var XMLERROR_MISSING_CHILD = 0x08;
+
+// Two elements in the same group have the same id.
+var XMLERROR_REPEATED_ID = 0x16;
+
+// An element has an unexpected tagname.
+var XMLERROR_BAD_TAGNAME = 0x32;
 
 class XMLBase {
 	constructor(node, reader) {
 		this.node = node;
 		this.reader = reader;
+
 		this.values = {};
 
-		this.error = 0;
+		this.errorCode = 0;
 		this.errorMessage = "";
 	}
 
-	isValid() {
-		return this.error == 0;
+	valid() {
+		return this.errorCode == 0;
 	}
 
-	errorMessage() {
+	error() {
 		return this.errorMessage;
 	}
 }
@@ -31,85 +43,72 @@ class XMLElement extends XMLBase {
 		for (const key in attr) {
 			let val;
 
-			switch (typeof attr[key]) {
-			case "string":
-				{
-					if (!reader.hasAttribute(node, key)) {
-						this.error = PARSE_ERROR_MISSING_ATTRIBUTE;
-						this.errorMessage = "Missing attribute " + key;
-						return;
-					}
-
-					switch (attr[key]) {
-					case 'ss':
-						val = reader.getString(node, key);
-						break;
-					case 'ii':
-						val = reader.getInteger(node, key);
-						if (val == null) {
-							this.error = PARSE_ERROR_BAD_ATTRIBUTE;
-							this.errorMessage = "Bad integer " + key;
-							return;
-						}
-						break;
-					case 'ff':
-						val = reader.getFloat(node, key);
-						if (val == null || isNaN(val)) {
-							this.error = PARSE_ERROR_BAD_ATTRIBUTE;
-							this.errorMessage = "Bad float " + key;
-							return;
-						}
-						break;
-					case 'cc':
-						val = reader.getItem(node, key, ["x", "y", "z"]);
-						if (val == null) {
-							this.error = PARSE_ERROR_BAD_ATTRIBUTE;
-							this.errorMessage = "Bad coordinate " + key;
-							return;
-						}
-						break;
-					case 'tt':
-						val = reader.getItem(node, key, ["0", "1"]);
-						if (val == null) {
-							this.error = PARSE_ERROR_BAD_ATTRIBUTE;
-							this.errorMessage = "Bad coordinate " + key;
-							return;
-						} else {
-							val = val == "0" ? false : true;
-						}
-						break;
-					default:
-						throw "Bad Element attribute descriptor";
-					}
-
-					this.values[key] = val;
+			if (typeof attr[key] == "string") {
+				if (!reader.hasAttribute(node, key)) {
+					this.errorCode = XMLERROR_MISSING_ATTRIBUTE;
+					this.errorMessage = "Missing attribute " + key;
+					return;
 				}
-				break;
 
-			case "object":
-				{
-					let child = node.querySelector(key);
-
-					if (child == null) {
-						this.error = PARSE_ERROR_MISSING_CHILD;
-						this.error = "Missing child " + key;
+				switch (attr[key]) {
+				case 'ss':
+					val = reader.getString(node, key);
+					break;
+				case 'ii':
+					val = reader.getInteger(node, key);
+					if (val == null) {
+						this.errorCode = XMLERROR_BAD_ATTRIBUTE;
+						this.errorMessage = "Expected integer for key " + key;
 						return;
 					}
-
-					let element = new XMLElement(child, reader, attr[key]);
-
-					val = element.values;
-
-					if (!element.isValid()) {
-						this.error = element.error;
-						this.errorMessage = element.errorMessage;
+					break;
+				case 'ff':
+					val = reader.getFloat(node, key);
+					if (val == null || isNaN(val)) {
+						this.errorCode = XMLERROR_BAD_ATTRIBUTE;
+						this.errorMessage = "Expected float for key " + key;
 						return;
 					}
+					break;
+				case 'cc':
+					val = reader.getItem(node, key, ["x", "y", "z"]);
+					if (val == null) {
+						this.errorCode = XMLERROR_BAD_ATTRIBUTE;
+						this.errorMessage = "Expected coordinate for key " + key;
+						return;
+					}
+					break;
+				case 'tt':
+					val = reader.getItem(node, key, ["0", "1"]);
+					if (val == null) {
+						this.errorCode = XMLERROR_BAD_ATTRIBUTE;
+						this.errorMessage = "Expected boolean for key " + key;
+						return;
+					} else {
+						val = val == "0" ? false : true;
+					}
+					break;
+				default:
+					throw "Bad Element attribute descriptor";
 				}
-				break;
+			} else if (typeof attr[key] == "object") {
+				let child = node.querySelector(key);
 
-			default:
-				throw "Bad Element attribute typeof value";
+				if (child == null) {
+					this.errorCode = XMLERROR_MISSING_CHILD;
+					this.errorMessage = "Missing child " + key;
+					return;
+				}
+
+				let element = new XMLElement(child, reader, attr[key]);
+
+				val = element.values;
+
+				if (!element.valid()) {
+					this.errorCode = element.errorCode;
+					this.errorMessage = key + " : " + element.errorMessage;
+					return;
+				}
 			}
 
 			this.values[key] = val;
@@ -121,20 +120,25 @@ class XMLYas extends XMLBase {
 	constructor(node, reader) {
 		super(node, reader);
 
-		this.type = "yas";
-
 		if (node.tagName != "yas") {
-			window.NODE = node;
-			this.error = PARSE_ERROR_BAD_TAGNAME;
-			this.errorMessage = "Root node does not have tagname 'yas'";
+			this.errorCode = XMLERROR_BAD_TAGNAME;
+			this.errorMessage = "Root node does not have expected tagname 'yas'";
 			return;
 		}
 
-		// Children: scene, views, ambient, lights, textures, materials,
-		// transformations, primitives, components.
+		// Expected Children:
+		// scene
+		// views
+		// ambient
+		// lights
+		// textures
+		// materials
+		// transformations
+		// primitives
+		// components
 
 		if (node.childElementCount != 9) {
-			this.error = PARSE_ERROR_MISSING_CHILD;
+			this.errorCode = XMLERROR_MISSING_CHILD;
 			this.errorMessage = "Root node 'yas' does not have 9 children";
 			return;
 		}
@@ -158,7 +162,7 @@ class XMLYas extends XMLBase {
 		 || transfNode.tagName != "transformations"
 		 || primitivesNode.tagName != "primitives"
 		 || componentsNode.tagName != "components") {
-			this.error = PARSE_ERROR_BAD_CHILD;
+			this.errorCode = XMLERROR_BAD_CHILD;
 			this.errorMessage = "Root node 'yas' has invalid direct children";
 			return;
 		}
@@ -173,57 +177,57 @@ class XMLYas extends XMLBase {
 		this.primitives = new XMLPrimitives(primitivesNode, reader);
 		this.components = new XMLComponents(componentsNode, reader);
 
-		if (!this.scene.isValid()) {
-			this.error = this.scene.error;
-			this.errorMessage = this.scene.errorMessage;
+		if (!this.scene.valid()) {
+			this.errorCode = this.scene.errorCode;
+			this.errorMessage = "scene : " + this.scene.errorMessage;
 			return;
 		}
 
-		if (!this.views.isValid()) {
-			this.error = this.views.error;
-			this.errorMessage = this.views.errorMessage;
+		if (!this.views.valid()) {
+			this.errorCode = this.views.errorCode;
+			this.errorMessage = "views : " + this.views.errorMessage;
 			return;
 		}
 
-		if (!this.ambient.isValid()) {
-			this.error = this.ambient.error;
-			this.errorMessage = this.ambient.errorMessage;
+		if (!this.ambient.valid()) {
+			this.errorCode = this.ambient.errorCode;
+			this.errorMessage = "ambient : " + this.ambient.errorMessage;
 			return;
 		}
 
-		if (!this.lights.isValid()) {
-			this.error = this.lights.error;
-			this.errorMessage = this.lights.errorMessage;
+		if (!this.lights.valid()) {
+			this.errorCode = this.lights.errorCode;
+			this.errorMessage = "lights : " + this.lights.errorMessage;
 			return;
 		}
 
-		if (!this.textures.isValid()) {
-			this.error = this.textures.error;
-			this.errorMessage = this.textures.errorMessage;
+		if (!this.textures.valid()) {
+			this.errorCode = this.textures.errorCode;
+			this.errorMessage = "textures : " + this.textures.errorMessage;
 			return;
 		}
 
-		if (!this.materials.isValid()) {
-			this.error = this.materials.error;
-			this.errorMessage = this.materials.errorMessage;
+		if (!this.materials.valid()) {
+			this.errorCode = this.materials.errorCode;
+			this.errorMessage = "materials : " + this.materials.errorMessage;
 			return;
 		}
 
-		if (!this.transformations.isValid()) {
-			this.error = this.transformations.error;
-			this.errorMessage = this.transformations.errorMessage;
+		if (!this.transformations.valid()) {
+			this.errorCode = this.transformations.errorCode;
+			this.errorMessage = "transformations : " + this.transformations.errorMessage;
 			return;
 		}
 
-		if (!this.primitives.isValid()) {
-			this.error = this.primitives.error;
-			this.errorMessage = this.primitives.errorMessage;
+		if (!this.primitives.valid()) {
+			this.errorCode = this.primitives.errorCode;
+			this.errorMessage = "primitives : " + this.primitives.errorMessage;
 			return;
 		}
 
-		if (!this.components.isValid()) {
-			this.error = this.components.error;
-			this.errorMessage = this.components.errorMessage;
+		if (!this.components.valid()) {
+			this.errorCode = this.components.errorCode;
+			this.errorMessage = "components : " + this.components.errorMessage;
 			return;
 		}
 	}

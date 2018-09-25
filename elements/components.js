@@ -21,9 +21,9 @@ class XMLComponentTransformation extends XMLElement {
 
 			this.transf = new XMLTransformationRef(child, reader);
 
-			if (!this.transf.isValid()) {
-				this.error = this.transf.error;
-				this.errorMessage = this.transf.errorMessage;
+			if (!this.transf.valid()) {
+				this.errorCode = this.transf.errorCode;
+				this.errorMessage = "transformationref : " + this.transf.errorMessage;
 				return;
 			}
 		} else {
@@ -31,9 +31,9 @@ class XMLComponentTransformation extends XMLElement {
 
 			this.transf = new XMLTransformation(node, reader);
 
-			if (!this.transf.isValid()) {
-				this.error = this.transf.error;
-				this.errorMessage = this.transf.errorMessage;
+			if (!this.transf.valid()) {
+				this.errorCode = this.transf.errorCode;
+				this.errorMessage = "transformation : " + this.transf.errorMessage;
 				return;
 			}
 		}
@@ -88,14 +88,14 @@ class XMLComponentMaterials extends XMLElement {
 			if (child.tagName == "material") {
 				material = new XMLMaterialRef(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!material.isValid()) {
-				this.error = material.error;
-				this.errorMessage = material.errorMessage;
+			if (!material.valid()) {
+				this.errorCode = material.errorCode;
+				this.errorMessage = "material : " + material.errorMessage;
 				return;
 			}
 
@@ -122,21 +122,21 @@ class XMLChildren extends XMLElement {
 			} else if (child.tagName == "componentref") {
 				ref = new XMLComponentRef(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!ref.isValid()) {
-				this.error = ref.error;
-				this.errorMessage = ref.errorMessage;
+			if (!ref.valid()) {
+				this.errorCode = ref.errorCode;
+				this.errorMessage = ref.type + " : " + ref.errorMessage;
 				return;
 			}
 
 			let id = ref.values.id;
 
 			if (this.refs[id] != undefined) {
-				this.error = PARSE_ERROR_REPEATED_ID;
+				this.errorCode = XMLERROR_REPEATED_ID;
 				this.errorMessage = "Repeated child id";
 				return;
 			}
@@ -153,7 +153,7 @@ class XMLComponent extends XMLElement {
 		this.type = "component";
 
 		if (node.childElementCount != 4) {
-			this.error = PARSE_ERROR_MISSING_CHILD;
+			this.errorCode = XMLERROR_MISSING_CHILD;
 			this.errorMessage = "Component must have 4 children";
 			return;
 		}
@@ -165,7 +165,7 @@ class XMLComponent extends XMLElement {
 
 		if (transf == null || materials == null ||
 			texture == null || children == null) {
-			this.error = PARSE_ERROR_BAD_CHILD;
+			this.errorCode = XMLERROR_BAD_CHILD;
 			this.errorMessage = "Unexpected component child element";
 			return;
 		}
@@ -175,27 +175,27 @@ class XMLComponent extends XMLElement {
 		this.texture = new XMLComponentTexture(texture, reader);
 		this.children = new XMLChildren(children, reader);
 
-		if (!this.transf.isValid()) {
-			this.error = this.transf.error;
-			this.errorMessage = this.transf.errorMessage;
+		if (!this.transf.valid()) {
+			this.errorCode = this.transf.errorCode;
+			this.errorMessage = "transformation : " + this.transf.errorMessage;
 			return;
 		}
 
-		if (!this.materials.isValid()) {
-			this.error = this.materials.error;
-			this.errorMessage = this.materials.errorMessage;
+		if (!this.materials.valid()) {
+			this.errorCode = this.materials.errorCode;
+			this.errorMessage = "materials : " + this.materials.errorMessage;
 			return;
 		}
 
-		if (!this.texture.isValid()) {
-			this.error = this.texture.error;
-			this.errorMessage = this.texture.errorMessage;
+		if (!this.texture.valid()) {
+			this.errorCode = this.texture.errorCode;
+			this.errorMessage = "texture : " + this.texture.errorMessage;
 			return;
 		}
 
-		if (!this.children.isValid()) {
-			this.error = this.children.error;
-			this.errorMessage = this.children.errorMessage;
+		if (!this.children.valid()) {
+			this.errorCode = this.children.errorCode;
+			this.errorMessage = "children : " + this.children.errorMessage;
 			return;
 		}
 	}
@@ -217,21 +217,21 @@ class XMLComponents extends XMLElement {
 			if (child.tagName == "component") {
 				component = new XMLComponent(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!component.isValid()) {
-				this.error = component.error;
-				this.errorMessage = component.errorMessage;
+			if (!component.valid()) {
+				this.errorCode = component.errorCode;
+				this.errorMessage = "component : " + component.errorMessage;
 				return;
 			}
 
 			let id = component.values.id;
 
 			if (this.components[id] != undefined) {
-				this.error = PARSE_ERROR_REPEATED_ID;
+				this.errorCode = XMLERROR_REPEATED_ID;
 				this.errorMessage = "Repeated child id";
 				return;
 			}

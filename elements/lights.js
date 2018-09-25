@@ -45,21 +45,21 @@ class XMLLights extends XMLElement {
 			} else if (child.tagName == "spot") {
 				light = new XMLSpot(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!light.isValid()) {
-				this.error = light.error;
-				this.errorMessage = light.errorMessage;
+			if (!light.valid()) {
+				this.errorCode = light.errorCode;
+				this.errorMessage = light.type + " : " + light.errorMessage;
 				return;
 			}
 
 			let id = light.values.id;
 
 			if (this.lights[id] != undefined) {
-				this.error = PARSE_ERROR_REPEATED_ID;
+				this.errorCode = XMLERROR_REPEATED_ID;
 				this.errorMessage = "Repeated child id";
 				return;
 			}

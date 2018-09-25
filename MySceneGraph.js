@@ -62,7 +62,7 @@ class MySceneGraph {
         console.log(rootElement);
         let yas = new XMLYas(rootElement, this.reader);
 
-        return yas.isValid() ? null : yas.errorMessage;
+        return yas.valid() ? null : yas.errorMessage;
     }
 
     /*

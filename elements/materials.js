@@ -28,21 +28,21 @@ class XMLMaterials extends XMLElement {
 			if (child.tagName == "material") {
 				material = new XMLMaterial(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!material.isValid()) {
-				this.error = material.error;
-				this.errorMessage = material.errorMessage;
+			if (!material.valid()) {
+				this.errorCode = material.errorCode;
+				this.errorMessage = "material : " + material.errorMessage;
 				return;
 			}
 
 			let id = material.values.id;
 
 			if (this.materials[id] != undefined) {
-				this.error = PARSE_ERROR_REPEATED_ID;
+				this.errorCode = XMLERROR_REPEATED_ID;
 				this.errorMessage = "Repeated child id";
 				return;
 			}

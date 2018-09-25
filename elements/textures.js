@@ -24,21 +24,21 @@ class XMLTextures extends XMLElement {
 			if (child.tagName == "texture") {
 				texture = new XMLTexture(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!texture.isValid()) {
-				this.error = texture.error;
-				this.errorMessage = texture.errorMessage;
+			if (!texture.valid()) {
+				this.errorCode = texture.errorCode;
+				this.errorMessage = "texture : " + texture.errorMessage;
 				return;
 			}
 
 			let id = texture.values.id;
 
 			if (this.textures[id] != undefined) {
-				this.error = PARSE_ERROR_REPEATED_ID;
+				this.errorCode = XMLERROR_REPEATED_ID;
 				this.errorMessage = "Repeated child id";
 				return;
 			}

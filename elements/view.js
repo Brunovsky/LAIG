@@ -47,21 +47,21 @@ class XMLViews extends XMLElement {
 			} else if (child.tagName == "ortho") {
 				view = new XMLOrtho(child, reader);
 			} else {
-				this.error = PARSE_ERROR_BAD_CHILD;
+				this.errorCode = XMLERROR_BAD_CHILD;
 				this.errorMessage = "Unexpected child tagname";
 				return;
 			}
 
-			if (!view.isValid()) {
-				this.error = view.error;
-				this.errorMessage = view.errorMessage;
+			if (!view.valid()) {
+				this.errorCode = view.errorCode;
+				this.errorMessage = view.type + " : " + view.errorMessage;
 				return;
 			}
 
 			let id = view.values.id;
 
 			if (this.views[id] != undefined) {
-				this.error = PARSE_ERROR_REPEATED_ID;
+				this.errorCode = XMLERROR_REPEATED_ID;
 				this.errorMessage = "Repeated child id";
 				return;
 			}
