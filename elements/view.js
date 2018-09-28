@@ -26,7 +26,7 @@ class XMLViews extends XMLGroup {
 		super(node, {
 			perspective: {fun:XMLPerspective},
 			ortho:       {fun:XMLOrtho}
-		});
+		}, {default:"ss"});
 
 		this.type = "views";
 	}

@@ -111,10 +111,10 @@ class XMLElement extends XMLBase {
  * The ids are unique in the group, and these XMLElement
  * may only have one of the tags specified in the argument tags.
  */
-class XMLGroup extends XMLBase {
-	constructor(node, tags) {
-		super(node);
-		this.elements = [];
+class XMLGroup extends XMLElement {
+	constructor(node, tags, attr = {}) {
+		super(node, attr);
+		this.elements = {};
 
 		for (let i = 0; i < node.children.length; ++i) {
 			let child = node.children[i];
@@ -126,14 +126,12 @@ class XMLGroup extends XMLBase {
 
 			let fun = tags[name].fun;
 
-			this.elements.push(new fun(child));
-		}
+			let element = new fun(child);
+			let id = element.data.id;
 
-		let ids = this.elements.map(x => x.data.id);
-		let dups = ids.duplicates();
-
-		if (!dups.empty()) {
-			throw new XMLException(node, "Duplicate IDs found (" + dups[0] + ")");
+			if (id != null && !id in this.elements) {
+				this.elements[id] = element;
+			}
 		}
 	}
 }
