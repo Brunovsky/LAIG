@@ -44,7 +44,7 @@ class XMLTransformation extends XMLElement {
 
 		for (let i = 0; i < node.children.length; ++i) {
 			let child = node.children[i];
-			let name = child.tagName;
+			let name = child.tagName.toLocaleLowerCase();
 
 			if (!name in tags) {
 				throw new XMLException(child, "Unexpected tagname " + name);

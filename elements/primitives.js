@@ -69,7 +69,7 @@ class XMLPrimitive extends XMLElement {
 		}
 
 		let child = node.firstElementChild;
-		let name = child.tagName;
+		let name = child.tagName.toLocaleLowerCase();
 
 		if (!name in XMLAcceptedPrimitives) {
 			throw new XMLException(node, "Primitive " + name + " not recognized");

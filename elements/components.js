@@ -22,7 +22,7 @@ class XMLImmediateTransformation extends XMLElement {
 
 		for (let i = 0; i < node.children.length; ++i) {
 			let child = node.children[i];
-			let name = child.tagName;
+			let name = child.tagName.toLocaleLowerCase();
 
 			if (!name in tags) {
 				throw new XMLException(child, "Unexpected tagname " + name);
@@ -42,10 +42,11 @@ class XMLComponentTransformation extends XMLElement {
 		this.type = "transformation";
 
 		let child = node.firstElementChild;
+		let name = child.tagName.toLocaleLowerCase();
 
 		if (child == null) {
 			this.mode = "none";
-		} else if (child.tagName == "transformationref") {
+		} else if (name == "transformationref") {
 			this.mode = "ref";
 			this.transf = new XMLTransformationRef(child);
 		} else {
@@ -122,7 +123,8 @@ class XMLComponent extends XMLElement {
 
 		for (let i = 0; i < 4; ++i) {
 			let child = node.children[i];
-			if (tags[i] != child.tagName) {
+			let name = child.tagName.toLocaleLowerCase();
+			if (tags[i] != name) {
 				throw new XMLException(child, "Expected tagname " + tags[i]);
 			}
 		}

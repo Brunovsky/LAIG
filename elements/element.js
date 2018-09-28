@@ -13,7 +13,8 @@ class XMLException extends XMLBase {
 		this.message = message;
 
 		do {
-			this.message = node.tagName + " > " + this.message;
+			let name = node.tagName.toLocaleLowerCase();
+			this.message = name + " > " + this.message;
 			node = node.parentNode;
 		} while (node.parentNode != null);
 	}
@@ -117,7 +118,7 @@ class XMLGroup extends XMLBase {
 
 		for (let i = 0; i < node.children.length; ++i) {
 			let child = node.children[i];
-			let name = child.tagName;
+			let name = child.tagName.toLocaleLowerCase();
 
 			if (!name in tags) {
 				throw new XMLException(child, "Unexpected tagname " + name);
@@ -143,7 +144,7 @@ class XMLYas extends XMLBase {
 
 		this.type = "yas";
 
-		if (node.tagName != "yas") {
+		if (node.tagName.toLocaleLowerCase() != "yas") {
 			throw new XMLException(node, "Root node does not have tagname 'yas'");
 		}
 
@@ -156,7 +157,8 @@ class XMLYas extends XMLBase {
 
 		for (let i = 0; i < 9; ++i) {
 			let child = node.children[i];
-			if (tags[i] != child.tagName) {
+			let name = child.tagName.toLocaleLowerCase();
+			if (tags[i] != name) {
 				throw new XMLException(child, "Expected tagname " + tags[i]);
 			}
 		}
