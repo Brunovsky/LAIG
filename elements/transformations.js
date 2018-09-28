@@ -25,7 +25,7 @@ class XMLScale extends XMLElement {
 		});
 
 		this.type = "scale";
-		if (x == 0 || y == 0 || z == 0)
+		if (this.data.x == 0 || this.data.y == 0 || this.data.z == 0)
 			throw new XMLException(node, "x, y or z = 0");
 
 	}
