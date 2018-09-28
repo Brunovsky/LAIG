@@ -50,12 +50,111 @@ class XMLTorus extends XMLElement {
 	}
 }
 
+class XMLCircle extends XMLElement {
+	constructor(node) {
+		super(node, {
+			radius:"ff", slices:"ii"
+		});
+
+		this.type = "circle";
+	}
+}
+
+class XMLRegular extends XMLElement {
+	constructor(node) {
+		super(node, {
+			radius:"ff", sides:"ii"
+		});
+
+		this.type = "regular";
+	}
+}
+
+class XMLTrapezium extends XMLElement {
+	constructor(node) {
+		super(node, {
+			base:"ff", top:"ff", height:"ff"
+		});
+
+		this.type = "trapezium";
+	}
+}
+
+class XMLHalfSphere extends XMLElement {
+	constructor(node) {
+		super(node, {
+			radius:"ff", stacks:"ii", slices:"ii"
+		});
+
+		this.type = "halfsphere";
+	}
+}
+
+class XMLCube extends XMLElement {
+	constructor(node) {
+		super(node, {
+			side:"ff"
+		});
+
+		this.type = "cube";
+	}
+}
+
+class XMLBlock extends XMLElement {
+	constructor(node) {
+		super(node, {
+			x:"ff", y:"ff", z:"ff"
+		});
+
+		this.type = "block";
+	}
+}
+
+class XMLPrism extends XMLElement {
+	constructor(node) {
+		super(node, {
+			base:"ff", top:"ff", height:"ff", stacks:"ii", sides:"ii"
+		});
+
+		this.type = "prism";
+	}
+}
+
+class XMLCone extends XMLElement {
+	constructor(node) {
+		super(node, {
+			radius:"ff", height:"ff", stacks:"ii", slices:"ii"
+		});
+
+		this.type = "cone";
+	}
+}
+
+class XMLPyramid extends XMLElement {
+	constructor(node) {
+		super(node, {
+			radius:"ff", height:"ff", stacks:"ii", sides:"ii"
+		});
+
+		this.type = "pyramid";
+	}
+}
+
 let XMLAcceptedPrimitives = {
 	rectangle: {fun:XMLRectangle},
 	triangle:  {fun:XMLTriangle},
 	cylinder:  {fun:XMLCylinder},
 	sphere:    {fun:XMLSphere},
-	torus:     {fun:XMLTorus}
+	torus:     {fun:XMLTorus},
+	circle:    {fun:XMLCircle},
+	regular:   {fun:XMLRegular},
+	trapezium: {fun:XMLTrapezium},
+	halfsphere:{fun:XMLHalfSphere},
+	cube:      {fun:XMLCube},
+	block:     {fun:XMLBlock},
+	prism:     {fun:XMLPrism},
+	cone:      {fun:XMLCone},
+	pyramid:   {fun:XMLPyramid}
 };
 
 class XMLPrimitive extends XMLElement {
