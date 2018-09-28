@@ -58,4 +58,10 @@ class MySceneGraph {
         
         return false;
     }
+
+    onXMLError(error) {
+        console.log(error);
+    }
+
+    displayScene() {}
 }

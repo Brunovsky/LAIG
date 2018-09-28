@@ -42,16 +42,19 @@ class XMLComponentTransformation extends XMLElement {
 		this.type = "transformation";
 
 		let child = node.firstElementChild;
-		let name = child.tagName.toLocaleLowerCase();
 
 		if (child == null) {
 			this.mode = "none";
-		} else if (name == "transformationref") {
-			this.mode = "ref";
-			this.transf = new XMLTransformationRef(child);
 		} else {
-			this.mode = "immediate";
-			this.transf = new XMLImmediateTransformation(node);
+			let name = child.tagName.toLocaleLowerCase();
+			
+			if (name == "transformationref") {
+				this.mode = "ref";
+				this.transf = new XMLTransformationRef(child);
+			} else {
+				this.mode = "immediate";
+				this.transf = new XMLImmediateTransformation(node);
+			}
 		}
 	}
 }
