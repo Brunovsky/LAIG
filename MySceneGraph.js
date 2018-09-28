@@ -43,10 +43,7 @@ class MySceneGraph {
         // Here should go the calls for different functions to parse the various blocks
         let error = this.parseXMLFile(rootElement);
 
-        if (error != null) {
-            this.onXMLError(error);
-            return;
-        }
+        if (error) return;
 
         this.loadedOk = true;
 
@@ -60,9 +57,21 @@ class MySceneGraph {
      */
     parseXMLFile(rootElement) {
         console.log(rootElement);
-        let yas = new XMLYas(rootElement, this.reader);
 
-        return yas.valid() ? null : yas.errorMessage;
+        try {
+            var yas = new XMLYas(rootElement);
+        } catch (e) {
+            if (e instanceof XMLException) {
+                console.log(e);
+                return true;
+            } else {
+                throw e;
+            }
+        }
+
+        console.log(yas);
+
+        return false;
     }
 
     /*

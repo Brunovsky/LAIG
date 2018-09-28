@@ -6,14 +6,15 @@ function getUrlVars() {
     let vars = {};
     let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
     function(m,key,value) {
-      vars[decodeURIComponent(key)] = decodeURIComponent(value);
+        vars[decodeURIComponent(key)] = decodeURIComponent(value);
     });
     return vars;
 }
 
 //Include additional files here
 serialInclude(['../lib/CGF.js',
-    'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'elements/element.js',
+    'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'utils/arrays.js',
+    'elements/element.js',
     'elements/ambient.js', 'elements/components.js', 'elements/lights.js',
     'elements/materials.js', 'elements/primitives.js', 'elements/scene.js',
     'elements/textures.js', 'elements/transformations.js', 'elements/view.js',

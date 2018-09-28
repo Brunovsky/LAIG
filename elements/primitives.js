@@ -1,6 +1,6 @@
 class XMLRectangle extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {
+	constructor(node) {
+		super(node, {
 			x1:"ff", y1:"ff", x2:"ff", y2:"ff"
 		});
 
@@ -9,8 +9,8 @@ class XMLRectangle extends XMLElement {
 }
 
 class XMLTriangle extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {
+	constructor(node) {
+		super(node, {
 			x1:"ff", y1:"ff", z1:"ff",
 			x2:"ff", y2:"ff", z2:"ff",
 			x3:"ff", y3:"ff", z3:"ff"
@@ -21,8 +21,8 @@ class XMLTriangle extends XMLElement {
 }
 
 class XMLCylinder extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {
+	constructor(node) {
+		super(node, {
 			base:"ff", top:"ff", height:"ff", slices:"ii", stacks:"ii"
 		});
 
@@ -31,8 +31,8 @@ class XMLCylinder extends XMLElement {
 }
 
 class XMLSphere extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {
+	constructor(node) {
+		super(node, {
 			radius:"ff", slices:"ii", stacks:"ii"
 		});
 
@@ -41,8 +41,8 @@ class XMLSphere extends XMLElement {
 }
 
 class XMLTorus extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {
+	constructor(node) {
+		super(node, {
 			inner:"ff", outer:"ff", slices:"ii", loops:"ii"
 		});
 
@@ -50,87 +50,44 @@ class XMLTorus extends XMLElement {
 	}
 }
 
+let XMLAcceptedPrimitives = {
+	rectangle: {fun:XMLRectangle},
+	triangle:  {fun:XMLTriangle},
+	cylinder:  {fun:XMLCylinder},
+	sphere:    {fun:XMLSphere},
+	torus:     {fun:XMLTorus}
+};
+
 class XMLPrimitive extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {id:"ss"});
+	constructor(node) {
+		super(node, {id:"ss"});
 
 		this.type = "primitive";
 
 		if (node.childElementCount != 1) {
-			this.errorCode = XMLERROR_MISSING_CHILD;
-			this.errorMessage = "Primitive must have exactly one child";
-			return;
+			throw new XMLException(node, "Primitive node must have exactly one child");
 		}
 
 		let child = node.firstElementChild;
+		let name = child.tagName;
 
-		switch (child.tagName) {
-		case "rectangle":
-			this.figure = new XMLRectangle(child, reader);
-			break;
-		case "triangle":
-			this.figure = new XMLTriangle(child, reader);
-			break;
-		case "cylinder":
-			this.figure = new XMLCylinder(child, reader);
-			break;
-		case "sphere":
-			this.figure = new XMLSphere(child, reader);
-			break;
-		case "torus":
-			this.figure = new XMLTorus(child, reader);
-			break;
-		default:
-			this.errorCode = XMLERROR_BAD_CHILD;
-			this.errorMessage = "Primitive name not recognized";
-			return;
-		}
+		if (!name in XMLAcceptedPrimitives) {
+			throw new XMLException(node, "Primitive " + name + " not recognized");
+		} else {
+			let fun = XMLAcceptedPrimitives[name].fun;
 
-		if (!this.figure.valid()) {
-			this.errorCode = this.figure.errorCode;
-			this.errorMessage = this.figure.type + " : " + this.figure.errorMessage;
-			return;
+			this.figure = new fun(child);
 		}
 	}
 }
 
-class XMLPrimitives extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader);
+class XMLPrimitives extends XMLGroup {
+	constructor(node) {
+		super(node, {
+			primitive: {fun:XMLPrimitive}
+		});
 
 		this.type = "primitives";
-
-		this.primitives = {};
-		let children = node.children;
-
-		for (let i = 0; i < children.length; ++i) {
-			let child = children[i];
-			let primitive;
-
-			if (child.tagName == "primitive") {
-				primitive = new XMLPrimitive(child, reader);
-			} else {
-				this.errorCode = XMLERROR_BAD_CHILD;
-				this.errorMessage = "Unexpected child tagname";
-				return;
-			}
-
-			if (!primitive.valid()) {
-				this.errorCode = primitive.errorCode;
-				this.errorMessage = "primitive : " + primitive.errorMessage;
-				return;
-			}
-
-			let id = primitive.values.id;
-
-			if (this.primitives[id] != undefined) {
-				this.errorCode = XMLERROR_REPEATED_ID;
-				this.errorMessage = "Repeated child id";
-				return;
-			}
-
-			this.primitives[id] = primitive;
-		}
 	}
 }
 

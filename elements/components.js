@@ -1,14 +1,43 @@
 class XMLTransformationRef extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {id:"ss"});
+	constructor(node) {
+		super(node, {id:"ss"});
 
 		this.type = "transformationref";
 	}
 }
 
+class XMLImmediateTransformation extends XMLElement {
+	constructor(node) {
+		super(node);
+
+		this.type = "transformation";
+
+		let tags = {
+			translate: {fun:XMLTranslate},
+			rotate:    {fun:XMLRotate},
+			scale:     {fun:XMLScale}
+		};
+
+		this.elements = [];
+
+		for (let i = 0; i < node.children.length; ++i) {
+			let child = node.children[i];
+			let name = child.tagName;
+
+			if (!name in tags) {
+				throw new XMLException(child, "Unexpected tagname " + name);
+			}
+
+			let fun = tags[name].fun;
+
+			this.elements.push(new fun(child));
+		}
+	}
+}
+
 class XMLComponentTransformation extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader);
+	constructor(node) {
+		super(node);
 
 		this.type = "transformation";
 
@@ -18,226 +47,100 @@ class XMLComponentTransformation extends XMLElement {
 			this.mode = "none";
 		} else if (child.tagName == "transformationref") {
 			this.mode = "ref";
-
-			this.transf = new XMLTransformationRef(child, reader);
-
-			if (!this.transf.valid()) {
-				this.errorCode = this.transf.errorCode;
-				this.errorMessage = "transformationref : " + this.transf.errorMessage;
-				return;
-			}
+			this.transf = new XMLTransformationRef(child);
 		} else {
 			this.mode = "immediate";
-
-			this.transf = new XMLTransformation(node, reader);
-
-			if (!this.transf.valid()) {
-				this.errorCode = this.transf.errorCode;
-				this.errorMessage = "transformation : " + this.transf.errorMessage;
-				return;
-			}
+			this.transf = new XMLImmediateTransformation(node);
 		}
 	}
 }
 
 class XMLComponentRef extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {id:"ss"});
+	constructor(node) {
+		super(node, {id:"ss"});
 
 		this.type = "componentref";
 	}
 }
 
 class XMLPrimitiveRef extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {id:"ss"});
+	constructor(node) {
+		super(node, {id:"ss"});
 
 		this.type = "primitiveref";
 	}
 }
 
-class XMLComponentTexture extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {id:"ss", length_s:"ff", length_t:"ff"});
-
-		this.type = "texture";
-	}
-}
-
 class XMLMaterialRef extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {id:"ss"});
+	constructor(node) {
+		super(node, {id:"ss"});
 
 		this.type = "material";
 	}
 }
 
-class XMLComponentMaterials extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader);
+class XMLComponentTexture extends XMLElement {
+	constructor(node) {
+		super(node, {id:"ss", length_s:"ff", length_t:"ff"});
 
-		this.type = "materials";
-
-		this.materials = [];
-		let children = node.children;
-
-		for (let i = 0; i < children.length; ++i) {
-			let child = children[i];
-			let material;
-
-			if (child.tagName == "material") {
-				material = new XMLMaterialRef(child, reader);
-			} else {
-				this.errorCode = XMLERROR_BAD_CHILD;
-				this.errorMessage = "Unexpected child tagname";
-				return;
-			}
-
-			if (!material.valid()) {
-				this.errorCode = material.errorCode;
-				this.errorMessage = "material : " + material.errorMessage;
-				return;
-			}
-
-			this.materials.push(material);
-		}
+		this.type = "texture";
 	}
 }
 
-class XMLChildren extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader);
+class XMLComponentMaterials extends XMLGroup {
+	constructor(node) {
+		super(node, {
+			material: {fun:XMLMaterialRef}
+		});
+
+		this.type = "materials";
+	}
+}
+
+class XMLChildren extends XMLGroup {
+	constructor(node) {
+		super(node, {
+			primitiveref: {fun:XMLPrimitiveRef},
+			componentref: {fun:XMLComponentRef}
+		});
 
 		this.type = "children";
-
-		this.refs = {};
-		let children = node.children;
-
-		for (let i = 0; i < children.length; ++i) {
-			let child = children[i];
-			let ref;
-
-			if (child.tagName == "primitiveref") {
-				ref = new XMLPrimitiveRef(child, reader);
-			} else if (child.tagName == "componentref") {
-				ref = new XMLComponentRef(child, reader);
-			} else {
-				this.errorCode = XMLERROR_BAD_CHILD;
-				this.errorMessage = "Unexpected child tagname";
-				return;
-			}
-
-			if (!ref.valid()) {
-				this.errorCode = ref.errorCode;
-				this.errorMessage = ref.type + " : " + ref.errorMessage;
-				return;
-			}
-
-			let id = ref.values.id;
-
-			if (this.refs[id] != undefined) {
-				this.errorCode = XMLERROR_REPEATED_ID;
-				this.errorMessage = "Repeated child id";
-				return;
-			}
-
-			this.refs[id] = ref;
-		}
 	}
 }
 
 class XMLComponent extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader);
+	constructor(node) {
+		super(node, {id:"ss"});
 
 		this.type = "component";
 
+		let tags = ["transformation", "materials", "texture", "children"];
+
 		if (node.childElementCount != 4) {
-			this.errorCode = XMLERROR_MISSING_CHILD;
-			this.errorMessage = "Component must have 4 children";
-			return;
+			throw new XMLException(node, "Component node does not have the expected 4 children");
 		}
 
-		let transf = node.querySelector("transformation");
-		let materials = node.querySelector("materials");
-		let texture = node.querySelector("texture");
-		let children = node.querySelector("children");
-
-		if (transf == null || materials == null ||
-			texture == null || children == null) {
-			this.errorCode = XMLERROR_BAD_CHILD;
-			this.errorMessage = "Unexpected component child element";
-			return;
+		for (let i = 0; i < 4; ++i) {
+			let child = node.children[i];
+			if (tags[i] != child.tagName) {
+				throw new XMLException(child, "Expected tagname " + tags[i]);
+			}
 		}
 
-		this.transf = new XMLComponentTransformation(transf, reader);
-		this.materials = new XMLComponentMaterials(materials, reader);
-		this.texture = new XMLComponentTexture(texture, reader);
-		this.children = new XMLChildren(children, reader);
-
-		if (!this.transf.valid()) {
-			this.errorCode = this.transf.errorCode;
-			this.errorMessage = "transformation : " + this.transf.errorMessage;
-			return;
-		}
-
-		if (!this.materials.valid()) {
-			this.errorCode = this.materials.errorCode;
-			this.errorMessage = "materials : " + this.materials.errorMessage;
-			return;
-		}
-
-		if (!this.texture.valid()) {
-			this.errorCode = this.texture.errorCode;
-			this.errorMessage = "texture : " + this.texture.errorMessage;
-			return;
-		}
-
-		if (!this.children.valid()) {
-			this.errorCode = this.children.errorCode;
-			this.errorMessage = "children : " + this.children.errorMessage;
-			return;
-		}
+		this.transf = new XMLComponentTransformation(node.children[0]);
+		this.materials = new XMLComponentMaterials(node.children[1]);
+		this.texture = new XMLComponentTexture(node.children[2]);
+		this.children = new XMLChildren(node.children[3]);
 	}
 }
 
-class XMLComponents extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader);
+class XMLComponents extends XMLGroup {
+	constructor(node) {
+		super(node, {
+			component: {fun:XMLComponent}
+		});
 
 		this.type = "components";
-
-		this.components = {};
-		let children = node.children;
-
-		for (let i = 0; i < children.length; ++i) {
-			let child = children[i];
-			let component;
-
-			if (child.tagName == "component") {
-				component = new XMLComponent(child, reader);
-			} else {
-				this.errorCode = XMLERROR_BAD_CHILD;
-				this.errorMessage = "Unexpected child tagname";
-				return;
-			}
-
-			if (!component.valid()) {
-				this.errorCode = component.errorCode;
-				this.errorMessage = "component : " + component.errorMessage;
-				return;
-			}
-
-			let id = component.values.id;
-
-			if (this.components[id] != undefined) {
-				this.errorCode = XMLERROR_REPEATED_ID;
-				this.errorMessage = "Repeated child id";
-				return;
-			}
-
-			this.components[id] = component;
-		}
 	}
 }
 

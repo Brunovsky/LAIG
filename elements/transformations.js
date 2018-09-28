@@ -1,6 +1,6 @@
 class XMLTranslate extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {
+	constructor(node) {
+		super(node, {
 			x:"ff", y:"ff", z:"ff"
 		});
 
@@ -9,8 +9,8 @@ class XMLTranslate extends XMLElement {
 }
 
 class XMLRotate extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {
+	constructor(node) {
+		super(node, {
 			axis:"cc", angle:"ff"
 		});
 
@@ -19,8 +19,8 @@ class XMLRotate extends XMLElement {
 }
 
 class XMLScale extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader, {
+	constructor(node) {
+		super(node, {
 			x:"ff", y:"ff", z:"ff"
 		});
 
@@ -29,78 +29,41 @@ class XMLScale extends XMLElement {
 }
 
 class XMLTransformation extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader);
+	constructor(node) {
+		super(node, {id:"ss"});
 
 		this.type = "transformation";
 
-		this.operations = [];
-		let children = node.children;
+		let tags = {
+			translate: {fun:XMLTranslate},
+			rotate:    {fun:XMLRotate},
+			scale:     {fun:XMLScale}
+		};
 
-		for (let i = 0; i < children.length; ++i) {
-			let child = children[i];
-			let operation;
+		this.elements = [];
 
-			if (child.tagName == "translate") {
-				operation = new XMLTranslate(child, reader);
-			} else if (child.tagName == "rotate") {
-				operation = new XMLRotate(child, reader);
-			} else if (child.tagName == "scale") {
-				operation = new XMLScale(child, reader);
-			} else {
-				this.errorCode = XMLERROR_BAD_CHILD;
-				this.errorMessage = "Unexpected child tagname";
-				return;
+		for (let i = 0; i < node.children.length; ++i) {
+			let child = node.children[i];
+			let name = child.tagName;
+
+			if (!name in tags) {
+				throw new XMLException(child, "Unexpected tagname " + name);
 			}
 
-			if (!operation.valid()) {
-				this.errorCode = operation.errorCode;
-				this.errorMessage = operation.type + " : " + operation.errorMessage;
-				return;
-			}
+			let fun = tags[name].fun;
 
-			this.operations.push(operation);
+			this.elements.push(new fun(child));
 		}
 	}
 }
 
-class XMLTransformations extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader);
+class XMLTransformations extends XMLGroup {
+	constructor(node) {
+		super(node, {
+			transformation: {fun:XMLTransformation}
+		});
 
 		this.type = "transformations";
-
-		this.transformations = {};
-		let children = node.children;
-
-		for (let i = 0; i < children.length; ++i) {
-			let child = children[i];
-			let transf;
-
-			if (child.tagName == "transformation") {
-				transf = new XMLTransformation(child, reader);
-			} else {
-				this.errorCode = XMLERROR_BAD_CHILD;
-				this.errorMessage = "Unexpected child tagname";
-				return;
-			}
-
-			if (!transf.valid()) {
-				this.errorCode = transf.errorCode;
-				this.errorMessage = "transformation : " + transf.errorMessage;
-				return;
-			}
-
-			let id = transf.values.id;
-
-			if (this.transformations[id] != undefined) {
-				this.errorCode = XMLERROR_REPEATED_ID;
-				this.errorMessage = "Repeated child id";
-				return;
-			}
-
-			this.transformations[id] = transf;
-		}
 	}
 }
 

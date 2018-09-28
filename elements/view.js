@@ -1,14 +1,6 @@
-class XMLView extends XMLElement {
-	constructor(node, reader, attr) {
-		super(node, reader, attr);
-
-		this.type = "view";
-	}
-}
-
-class XMLPerspective extends XMLView {
-	constructor(node, reader) {
-		super(node, reader, {
+class XMLPerspective extends XMLElement {
+	constructor(node) {
+		super(node, {
 			id:"ss", near:"ff", far:"ff", angle:"ff",
 			from: {x:"ff", y:"ff", z:"ff"},
 			to: {x:"ff", y:"ff", z:"ff"}
@@ -18,9 +10,9 @@ class XMLPerspective extends XMLView {
 	}
 }
 
-class XMLOrtho extends XMLView {
-	constructor(node, reader) {
-		super(node, reader, {
+class XMLOrtho extends XMLElement {
+	constructor(node) {
+		super(node, {
 			id:"ss", near:"ff", far:"ff",
 			left:"ff", right:"ff", top:"ff", bottom:"ff"
 		});
@@ -29,45 +21,14 @@ class XMLOrtho extends XMLView {
 	}
 }
 
-class XMLViews extends XMLElement {
-	constructor(node, reader) {
-		super(node, reader);
+class XMLViews extends XMLGroup {
+	constructor(node) {
+		super(node, {
+			perspective: {fun:XMLPerspective},
+			ortho:       {fun:XMLOrtho}
+		});
 
 		this.type = "views";
-
-		this.views = {};
-		let children = node.children;
-
-		for (let i = 0; i < children.length; ++i) {
-			let child = children[i];
-			let view;
-
-			if (child.tagName == "perspective") {
-				view = new XMLPerspective(child, reader);
-			} else if (child.tagName == "ortho") {
-				view = new XMLOrtho(child, reader);
-			} else {
-				this.errorCode = XMLERROR_BAD_CHILD;
-				this.errorMessage = "Unexpected child tagname";
-				return;
-			}
-
-			if (!view.valid()) {
-				this.errorCode = view.errorCode;
-				this.errorMessage = view.type + " : " + view.errorMessage;
-				return;
-			}
-
-			let id = view.values.id;
-
-			if (this.views[id] != undefined) {
-				this.errorCode = XMLERROR_REPEATED_ID;
-				this.errorMessage = "Repeated child id";
-				return;
-			}
-
-			this.views[id] = view;
-		}
 	}
 }
 
