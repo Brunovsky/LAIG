@@ -7,30 +7,30 @@
 > Detetar ciclos e components não alcançáveis
 
 ; scene:
-	root component must exist
-	axis_length > 0.
+	root component must exist CHECK
+	axis_length > 0. CHECK
 ; views:
-	default must exist
-	must have at least one view
-	near < far
-	from != to
+	default must exist 
+	must have at least one view 
+	near < far CHECK
+	from != to CHECK
 ; ambient:
-	r, g, b, a in the range [0, 1].
+	r, g, b, a in the range [0, 1]. CHECK
 ; lights:
-	r, g, b, a in the range [0, 1].
-	location != target
+	r, g, b, a in the range [0, 1]. CHECK
+	location != target CHECK
 ; texture:
 	open associated file, give a warning if it
 	does not exist
 ; material:
-	shininess > 0
-	r, g, b, a in the range [0, 1].
+	shininess > 0 CHECK
+	r, g, b, a in the range [0, 1]. CHECK
 ; transformation:
 	warning if angle is not in the range [-360, 360].
-	scale's x, y, z should not be 0.
+	scale's x, y, z should not be 0. CHECK
 ; primitive
 	radius, height, slices, stacks, loops, inner, outer
-	should all be positive
+	should all be positive CHECK
 	...
 ; component
 	; transformation

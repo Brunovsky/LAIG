@@ -1,7 +1,7 @@
 class XMLTranslate extends XMLElement {
 	constructor(node) {
 		super(node, {
-			x:"ff", y:"ff", z:"ff"
+			x: "ff", y: "ff", z: "ff"
 		});
 
 		this.type = "translate";
@@ -11,7 +11,7 @@ class XMLTranslate extends XMLElement {
 class XMLRotate extends XMLElement {
 	constructor(node) {
 		super(node, {
-			axis:"cc", angle:"ff"
+			axis: "cc", angle: "ff"
 		});
 
 		this.type = "rotate";
@@ -21,23 +21,26 @@ class XMLRotate extends XMLElement {
 class XMLScale extends XMLElement {
 	constructor(node) {
 		super(node, {
-			x:"ff", y:"ff", z:"ff"
+			x: "ff", y: "ff", z: "ff"
 		});
 
 		this.type = "scale";
+		if (x == 0 || y == 0 || z == 0)
+			throw new XMLException(node, "x, y or z = 0");
+
 	}
 }
 
 class XMLTransformation extends XMLElement {
 	constructor(node) {
-		super(node, {id:"ss"});
+		super(node, { id: "ss" });
 
 		this.type = "transformation";
 
 		let tags = {
-			translate: {fun:XMLTranslate},
-			rotate:    {fun:XMLRotate},
-			scale:     {fun:XMLScale}
+			translate: { fun: XMLTranslate },
+			rotate: { fun: XMLRotate },
+			scale: { fun: XMLScale }
 		};
 
 		this.elements = [];
@@ -60,7 +63,7 @@ class XMLTransformation extends XMLElement {
 class XMLTransformations extends XMLGroup {
 	constructor(node) {
 		super(node, {
-			transformation: {fun:XMLTransformation}
+			transformation: { fun: XMLTransformation }
 		});
 
 		this.type = "transformations";

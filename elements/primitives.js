@@ -47,6 +47,9 @@ class XMLTorus extends XMLElement {
 		});
 
 		this.type = "torus";
+	if(this.data.inner <= 0 || this.data.outer <=0)
+	throw new XMLException(this.node, "inner or outer is <0");
+
 	}
 }
 

@@ -53,37 +53,42 @@ class XMLElement extends XMLBase {
 				}
 
 				switch (spec[key]) {
-				case 'ss':
-					val = reader.getString(node, key);
-					break;
-				case 'ii':
-					val = reader.getInteger(node, key);
-					if (val == null) {
-						throw new XMLException(node, "Expected integer for attribute " + key);
-					}
-					break;
-				case 'ff':
-					val = reader.getFloat(node, key);
-					if (val == null || isNaN(val)) {
-						throw new XMLException(node, "Expected float for attribute " + key);
-					}
-					break;
-				case 'cc':
-					val = reader.getItem(node, key, ["x", "y", "z"]);
-					if (val == null) {
-						throw new XMLException(node, "Expected coordinate for attribute " + key);
-					}
-					break;
-				case 'tt':
-					val = reader.getItem(node, key, ["0", "1"]);
-					if (val == null) {
-						throw new XMLException(node, "Expected boolean for attribute " + key);
-					} else {
-						val = val == "0" ? false : true;
-					}
-					break;
-				default:
-					throw "INTERNAL: Bad Element attribute descriptor";
+					case 'rr':
+						val = reader.getInteger(node, key);
+						if (val == null || !(val <=1 && val >= 0)) {
+							throw new XMLException(node, "Expected integer for attribute " + key);
+						}
+					case 'ss':
+						val = reader.getString(node, key);
+						break;
+					case 'ii':
+						val = reader.getInteger(node, key);
+						if (val == null && val <= 0) {
+							throw new XMLException(node, "Expected integer for attribute " + key);
+						}
+						break;
+					case 'ff':
+						val = reader.getFloat(node, key);
+						if (val == null || isNaN(val)) {
+							throw new XMLException(node, "Expected float for attribute " + key);
+						}
+						break;
+					case 'cc':
+						val = reader.getItem(node, key, ["x", "y", "z"]);
+						if (val == null) {
+							throw new XMLException(node, "Expected coordinate for attribute " + key);
+						}
+						break;
+					case 'tt':
+						val = reader.getItem(node, key, ["0", "1"]);
+						if (val == null) {
+							throw new XMLException(node, "Expected boolean for attribute " + key);
+						} else {
+							val = val == "0" ? false : true;
+						}
+						break;
+					default:
+						throw "INTERNAL: Bad Element attribute descriptor";
 				}
 			} else if (typeof spec[key] == "object") {
 				// Recurse on a child of node with tagname key.
@@ -170,5 +175,7 @@ class XMLYas extends XMLBase {
 		this.transformations = new XMLTransformations(node.children[6]);
 		this.primitives = new XMLPrimitives(node.children[7]);
 		this.components = new XMLComponents(node.children[8]);
+
+
 	}
 }

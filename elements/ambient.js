@@ -1,8 +1,8 @@
 class XMLAmbient extends XMLElement {
 	constructor(node) {
 		super(node, {
-			ambient: {r:"ff", g:"ff", b:"ff", a:"ff"},
-			background: {r:"ff", g:"ff", b:"ff", a:"ff"}
+			ambient: {r:"rr", g:"rr", b:"rr", a:"rr"},
+			background: {r:"rr", g:"rr", b:"rr", a:"rr"}
 		});
 
 		this.type = "ambient";

@@ -35,6 +35,7 @@ class MySceneGraph {
         this.scene.onGraphLoaded();
     }
 
+    onXMLError(error) { console.log(error); return false; }
     /**
      * Parses the XML file, processing each block.
      * @param {XML root element} rootElement
@@ -54,7 +55,7 @@ class MySceneGraph {
         }
 
         console.log(this.yas);
-
+        
         return false;
     }
 }
