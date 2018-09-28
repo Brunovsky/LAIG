@@ -1,0 +1,41 @@
+<yas>
+    <scene root="comp1" axis_length="0.5"/>
+    <!-- ....... -->
+    <components>
+        <component id="comp1">
+            <!-- ... -->
+            <children>
+                <componentref id="comp2"/>
+                <componentref id="comp3"/>
+            </children>
+        </component>
+        <component id="comp2">
+            <!-- ... -->
+            <children>
+                <componentref id="comp4"/>
+                <primitiveref id="prim1"/>
+            </children>
+        </component>
+        <component id="comp3">
+            <!-- ... -->
+            <children>
+                <primitiveref id="prim2"/>
+            </children>
+        </component>
+        </component>
+        <component id="comp4">
+            <!-- ... -->
+            <children>
+                <primitiveref id="prim3"/>
+                <primitiveref id="prim4"/>
+            </children>
+        </component>
+        </component>
+        <component id="comp5">
+            <!-- ... -->
+            <children>
+                <primitiveref id="prim4"/>
+            </children>
+        </component>
+    </components>
+</yas>
