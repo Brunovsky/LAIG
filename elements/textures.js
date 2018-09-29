@@ -1,6 +1,6 @@
 class XMLTexture extends XMLElement {
 	constructor(node) {
-		super(node, {id:"ss", file:"ss"});
+		super(node, { id:"ss" , file: "ss" });
 
 		this.type = "texture";
 	}
@@ -9,7 +9,7 @@ class XMLTexture extends XMLElement {
 class XMLTextures extends XMLGroup {
 	constructor(node) {
 		super(node, {
-			texture: {fun:XMLTexture}
+			texture: XMLTexture
 		});
 
 		this.type = "textures";

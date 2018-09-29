@@ -28,7 +28,6 @@ class XMLException extends XMLBase {
 	}
 }
 
-
 /**
  * Represents a leaf element of the XML structure, with a fixed set
  * of expected and mandatory attributes and children (recursively).
@@ -53,38 +52,51 @@ class XMLElement extends XMLBase {
 				}
 
 				switch (spec[key]) {
-					case 'rr':
-						val = reader.getInteger(node, key);
-						if (val == null || !(val <=1 && val >= 0)) {
-							throw new XMLException(node, "Expected integer for attribute " + key);
-						}
-					case 'ss':
+					case "ss":
 						val = reader.getString(node, key);
 						break;
-					case 'ii':
+					case "ii":
 						val = reader.getInteger(node, key);
 						if (val == null && val <= 0) {
-							throw new XMLException(node, "Expected integer for attribute " + key);
+							throw new XMLException(node, "Expected positive integer for attribute " + key);
 						}
 						break;
-					case 'ff':
+					case "ff":
 						val = reader.getFloat(node, key);
 						if (val == null || isNaN(val)) {
 							throw new XMLException(node, "Expected float for attribute " + key);
 						}
 						break;
-					case 'cc':
-						val = reader.getItem(node, key, ["x", "y", "z"]);
+					case "p0":
+						val = reader.getFloat(node, key);
+						if (val == null || isNaN(val) || val < 0) {
+							throw new XMLException(node, "Expected nonnegative float for attribute " + key);
+						}
+						break;
+					case "pp":
+						val = reader.getFloat(node, key);
+						if (val == null || isNaN(val) || val <= 0) {
+							throw new XMLException(node, "Expected positive float for attribute " + key);
+						}
+						break;
+					case "rr":
+						val = reader.getFloat(node, key);
+						if (val == null || isNaN(val) || val < 0 || val > 1) {
+							throw new XMLException(node, "Expected [0,1] float for attribute " + key);
+						}
+						break;
+					case "cc":
+						val = reader.getItem(node, key, ['x', 'y', 'z']);
 						if (val == null) {
 							throw new XMLException(node, "Expected coordinate for attribute " + key);
 						}
 						break;
-					case 'tt':
-						val = reader.getItem(node, key, ["0", "1"]);
+					case "tt":
+						val = reader.getItem(node, key, ['0', '1']);
 						if (val == null) {
 							throw new XMLException(node, "Expected boolean for attribute " + key);
 						} else {
-							val = val == "0" ? false : true;
+							val = val == '0' ? false : true;
 						}
 						break;
 					default:
@@ -105,6 +117,15 @@ class XMLElement extends XMLBase {
 
 			this.data[key] = val;
 		}
+
+		// For convenience: lift the id from data.
+		if (this.data.id != null) {
+			this.id = this.data.id;
+		}
+	}
+
+	get(attr) {
+		return data[attr];
 	}
 }
 
@@ -117,27 +138,39 @@ class XMLElement extends XMLBase {
  * may only have one of the tags specified in the argument tags.
  */
 class XMLGroup extends XMLElement {
-	constructor(node, tags, attr = {}) {
+	constructor(node, tags, attr = {}, nonEmpty = true) {
 		super(node, attr);
 		this.elements = {};
 
-		for (let i = 0; i < node.children.length; ++i) {
+		if (nonEmpty && node.childElementCount === 0) {
+			throw new XMLException(node, "Group node must have at least one child");
+		}
+
+		for (var i = 0; i < node.children.length; ++i) {
 			let child = node.children[i];
 			let name = child.tagName.toLocaleLowerCase();
 
-			if (!name in tags) {
+			if (!(name in tags)) {
 				throw new XMLException(child, "Unexpected tagname " + name);
 			}
 
-			let fun = tags[name].fun;
+			let element = new tags[name](child);
+			let id = element.id;
 
-			let element = new fun(child);
-			let id = element.data.id;
-
-			if (id != null && !id in this.elements) {
-				this.elements[id] = element;
+			if (id == null) {
+				throw "INTERNAL: attr for XMLGroup does not demand child id";
 			}
+
+			if (id in this.elements) {
+				throw new XMLException(child, "Repeated id: " + id);
+			}
+
+			this.elements[id] = element;
 		}
+	}
+
+	get(id) {
+		return this.elements[id];
 	}
 }
 
@@ -176,6 +209,10 @@ class XMLYas extends XMLBase {
 		this.primitives = new XMLPrimitives(node.children[7]);
 		this.components = new XMLComponents(node.children[8]);
 
+		this.resolve();
+	}
 
+	resolve() {
+		// 1. Resolve 
 	}
 }

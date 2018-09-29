@@ -1,5 +1,4 @@
 1ª TRADUÇÃO (Ficheiro YAS --> Estrutura de classes XML)
-> Adicionar mais primitives (circulo, poligono, piramide, piramide cortada, cone, ...)
 
 2ª TRADUÇÃO (Estrutura de classes XML --> SceneGraph)
 > Validar todos os campos
@@ -7,12 +6,12 @@
 > Detetar ciclos e components não alcançáveis
 
 ; scene:
-	root component must exist CHECK
+	root component must exist
 	axis_length > 0. CHECK
 ; views:
 	default must exist 
 	must have at least one view 
-	near < far CHECK
+	near < far
 	from != to CHECK
 ; ambient:
 	r, g, b, a in the range [0, 1]. CHECK
@@ -20,8 +19,7 @@
 	r, g, b, a in the range [0, 1]. CHECK
 	location != target CHECK
 ; texture:
-	open associated file, give a warning if it
-	does not exist
+	open associated file, give a warning if it does not exist
 ; material:
 	shininess > 0 CHECK
 	r, g, b, a in the range [0, 1]. CHECK
@@ -30,12 +28,12 @@
 	scale's x, y, z should not be 0. CHECK
 ; primitive
 	radius, height, slices, stacks, loops, inner, outer
-	should all be positive CHECK
+	should all be positive or nonnegative CHECK
 	...
 ; component
 	; transformation
 		transformationref must exist
-		same as transformation above
+		or must be as transformation above
 	; material
 		distinguish id="inherit"
 		otherwise verify material with the id exists

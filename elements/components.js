@@ -1,6 +1,6 @@
 class XMLTransformationRef extends XMLElement {
 	constructor(node) {
-		super(node, {id:"ss"});
+		super(node, { id: "ss" });
 
 		this.type = "transformationref";
 	}
@@ -13,9 +13,9 @@ class XMLImmediateTransformation extends XMLElement {
 		this.type = "transformation";
 
 		let tags = {
-			translate: {fun:XMLTranslate},
-			rotate:    {fun:XMLRotate},
-			scale:     {fun:XMLScale}
+			translate: XMLTranslate,
+			rotate: XMLRotate,
+			scale: XMLScale
 		};
 
 		this.elements = [];
@@ -24,13 +24,11 @@ class XMLImmediateTransformation extends XMLElement {
 			let child = node.children[i];
 			let name = child.tagName.toLocaleLowerCase();
 
-			if (!name in tags) {
+			if (!(name in tags)) {
 				throw new XMLException(child, "Unexpected tagname " + name);
 			}
 
-			let fun = tags[name].fun;
-
-			this.elements.push(new fun(child));
+			this.elements.push(new tags[name](child));
 		}
 	}
 }
@@ -61,7 +59,7 @@ class XMLComponentTransformation extends XMLElement {
 
 class XMLComponentRef extends XMLElement {
 	constructor(node) {
-		super(node, {id:"ss"});
+		super(node, { id: "ss" });
 
 		this.type = "componentref";
 	}
@@ -69,7 +67,7 @@ class XMLComponentRef extends XMLElement {
 
 class XMLPrimitiveRef extends XMLElement {
 	constructor(node) {
-		super(node, {id:"ss"});
+		super(node, { id: "ss" });
 
 		this.type = "primitiveref";
 	}
@@ -77,7 +75,7 @@ class XMLPrimitiveRef extends XMLElement {
 
 class XMLMaterialRef extends XMLElement {
 	constructor(node) {
-		super(node, {id:"ss"});
+		super(node, { id: "ss" });
 
 		this.type = "material";
 	}
@@ -85,27 +83,42 @@ class XMLMaterialRef extends XMLElement {
 
 class XMLComponentTexture extends XMLElement {
 	constructor(node) {
-		super(node, {id:"ss", length_s:"ff", length_t:"ff"});
+		super(node, { id: "ss", length_s: "pp", length_t: "pp" });
 
 		this.type = "texture";
 	}
 }
 
-class XMLComponentMaterials extends XMLGroup {
+class XMLComponentMaterials extends XMLElement {
 	constructor(node) {
-		super(node, {
-			material: {fun:XMLMaterialRef}
-		});
+		super(node);
 
-		this.type = "materials";
+		this.type = "transformation";
+
+		let tags = {
+			material: XMLMaterialRef
+		};
+
+		this.elements = [];
+
+		for (let i = 0; i < node.children.length; ++i) {
+			let child = node.children[i];
+			let name = child.tagName.toLocaleLowerCase();
+
+			if (!(name in tags)) {
+				throw new XMLException(child, "Unexpected tagname " + name);
+			}
+
+			this.elements.push(new tags[name](child));
+		}
 	}
 }
 
 class XMLChildren extends XMLGroup {
 	constructor(node) {
 		super(node, {
-			primitiveref: {fun:XMLPrimitiveRef},
-			componentref: {fun:XMLComponentRef}
+			primitiveref: XMLPrimitiveRef,
+			componentref: XMLComponentRef
 		});
 
 		this.type = "children";
@@ -114,7 +127,7 @@ class XMLChildren extends XMLGroup {
 
 class XMLComponent extends XMLElement {
 	constructor(node) {
-		super(node, {id:"ss"});
+		super(node, { id: "ss" });
 
 		this.type = "component";
 
@@ -142,7 +155,7 @@ class XMLComponent extends XMLElement {
 class XMLComponents extends XMLGroup {
 	constructor(node) {
 		super(node, {
-			component: {fun:XMLComponent}
+			component: XMLComponent
 		});
 
 		this.type = "components";

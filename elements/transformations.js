@@ -25,9 +25,10 @@ class XMLScale extends XMLElement {
 		});
 
 		this.type = "scale";
-		if (this.data.x == 0 || this.data.y == 0 || this.data.z == 0)
-			throw new XMLException(node, "x, y or z = 0");
 
+		if (this.data.x == 0 || this.data.y == 0 || this.data.z == 0) {
+			throw new XMLException(node, "Invalid scale parameters (x, y or z = 0)");
+		}
 	}
 }
 
@@ -38,9 +39,9 @@ class XMLTransformation extends XMLElement {
 		this.type = "transformation";
 
 		let tags = {
-			translate: { fun: XMLTranslate },
-			rotate: { fun: XMLRotate },
-			scale: { fun: XMLScale }
+			translate: XMLTranslate,
+			rotate: XMLRotate,
+			scale: XMLScale
 		};
 
 		this.elements = [];
@@ -49,13 +50,11 @@ class XMLTransformation extends XMLElement {
 			let child = node.children[i];
 			let name = child.tagName.toLocaleLowerCase();
 
-			if (!name in tags) {
+			if (!(name in tags)) {
 				throw new XMLException(child, "Unexpected tagname " + name);
 			}
 
-			let fun = tags[name].fun;
-
-			this.elements.push(new fun(child));
+			this.elements.push(new tags[name](child));
 		}
 	}
 }
@@ -63,7 +62,7 @@ class XMLTransformation extends XMLElement {
 class XMLTransformations extends XMLGroup {
 	constructor(node) {
 		super(node, {
-			transformation: { fun: XMLTransformation }
+			transformation: XMLTransformation
 		});
 
 		this.type = "transformations";

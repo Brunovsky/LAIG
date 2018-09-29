@@ -1,7 +1,7 @@
 class XMLRectangle extends XMLElement {
 	constructor(node) {
 		super(node, {
-			x1:"ff", y1:"ff", x2:"ff", y2:"ff"
+			x1: "ff", y1: "ff", x2: "ff", y2: "ff"
 		});
 
 		this.type = "rectangle";
@@ -11,9 +11,9 @@ class XMLRectangle extends XMLElement {
 class XMLTriangle extends XMLElement {
 	constructor(node) {
 		super(node, {
-			x1:"ff", y1:"ff", z1:"ff",
-			x2:"ff", y2:"ff", z2:"ff",
-			x3:"ff", y3:"ff", z3:"ff"
+			x1: "ff", y1: "ff", z1: "ff",
+			x2: "ff", y2: "ff", z2: "ff",
+			x3: "ff", y3: "ff", z3: "ff"
 		});
 
 		this.type = "triangle";
@@ -23,7 +23,7 @@ class XMLTriangle extends XMLElement {
 class XMLCylinder extends XMLElement {
 	constructor(node) {
 		super(node, {
-			base:"ff", top:"ff", height:"ff", slices:"ii", stacks:"ii"
+			base: "pp", top: "pp", height:"pp", slices:"ii", stacks:"ii"
 		});
 
 		this.type = "cylinder";
@@ -33,7 +33,7 @@ class XMLCylinder extends XMLElement {
 class XMLSphere extends XMLElement {
 	constructor(node) {
 		super(node, {
-			radius:"ff", slices:"ii", stacks:"ii"
+			radius: "pp", slices: "ii", stacks: "ii"
 		});
 
 		this.type = "sphere";
@@ -43,7 +43,7 @@ class XMLSphere extends XMLElement {
 class XMLTorus extends XMLElement {
 	constructor(node) {
 		super(node, {
-			inner:"ff", outer:"ff", slices:"ii", loops:"ii"
+			inner: "pp", outer: "pp", slices: "ii", loops: "ii"
 		});
 
 		this.type = "torus";
@@ -56,7 +56,7 @@ class XMLTorus extends XMLElement {
 class XMLCircle extends XMLElement {
 	constructor(node) {
 		super(node, {
-			radius:"ff", slices:"ii"
+			radius: "pp", slices: "ii"
 		});
 
 		this.type = "circle";
@@ -66,7 +66,7 @@ class XMLCircle extends XMLElement {
 class XMLRegular extends XMLElement {
 	constructor(node) {
 		super(node, {
-			radius:"ff", sides:"ii"
+			radius: "pp", sides: "ii"
 		});
 
 		this.type = "regular";
@@ -76,7 +76,7 @@ class XMLRegular extends XMLElement {
 class XMLTrapezium extends XMLElement {
 	constructor(node) {
 		super(node, {
-			base:"ff", top:"ff", height:"ff"
+			base: "pp", top: "pp", height: "pp"
 		});
 
 		this.type = "trapezium";
@@ -86,7 +86,7 @@ class XMLTrapezium extends XMLElement {
 class XMLHalfSphere extends XMLElement {
 	constructor(node) {
 		super(node, {
-			radius:"ff", stacks:"ii", slices:"ii"
+			radius: "pp", stacks: "ii", slices: "ii"
 		});
 
 		this.type = "halfsphere";
@@ -96,7 +96,7 @@ class XMLHalfSphere extends XMLElement {
 class XMLCube extends XMLElement {
 	constructor(node) {
 		super(node, {
-			side:"ff"
+			side: "pp"
 		});
 
 		this.type = "cube";
@@ -106,7 +106,7 @@ class XMLCube extends XMLElement {
 class XMLBlock extends XMLElement {
 	constructor(node) {
 		super(node, {
-			x:"ff", y:"ff", z:"ff"
+			x: "pp", y: "pp", z: "pp"
 		});
 
 		this.type = "block";
@@ -116,7 +116,7 @@ class XMLBlock extends XMLElement {
 class XMLPrism extends XMLElement {
 	constructor(node) {
 		super(node, {
-			base:"ff", top:"ff", height:"ff", stacks:"ii", sides:"ii"
+			base: "pp", top: "p0", height: "pp", stacks: "ii", sides: "ii"
 		});
 
 		this.type = "prism";
@@ -126,7 +126,7 @@ class XMLPrism extends XMLElement {
 class XMLCone extends XMLElement {
 	constructor(node) {
 		super(node, {
-			radius:"ff", height:"ff", stacks:"ii", slices:"ii"
+			radius: "pp", height: "pp", stacks: "ii", slices: "ii"
 		});
 
 		this.type = "cone";
@@ -136,33 +136,33 @@ class XMLCone extends XMLElement {
 class XMLPyramid extends XMLElement {
 	constructor(node) {
 		super(node, {
-			radius:"ff", height:"ff", stacks:"ii", sides:"ii"
+			radius: "pp", height: "pp", stacks: "ii", sides: "ii"
 		});
 
 		this.type = "pyramid";
 	}
 }
 
-let XMLAcceptedPrimitives = {
-	rectangle: {fun:XMLRectangle},
-	triangle:  {fun:XMLTriangle},
-	cylinder:  {fun:XMLCylinder},
-	sphere:    {fun:XMLSphere},
-	torus:     {fun:XMLTorus},
-	circle:    {fun:XMLCircle},
-	regular:   {fun:XMLRegular},
-	trapezium: {fun:XMLTrapezium},
-	halfsphere:{fun:XMLHalfSphere},
-	cube:      {fun:XMLCube},
-	block:     {fun:XMLBlock},
-	prism:     {fun:XMLPrism},
-	cone:      {fun:XMLCone},
-	pyramid:   {fun:XMLPyramid}
+let XMLPrimitivesList = {
+	rectangle:  XMLRectangle,
+	triangle:   XMLTriangle,
+	cylinder:   XMLCylinder,
+	sphere:     XMLSphere,
+	torus:      XMLTorus,
+	circle:     XMLCircle,
+	regular:    XMLRegular,
+	trapezium:  XMLTrapezium,
+	halfsphere: XMLHalfSphere,
+	cube:       XMLCube,
+	block:      XMLBlock,
+	prism:      XMLPrism,
+	cone:       XMLCone,
+	pyramid:    XMLPyramid
 };
 
 class XMLPrimitive extends XMLElement {
 	constructor(node) {
-		super(node, {id:"ss"});
+		super(node, { id: "ss" });
 
 		this.type = "primitive";
 
@@ -173,12 +173,10 @@ class XMLPrimitive extends XMLElement {
 		let child = node.firstElementChild;
 		let name = child.tagName.toLocaleLowerCase();
 
-		if (!name in XMLAcceptedPrimitives) {
+		if (!(name in XMLPrimitivesList)) {
 			throw new XMLException(node, "Primitive " + name + " not recognized");
 		} else {
-			let fun = XMLAcceptedPrimitives[name].fun;
-
-			this.figure = new fun(child);
+			this.figure = new XMLPrimitivesList[name](child);
 		}
 	}
 }
@@ -186,7 +184,7 @@ class XMLPrimitive extends XMLElement {
 class XMLPrimitives extends XMLGroup {
 	constructor(node) {
 		super(node, {
-			primitive: {fun:XMLPrimitive}
+			primitive: XMLPrimitive
 		});
 
 		this.type = "primitives";

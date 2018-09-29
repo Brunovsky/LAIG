@@ -26,25 +26,22 @@ class XMLSpot extends XMLElement {
 		this.type = "spot";
 
 		if (this.data.target.z == this.data.location.z 
-			&& this.data.target.y == this.data.location.y
-			&& this.data.target.x == this.data.location.x)
+		 && this.data.target.y == this.data.location.y
+		 && this.data.target.x == this.data.location.x) {
 			throw new XMLException(node, "target needs to be != from location");
-
-
+		}
 	}
 }
 
 class XMLLights extends XMLGroup {
 	constructor(node) {
 		super(node, {
-			omni: { fun: XMLOmni },
-			spot: { fun: XMLSpot }
+			omni: XMLOmni,
+			spot: XMLSpot
 		});
 
 		this.type = "lights";
 	}
-
-
 }
 
 // Done, needs testing
