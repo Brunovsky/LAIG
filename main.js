@@ -14,7 +14,7 @@ function getUrlVars() {
 //Include additional files here
 serialInclude(['../lib/CGF.js',
     'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'utils/arrays.js',
-    'elements/element.js',
+    'utils/stacks.js', 'elements/element.js', 'elements/yas.js',
     'elements/ambient.js', 'elements/components.js', 'elements/lights.js',
     'elements/materials.js', 'elements/primitives.js', 'elements/scene.js',
     'elements/textures.js', 'elements/transformations.js', 'elements/view.js',

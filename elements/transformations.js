@@ -46,8 +46,7 @@ class XMLTransformation extends XMLElement {
 
 		this.elements = [];
 
-		for (let i = 0; i < node.children.length; ++i) {
-			let child = node.children[i];
+		for (let child of node.children) {
 			let name = child.tagName.toLocaleLowerCase();
 
 			if (!(name in tags)) {

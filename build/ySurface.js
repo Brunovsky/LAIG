@@ -78,7 +78,7 @@ class ySurface extends CGFobject
             maxT: coords[3]
         };
         this.initBuffers();
-    };
+    }
 
     initBuffers()
     {
@@ -155,17 +155,17 @@ class ySurface extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(ySurfaceTexture)
     {
         this.texture = ySurfaceTexture;
-    };
-};
+    }
+}

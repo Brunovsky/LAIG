@@ -32,21 +32,18 @@
 	...
 ; component
 	; transformation
-		transformationref must exist
-		or must be as transformation above
+		transformationref must exist CHECK
 	; material
-		distinguish id="inherit"
-		otherwise verify material with the id exists
+		distinguish id="inherit" CHECK
+		otherwise verify material with the id exists CHECK
 	; texture
-		distinguish id="inherit" and id="none"
-		otherwise verify texture with the id exists
-		length_s and length_t should be positive
+		distinguish id="inherit" and id="none" CHECK
+		otherwise verify texture with the id exists CHECK
+		length_s and length_t should be positive CHECK
 	; children
-		componentref/primitiveref with given ids must exist
-		verify all children are reachable (hard) (emit warning)
-		verify there are no cycles (hard) (throw exception)
-		in my opinion, do not emit a warning if a primitive
-		is not used
+		componentref/primitiveref with given ids must exist CHECK
+		verify all children are reachable (hard) (emit warning) CHECK
+		verify there are no cycles (hard) (throw exception) CHECK
 
 3ª TRADUÇÃO (SceneGraph --> WebGL)
 > Baseado em CGRA

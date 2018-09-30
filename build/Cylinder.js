@@ -16,7 +16,7 @@ class Cylinder extends CGFobject
             maxT: coords[3]
         }
         this.initBuffers();
-    };
+    }
 
     initBuffers()
     {
@@ -90,20 +90,20 @@ class Cylinder extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(cylinderTexture)
     {
         this.texture = cylinderTexture;
-    };
-};
+    }
+}
 
 
 
@@ -116,7 +116,7 @@ class ClosedCylinder extends CGFobject
         this.base = new Circle(scene, radius, slices);
         this.height = height;
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -129,14 +129,14 @@ class ClosedCylinder extends CGFobject
                 this.scene.translate(0, this.height, 0);
                 this.base.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(cylinderTexture, circleTexture)
     {
         this.cylinder.bindTexture(cylinderTexture);
         this.base.bindTexture(circleTexture || cylinderTexture);
-    };
-};
+    }
+}
 
 
 
@@ -150,7 +150,7 @@ class HalfSpheredCylinder extends CGFobject
         this.base = new Circle(scene, radius, slices);
         this.height = height;
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -163,15 +163,15 @@ class HalfSpheredCylinder extends CGFobject
                 this.scene.translate(0, this.height, 0);
                 this.sphere.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(cylinderTexture, circleTexture)
     {
         this.cylinder.bindTexture(cylinderTexture);
         this.sphere.bindTexture(cylinderTexture);
         this.base.bindTexture(circleTexture || cylinderTexture);
-    };
-};
+    }
+}
 
 
 
@@ -184,7 +184,7 @@ class SpheredCylinder extends CGFobject
         this.sphere = new HalfSphere(scene, radius, slices);
         this.height = height;
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -197,11 +197,11 @@ class SpheredCylinder extends CGFobject
                 this.scene.translate(0, this.height, 0);
                 this.sphere.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(cylinderTexture, circleTexture)
     {
         this.cylinder.bindTexture(cylinderTexture);
         this.sphere.bindTexture(circleTexture || cylinderTexture);
-    };
-};
+    }
+}

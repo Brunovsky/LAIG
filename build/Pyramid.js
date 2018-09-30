@@ -14,9 +14,9 @@ class Pyramid extends CGFobject
             maxS: coords[1],
             minT: coords[2],
             maxT: coords[3]
-        }
+        };
         this.initBuffers();
-    };
+    }
 
     initBuffers()
     {
@@ -120,20 +120,20 @@ class Pyramid extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(pyramidTexture)
     {
         this.texture = pyramidTexture;
-    };
-};
+    }
+}
 
 
 
@@ -145,7 +145,7 @@ class ClosedPyramid extends CGFobject
         this.pyramid = new Pyramid(scene, sides, radius, height, stacks, coords);
         this.base = new Regular(scene, sides, radius);
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -154,14 +154,14 @@ class ClosedPyramid extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.base.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(pyramidTexture, baseTexture)
     {
         this.pyramid.bindTexture(pyramidTexture);
         this.base.bindTexture(baseTexture || pyramidTexture);
-    };
-};
+    }
+}
 
 
 
@@ -172,7 +172,7 @@ class DoublePyramid extends CGFobject
         super(scene);
         this.pyramid = new Pyramid(scene, sides, radius, height, stacks, coords);
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -181,10 +181,10 @@ class DoublePyramid extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.pyramid.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(pyramidTexture)
     {
         this.pyramid.bindTexture(pyramidTexture);
-    };
-};
+    }
+}

@@ -15,7 +15,7 @@ class HalfSphere extends CGFobject
             maxT: coords[3]
         }
         this.initBuffers();
-    };
+    }
 
     initBuffers()
     {
@@ -91,20 +91,20 @@ class HalfSphere extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(halfTexture)
     {
         this.texture = halfTexture;
-    };
-};
+    }
+}
 
 
 
@@ -116,7 +116,7 @@ class ClosedHalfSphere extends CGFobject
         this.half = new HalfSphere(scene, radius, slices, stacks, coords);
         this.base = new Regular(scene, slices, radius);
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -125,14 +125,14 @@ class ClosedHalfSphere extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.base.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(halfTexture, baseTexture)
     {
         this.half.bindTexture(halfTexture);
         this.base.bindTexture(baseTexture || halfTexture);
-    };
-};
+    }
+}
 
 
 
@@ -145,7 +145,7 @@ class Sphere extends CGFobject
         this.up = new HalfSphere(scene, radius, slices, stacks, coords);
         this.down = new HalfSphere(scene, radius, slices, stacks, reverse);
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -154,14 +154,14 @@ class Sphere extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.down.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(halfTexture)
     {
         this.up.bindTexture(halfTexture);
         this.down.bindTexture(halfTexture);
-    };
-};
+    }
+}
 
 
 
@@ -172,7 +172,7 @@ class FlipSphere extends CGFobject
         super(scene);
         this.half = new HalfSphere(scene, radius, slices, stacks, coords);
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -181,10 +181,10 @@ class FlipSphere extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.half.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(halfTexture)
     {
         this.half.bindTexture(halfTexture);
-    };
-};
+    }
+}

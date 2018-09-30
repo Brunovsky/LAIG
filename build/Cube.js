@@ -6,7 +6,7 @@ class Cube extends CGFobject
         this.side = side;
         this.square = new Square(scene, side, coords);
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -49,13 +49,13 @@ class Cube extends CGFobject
             this.scene.translate(0, move, 0);
             this.square.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(squareTexture)
     {
         this.square.bindTexture(squareTexture);
-    };
-};
+    }
+}
 
 
 
@@ -69,7 +69,7 @@ class Block extends CGFobject
         this.sideY = sideY;
         this.sideZ = sideZ;
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -77,10 +77,10 @@ class Block extends CGFobject
             this.scene.scale(this.sideX, this.sideY, this.sideZ);
             this.cube.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(cubeTexture)
     {
         this.cube.bindTexture(cubeTexture);
-    };
-};
+    }
+}

@@ -17,7 +17,7 @@ class CutPyramid extends CGFobject
             maxT: coords[3]
         };
         this.initBuffers();
-    };
+    }
 
     initBuffers()
     {
@@ -126,20 +126,20 @@ class CutPyramid extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(cutPyramidTexture)
     {
         this.texture = cutPyramidTexture;
-    };
-};
+    }
+}
 
 
 
@@ -153,7 +153,7 @@ class ClosedCutPyramid extends CGFobject
         this.top = new Regular(scene, sides, topRadius);
         this.height = height;
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -166,15 +166,15 @@ class ClosedCutPyramid extends CGFobject
                 this.scene.translate(0, this.height, 0);
                 this.top.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(cutPyramidTexture, baseTexture, topTexture)
     {
         this.cutPyramid.bindTexture(cutPyramidTexture);
         this.base.bindTexture(baseTexture || cutPyramidTexture);
         this.top.bindTexture(topTexture || baseTexture || cutPyramidTexture);
-    };
-};
+    }
+}
 
 
 
@@ -187,7 +187,7 @@ class DoubleCutPyramid extends CGFobject
         this.top = new Regular(scene, sides, topRadius);
         this.height = height;
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -202,11 +202,11 @@ class DoubleCutPyramid extends CGFobject
                 this.scene.translate(0, this.height, 0);
                 this.top.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(cutPyramidTexture, topTexture)
     {
         this.cutPyramid.bindTexture(cutPyramidTexture);
         this.top.bindTexture(topTexture || cutPyramidTexture);
-    };
-};
+    }
+}

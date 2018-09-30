@@ -16,7 +16,7 @@ class Cone extends CGFobject
             maxT: coords[3]
         };
         this.initBuffers();
-    };
+    }
 
     initBuffers()
     {
@@ -92,20 +92,20 @@ class Cone extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(coneTexture)
     {
         this.texture = coneTexture;
-    };
-};
+    }
+}
 
 
 
@@ -117,7 +117,7 @@ class ClosedCone extends CGFobject
 		this.cone = new Cone(scene, radius, height, slices, stacks, coords);
 		this.base = new Circle(scene, radius, slices);
 		this.initBuffers();
-	};
+	}
 
 	display()
 	{
@@ -126,14 +126,14 @@ class ClosedCone extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.base.display();
         this.scene.popMatrix();
-	};
+	}
 
     bindTexture(coneTexture, baseTexture)
     {
         this.cone.bindTexture(coneTexture);
         this.base.bindTexture(baseTexture || coneTexture);
-    };
-};
+    }
+}
 
 
 
@@ -144,7 +144,7 @@ class DoubleCone extends CGFobject
 		super(scene);
 		this.cone = new Cone(scene, radius, height, slices, stacks, coords);
 		this.initBuffers();
-	};
+	}
 
 	display()
 	{
@@ -153,13 +153,13 @@ class DoubleCone extends CGFobject
 			this.scene.rotate(Math.PI, 1, 0, 0);
 			this.cone.display();
 		this.scene.popMatrix();
-	};
+	}
 
     bindTexture(coneTexture)
     {
         this.cone.bindTexture(coneTexture);
-    };
-};
+    }
+}
 
 
 
@@ -171,7 +171,7 @@ class SpheredCone extends CGFobject
         this.cone = new Cone(scene, radius, height, slices, stacks, coords);
         this.sphere = new HalfSphere(scene, radius, slices);
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -180,11 +180,11 @@ class SpheredCone extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.sphere.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(coneTexture, baseTexture)
     {
         this.cone.bindTexture(coneTexture);
         this.sphere.bindTexture(baseTexture || coneTexture);
-    };
+    }
 }

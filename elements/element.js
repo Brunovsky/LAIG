@@ -146,8 +146,7 @@ class XMLGroup extends XMLElement {
 			throw new XMLException(node, "Group node must have at least one child");
 		}
 
-		for (var i = 0; i < node.children.length; ++i) {
-			let child = node.children[i];
+		for (let child of node.children) {
 			let name = child.tagName.toLocaleLowerCase();
 
 			if (!(name in tags)) {
@@ -171,48 +170,5 @@ class XMLGroup extends XMLElement {
 
 	get(id) {
 		return this.elements[id];
-	}
-}
-
-class XMLYas extends XMLBase {
-	constructor(node) {
-		super(node);
-
-		this.type = "yas";
-
-		if (node.tagName.toLocaleLowerCase() != "yas") {
-			throw new XMLException(node, "Root node does not have tagname 'yas'");
-		}
-
-		let tags = ["scene", "views", "ambient", "lights", "textures",
-			"materials", "transformations", "primitives", "components"];
-
-		if (node.childElementCount != 9) {
-			throw new XMLException(node, "Root node does not have the expected 9 children");
-		}
-
-		for (let i = 0; i < 9; ++i) {
-			let child = node.children[i];
-			let name = child.tagName.toLocaleLowerCase();
-			if (tags[i] != name) {
-				throw new XMLException(child, "Expected tagname " + tags[i]);
-			}
-		}
-
-		this.scene = new XMLScene(node.children[0]);
-		this.views = new XMLViews(node.children[1]);
-		this.ambient = new XMLAmbient(node.children[2]);
-		this.lights = new XMLLights(node.children[3]);
-		this.textures = new XMLTextures(node.children[4]);
-		this.materials = new XMLMaterials(node.children[5]);
-		this.transformations = new XMLTransformations(node.children[6]);
-		this.primitives = new XMLPrimitives(node.children[7]);
-		this.components = new XMLComponents(node.children[8]);
-
-		this.resolve();
-	}
-
-	resolve() {
-		// 1. Resolve 
 	}
 }

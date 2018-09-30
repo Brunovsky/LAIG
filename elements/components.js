@@ -20,8 +20,7 @@ class XMLImmediateTransformation extends XMLElement {
 
 		this.elements = [];
 
-		for (let i = 0; i < node.children.length; ++i) {
-			let child = node.children[i];
+		for (let child of node.children) {
 			let name = child.tagName.toLocaleLowerCase();
 
 			if (!(name in tags)) {
@@ -47,8 +46,9 @@ class XMLComponentTransformation extends XMLElement {
 			let name = child.tagName.toLocaleLowerCase();
 			
 			if (name == "transformationref") {
-				this.mode = "ref";
+				this.mode = "reference";
 				this.transf = new XMLTransformationRef(child);
+				this.id = this.transf.id;
 			} else {
 				this.mode = "immediate";
 				this.transf = new XMLImmediateTransformation(node);
@@ -145,7 +145,7 @@ class XMLComponent extends XMLElement {
 			}
 		}
 
-		this.transf = new XMLComponentTransformation(node.children[0]);
+		this.transformation = new XMLComponentTransformation(node.children[0]);
 		this.materials = new XMLComponentMaterials(node.children[1]);
 		this.texture = new XMLComponentTexture(node.children[2]);
 		this.children = new XMLChildren(node.children[3]);

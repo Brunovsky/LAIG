@@ -12,7 +12,7 @@ class Regular extends CGFobject
             maxT: coords[3]
         };
         this.initBuffers();
-    };
+    }
 
     initBuffers()
     {
@@ -82,20 +82,20 @@ class Regular extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(regularTexture)
     {
         this.texture = regularTexture;
-    };
-};
+    }
+}
 
 
 
@@ -112,7 +112,7 @@ class Polygon extends CGFobject
             maxT: coords[3]
         };
         this.initBuffers(); 
-    };
+    }
 
     initBuffers()
     {
@@ -189,20 +189,20 @@ class Polygon extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(polygonTexture)
     {
         this.texture = polygonTexture;
-    };
-};
+    }
+}
 
 
 
@@ -219,18 +219,18 @@ class Square extends CGFobject
         ];
         this.square = new Polygon(scene, V, coords);
         this.initBuffers();
-    };
+    }
 
     display()
     {
         this.square.display();
-    };
+    }
 
     bindTexture(squareTexture)
     {
         this.square.bindTexture(squareTexture);
-    };
-};
+    }
+}
 
 
 
@@ -241,18 +241,18 @@ class Circle extends CGFobject
         super(scene);
         this.circle = new Regular(scene, slices, radius, coords);
         this.initBuffers();
-    };
+    }
 
     display()
     {
         this.circle.display();
-    };
+    }
 
     bindTexture(circleTexture)
     {
         this.circle.bindTexture(circleTexture);
-    };
-};
+    }
+}
 
 
 
@@ -263,18 +263,18 @@ class Triangle extends CGFobject
         super(scene);
         this.triangle = new Regular(scene, 3, side / Math.sqrt(3), coords);
         this.initBuffers();
-    };
+    }
 
     display()
     {
         this.triangle.display();
-    };
+    }
 
     bindTexture(triangleTexture)
     {
         this.triangle.bindTexture(triangleTexture);
-    };
-};
+    }
+}
 
 
 
@@ -287,7 +287,7 @@ class Rectangle extends CGFobject
         this.sideX = sideX;
         this.sideZ = sideZ;
         this.initBuffers();
-    };
+    }
 
     display()
     {
@@ -295,13 +295,13 @@ class Rectangle extends CGFobject
             this.scene.scale(this.sideX, 1, this.sideZ);
             this.square.display();
         this.scene.popMatrix();
-    };
+    }
 
     bindTexture(rectangleTexture)
     {
         this.rectangle.bindTexture(rectangleTexture);
-    };
-};
+    }
+}
 
 
 
@@ -318,18 +318,18 @@ class Trapezium extends CGFobject
         ];
         this.trapezium = new Polygon(scene, V, coords);
         this.initBuffers();
-    };
+    }
 
     display()
     {
         this.trapezium.display();
-    };
+    }
 
     bindTexture(trapeziumTexture)
     {
         this.trapezium.bindTexture(trapeziumTexture);
-    };
-};
+    }
+}
 
 
 
@@ -351,7 +351,7 @@ class tPolygon extends CGFobject
             maxT: coords[3]
         };
         this.initBuffers()
-    };
+    }
 
     initBuffers()
     {
@@ -434,20 +434,20 @@ class tPolygon extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(tpolygonTexture)
     {
         this.texture = tpolygonTexture;
-    };
-};
+    }
+}
 
 
 
@@ -469,7 +469,7 @@ class rPolygon extends CGFobject
             maxT: coords[3]
         };
         this.initBuffers();
-    };
+    }
 
     initBuffers()
     {
@@ -561,17 +561,17 @@ class rPolygon extends CGFobject
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    };
+    }
 
     display()
     {
         this.scene.pushTexture(this.texture);
         super.display();
         this.scene.popTexture();
-    };
+    }
 
     bindTexture(rpolygonTexture)
     {
         this.texture = rpolygonTexture;
-    };
-};
+    }
+}
