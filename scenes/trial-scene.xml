@@ -80,11 +80,6 @@
         <primitive id="unit-regular">
         	<regular radius="1" sides="4"/>
         </primitive>
-        <primitive id="unit-triangle">
-        	<triangle x1="0" y1="0" z1="1"
-        		      x2="0" y2="1" z2="0"
-        		      x3="1" y3="0" z3="0"/>
-        </primitive>
         <primitive id="unit-trapezium">
         	<trapezium base="2" top="1" height="1"/>
         </primitive>
@@ -127,7 +122,6 @@
             	<componentref id="unit-square"/>
             	<componentref id="unit-circle"/>
             	<componentref id="unit-regular"/>
-            	<componentref id="unit-triangle"/>
             	<componentref id="unit-trapezium"/>
             	<componentref id="unit-halfsphere"/>
             	<componentref id="unit-sphere"/>
@@ -173,18 +167,6 @@
         	<texture id="tex-vidral" length_s="1.0" length_t="1.0"/>
         	<children>
         		<primitiveref id="unit-regular"/>
-        	</children>
-        </component>
-        <component id="unit-triangle">
-        	<transformation>
-        		<translate x="20" y="0" z="0"/>
-        	</transformation>
-        	<materials>
-        		<material id="mat-1"/>
-        	</materials>
-        	<texture id="tex-vidral" length_s="1.0" length_t="1.0"/>
-        	<children>
-        		<primitiveref id="unit-triangle"/>
         	</children>
         </component>
         <component id="unit-trapezium">

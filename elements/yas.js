@@ -4,21 +4,21 @@ class XMLYas extends XMLBase {
 
 		this.type = "yas";
 
-		if (node.tagName.toLocaleLowerCase() != "yas") {
+		if (node.tagName.toLocaleLowerCase() !== "yas") {
 			throw new XMLException(node, "Root node does not have tagname 'yas'");
 		}
 
 		let tags = ["scene", "views", "ambient", "lights", "textures",
 			"materials", "transformations", "primitives", "components"];
 
-		if (node.childElementCount != 9) {
+		if (node.childElementCount !== 9) {
 			throw new XMLException(node, "Root node does not have the expected 9 children");
 		}
 
 		for (let i = 0; i < 9; ++i) {
 			let child = node.children[i];
 			let name = child.tagName.toLocaleLowerCase();
-			if (tags[i] != name) {
+			if (tags[i] !== name) {
 				throw new XMLException(child, "Expected tagname " + tags[i]);
 			}
 		}
@@ -39,6 +39,7 @@ class XMLYas extends XMLBase {
 	resolve() {
 		this.resolveReferences();
 		this.validateRoot();
+		this.validateViews();
 		this.validateGraph();
 		this.printWarnings();
 	}
@@ -59,7 +60,7 @@ class XMLYas extends XMLBase {
 
 				if (transfref == null) {
 					throw new XMLException(transformation.node,
-						"Bad reference: transformation with id " + id + " does not exist");
+						"Bad reference: transformation " + id + " does not exist");
 				}
 
 				transformation.ref = transfref;
@@ -69,25 +70,26 @@ class XMLYas extends XMLBase {
 			for (let material of materials) {
 				let id = material.id;
 
-				if (id === "inherit") continue;
+				if (material.mode !== "reference") continue;
 
 				let materialref = this.materials.get(id);
 
 				if (materialref == null) {
 					throw new XMLException(material.node,
-						"Bad reference: material with id " + id + " does not exist");
+						"Bad reference: material " + id + " does not exist");
 				}
 
-				materials[id].ref = materialref;
+				material.ref = materialref;
 			}
 
 			// 3. Resolve texture reference
-			if (texture.id !== "inherit" && texture.id !== "none") {
-				let textureref = this.textures.get(texture.id);
+			if (texture.mode === "reference") {
+				let id = texture.id;
+				let textureref = this.textures.get(id);
 
 				if (textureref == null) {
 					throw new XMLException(texture.node,
-						"Bad reference: texture with id " + id + " does not exist");
+						"Bad reference: texture " + id + " does not exist");
 				}
 
 				texture.ref = textureref;
@@ -103,7 +105,7 @@ class XMLYas extends XMLBase {
 
 					if (primitive == null) {
 						throw new XMLException(child.node,
-							"Bad reference: primitive with id " + id + " does not exist");
+							"Bad reference: primitive " + id + " does not exist");
 					}
 
 					child.ref = primitive;
@@ -114,8 +116,8 @@ class XMLYas extends XMLBase {
 					let component = this.components.get(id);
 
 					if (component == null) {
-						throw new XMLException(component.node,
-							"Bad reference: component with id " + id + " does not exist");
+						throw new XMLException(child.node,
+							"Bad reference: component " + id + " does not exist");
 					}
 
 					child.ref = component; 
@@ -130,7 +132,7 @@ class XMLYas extends XMLBase {
 
 		if (this.root == null) {
 			throw new XMLException(this.scene.node,
-				"Bad reference: root component with id " + id + " does not exist");
+				"Bad reference: root component " + id + " does not exist");
 		}
 
 		for (let i = 0; i < this.root.materials.elements.length; ++i) {
@@ -148,21 +150,34 @@ class XMLYas extends XMLBase {
 		}
 	}
 
+	validateViews() {
+		let id = this.views.data.default;
+		
+		if (this.views.get(id) == null) {
+			throw new XMLException(this.views.node,
+				"Bad reference: default view " + id + " does not exist");
+		}
+	}
+
 	validateGraph() {
+		let components = this.components;
 		let stack = new Stack();
 		let visited = new Set();
 
 		// Depth first traversal
 		function dft(id) {
-			let parent = this.components.get(id);
+			let parent = components.get(id);
 			let children = parent.children.elements;
 
 			visited.add(id);
 
 			if (stack.has(id)) {
+				stack.push(id);
 				console.log("Stack: ", stack);
+
 				throw new XMLException(parent.node,
-					"Scene graph loop found starting at node " + id + " (stack logged)");
+					"Scene graph loop found starting at node " + id
+					+ " (stack logged)");
 			}
 
 			stack.push(id);
@@ -183,7 +198,7 @@ class XMLYas extends XMLBase {
 		this.reachable = visited;
 		this.unreachable = new Set();
 
-		for (let id in this.components) {
+		for (let id in components.elements) {
 			if (!visited.has(id)) {
 				this.unreachable.add(id);
 			}
@@ -194,9 +209,16 @@ class XMLYas extends XMLBase {
 		let count = 0;
 
 		for (let id of this.unreachable) {
-			console.log("Warning: component with id " + id + " is not reachable");
+			console.warn("Warning: component " + id + " is not reachable");
 			++count;
 			if (count === 7) break;
+		}
+
+		count = this.lights.elements.length;
+
+		if (count > 8) {
+			console.warn("Warning: WebGL only supports 8 lights, but " + count
+				+ " lights are listed. Only the first 8 will be used");
 		}
 	}
 }

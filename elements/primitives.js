@@ -1,10 +1,34 @@
-class XMLRectangle extends XMLElement {
+/**
+ * 1. Planar Primitives
+ */
+
+class XMLSquare extends XMLElement {
 	constructor(node) {
 		super(node, {
-			x1: "ff", y1: "ff", x2: "ff", y2: "ff"
+			side: "pp"
 		});
 
-		this.type = "rectangle";
+		this.type = "square";
+	}
+}
+
+class XMLRegular extends XMLElement {
+	constructor(node) {
+		super(node, {
+			radius: "pp", sides: "ii"
+		});
+
+		this.type = "regular";
+	}
+}
+
+class XMLCircle extends XMLElement {
+	constructor(node) {
+		super(node, {
+			radius: "pp", slices: "ii"
+		});
+
+		this.type = "circle";
 	}
 }
 
@@ -20,53 +44,13 @@ class XMLTriangle extends XMLElement {
 	}
 }
 
-class XMLCylinder extends XMLElement {
+class XMLRectangle extends XMLElement {
 	constructor(node) {
 		super(node, {
-			base: "pp", top: "pp", height:"pp", slices:"ii", stacks:"ii"
+			x1: "ff", y1: "ff", x2: "ff", y2: "ff"
 		});
 
-		this.type = "cylinder";
-	}
-}
-
-class XMLSphere extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", slices: "ii", stacks: "ii"
-		});
-
-		this.type = "sphere";
-	}
-}
-
-class XMLTorus extends XMLElement {
-	constructor(node) {
-		super(node, {
-			inner: "pp", outer: "pp", slices: "ii", loops: "ii"
-		});
-
-		this.type = "torus";
-	}
-}
-
-class XMLCircle extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", slices: "ii"
-		});
-
-		this.type = "circle";
-	}
-}
-
-class XMLRegular extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", sides: "ii"
-		});
-
-		this.type = "regular";
+		this.type = "rectangle";
 	}
 }
 
@@ -80,13 +64,47 @@ class XMLTrapezium extends XMLElement {
 	}
 }
 
-class XMLHalfSphere extends XMLElement {
+/**
+ * 2. Spacial Primitives
+ */
+
+class XMLCone extends XMLElement {
 	constructor(node) {
 		super(node, {
-			radius: "pp", stacks: "ii", slices: "ii"
+			radius: "pp", height: "pp", stacks: "ii", slices: "ii"
 		});
 
-		this.type = "halfsphere";
+		this.type = "cone";
+	}
+}
+
+class XMLPyramid extends XMLElement {
+	constructor(node) {
+		super(node, {
+			radius: "pp", height: "pp", stacks: "ii", sides: "ii"
+		});
+
+		this.type = "pyramid";
+	}
+}
+
+class XMLCylinder extends XMLElement {
+	constructor(node) {
+		super(node, {
+			base: "pp", top: "pp", height:"pp", slices:"ii", stacks:"ii"
+		});
+
+		this.type = "cylinder";
+	}
+}
+
+class XMLPrism extends XMLElement {
+	constructor(node) {
+		super(node, {
+			base: "pp", top: "p0", height: "pp", stacks: "ii", sides: "ii"
+		});
+
+		this.type = "prism";
 	}
 }
 
@@ -110,51 +128,100 @@ class XMLBlock extends XMLElement {
 	}
 }
 
-class XMLPrism extends XMLElement {
+class XMLSphere extends XMLElement {
 	constructor(node) {
 		super(node, {
-			base: "pp", top: "p0", height: "pp", stacks: "ii", sides: "ii"
+			radius: "pp", slices: "ii", stacks: "ii"
 		});
 
-		this.type = "prism";
+		this.type = "sphere";
 	}
 }
 
-class XMLCone extends XMLElement {
+class XMLHalfSphere extends XMLElement {
 	constructor(node) {
 		super(node, {
-			radius: "pp", height: "pp", stacks: "ii", slices: "ii"
+			radius: "pp", stacks: "ii", slices: "ii"
 		});
 
-		this.type = "cone";
+		this.type = "halfsphere";
 	}
 }
 
-class XMLPyramid extends XMLElement {
+/**
+ * 3. Complex Planar Primitives
+ */
+
+class XMLButterfly extends XMLElement {
 	constructor(node) {
 		super(node, {
-			radius: "pp", height: "pp", stacks: "ii", sides: "ii"
+			samples: "ii"
 		});
 
-		this.type = "pyramid";
+		this.type = "butterfly";
+	}
+}
+
+class XMLFolium extends XMLElement {
+	constructor(node) {
+		super(node, {
+			a: "pp", b: "p0", samples:"ii"
+		});
+
+		this.type = "folium";
+	}
+}
+
+/**
+ * 4. Surface Primitives
+ */
+
+class XMLTorus extends XMLElement {
+	constructor(node) {
+		super(node, {
+			inner: "pp", outer: "pp", slices: "ii", loops: "ii"
+		});
+
+		this.type = "torus";
+	}
+}
+
+class XMLCornucopia extends XMLElement {
+	constructor(node) {
+		super(node, {
+			slices: "ii", stacks: "ii"
+		});
+
+		this.type = "cornucopia";
 	}
 }
 
 let XMLPrimitivesList = {
-	rectangle:  XMLRectangle,
-	triangle:   XMLTriangle,
-	cylinder:   XMLCylinder,
-	sphere:     XMLSphere,
-	torus:      XMLTorus,
-	circle:     XMLCircle,
+	// 1. Planar Primitives
+	square:     XMLSquare,
 	regular:    XMLRegular,
+	circle:     XMLCircle,
+	triangle:   XMLTriangle,
+	rectangle:  XMLRectangle,
 	trapezium:  XMLTrapezium,
-	halfsphere: XMLHalfSphere,
+
+	// 2. Spacial Primitives
+	cone:       XMLCone,
+	pyramid:    XMLPyramid,
+	cylinder:   XMLCylinder,
+	prism:      XMLPrism,
 	cube:       XMLCube,
 	block:      XMLBlock,
-	prism:      XMLPrism,
-	cone:       XMLCone,
-	pyramid:    XMLPyramid
+	sphere:     XMLSphere,
+	halfsphere: XMLHalfSphere,
+
+	// 3. Complex Planar Primitives
+	butterfly:  XMLButterfly,
+	folium:     XMLFolium,
+
+	// 4. Surface Primitives
+	torus:      XMLTorus,
+	cornucopia: XMLCornucopia
 };
 
 class XMLPrimitive extends XMLElement {

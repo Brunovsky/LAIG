@@ -78,6 +78,12 @@ class XMLMaterialRef extends XMLElement {
 		super(node, { id: "ss" });
 
 		this.type = "material";
+
+		if (this.id === "inherit") {
+			this.mode = "inherit";
+		} else {
+			this.mode = "reference";
+		}
 	}
 }
 
@@ -86,6 +92,14 @@ class XMLComponentTexture extends XMLElement {
 		super(node, { id: "ss", length_s: "pp", length_t: "pp" });
 
 		this.type = "texture";
+
+		if (this.id === "inherit") {
+			this.mode = "inherit";
+		} else if (this.id === "none") {
+			this.mode = "none";
+		} else {
+			this.mode = "reference";
+		}
 	}
 }
 

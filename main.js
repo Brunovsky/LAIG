@@ -13,18 +13,27 @@ function getUrlVars() {
 
 //Include additional files here
 serialInclude(['../lib/CGF.js',
-    'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'utils/arrays.js',
-    'utils/stacks.js', 'elements/element.js', 'elements/yas.js',
+    // core/ files
+    'core/MyScene.js', 'core/MySceneGraph.js', 'core/MyInterface.js',
+    // utils/ files
+    'utils/arrays.js', 'utils/stack.js', 'utils/functions.js',
+    'utils/vector.js', 'utils/reals.js',
+    // build/ files
+    'build/Cone.js', 'build/Cube.js', 'build/CutCone.js', 'build/CutPyramid.js',
+    'build/Cylinder.js', 'build/Polygon.js', 'build/Prism.js', 'build/Pyramid.js',
+    'build/revSurface.js', 'build/Sphere.js', 'build/uvSurface.js',
+    'build/xSurface.js', 'build/ySurface.js', 'build/zSurface.js',
+    // elements/ files
+    'elements/element.js', 'elements/yas.js', 'elements/buildPrimitive.js',
     'elements/ambient.js', 'elements/components.js', 'elements/lights.js',
     'elements/materials.js', 'elements/primitives.js', 'elements/scene.js',
     'elements/textures.js', 'elements/transformations.js', 'elements/view.js',
 
-main=function()
-{
+main = function() {
 	// Standard application, scene and interface setup
     let app = new CGFapplication(document.body);
     let myInterface = new MyInterface();
-    let myScene = new XMLscene(myInterface);
+    let myScene = new MyScene(myInterface);
 
     app.init();
 
@@ -36,11 +45,13 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-	let filename=getUrlVars()['file'] || "trial-scene.xml";
+	let filename = getUrlVars()['file'] || "trial-scene.xml";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors
 	let myGraph = new MySceneGraph(filename, myScene);
+
+    console.log(myScene);
 	
 	// start
     app.run();
