@@ -256,7 +256,7 @@ class MyScene extends CGFscene {
         this.traverser(this.graph.yas.root, null, null);
     }
 
-    traverser(current, currentMaterial, currentTexture) {
+    traverser(current, parentMaterial, parentTexture) {
         const transformation = current.transformation;
         const material = current.materials.elements[0];
         const texture = current.texture;
@@ -264,8 +264,8 @@ class MyScene extends CGFscene {
 
         // Transformation & Material & Texture Stack PUSH
         this.pushMatrix();
-        let previousMaterial = currentMaterial;
-        let previousTexture = currentTexture;
+        const currentMaterial = parentMaterial;
+        const currentTexture = parentTexture;
 
         // Transformation
         if (transformation.mode === "reference") {
@@ -302,7 +302,5 @@ class MyScene extends CGFscene {
 
         // Transformation & Material & Texture Stack POP
         this.popMatrix();
-        currentMaterial = previousMaterial;
-        currentTexture = previousTexture;
     }
 }

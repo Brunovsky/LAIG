@@ -46,7 +46,7 @@ class XMLElement extends XMLBase {
 		for (const key in spec) {
 			let val;
 
-			if (typeof spec[key] == "string") {
+			if (typeof spec[key] === "string") {
 				if (!reader.hasAttribute(node, key)) {
 					throw new XMLException(node, "Missing attribute " + key);
 				}
