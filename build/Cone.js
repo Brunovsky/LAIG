@@ -93,18 +93,6 @@ class Cone extends CGFobject
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
-
-    display()
-    {
-        this.scene.pushTexture(this.texture);
-        super.display();
-        this.scene.popTexture();
-    }
-
-    bindTexture(coneTexture)
-    {
-        this.texture = coneTexture;
-    }
 }
 
 
@@ -127,12 +115,6 @@ class ClosedCone extends CGFobject
             this.base.display();
         this.scene.popMatrix();
 	}
-
-    bindTexture(coneTexture, baseTexture)
-    {
-        this.cone.bindTexture(coneTexture);
-        this.base.bindTexture(baseTexture || coneTexture);
-    }
 }
 
 
@@ -154,11 +136,6 @@ class DoubleCone extends CGFobject
 			this.cone.display();
 		this.scene.popMatrix();
 	}
-
-    bindTexture(coneTexture)
-    {
-        this.cone.bindTexture(coneTexture);
-    }
 }
 
 
@@ -180,11 +157,5 @@ class SpheredCone extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.sphere.display();
         this.scene.popMatrix();
-    }
-
-    bindTexture(coneTexture, baseTexture)
-    {
-        this.cone.bindTexture(coneTexture);
-        this.sphere.bindTexture(baseTexture || coneTexture);
     }
 }

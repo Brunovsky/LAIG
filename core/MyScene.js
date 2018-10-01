@@ -239,7 +239,7 @@ class MyScene extends CGFscene {
 
         // ---- END Background, camera and axis setup
         
-        // ---- BEGIN 
+        // ---- BEGIN Primary display
 
         this.pushMatrix();
 
@@ -250,13 +250,15 @@ class MyScene extends CGFscene {
         }
 
         this.popMatrix();
+
+        // ---- END Primary display
     }
 
     traverseGraph() {
         this.traverser(this.graph.yas.root, null, null);
     }
 
-    traverser(current, parentMaterial, parentTexture) {
+    traverser(current, sceneMaterial, sceneTexture) {
         const transformation = current.transformation;
         const material = current.materials.elements[0];
         const texture = current.texture;
@@ -264,8 +266,6 @@ class MyScene extends CGFscene {
 
         // Transformation & Material & Texture Stack PUSH
         this.pushMatrix();
-        const currentMaterial = parentMaterial;
-        const currentTexture = parentTexture;
 
         // Transformation
         if (transformation.mode === "reference") {
@@ -276,25 +276,25 @@ class MyScene extends CGFscene {
 
         // Material
         if (material.mode === "reference") {
-            currentMaterial = this.materials[material.id];
+            sceneMaterial = this.materials[material.id];
         }
 
         // Texture
         if (texture.mode === "none") {
-            currentTexture = false; // allowed for setTexture()
+            sceneTexture = false; // allowed for setTexture()
         } else if (texture.mode === "reference") {
-            currentTexture = this.textures[texture.id];
+            sceneTexture = this.textures[texture.id];
         }
 
         // Apply Material
-        currentMaterial.setTexture(currentTexture);
-        currentMaterial.apply();
+        sceneMaterial.setTexture(sceneTexture);
+        sceneMaterial.apply();
 
         // Recurse & Display primitives
         for (let id in children.elements) {
             let child = children.elements[id];
             if (child.type === "componentref") {
-                this.traverser(child.ref, currentMaterial, currentTexture);
+                this.traverser(child.ref, sceneMaterial, sceneTexture);
             } else {
                 this.primitives[child.id].display();
             }

@@ -91,18 +91,6 @@ class Cylinder extends CGFobject
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
-
-    display()
-    {
-        this.scene.pushTexture(this.texture);
-        super.display();
-        this.scene.popTexture();
-    }
-
-    bindTexture(cylinderTexture)
-    {
-        this.texture = cylinderTexture;
-    }
 }
 
 
@@ -129,12 +117,6 @@ class ClosedCylinder extends CGFobject
                 this.scene.translate(0, this.height, 0);
                 this.base.display();
         this.scene.popMatrix();
-    }
-
-    bindTexture(cylinderTexture, circleTexture)
-    {
-        this.cylinder.bindTexture(cylinderTexture);
-        this.base.bindTexture(circleTexture || cylinderTexture);
     }
 }
 
@@ -164,13 +146,6 @@ class HalfSpheredCylinder extends CGFobject
                 this.sphere.display();
         this.scene.popMatrix();
     }
-
-    bindTexture(cylinderTexture, circleTexture)
-    {
-        this.cylinder.bindTexture(cylinderTexture);
-        this.sphere.bindTexture(cylinderTexture);
-        this.base.bindTexture(circleTexture || cylinderTexture);
-    }
 }
 
 
@@ -197,11 +172,5 @@ class SpheredCylinder extends CGFobject
                 this.scene.translate(0, this.height, 0);
                 this.sphere.display();
         this.scene.popMatrix();
-    }
-
-    bindTexture(cylinderTexture, circleTexture)
-    {
-        this.cylinder.bindTexture(cylinderTexture);
-        this.sphere.bindTexture(circleTexture || cylinderTexture);
     }
 }

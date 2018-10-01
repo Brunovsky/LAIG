@@ -92,18 +92,6 @@ class HalfSphere extends CGFobject
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
-
-    display()
-    {
-        this.scene.pushTexture(this.texture);
-        super.display();
-        this.scene.popTexture();
-    }
-
-    bindTexture(halfTexture)
-    {
-        this.texture = halfTexture;
-    }
 }
 
 
@@ -125,12 +113,6 @@ class ClosedHalfSphere extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.base.display();
         this.scene.popMatrix();
-    }
-
-    bindTexture(halfTexture, baseTexture)
-    {
-        this.half.bindTexture(halfTexture);
-        this.base.bindTexture(baseTexture || halfTexture);
     }
 }
 
@@ -155,12 +137,6 @@ class Sphere extends CGFobject
             this.down.display();
         this.scene.popMatrix();
     }
-
-    bindTexture(halfTexture)
-    {
-        this.up.bindTexture(halfTexture);
-        this.down.bindTexture(halfTexture);
-    }
 }
 
 
@@ -181,10 +157,5 @@ class FlipSphere extends CGFobject
             this.scene.rotate(Math.PI, 1, 0, 0);
             this.half.display();
         this.scene.popMatrix();
-    }
-
-    bindTexture(halfTexture)
-    {
-        this.half.bindTexture(halfTexture);
     }
 }

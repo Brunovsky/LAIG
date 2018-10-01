@@ -50,11 +50,6 @@ class Cube extends CGFobject
             this.square.display();
         this.scene.popMatrix();
     }
-
-    bindTexture(squareTexture)
-    {
-        this.square.bindTexture(squareTexture);
-    }
 }
 
 
@@ -77,10 +72,5 @@ class Block extends CGFobject
             this.scene.scale(this.sideX, this.sideY, this.sideZ);
             this.cube.display();
         this.scene.popMatrix();
-    }
-
-    bindTexture(cubeTexture)
-    {
-        this.cube.bindTexture(cubeTexture);
     }
 }
