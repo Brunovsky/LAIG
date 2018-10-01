@@ -47,16 +47,7 @@ class MySceneGraph {
     parseXMLFile(rootElement) {
         console.log(rootElement);
 
-        try {
-            this.yas = new XMLYas(rootElement);
-        } catch (e) {
-            if (e instanceof XMLException) {
-                console.error(e);
-                return false;
-            } else {
-                throw e;
-            }
-        }
+        this.yas = new XMLYas(rootElement);
 
         console.log(this.yas);
         

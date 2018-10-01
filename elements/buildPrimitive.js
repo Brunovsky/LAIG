@@ -2,6 +2,8 @@ function buildPrimitive(scene, primitive) {
 	const type = primitive.figure.type;
 	const dt = primitive.figure.data;
 
+	const PI = Math.PI;
+
 	switch (type) {
 	// 1. Planar Primitives
 	case 'square':
@@ -36,16 +38,70 @@ function buildPrimitive(scene, primitive) {
 		return new ClosedHalfSphere(scene, dt.radius, dt.slices, dt.stacks);
 
 	// 3. Complex Planar Primitives
+	case 'heart':
+		return new tPolygon(scene, protoHeart(), intervalHeart, dt.samples);
 	case 'butterfly':
-		return null;
+		return new tPolygon(scene, protoButterfly(), intervalButterfly, dt.samples);
 	case 'folium':
-		return null;
+		return new rPolygon(scene, protoFolium(dt.a, dt.b), intervalFolium, dt.samples);
+	case 'hypocycloid':
+		return new tPolygon(scene, protoHypocycloid(dt.a, dt.b), intervalHypocycloid, dt.samples);
 
 	// 4. Surface Primitives
 	case 'torus':
-		return null;
+		return new uvSurface(scene, protoTorus(dt.inner, dt.outer),
+			intervalTorus, dt.slices, dt.stacks);
+	case 'eight':
+		return new uvSurface(scene, protoEightSurface(),
+			intervalEightSurface, dt.slices, dt.stacks);
+	case 'astroidal':
+		return new uvSurface(scene, protoAstroidalEllipsoid(),
+			intervalAstroidalEllipsoid, dt.slices, dt.stacks);
+	case 'kiss':
+		return new uvSurface(scene, protoKissSurface(),
+			intervalKissSurface, dt.slices, dt.stacks);
+	case 'bohemiandome':
+		return new uvSurface(scene, protoBohemianDome(dt.a, dt.b, dt.c),
+			intervalBohemianDome, dt.slices, dt.stacks);
+	case 'crossedtrough':
+		return new zSurface(scene, protoCrossedTrough(),
+			intervalCrossedTrough, dt.slices, dt.stacks);
+	case 'sine':
+		return new uvSurface(scene, protoSineSurface(),
+			intervalSineSurface, dt.slices, dt.stacks);
+	case 'cayley':
+		return new zSurface(scene, protoCayleySurface(),
+			intervalCayleySurface, dt.slices, dt.stacks);
+	case 'mobius':
+		return new uvSurface(scene, protoMobiusStrip(),
+			intervalMobiusStrip, dt.slices, dt.stacks);
+	case 'elliptichyperboloid':
+		return new uvSurface(scene, protoEllipticHyperboloid(),
+			intervalEllipticHyperboloid, dt.slices, dt.stacks);
+	case 'crosscap':
+		return new uvSurface(scene, protoCrossCap(),
+			intervalCrossCap, dt.slices, dt.stacks);
+	case 'crosscap2':
+		return new uvSurface(scene, protoCrossCap2(),
+			intervalCrossCap2, dt.slices, dt.stacks);
 	case 'cornucopia':
-		return null;
+		return new uvSurface(scene, protoCornucopia(dt.a, dt.b),
+			intervalCornucopia, dt.slices, dt.stacks);
+	case 'henneberg':
+		return new uvSurface(scene, protoHennebergMinimal(),
+			intervalHennebergMinimal, dt.slices, dt.stacks);
+	case 'roman':
+		return new uvSurface(scene, protoRomanSurface(),
+			intervalRomanSurface, dt.slices, dt.stacks);
+	case 'corkscrew':
+		return new uvSurface(scene, protoCorkscrew(dt.a, dt.b),
+			intervalCorkscrew, dt.slices, dt.stacks);
+	case 'kleinbottle':
+		return new uvSurface(scene, protoKleinBottle(),
+			intervalKleinBottle, dt.slices, dt.stacks);
+	case 'kleinbottle2':
+		return new uvSurface(scene, protoKleinBottle2(),
+			intervalKleinBottle2, dt.slices, dt.stacks);
 
 	default:
 		throw "INTERNAL: Invalid primitive type detected in buildPrimitive(): " + type;

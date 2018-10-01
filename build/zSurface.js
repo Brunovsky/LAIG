@@ -60,7 +60,7 @@ function zSampleFunction(zfunction, X, Y, xDelta, yDelta) {
 
 class zSurface extends CGFobject
 {
-    constructor(scene, zfunction, boundary = [-1, 1, -1, 1], slices = 32, coords = [0, 1, 0, 1])
+    constructor(scene, zfunction, boundary = [-1, 1, -1, 1], slices = 32, stacks = 32, coords = [0, 1, 0, 1])
     {
         super(scene);
         this.zfunction = zfunction;
@@ -71,6 +71,7 @@ class zSurface extends CGFobject
             maxY: boundary[3]
         }
         this.slices = slices;
+        this.stacks = stacks;
         this.coords = {
             minS: coords[0],
             maxS: coords[1],
@@ -83,10 +84,11 @@ class zSurface extends CGFobject
     initBuffers()
     {
         const zfunction = this.zfunction, b = this.boundary,
-            slices = this.slices, coords = this.coords;
+            slices = this.slices, stacks = this.stacks,
+            coords = this.coords;
 
         const xDelta = (b.maxX - b.minX) / slices;
-        const yDelta = (b.maxY - b.minY) / slices;
+        const yDelta = (b.maxY - b.minY) / stacks;
 
         this.vertices = [];
         this.indices = [];
@@ -101,7 +103,7 @@ class zSurface extends CGFobject
         // j = 0  . . . . . .   ---> X
         //    i = 0 1 2 3 4 5
 
-        for (let j = 0; j <= slices; ++j) { // iterate Y (line)
+        for (let j = 0; j <= stacks; ++j) { // iterate Y (line)
             for (let i = 0; i <= slices; ++i) { // iterate X (column)
                 let X = b.minX + xDelta * i;
                 let Y = b.minY + yDelta * j;
@@ -117,7 +119,7 @@ class zSurface extends CGFobject
 
                 // Texture Up, Down
                 let stexUnit = i / slices;
-                let ttexUnit = 1 - j / slices;
+                let ttexUnit = 1 - j / stacks;
                 let stex = (1 - stexUnit) * coords.minS + stexUnit * coords.maxS;
                 let ttex = (1 - ttexUnit) * coords.minT + ttexUnit * coords.maxT;
                 this.texCoords.push(stex, ttex); // Up
@@ -125,7 +127,7 @@ class zSurface extends CGFobject
             }
         }
 
-        for (let j = 0; j < slices; ++j) { // iterate Y (line)
+        for (let j = 0; j < stacks; ++j) { // iterate Y (line)
             for (let i = 0; i < slices; ++i) { // iterate X (column)
                 let above = 2 * slices + 2;
                 let next = 2, right = 2;

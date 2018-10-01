@@ -60,7 +60,7 @@ function xSampleFunction(xfunction, Y, Z, yDelta, zDelta) {
 
 class xSurface extends CGFobject
 {
-    constructor(scene, xfunction, boundary = [-1, 1, -1, 1], slices = 32, coords = [0, 1, 0, 1])
+    constructor(scene, xfunction, boundary = [-1, 1, -1, 1], slices = 32, stacks = 32, coords = [0, 1, 0, 1])
     {
         super(scene);
         this.xfunction = xfunction;
@@ -71,6 +71,7 @@ class xSurface extends CGFobject
             maxZ: boundary[3]
         }
         this.slices = slices;
+        this.stacks = stacks;
         this.coords = {
             minS: coords[0],
             maxS: coords[1],
@@ -83,10 +84,11 @@ class xSurface extends CGFobject
     initBuffers()
     {
         const xfunction = this.xfunction, b = this.boundary,
-            slices = this.slices, coords = this.coords;
+            slices = this.slices, stacks = this.stacks,
+            coords = this.coords;
 
         const yDelta = (b.maxY - b.minY) / slices;
-        const zDelta = (b.maxZ - b.minZ) / slices;
+        const zDelta = (b.maxZ - b.minZ) / stacks;
 
         this.vertices = [];
         this.indices = [];
@@ -101,7 +103,7 @@ class xSurface extends CGFobject
         // j = 4  . . . . . .   Z
         // j = 5  . . . . . .
 
-        for (let j = 0; j <= slices; ++j) { // iterate Z (line)
+        for (let j = 0; j <= stacks; ++j) { // iterate Z (line)
             for (let i = 0; i <= slices; ++i) { // iterate Y (column)
                 let Y = b.minY + yDelta * i;
                 let Z = b.minZ + zDelta * j;
@@ -117,7 +119,7 @@ class xSurface extends CGFobject
 
                 // Texture Up, Down
                 let stexUnit = i / slices;
-                let ttexUnit = j / slices;
+                let ttexUnit = j / stacks;
                 let stex = (1 - stexUnit) * coords.minS + stexUnit * coords.maxS;
                 let ttex = (1 - ttexUnit) * coords.minT + ttexUnit * coords.maxT;
                 this.texCoords.push(stex, ttex); // Up
@@ -125,7 +127,7 @@ class xSurface extends CGFobject
             }
         }
 
-        for (let j = 0; j < slices; ++j) { // iterate Z (line)
+        for (let j = 0; j < stacks; ++j) { // iterate Z (line)
             for (let i = 0; i < slices; ++i) { // iterate Y (column)
                 let above = 2 * slices + 2;
                 let next = 2, right = 2;

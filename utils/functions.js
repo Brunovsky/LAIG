@@ -195,44 +195,6 @@ function torus(u, v) {
 }
 
 
-
-function protoFolium(a, b, theta) {
-    const sin = Math.sin, cos = Math.cos;
-    return cos(theta) * (4 * a * sin(theta) * sin(theta) - b);
-}
-
-function protoTorus(c, a, u, v) {
-    // c -> radius, from center of torus to center of torus tube
-    // a -> radius of torus tube
-    // c > a -> ring torus
-    // c = a -> horn torus
-    // c < a -> spindle torus
-    const sin = Math.sin, cos = Math.cos;
-    return {
-        X: (c + a * cos(v)) * cos(u),
-        Y: (c + a * cos(v)) * sin(u),
-        Z: a * sin(v)
-    };
-}
-
-function protoBohemianDome(a, b, c, u, v) {
-    const sin = Math.sin, cos = Math.cos;
-    return {
-        X: a * cos(u),
-        Y: b * cos(v) + a * sin(u),
-        Z: c * sin(v)
-    };
-}
-
-function protoCorkScrew(a, b, u, v) {
-    const sin = Math.sin, cos = Math.cos;
-    return {
-        X: a * cos(u) * cos(v),
-        Y: a * sin(u) * cos(v),
-        Z: a * sin(v) + b * u
-    }
-}
-
 let sampleBezier = protoBezierSurface(
     [
         {X: -1, Y:  1, Z:  0},

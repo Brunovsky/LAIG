@@ -1,5 +1,5 @@
 function degToRad(deg) {
-    return Math.PI / 180;
+    return deg * Math.PI / 180;
 }
 
 var DEGREE_TO_RAD = Math.PI / 180;
@@ -23,7 +23,8 @@ class MyScene extends CGFscene {
 
         this.myinterface = myinterface;
         this.lightValues = {};
-        this.count = 0;
+
+        this.newCamera = false;
     }
 
     /**
@@ -32,6 +33,10 @@ class MyScene extends CGFscene {
      */
     init(application) {
         super.init(application);
+
+        this.count = 0;
+
+        this.selectedCamera = null;
 
         this.graphLoaded = false;
 
@@ -86,26 +91,9 @@ class MyScene extends CGFscene {
     initViews() {
         const views = this.graph.yas.views;
 
-        this.cameras = {};
+        this.selectedCamera = views.data.default;
 
-        for (let id in views.elements) {
-            let view = views.elements[id];
-            let data = view.data;
-
-            if (view.type === "perspective") {
-                this.cameras[id] = new CGFcamera(
-                    degToRad(data.angle),
-                    data.near,
-                    data.far,
-                    [data.from.x, data.from.y, data.from.z],
-                    [data.to.x, data.to.y, data.to.z]
-                );
-            } else {
-                console.warn("view > ortho not yet supported in MyScene");
-            }
-        }
-
-        // CGFcamera(FIELD OF VIEW, NEAR, FAR, POSITION, TARGET);
+        this.newCamera = true;
     }
 
     initAmbient() {
@@ -207,8 +195,42 @@ class MyScene extends CGFscene {
         }
     }
 
+    setCamera(id) {
+        let view = this.graph.yas.views.get(id);
+        let data = view.data;
+
+        // Position
+        this.camera.setPosition(vec3.fromValues(data.from.x, data.from.y, data.from.z));
+
+        // Target
+        this.camera.setTarget(vec3.fromValues(data.to.x, data.to.y, data.to.z));
+
+        this.camera.near = data.near;
+        this.camera.far = data.far;
+        //this.camera.fov = degToRad(data.angle);
+    }
+
     applyTransformation(transformation) {
-        // ... TODO
+        let operations = transformation.elements;
+
+        for (let operation of operations) {
+            let data = operation.data;
+
+            switch (operation.type) {
+            case 'translate':
+                this.translate(data.x, data.y, data.z);
+                break;
+            case 'rotate':
+                let x = data.axis === 'x';
+                let y = data.axis === 'y';
+                let z = data.axis === 'z';
+                this.rotate(degToRad(data.angle), x, y, z);
+                break;
+            case 'scale':
+                this.scale(data.x, data.y, data.z);
+                break;
+            }
+        }
     }
 
     clearMatrixStack() {
@@ -218,10 +240,16 @@ class MyScene extends CGFscene {
         }
     }
 
-    display() {
-        if (DEBUG_DISPLAY) {
-            if (++this.count > 120) return;
+    presetup() {
+        if (this.newCamera) {
+            this.newCamera = false;
+
+            this.setCamera(this.selectedCamera);
         }
+    }
+
+    display() {
+        this.presetup();
 
         // ---- BEGIN Background, camera and axis setup
 

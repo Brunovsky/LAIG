@@ -48,7 +48,7 @@ function uvComputeCoords(u, v, boundary) {
 
 class uvSurface extends CGFobject
 {
-    constructor(scene, uvfunction, boundary = [0, 1, 0, 1], slices = 32, coordsMap = uvComputeCoords)
+    constructor(scene, uvfunction, boundary = [0, 1, 0, 1], slices = 32, stacks = 32, coordsMap = uvComputeCoords)
     {
         super(scene);
         this.uvfunction = uvfunction;
@@ -59,6 +59,7 @@ class uvSurface extends CGFobject
             maxV: boundary[3]
         };
         this.slices = slices;
+        this.stacks = stacks;
         this.coordsMap = coordsMap;
         this.initBuffers();
     }
@@ -66,10 +67,11 @@ class uvSurface extends CGFobject
     initBuffers()
     {
         const uvfunction = this.uvfunction, b = this.boundary,
-            slices = this.slices, coordsMap = this.coordsMap;
+            slices = this.slices, stacks = this.stacks,
+            coordsMap = this.coordsMap;
 
         const uDelta = (b.maxU - b.minU) / slices;
-        const vDelta = (b.maxV - b.minV) / slices;
+        const vDelta = (b.maxV - b.minV) / stacks;
 
         this.vertices = [];
         this.indices = [];
@@ -84,7 +86,7 @@ class uvSurface extends CGFobject
         // j = 0  . . . . . .   ---> U
         //    i = 0 1 2 3 4 5
 
-        for (let j = 0; j <= slices; ++j) { // iterate V
+        for (let j = 0; j <= stacks; ++j) { // iterate V
             for (let i = 0; i <= slices; ++i) { // iterate U
                 let U = b.minU + uDelta * i;
                 let V = b.minV + vDelta * j;
@@ -105,7 +107,7 @@ class uvSurface extends CGFobject
             }
         }
 
-        for (let j = 0; j < slices; ++j) { // iterate Y (line)
+        for (let j = 0; j < stacks; ++j) { // iterate Y (line)
             for (let i = 0; i < slices; ++i) { // iterate X (column)
                 let above = 2 * slices + 2;
                 let next = 2, right = 2;

@@ -46,9 +46,8 @@
 # 3ª TRADUÇÃO (SceneGraph --> WebGL)
 ## Baseado em CGRA
 ## Transformation matrix stack
-## Integrate 3 stacks into the components stack / tree depth first traversal
 ### Translate scene
-	root for display()
+	root for display() CHECK
     axis_length for CGFaxis() CHECK
 ### Translate views
 	default view
@@ -67,15 +66,15 @@
 		emission, ambient, diffuse, specular CHECK
 	material stack (??)
 ### Translate transformations
-	list of transformations
-		translate
-		rotate
-		scale
-	fast transformation computation
+	fast transformation computation CHECK
 ### Translate primitives
 	buildPrimitive() CHECK
 ### Translate components
-	...
+	Depth-first traversal CHECK
+	Transformation CHECK
+	Material + Texture CHECK
+	length_s + length_t
+
 ## Switching materials for each component m/M (ATM: Using only materials[0])
 ## Apply length_s and length_t for textures (ATM: Completely ignored)
 

@@ -16,8 +16,8 @@ serialInclude(['../lib/CGF.js',
     // core/ files
     'core/MyScene.js', 'core/MySceneGraph.js', 'core/MyInterface.js',
     // utils/ files
-    'utils/arrays.js', 'utils/stack.js', 'utils/functions.js',
-    'utils/vector.js', 'utils/reals.js',
+    'utils/arrays.js', 'utils/stack.js', //'utils/functions.js',
+    'utils/vector.js', 'utils/reals.js', 'utils/protos.js',
     // build/ files
     'build/Cone.js', 'build/Cube.js', 'build/CutCone.js', 'build/CutPyramid.js',
     'build/Cylinder.js', 'build/Polygon.js', 'build/Prism.js', 'build/Pyramid.js',
@@ -25,6 +25,8 @@ serialInclude(['../lib/CGF.js',
     'build/xSurface.js', 'build/ySurface.js', 'build/zSurface.js',
     // elements/ files
     'elements/element.js', 'elements/yas.js', 'elements/buildPrimitive.js',
+    'elements/figures-planar.js', 'elements/figures-polygon.js',
+    'elements/figures-spacial.js', 'elements/figures-surface.js',
     'elements/ambient.js', 'elements/components.js', 'elements/lights.js',
     'elements/materials.js', 'elements/primitives.js', 'elements/scene.js',
     'elements/textures.js', 'elements/transformations.js', 'elements/view.js',
