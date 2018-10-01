@@ -8,7 +8,7 @@ var AXIS_THICKNESS = 0.05;
 
 var LIGHTS_VISIBLE = true;
 
-var DEBUG_DISPLAY = true;
+var DEBUG_DISPLAY = false;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -41,9 +41,9 @@ class MyScene extends CGFscene {
         this.graphLoaded = false;
 
         this.initDefaults();
+        this.expert = new Rectangle(this, {x1: 0, x2: 4, y1: 0, y2: 4});
 
         this.enableTextures(true);
-
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -266,7 +266,7 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // ---- END Background, camera and axis setup
-        
+
         // ---- BEGIN Primary display
 
         this.pushMatrix();
@@ -276,6 +276,10 @@ class MyScene extends CGFscene {
         if (this.graphLoaded) {
             this.traverseGraph();
         }
+
+
+
+        this.expert.display();
 
         this.popMatrix();
 
