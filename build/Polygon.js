@@ -1,7 +1,5 @@
-class Regular extends CGFobject
-{
-    constructor(scene, sides, radius = 1, coords = [0, 1, 0, 1])
-    {
+class Regular extends CGFobject {
+    constructor(scene, sides, radius = 1, coords = [0, 1, 0, 1]) {
         super(scene);
         this.sides = sides;
         this.radius = radius;
@@ -14,8 +12,7 @@ class Regular extends CGFobject
         this.initBuffers();
     }
 
-    initBuffers()
-    {
+    initBuffers() {
         const sin = Math.sin, cos = Math.cos, PI = Math.PI;
         const sides = this.sides, radius = this.radius,
             coords = this.coords;
@@ -38,7 +35,7 @@ class Regular extends CGFobject
         this.normals.push(0, -1, 0);
         this.texCoords.push((coords.minS + coords.maxS) / 2);
         this.texCoords.push((coords.minT + coords.maxT) / 2);
-        
+
         for (let i = 0; i <= sides; ++i) {
             let theta = -thetaInc * (i + 0.5);
             let xUnit = cos(theta);
@@ -87,10 +84,8 @@ class Regular extends CGFobject
 
 
 
-class Polygon extends CGFobject
-{
-    constructor(scene, V, coords = [0, 1, 0, 1])
-    {
+class Polygon extends CGFobject {
+    constructor(scene, V, coords = [0, 1, 0, 1]) {
         super(scene);
         this.V = V;
         this.coords = {
@@ -99,17 +94,16 @@ class Polygon extends CGFobject
             minT: coords[2],
             maxT: coords[3]
         };
-        this.initBuffers(); 
+        this.initBuffers();
     }
 
-    initBuffers()
-    {
+    initBuffers() {
         const V = this.V, coords = this.coords;
 
         let b = {
-            minX:  Infinity,
+            minX: Infinity,
             maxX: -Infinity,
-            minZ:  Infinity,
+            minZ: Infinity,
             maxZ: -Infinity
         };
 
@@ -117,7 +111,7 @@ class Polygon extends CGFobject
         this.indices = [];
         this.normals = [];
         this.texCoords = [];
-        
+
         for (let i = 0; i < V.length; ++i) {
             let X = V[i][0];
             let Z = V[i][1];
@@ -182,112 +176,161 @@ class Polygon extends CGFobject
 
 
 
-class Square extends CGFobject
-{
-    constructor(scene, side = 1, coords = [0, 1, 0, 1]) 
-    {
+class Square extends CGFobject {
+    constructor(scene, side = 1, coords = [0, 1, 0, 1]) {
         super(scene);
         let V = [
             [-side / 2, -side / 2],
-            [ side / 2, -side / 2],
-            [ side / 2,  side / 2],
-            [-side / 2,  side / 2]
+            [side / 2, -side / 2],
+            [side / 2, side / 2],
+            [-side / 2, side / 2]
         ];
         this.square = new Polygon(scene, V, coords);
         this.initBuffers();
     }
 
-    display()
-    {
+    display() {
         this.square.display();
     }
 }
 
 
 
-class Circle extends CGFobject
-{
-    constructor(scene, radius = 1, slices = 64, coords = [0, 1, 0, 1])
-    {
+class Circle extends CGFobject {
+    constructor(scene, radius = 1, slices = 64, coords = [0, 1, 0, 1]) {
         super(scene);
         this.circle = new Regular(scene, slices, radius, coords);
         this.initBuffers();
     }
 
-    display()
-    {
+    display() {
+
         this.circle.display();
     }
 }
 
 
 
-class Triangle extends CGFobject
-{
-    constructor(scene, side = 1, coords = [0, 1, 0, 1])
-    {
+class Triangle extends CGFobject {
+    constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3) {
         super(scene);
-        this.triangle = new Regular(scene, 3, side / Math.sqrt(3), coords);
+        this.A = { X: x1, Y: y1, Z: z1 };
+        this.B = { X: x2, Y: y2, Z: z2 };
+        this.C = { X: x3, Y: y3, Z: z3 };
+
         this.initBuffers();
     }
 
-    display()
-    {
-        this.triangle.display();
-    }
+    initBuffers() {
+
+        this.vertices = [this.A.X, this.A.Y, this.A.Z,
+        this.A.X, this.A.Y, this.A.Z,
+        this.B.X, this.B.Y, this.B.Z,
+        this.B.X, this.B.Y, this.B.Z,
+        this.C.X, this.C.Y, this.C.Z,
+        this.C.X, this.C.Y, this.C.Z];
+
+        this.indices = [0, 2, 4, 1, 5, 3];
+
+        let normal1 = triangleOrientation(this.A, this.B, this.C);
+
+        this.normals = [normal1.X, normal1.Y, normal1.Z,
+        -normal1.X, -normal1.Y, -normal1.Z,
+        normal1.X, normal1.Y, normal1.Z,
+        -normal1.X, -normal1.Y, -normal1.Z,
+        normal1.X, normal1.Y, normal1.Z,
+        -normal1.X, -normal1.Y, -normal1.Z,
+
+        ]
+        this.primitiveType = this.scene.gl.TRIANGLES;
+        this.initGLBuffers();
+    };
 }
 
 
 
-class Rectangle extends CGFobject
-{
-    constructor(scene, sideX, sideZ, coords = [0, 1, 0, 1])
-    {
+class Rectangle extends CGFobject {
+    constructor(scene, V, coords = [0, 1, 0, 1]) {
         super(scene);
-        this.square = new Square(scene, 1, coords);
-        this.sideX = sideX;
-        this.sideZ = sideZ;
+        this.V = V;
+        this.minS = coords[0];
+        this.maxS = coords[1];
+        this.minT = coords[2];
+        this.maxT = coords[3];
         this.initBuffers();
+
     }
 
-    display()
-    {
-        this.scene.pushMatrix();
-            this.scene.scale(this.sideX, 1, this.sideZ);
-            this.square.display();
-        this.scene.popMatrix();
-    }
+    initBuffers() {
+
+        this.vertices = [this.V.x1, this.V.y1, 0,
+        this.V.x2, this.V.y1, 0,
+        this.V.x1, this.V.y2, 0,
+        this.V.x2, this.V.y2, 0,
+        this.V.x1, this.V.y1, 0,
+        this.V.x2, this.V.y1, 0,
+        this.V.x1, this.V.y2, 0,
+        this.V.x2, this.V.y2, 0];
+
+
+        this.indices = [
+            0, 1, 2,
+            3, 2, 1,
+            4, 6, 5,
+            6,7,5
+        ];
+
+        this.primitiveType = this.scene.gl.TRIANGLES;
+
+        this.normals = [
+            0, 0, 1,
+            0, 0, -1,
+            0, 0, 1,
+            0, 0, -1,
+
+            0, 0, 1,
+            0, 0, -1,
+            0, 0, 1,
+            0, 0, -1,
+
+        ];
+
+        this.texCoords = [
+            this.minS, this.minT,
+            this.minS, this.maxT,
+            this.maxS, this.minT,
+            this.maxS, this.maxS
+        ];
+
+        this.initGLBuffers();
+    };
+
 }
 
 
 
-class Trapezium extends CGFobject
-{
-    constructor(scene, base = 1, height = 1, top = 1, coords = [0, 1, 0, 1])
-    {
+class Trapezium extends CGFobject {
+    constructor(scene, base = 1, height = 1, top = 1, coords = [0, 1, 0, 1]) {
         super(scene);
         let V = [
             [-base / 2, -height / 2],
-            [ base / 2, -height / 2],
-            [  top / 2,  height / 2],
-            [ -top / 2,  height / 2]
+            [base / 2, -height / 2],
+            [top / 2, height / 2],
+            [-top / 2, height / 2]
         ];
         this.trapezium = new Polygon(scene, V, coords);
         this.initBuffers();
     }
 
-    display()
-    {
+    display() {
         this.trapezium.display();
     }
 }
 
 
 
-class tPolygon extends CGFobject
-{
-    constructor(scene, tfunction, limits = [0, 1], samples = 1024, coords = [0, 1, 0, 1])
-    {
+class tPolygon extends CGFobject {
+    constructor(scene, tfunction, limits = [0, 1], samples = 1024, coords = [0, 1, 0, 1]) {
         super(scene);
         this.tfunction = tfunction;
         this.limits = {
@@ -304,17 +347,16 @@ class tPolygon extends CGFobject
         this.initBuffers()
     }
 
-    initBuffers()
-    {
+    initBuffers() {
         const tfunction = this.tfunction, l = this.limits,
             samples = this.samples, coords = this.coords;
 
         const tInc = (l.maxT - l.minT) / samples;
 
         let b = {
-            minX:  Infinity,
+            minX: Infinity,
             maxX: -Infinity,
-            minZ:  Infinity,
+            minZ: Infinity,
             maxZ: -Infinity
         };
 
@@ -390,10 +432,8 @@ class tPolygon extends CGFobject
 
 
 
-class rPolygon extends CGFobject
-{
-    constructor(scene, rfunction, limits = [-Math.PI, Math.PI], samples = 1024, coords = [0, 1, 0, 1])
-    {
+class rPolygon extends CGFobject {
+    constructor(scene, rfunction, limits = [-Math.PI, Math.PI], samples = 1024, coords = [0, 1, 0, 1]) {
         super(scene);
         this.rfunction = rfunction;
         this.limits = {
@@ -410,8 +450,7 @@ class rPolygon extends CGFobject
         this.initBuffers();
     }
 
-    initBuffers()
-    {
+    initBuffers() {
         const sin = Math.sin, cos = Math.cos, PI = Math.PI;
         const rfunction = this.rfunction, l = this.limits,
             samples = this.samples, coords = this.coords;
@@ -419,9 +458,9 @@ class rPolygon extends CGFobject
         const thetaInc = (l.maxTheta - l.minTheta) / samples;
 
         let b = {
-            minX:  Infinity,
+            minX: Infinity,
             maxX: -Infinity,
-            minZ:  Infinity,
+            minZ: Infinity,
             maxZ: -Infinity
         };
 
