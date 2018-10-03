@@ -10,43 +10,50 @@
     </views>
 
     <ambient>
-        <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0"/>
         <background r="0.075" g="0.125" b="0.150" a="1.0"/>
     </ambient>
 
     <lights>
-        <omni id="light-1" enabled="1">
+        <omni id="light-0" enabled="0">
             <location x="36" y="7" z="15" w="1"/>
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
-            <diffuse r="0.6" g="0.6" b="0.25" a="1.0"/>
-            <specular r="0.9" g="0.2" b="0.3" a="1.0"/>
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0"/>
+            <diffuse r="0.3" g="0.4" b="0.25" a="1.0"/>
+            <specular r="0.9" g="0.8" b="0.7" a="1.0"/>
         </omni>
-        <omni id="light-2" enabled="1">
+        <omni id="light-1" enabled="0">
             <location x="23" y="-10" z="-10" w="1"/>
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
-            <diffuse r="0.6" g="0.25" b="0.6" a="1.0"/>
-            <specular r="0.3" g="0.7" b="1.0" a="1.0"/>
+            <ambient r="0.05" g="0.10" b="0.15" a="1.0"/>
+            <diffuse r="0.2" g="0.25" b="0.35" a="1.0"/>
+            <specular r="0.6" g="0.7" b="1.0" a="1.0"/>
         </omni>
-        <omni id="light-3" enabled="1">
+        <omni id="light-2" enabled="0">
             <location x="10" y="5" z="8" w="1"/>
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
-            <diffuse r="0.25" g="0.6" b="0.6" a="1.0"/>
-            <specular r="0.8" g="0.8" b="0.3" a="1.0"/>
+            <ambient r="0.05" g="0.05" b="0.05" a="1.0"/>
+            <diffuse r="0.25" g="0.4" b="0.2" a="1.0"/>
+            <specular r="0.8" g="0.8" b="0.8" a="1.0"/>
         </omni>
-        <omni id="light-4" enabled="1">
+        <omni id="light-3" enabled="0">
             <location x="33" y="10" z="-4" w="1"/>
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
+            <ambient r="0.0" g="0.05" b="0.10" a="1.0"/>
             <diffuse r="0.25" g="1.0" b="1.0" a="1.0"/>
             <specular r="0.3" g="0.6" b="0.9" a="1.0"/>
         </omni>
+        <spot id="light-4" enabled="1" angle="60" exponent="5">
+            <location x="45" y="6" z="10" w="1"/>
+            <target x="45" y="0" z="10"/>
+            <ambient r="0.03" g="0.05" b="0.01" a="1"/>
+            <diffuse r="0.3" g="0.15" b="0.2" a="1"/>
+            <specular r="0.7" g="0.8" b="0.6" a="1"/>
+        </spot>
     </lights>
 
     <textures>
-        <texture id="tex-bank" file="images/bank.jpg"/>
-        <texture id="tex-leaves" file="images/leaves.jpg"/>
-        <texture id="tex-rocks" file="images/rocks.jpg"/>
-        <texture id="tex-trunk" file="images/trunk.jpg"/>
-        <texture id="tex-vidral" file="images/vidral.jpg"/>
+        <texture id="tex-bank" file="imagess/bank.jpg"/>
+        <texture id="tex-leaves" file="imagess/leaves.jpg"/>
+        <texture id="tex-rocks" file="imagess/rocks.jpg"/>
+        <texture id="tex-trunk" file="imagess/trunk.jpg"/>
+        <texture id="tex-vidral" file="imagess/vidral.jpg"/>
     </textures>
 
     <materials>

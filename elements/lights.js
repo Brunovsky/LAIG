@@ -16,7 +16,7 @@ class XMLSpot extends XMLElement {
 	constructor(node) {
 		super(node, {
 			id: "ss", enabled: "tt", angle: "ff", exponent: "ff",
-			location: { x: "ff", y: "ff", z: "ff" },
+			location: { x: "ff", y: "ff", z: "ff", w: "ff" },
 			target: { x: "ff", y: "ff", z: "ff" },
 			ambient: { r: "rr", g: "rr", b: "rr", a: "rr" },
 			diffuse: { r: "rr", g: "rr", b: "rr", a: "rr" },

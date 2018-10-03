@@ -103,44 +103,48 @@ class MyScene extends CGFscene {
 
         let i = 0;
 
-        // Reads the lights from the scene graph.
         for (let id in lights.elements) {
             let light = lights.elements[id];
             if (i >= 8) break;
 
-            if (light.type === "omni") {
-                light.index = i;
+            light.index = i;
 
-                let location = light.data.location;
-                let ambient = light.data.ambient;
-                let diffuse = light.data.diffuse;
-                let specular = light.data.specular;
+            let location = light.data.location;
+            let ambient = light.data.ambient;
+            let diffuse = light.data.diffuse;
+            let specular = light.data.specular;
 
-                this.lights[i].setPosition(location.x, location.y, location.z, location.w);
-                this.lights[i].setAmbient(ambient.r, ambient.g, ambient.b, ambient.a);
-                this.lights[i].setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
-                this.lights[i].setSpecular(specular.r, specular.g, specular.b, specular.a);
-                this.lights[i].setVisible(LIGHTS_VISIBLE);
+            this.lights[i].setPosition(location.x, location.y, location.z, location.w);
+            this.lights[i].setAmbient(ambient.r, ambient.g, ambient.b, ambient.a);
+            this.lights[i].setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
+            this.lights[i].setSpecular(specular.r, specular.g, specular.b, specular.a);
 
-                this.lights[i].setConstantAttenuation(LIGHT_CONSTANT_ATTENUATION);
-                this.lights[i].setLinearAttenuation(LIGHT_LINEAR_ATTENUATION);
-                this.lights[i].setQuadraticAttenuation(LIGHT_QUADRATIC_ATTENUATION);
+            if (light.type === "spot") {
+                let target = light.data.target;
+                let angle = light.data.angle;
+                let exponent = light.data.exponent;
 
-                console.log(light.data.enabled);
-                if (light.data.enabled) {
-                    console.log("ENABLE");
-                    this.lights[i].enable();
-                } else {
-                    console.log("DISABLE");
-                    this.lights[i].disable();
-                }
-
-                this.lights[i].update();
-
-                ++i;
-            } else {
-                console.warn("light > spot not yet supported in MyScene");
+                this.lights[i].setSpotDirection(target.x - location.x,
+                    target.y - location.y, target.z - location.z);
+                //this.lights[i].setSpotDirection(target.x, target.y, target.z);
+                this.lights[i].setSpotCutOff(angle);
+                this.lights[i].setSpotExponent(exponent);
             }
+
+            this.lights[i].setConstantAttenuation(LIGHT_CONSTANT_ATTENUATION);
+            this.lights[i].setLinearAttenuation(LIGHT_LINEAR_ATTENUATION);
+            this.lights[i].setQuadraticAttenuation(LIGHT_QUADRATIC_ATTENUATION);
+            this.lights[i].setVisible(LIGHTS_VISIBLE);
+
+            if (light.data.enabled) {
+                this.lights[i].enable();
+            } else {
+                this.lights[i].disable();
+            }
+
+            this.lights[i].update();
+
+            ++i;
         }
     }
 
