@@ -37,6 +37,31 @@ function buildPrimitive(scene, primitive) {
 		return new Sphere(scene, dt.radius, dt.slices, dt.stacks);
 	case 'halfsphere':
 		return new ClosedHalfSphere(scene, dt.radius, dt.slices, dt.stacks);
+		
+	case 'opencone':
+		return new Cone(scene, dt.radius, dt.height, dt.slices, dt.stacks);
+	case 'doublecone':
+		return new DoubleCone(scene, dt.radius, dt.height, dt.slices, dt.stacks);
+	case 'spheredcone':
+		return new SpheredCone(scene, dt.radius, dt.height, dt.slices, dt.stacks);
+	case 'openpyramid':
+		return new Pyramid(scene, dt.sides, dt.radius, dt.height, dt.stacks);
+	case 'doublepyramid':
+		return new DoublePyramid(scene, dt.sides, dt.radius, dt.height, dt.stacks);
+	case 'opencylinder':
+		return new CutCone(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
+	case 'doublecylinder':
+		return new DoubleCutCone(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
+	case 'spheredcylinder':
+		return new SpheredCutCone(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
+	case 'openprism':
+		return new CutPyramid(scene, dt.sides, dt.base, dt.top, dt.height, dt.stacks);
+	case 'doubleprism':
+		return new DoubleCutPyramid(scene, dt.sides, dt.base, dt.top, dt.height, dt.stacks);
+	case 'openhalfsphere':
+		return new HalfSphere(scene, dt.radius, dt.slices, dt.stacks);
+	case 'flipsphere':
+		return new FlipSphere(scene, dt.radius, dt.slices, dt.stacks);
 
 	// 3. Complex Planar Primitives
 	case 'heart':

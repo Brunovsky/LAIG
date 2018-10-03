@@ -8,7 +8,7 @@ class XMLYas extends XMLBase {
 			throw new XMLException(node, "Root node does not have tagname 'yas'");
 		}
 
-		let tags = ["scene", "views", "ambient", "lights", "textures",
+		const tags = ["scene", "views", "ambient", "lights", "textures",
 			"materials", "transformations", "primitives", "components"];
 
 		if (node.childElementCount !== 9) {
@@ -16,8 +16,8 @@ class XMLYas extends XMLBase {
 		}
 
 		for (let i = 0; i < 9; ++i) {
-			let child = node.children[i];
-			let name = child.tagName.toLocaleLowerCase();
+			const child = node.children[i];
+			const name = child.tagName.toLocaleLowerCase();
 			if (tags[i] !== name) {
 				throw new XMLException(child, "Expected tagname " + tags[i]);
 			}
@@ -46,17 +46,17 @@ class XMLYas extends XMLBase {
 
 	resolveReferences() {
 		for (let componentId in this.components.elements) {
-			let component = this.components.elements[componentId];
+			const component = this.components.elements[componentId];
 
-			let transformation = component.transformation;
-			let materials = component.materials.elements;
-			let texture = component.texture;
-			let children = component.children.elements;
+			const transformation = component.transformation;
+			const materials = component.materials.elements;
+			const texture = component.texture;
+			const children = component.children.elements;
 
 			// 1. Resolve transformationref references
 			if (transformation.mode === "reference") {
-				let id = transformation.id;
-				let transfref = this.transformations.get(id);
+				const id = transformation.id;
+				const transfref = this.transformations.get(id);
 
 				if (transfref == null) {
 					throw new XMLException(transformation.node,
@@ -68,11 +68,11 @@ class XMLYas extends XMLBase {
 
 			// 2. Resolve material references
 			for (let material of materials) {
-				let id = material.id;
+				const id = material.id;
 
 				if (material.mode !== "reference") continue;
 
-				let materialref = this.materials.get(id);
+				const materialref = this.materials.get(id);
 
 				if (materialref == null) {
 					throw new XMLException(material.node,
@@ -84,8 +84,8 @@ class XMLYas extends XMLBase {
 
 			// 3. Resolve texture reference
 			if (texture.mode === "reference") {
-				let id = texture.id;
-				let textureref = this.textures.get(id);
+				const id = texture.id;
+				const textureref = this.textures.get(id);
 
 				if (textureref == null) {
 					throw new XMLException(texture.node,
@@ -97,11 +97,11 @@ class XMLYas extends XMLBase {
 
 			// 4. Resolve primitiveref and componentref references
 			for (let id in children) {
-				let child = children[id]; // XMLPrimitiveRef or XMLComponentRef
+				const child = children[id]; // XMLPrimitiveRef or XMLComponentRef
 
 				// 4.1. Resolve primitiveref references
 				if (child.type === "primitiveref") {
-					let primitive = this.primitives.get(id);
+					const primitive = this.primitives.get(id);
 
 					if (primitive == null) {
 						throw new XMLException(child.node,
@@ -113,7 +113,7 @@ class XMLYas extends XMLBase {
 
 				// 4.2. Resolve componentref references
 				else if (child.type === "componentref") {
-					let component = this.components.get(id);
+					const component = this.components.get(id);
 
 					if (component == null) {
 						throw new XMLException(child.node,
@@ -127,8 +127,8 @@ class XMLYas extends XMLBase {
 	}
 
 	validateRoot() {
-		let rootId = this.scene.data.root;
-		this.root = this.components.get(rootId);
+		const id = this.scene.data.root;
+		this.root = this.components.get(id);
 
 		if (this.root == null) {
 			throw new XMLException(this.scene.node,
@@ -136,7 +136,7 @@ class XMLYas extends XMLBase {
 		}
 
 		for (let i = 0; i < this.root.materials.elements.length; ++i) {
-			let mat = this.root.materials.elements[i];
+			const mat = this.root.materials.elements[i];
 
 			if (mat.id === "inherit") {
 				throw new XMLException(mat.node,
@@ -151,7 +151,7 @@ class XMLYas extends XMLBase {
 	}
 
 	validateViews() {
-		let id = this.views.data.default;
+		const id = this.views.data.default;
 		
 		if (this.views.get(id) == null) {
 			throw new XMLException(this.views.node,
@@ -160,14 +160,14 @@ class XMLYas extends XMLBase {
 	}
 
 	validateGraph() {
-		let components = this.components;
-		let stack = new Stack();
-		let visited = new Set();
+		const components = this.components;
+		const stack = new Stack();
+		const visited = new Set();
 
 		// Depth first traversal
 		function dft(id) {
-			let parent = components.get(id);
-			let children = parent.children.elements;
+			const parent = components.get(id);
+			const children = parent.children.elements;
 
 			visited.add(id);
 
@@ -183,7 +183,7 @@ class XMLYas extends XMLBase {
 			stack.push(id);
 
 			for (let id in children) {
-				let child = children[id];
+				const child = children[id];
 				
 				if (child.type == "componentref") {
 					dft(id);
@@ -206,7 +206,7 @@ class XMLYas extends XMLBase {
 	}
 
 	printWarnings() {
-		let count = 0;
+		const count = 0;
 
 		for (let id of this.unreachable) {
 			console.warn("Warning: component " + id + " is not reachable");

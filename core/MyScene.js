@@ -83,7 +83,7 @@ class MyScene extends CGFscene {
 
         this.views = {};
 
-        for (let id in views.elements) {
+        for (const id in views.elements) {
             const view = views.elements[id];
             const data = view.data;
 
@@ -120,7 +120,7 @@ class MyScene extends CGFscene {
 
         let i = 0;
 
-        for (let id in lights.elements) {
+        for (const id in lights.elements) {
             const light = lights.elements[id];
             if (i >= 8) break;
 
@@ -170,7 +170,7 @@ class MyScene extends CGFscene {
 
         this.textures = {};
 
-        for (let id in textures.elements) {
+        for (const id in textures.elements) {
             const texture = textures.elements[id];
 
             this.textures[id] = new CGFtexture(this, texture.data.file);
@@ -182,7 +182,7 @@ class MyScene extends CGFscene {
 
         this.materials = {};
 
-        for (let id in materials.elements) {
+        for (const id in materials.elements) {
             const material = materials.elements[id];
 
             const shininess = material.data.shininess;
@@ -206,7 +206,7 @@ class MyScene extends CGFscene {
 
         this.primitives = {};
 
-        for (let id in primitives.elements) {
+        for (const id in primitives.elements) {
             const prim = primitives.elements[id];
 
             this.primitives[id] = buildPrimitive(this, prim);
@@ -233,7 +233,7 @@ class MyScene extends CGFscene {
     applyTransformation(transformation) {
         const operations = transformation.elements;
 
-        for (let operation of operations) {
+        for (const operation of operations) {
             const data = operation.data;
 
             switch (operation.type) {
@@ -261,12 +261,13 @@ class MyScene extends CGFscene {
     }
 
     updateLights()  {
-        for (var i = 0; i < this.lights.length; i++)
+        for (let i = 0; i < this.lights.length; ++i) {
             this.lights[i].update();
+        }
     }
 
     display() {
-        // ---- BEGIN Background, camera and axis setup
+        // ---- BEGIN Pre-setup (background, matrix, lights, camera, ...)
 
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -281,7 +282,7 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
         this.updateLights();
 
-        // ---- END Background, camera and axis setup
+        // ---- END Pre-setup (background, matrix, lights, camera, ...)
 
         // ---- BEGIN Primary display
 
@@ -336,7 +337,7 @@ class MyScene extends CGFscene {
         sceneMaterial.apply();
 
         // Recurse & Display primitives
-        for (let id in children.elements) {
+        for (const id in children.elements) {
             const child = children.elements[id];
             if (child.type === "componentref") {
                 this.traverser(child.ref, sceneMaterial, sceneTexture);
