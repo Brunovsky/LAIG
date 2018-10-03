@@ -1,47 +1,73 @@
 /**
 * MyInterface class, creating a GUI interface.
+*
+* http://workshop.chromeexperiments.com/examples/gui
 */
 class MyInterface extends CGFinterface {
-    /**
-     * @constructor
-     */
     constructor() {
         super();
     }
 
-    /**
-     * Initializes the interface.
-     * @param {CGFapplication} application
-     */
     init(application) {
         super.init(application);
-        // init GUI. For more information on the methods, check:
-        //  http://workshop.chromeexperiments.com/examples/gui
 
         this.gui = new dat.GUI();
-
-        // add a group of controls (and open/expand by defult)
+        this.control = {};
 
         return true;
     }
 
+    populate(scene, yas) {
+        this.scene = scene;
+        this.yas = yas;
+
+        let lights = this.scene.lights;
+        let views = this.scene.views;
+
+        this.addLightsGroup(yas.lights);
+        this.addViewsGroup(yas.views);
+    }
+
     /**
-     * Adds a folder containing the IDs of the lights passed as parameter.
+     * Adds a folder for the lights.
      * @param {array} lights
      */
-    addLightsGroup(lights) {
+    addLightsGroup() {
+        const lights = this.yas.lights;
 
-        let group = this.gui.addFolder("Lights");
-        group.open();
+        this.control.lights = {};
 
-        // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-        // e.g. this.option1=true; this.option2=false;
+        let lightsGroup = this.gui.addFolder("Lights");
+        lightsGroup.open();
 
-        for (let key in lights) {
-            if (lights.hasOwnProperty(key)) {
-                this.scene.lightValues[key] = lights[key][0];
-                group.add(this.scene.lightValues, key);
-            }
+        for (let id in lights.elements) {
+            let light = lights.elements[id];
+            let name = id + " (" + light.type + ")";
+            let index = light.index;
+
+            this.control.lights[name] = true;
+            lightsGroup.add(this.control.lights, name)
+                .onChange(value => this.scene.selectLight(index, value));
+        }
+    }
+
+    /**
+     * Adds a folder for the views.
+     */
+    addViewsGroup() {
+        const views = this.yas.views;
+
+        this.control.views = {};
+
+        let viewsGroup = this.gui.addFolder("Views");
+        viewsGroup.open();
+
+        for (let id in views.elements) {
+            let view = views.elements[id];
+            let name = id + " (" + view.type + ")";
+
+            this.control.views[name] = value => this.scene.selectView(id);
+            viewsGroup.add(this.control.views, name);
         }
     }
 }

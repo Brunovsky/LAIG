@@ -1,18 +1,17 @@
-
-
 /**
  * XMLscene class, representing the scene that is to be rendered.
  */
 class MyScene extends CGFscene {
     /**
      * @constructor
-     * @param {MyInterface} myinterface 
+     * @param {MyInterface} myInterface 
+    }
      */
-    constructor(myinterface) {
+    constructor(myInterface) {
         super(); // noop
 
-        this.myinterface = myinterface;
-        this.lightValues = {};
+        this.interface = myInterface;
+        myInterface.scene = this;
 
         this.newCamera = false;
     }
@@ -31,7 +30,6 @@ class MyScene extends CGFscene {
         this.graphLoaded = false;
 
         this.initDefaults();
-        this.expert = new Rectangle(this, {x1: 0, x2: 4, y1: 0, y2: 4});
 
         this.enableTextures(true);
         this.gl.clearDepth(100.0);
@@ -68,6 +66,8 @@ class MyScene extends CGFscene {
 
         this.initPrimitives();
 
+        this.interface.populate(this, this.graph.yas);
+
         this.graphLoaded = true;
     }
 
@@ -81,9 +81,26 @@ class MyScene extends CGFscene {
     initViews() {
         const views = this.graph.yas.views;
 
-        this.selectedCamera = views.data.default;
+        this.views = {};
 
-        this.newCamera = true;
+        for (let id in views.elements) {
+            const view = views.elements[id];
+            const data = view.data;
+
+            if (view.type === "perspective") {
+                const position = vec3.fromValues(data.from.x, data.from.y, data.from.z);
+                const target = vec3.fromValues(data.to.x, data.to.y, data.to.z);
+                const fov = degToRad(data.angle), near = data.near, far = data.far;
+
+                this.views[id] = new CGFcamera(fov, near, far, position, target);
+            } else {
+                console.warn("views > ortho is not implemented yet.");
+            }
+        }
+
+        console.log(this.camera);
+
+        this.selectView(views.data.default);
     }
 
     initAmbient() {
@@ -104,15 +121,15 @@ class MyScene extends CGFscene {
         let i = 0;
 
         for (let id in lights.elements) {
-            let light = lights.elements[id];
+            const light = lights.elements[id];
             if (i >= 8) break;
 
             light.index = i;
 
-            let location = light.data.location;
-            let ambient = light.data.ambient;
-            let diffuse = light.data.diffuse;
-            let specular = light.data.specular;
+            const location = light.data.location;
+            const ambient = light.data.ambient;
+            const diffuse = light.data.diffuse;
+            const specular = light.data.specular;
 
             this.lights[i].setPosition(location.x, location.y, location.z, location.w);
             this.lights[i].setAmbient(ambient.r, ambient.g, ambient.b, ambient.a);
@@ -120,26 +137,26 @@ class MyScene extends CGFscene {
             this.lights[i].setSpecular(specular.r, specular.g, specular.b, specular.a);
 
             if (light.type === "spot") {
-                let target = light.data.target;
-                let angle = light.data.angle;
-                let exponent = light.data.exponent;
+                const target = light.data.target;
+                const angle = light.data.angle;
+                const exponent = light.data.exponent;
 
-                this.lights[i].setSpotDirection(target.x - location.x,
-                    target.y - location.y, target.z - location.z);
-                //this.lights[i].setSpotDirection(target.x, target.y, target.z);
                 this.lights[i].setSpotCutOff(angle);
                 this.lights[i].setSpotExponent(exponent);
+                this.lights[i].setSpotDirection(target.x - location.x,
+                    target.y - location.y, target.z - location.z);
             }
 
             this.lights[i].setConstantAttenuation(LIGHT_CONSTANT_ATTENUATION);
             this.lights[i].setLinearAttenuation(LIGHT_LINEAR_ATTENUATION);
             this.lights[i].setQuadraticAttenuation(LIGHT_QUADRATIC_ATTENUATION);
-            this.lights[i].setVisible(LIGHTS_VISIBLE);
 
             if (light.data.enabled) {
                 this.lights[i].enable();
+                this.lights[i].setVisible(ENABLED_LIGHTS_VISIBLE);
             } else {
                 this.lights[i].disable();
+                this.lights[i].setVisible(DISABLED_LIGHTS_VISIBLE);
             }
 
             this.lights[i].update();
@@ -154,7 +171,7 @@ class MyScene extends CGFscene {
         this.textures = {};
 
         for (let id in textures.elements) {
-            let texture = textures.elements[id];
+            const texture = textures.elements[id];
 
             this.textures[id] = new CGFtexture(this, texture.data.file);
         }
@@ -166,13 +183,13 @@ class MyScene extends CGFscene {
         this.materials = {};
 
         for (let id in materials.elements) {
-            let material = materials.elements[id];
+            const material = materials.elements[id];
 
-            let shininess = material.data.shininess;
-            let emission = material.data.emission;
-            let ambient = material.data.ambient;
-            let diffuse = material.data.diffuse;
-            let specular = material.data.specular;
+            const shininess = material.data.shininess;
+            const emission = material.data.emission;
+            const ambient = material.data.ambient;
+            const diffuse = material.data.diffuse;
+            const specular = material.data.specular;
 
             this.materials[id] = new CGFappearance(this);
 
@@ -190,41 +207,43 @@ class MyScene extends CGFscene {
         this.primitives = {};
 
         for (let id in primitives.elements) {
-            let prim = primitives.elements[id];
+            const prim = primitives.elements[id];
 
             this.primitives[id] = buildPrimitive(this, prim);
         }
     }
 
-    setCamera(id) {
-        let view = this.graph.yas.views.get(id);
-        let data = view.data;
+    selectLight(i, value) {
+        console.log(i, value);
+        if (value) {
+            this.lights[i].enable();
+            this.lights[i].setVisible(ENABLED_LIGHTS_VISIBLE);
+        } else {
+            this.lights[i].disable();
+            this.lights[i].setVisible(DISABLED_LIGHTS_VISIBLE);
+        }
+    }
 
-        // Position
-        this.camera.setPosition(vec3.fromValues(data.from.x, data.from.y, data.from.z));
-
-        // Target
-        this.camera.setTarget(vec3.fromValues(data.to.x, data.to.y, data.to.z));
-
-        this.camera.near = data.near;
-        this.camera.far = data.far;
-        //this.camera.fov = degToRad(data.angle);
+    selectView(id) {
+        console.log(id);
+        this.camera = this.views[id];
+        this.interface.setActiveCamera(this.camera);
     }
 
     applyTransformation(transformation) {
-        let operations = transformation.elements;
+        const operations = transformation.elements;
 
         for (let operation of operations) {
-            let data = operation.data;
+            const data = operation.data;
 
             switch (operation.type) {
             case 'translate':
                 this.translate(data.x, data.y, data.z);
                 break;
             case 'rotate':
-                let x = data.axis === 'x';
-                let y = data.axis === 'y';
-                let z = data.axis === 'z';
+                const x = data.axis === 'x';
+                const y = data.axis === 'y';
+                const z = data.axis === 'z';
                 this.rotate(degToRad(data.angle), x, y, z);
                 break;
             case 'scale':
@@ -241,22 +260,12 @@ class MyScene extends CGFscene {
         }
     }
 
-    presetup() {
-        if (this.newCamera) {
-            this.newCamera = false;
-
-            this.setCamera(this.selectedCamera);
-        }
-    }
-
     updateLights()  {
         for (var i = 0; i < this.lights.length; i++)
             this.lights[i].update();
     }
 
     display() {
-        this.presetup();
-
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
@@ -283,10 +292,6 @@ class MyScene extends CGFscene {
         if (this.graphLoaded) {
             this.traverseGraph();
         }
-
-
-
-        this.expert.display();
 
         this.popMatrix();
 
@@ -327,11 +332,12 @@ class MyScene extends CGFscene {
 
         // Apply Material
         sceneMaterial.setTexture(sceneTexture);
+        sceneMaterial.setTextureWrap(texture.data.length_s, texture.data.length_t);
         sceneMaterial.apply();
 
         // Recurse & Display primitives
         for (let id in children.elements) {
-            let child = children.elements[id];
+            const child = children.elements[id];
             if (child.type === "componentref") {
                 this.traverser(child.ref, sceneMaterial, sceneTexture);
             } else {

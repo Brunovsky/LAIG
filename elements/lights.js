@@ -25,10 +25,10 @@ class XMLSpot extends XMLElement {
 		});
 		this.type = "spot";
 
-		if (this.data.target.z == this.data.location.z 
+		if (this.data.target.x == this.data.location.x 
 		 && this.data.target.y == this.data.location.y
-		 && this.data.target.x == this.data.location.x) {
-			throw new XMLException(node, "target needs to be != from location");
+		 && this.data.target.z == this.data.location.z) {
+			throw new XMLException(node, "target needs to be different from location");
 		}
 	}
 }
