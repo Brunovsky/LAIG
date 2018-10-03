@@ -19,7 +19,7 @@ class MySceneGraph {
          * If any error occurs, the reader calls onXMLError,
          * with an error message
          */
-        this.reader.open('scenes/' + filename, this);
+        this.reader.open(filename, this);
     }
 
     onXMLReady() {

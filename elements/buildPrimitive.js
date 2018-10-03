@@ -13,9 +13,10 @@ function buildPrimitive(scene, primitive) {
 	case 'circle':
 		return new Circle(scene, dt.radius, dt.slices);
 	case 'triangle': // Not Supported
-		return new Triangle(scene, 1);
+		return new Triangle(scene, dt.x1, dt.y1, dt.z1,
+			dt.x2, dt.y2, dt.z2, dt.x3, dt.y3, dt.z3);
 	case 'rectangle': // Not Supported
-		return new Rectangle(scene, 2, 3);
+		return new Rectangle(scene, {x1: dt.x1, y1: dt.y1, x2: dt.x2, y2: dt.y2});
 	case 'trapezium':
 		return new Trapezium(scene, dt.base, dt.height, dt.top);
 
@@ -25,7 +26,7 @@ function buildPrimitive(scene, primitive) {
 	case 'pyramid':
 		return new ClosedPyramid(scene, dt.sides, dt.radius, dt.height, dt.stacks);
 	case 'cylinder':
-		return new ClosedCylinder(scene, dt.radius, dt.height, dt.slices, dt.stacks);
+		return new ClosedCutCone(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
 	case 'prism':
 		return new ClosedPrism(scene, dt.sides, dt.radius, dt.height, dt.stacks);
 	case 'cube':
