@@ -1,14 +1,4 @@
-function degToRad(deg) {
-    return deg * Math.PI / 180;
-}
 
-var DEGREE_TO_RAD = Math.PI / 180;
-
-var AXIS_THICKNESS = 0.05;
-
-var LIGHTS_VISIBLE = true;
-
-var DEBUG_DISPLAY = false;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -126,15 +116,22 @@ class MyScene extends CGFscene {
                 let diffuse = light.data.diffuse;
                 let specular = light.data.specular;
 
-                this.lights[i].setPosition(location.x, location.y, location.z);
+                this.lights[i].setPosition(location.x, location.y, location.z, location.w);
                 this.lights[i].setAmbient(ambient.r, ambient.g, ambient.b, ambient.a);
                 this.lights[i].setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
                 this.lights[i].setSpecular(specular.r, specular.g, specular.b, specular.a);
                 this.lights[i].setVisible(LIGHTS_VISIBLE);
 
+                this.lights[i].setConstantAttenuation(LIGHT_CONSTANT_ATTENUATION);
+                this.lights[i].setLinearAttenuation(LIGHT_LINEAR_ATTENUATION);
+                this.lights[i].setQuadraticAttenuation(LIGHT_QUADRATIC_ATTENUATION);
+
+                console.log(light.data.enabled);
                 if (light.data.enabled) {
+                    console.log("ENABLE");
                     this.lights[i].enable();
                 } else {
+                    console.log("DISABLE");
                     this.lights[i].disable();
                 }
 
@@ -248,6 +245,11 @@ class MyScene extends CGFscene {
         }
     }
 
+    updateLights()  {
+        for (var i = 0; i < this.lights.length; i++)
+            this.lights[i].update();
+    }
+
     display() {
         this.presetup();
 
@@ -264,6 +266,7 @@ class MyScene extends CGFscene {
 
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+        this.updateLights();
 
         // ---- END Background, camera and axis setup
 

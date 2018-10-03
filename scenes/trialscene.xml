@@ -16,28 +16,28 @@
 
     <lights>
         <omni id="light-1" enabled="1">
-            <location x="6" y="20" z="15" w="1"/>
+            <location x="36" y="7" z="15" w="1"/>
             <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
-            <diffuse r="1.0" g="1.0" b="0.25" a="1.0"/>
-            <specular r="0.3" g="0.3" b="0.3" a="1.0"/>
+            <diffuse r="0.6" g="0.6" b="0.25" a="1.0"/>
+            <specular r="0.9" g="0.2" b="0.3" a="1.0"/>
         </omni>
         <omni id="light-2" enabled="1">
-            <location x="3" y="-15" z="-10" w="1"/>
+            <location x="23" y="-10" z="-10" w="1"/>
             <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
-            <diffuse r="1.0" g="0.25" b="1.0" a="1.0"/>
-            <specular r="0.3" g="0.3" b="0.3" a="1.0"/>
+            <diffuse r="0.6" g="0.25" b="0.6" a="1.0"/>
+            <specular r="0.3" g="0.7" b="1.0" a="1.0"/>
         </omni>
         <omni id="light-3" enabled="1">
-            <location x="0" y="10" z="8" w="1"/>
+            <location x="10" y="5" z="8" w="1"/>
             <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
-            <diffuse r="0.25" g="1.0" b="1.0" a="1.0"/>
-            <specular r="0.3" g="0.3" b="0.3" a="1.0"/>
+            <diffuse r="0.25" g="0.6" b="0.6" a="1.0"/>
+            <specular r="0.8" g="0.8" b="0.3" a="1.0"/>
         </omni>
         <omni id="light-4" enabled="1">
-            <location x="3" y="30" z="-4" w="1"/>
+            <location x="33" y="10" z="-4" w="1"/>
             <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
             <diffuse r="0.25" g="1.0" b="1.0" a="1.0"/>
-            <specular r="0.3" g="0.3" b="0.3" a="1.0"/>
+            <specular r="0.3" g="0.6" b="0.9" a="1.0"/>
         </omni>
     </lights>
 
@@ -50,11 +50,11 @@
     </textures>
 
     <materials>
-        <material id="mat-1" shininess="120">
-            <emission r="0.0" g="0.0" b="0.0" a="0.0"/>
-            <ambient r="0.3" g="0.3" b="0.3" a="1"/>
-            <diffuse r="0.8" g="0.8" b="0.8" a="1"/>
-            <specular r="0.0" g="0.2" b="0.8" a="1"/>
+        <material id="mat-1" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="0"/>
+            <ambient r="0.2" g="0.2" b="0.3" a="1"/>
+            <diffuse r="0.6" g="0.6" b="0.5" a="1"/>
+            <specular r="0.4" g="0.7" b="0.8" a="1"/>
         </material>
     </materials>
  
@@ -143,6 +143,14 @@
         <primitive id="unit-circle">
         	<circle radius="1" slices="64"/>
         </primitive>
+        <primitive id="unit-triangle">
+            <triangle x1="1" y1="0" z1="0"
+                      x2="0" y2="1" z2="0"
+                      x3="0" y3="0" z3="1"/>
+        </primitive>
+        <primitive id="unit-rectangle">
+            <rectangle x1="0" y1="0" x2="2" y2="1"/>
+        </primitive>
         <primitive id="unit-trapezium">
         	<trapezium base="2" top="1" height="1"/>
         </primitive>
@@ -154,7 +162,7 @@
             <pyramid radius="1" height="1" stacks="1" sides="5"/>
         </primitive>
         <primitive id="unit-cylinder">
-            <cylinder base="1" top="1" height="1" stacks="1" slices="64"/>
+            <cylinder base="2" top="1" height="1" stacks="1" slices="64"/>
         </primitive>
         <primitive id="unit-prism">
             <prism base="1" top="1" height="1" stacks="1" sides="4"/>
@@ -222,7 +230,7 @@
             <crosscap2 slices="32" stacks="32"/>
         </primitive>
         <primitive id="unit-cornucopia">
-            <cornucopia a="2" b="2s" slices="32" stacks="32"/>
+            <cornucopia a="1" b="1" slices="64" stacks="64"/>
         </primitive>
         <primitive id="unit-henneberg">
             <henneberg slices="32" stacks="32"/>
@@ -269,10 +277,10 @@
                 <componentref id="unit-square"/>
                 <componentref id="unit-regular"/>
                 <componentref id="unit-circle"/>
-                <!--
+                
                 <componentref id="unit-triangle"/>
                 <componentref id="unit-rectangle"/>
-                -->
+                
                 <componentref id="unit-trapezium"/>
             </children>
         </component>
@@ -315,7 +323,7 @@
                 <primitiveref id="unit-circle"/>
             </children>
         </component>
-        <!--
+        
         <component id="unit-triangle">
             <transformation>
                 <translate x="0" y="0" z="15"/>
@@ -323,7 +331,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-vidral" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-leaves" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="unit-triangle"/>
             </children>
@@ -336,12 +344,12 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-leaves" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="unit-rectangle"/>
             </children>
         </component>
-        -->
+        
         <component id="unit-trapezium">
             <transformation>
                 <translate x="5" y="0" z="5"/>

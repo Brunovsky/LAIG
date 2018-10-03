@@ -223,25 +223,27 @@ class Triangle extends CGFobject {
 
     initBuffers() {
 
-        this.vertices = [this.A.X, this.A.Y, this.A.Z,
-        this.A.X, this.A.Y, this.A.Z,
-        this.B.X, this.B.Y, this.B.Z,
-        this.B.X, this.B.Y, this.B.Z,
-        this.C.X, this.C.Y, this.C.Z,
-        this.C.X, this.C.Y, this.C.Z];
+        this.vertices = [
+            this.A.X, this.A.Y, this.A.Z,
+            this.A.X, this.A.Y, this.A.Z,
+            this.B.X, this.B.Y, this.B.Z,
+            this.B.X, this.B.Y, this.B.Z,
+            this.C.X, this.C.Y, this.C.Z,
+            this.C.X, this.C.Y, this.C.Z
+        ];
 
         this.indices = [0, 2, 4, 1, 5, 3];
 
         let normal1 = triangleOrientation(this.A, this.B, this.C);
 
         this.normals = [normal1.X, normal1.Y, normal1.Z,
-        -normal1.X, -normal1.Y, -normal1.Z,
-        normal1.X, normal1.Y, normal1.Z,
-        -normal1.X, -normal1.Y, -normal1.Z,
-        normal1.X, normal1.Y, normal1.Z,
-        -normal1.X, -normal1.Y, -normal1.Z,
+            -normal1.X, -normal1.Y, -normal1.Z,
+            normal1.X, normal1.Y, normal1.Z,
+            -normal1.X, -normal1.Y, -normal1.Z,
+            normal1.X, normal1.Y, normal1.Z,
+            -normal1.X, -normal1.Y, -normal1.Z,
+        ];
 
-        ]
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     };
@@ -263,21 +265,23 @@ class Rectangle extends CGFobject {
 
     initBuffers() {
 
-        this.vertices = [this.V.x1, this.V.y1, 0,
-        this.V.x2, this.V.y1, 0,
-        this.V.x1, this.V.y2, 0,
-        this.V.x2, this.V.y2, 0,
-        this.V.x1, this.V.y1, 0,
-        this.V.x2, this.V.y1, 0,
-        this.V.x1, this.V.y2, 0,
-        this.V.x2, this.V.y2, 0];
+        this.vertices = [
+            this.V.x1, this.V.y1, 0,
+            this.V.x2, this.V.y1, 0,
+            this.V.x1, this.V.y2, 0,
+            this.V.x2, this.V.y2, 0,
+            this.V.x1, this.V.y1, 0,
+            this.V.x2, this.V.y1, 0,
+            this.V.x1, this.V.y2, 0,
+            this.V.x2, this.V.y2, 0
+        ];
 
 
         this.indices = [
             0, 1, 2,
             3, 2, 1,
             4, 6, 5,
-            6,7,5
+            6, 7, 5
         ];
 
         this.primitiveType = this.scene.gl.TRIANGLES;
@@ -292,7 +296,6 @@ class Rectangle extends CGFobject {
             0, 0, -1,
             0, 0, 1,
             0, 0, -1,
-
         ];
 
         this.texCoords = [
