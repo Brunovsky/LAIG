@@ -38,7 +38,7 @@ class XMLTransformation extends XMLElement {
 
 		this.type = "transformation";
 
-		let tags = {
+		const tags = {
 			translate: XMLTranslate,
 			rotate: XMLRotate,
 			scale: XMLScale
@@ -46,8 +46,8 @@ class XMLTransformation extends XMLElement {
 
 		this.elements = [];
 
-		for (let child of node.children) {
-			let name = child.tagName.toLocaleLowerCase();
+		for (const child of node.children) {
+			const name = child.tagName.toLocaleLowerCase();
 
 			if (!(name in tags)) {
 				throw new XMLException(child, "Unexpected tagname " + name);

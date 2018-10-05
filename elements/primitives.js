@@ -14,8 +14,21 @@ let XMLFiguresList = {
 	prism:               XMLPrism,
 	cube:                XMLCube,
 	block:               XMLBlock,
-	sphere:              XMLSphere,
+	sphere:              XMLSphere,https://makeorbreak.io/
 	halfsphere:          XMLHalfSphere,
+
+	opencone:            XMLOpenCone,
+	doublecone:          XMLDoubleCone,
+	spheredcone:         XMLSpheredCone,
+	openpyramid:         XMLOpenPyramid,
+	doublepyramid:       XMLDoublePyramid,
+	opencylinder:        XMLOpenCylinder,
+	doublecylinder:      XMLDoubleCylinder,
+	spheredcylinder:     XMLSpheredCylinder,
+	openprism:           XMLOpenPrism,
+	doubleprism:         XMLDoublePrism,
+	openhalfsphere:      XMLOpenHalfSphere,
+	flipsphere:          XMLFlipSphere,
 
 	// 3. Complex Planar Primitives
 	heart:               XMLHeart,
@@ -54,8 +67,8 @@ class XMLPrimitive extends XMLElement {
 			throw new XMLException(node, "Primitive node must have exactly one child");
 		}
 
-		let child = node.firstElementChild;
-		let name = child.tagName.toLocaleLowerCase();
+		const child = node.firstElementChild;
+		const name = child.tagName.toLocaleLowerCase();
 
 		if (!(name in XMLFiguresList)) {
 			throw new XMLException(node, "Primitive " + name + " not recognized");

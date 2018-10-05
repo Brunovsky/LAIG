@@ -21,8 +21,8 @@ class MyInterface extends CGFinterface {
         this.scene = scene;
         this.yas = yas;
 
-        let lights = this.scene.lights;
-        let views = this.scene.views;
+        const lights = this.scene.lights;
+        const views = this.scene.views;
 
         this.addLightsGroup(yas.lights);
         this.addViewsGroup(yas.views);
@@ -37,13 +37,13 @@ class MyInterface extends CGFinterface {
 
         this.control.lights = {};
 
-        let lightsGroup = this.gui.addFolder("Lights");
+        const lightsGroup = this.gui.addFolder("Lights");
         lightsGroup.open();
 
-        for (let id in lights.elements) {
-            let light = lights.elements[id];
-            let name = id + " (" + light.type + ")";
-            let index = light.index;
+        for (const id in lights.elements) {
+            const light = lights.elements[id];
+            const name = id + " (" + light.type + ")";
+            const index = light.index;
 
             this.control.lights[name] = true;
             lightsGroup.add(this.control.lights, name)
@@ -59,12 +59,12 @@ class MyInterface extends CGFinterface {
 
         this.control.views = {};
 
-        let viewsGroup = this.gui.addFolder("Views");
+        const viewsGroup = this.gui.addFolder("Views");
         viewsGroup.open();
 
-        for (let id in views.elements) {
-            let view = views.elements[id];
-            let name = id + " (" + view.type + ")";
+        for (const id in views.elements) {
+            const view = views.elements[id];
+            const name = id + " (" + view.type + ")";
 
             this.control.views[name] = value => this.scene.selectView(id);
             viewsGroup.add(this.control.views, name);

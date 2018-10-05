@@ -1,48 +1,46 @@
 /**
- * MySceneGraph class, representing the scene graph.
+ * MySceneGraph class, representing the scene graph
  */
 class MySceneGraph {
     constructor(filename, scene) {
-        this.loadedOk = null;
-
-        // Establish bidirectional references between scene and graph.
+        // Establish bidirectional references between scene and graph
         this.scene = scene;
         scene.graph = this;
 
-        // File reading 
+        // CGF's file reader
         this.reader = new CGFXMLreader();
 
         /*
          * Read the contents of the xml file,
          * and refer to this class for loading and error handlers.
          * After the file is read, the reader calls onXMLReady.
-         * If any error occurs, the reader calls onXMLError,
-         * with an error message
+         * If any error occurs, the reader calls onXMLError.
          */
         this.reader.open(filename, this);
     }
 
+    /**
+     * Called by CGFXMLreader upon successfully parsing the XML file.
+     */
     onXMLReady() {
         console.log("XML Loading finished.");
 
-        let rootElement = this.reader.xmlDoc.documentElement;
+        const rootElement = this.reader.xmlDoc.documentElement;
 
-        this.loadedOk = this.parseXMLFile(rootElement);
+        this.parseXMLFile(rootElement);
 
-        // If the graph loaded ok, signal the scene so that any
-        // additional initialization depending on the graph can take place
-        if (this.loadedOk) this.scene.onGraphLoaded();
+        this.scene.onGraphLoaded();
     }
 
+    /**
+     * Called by CGFXMLreader upon encountering an error parsing the XML file.
+     */
     onXMLError(error) {
-        console.log(error);
-
-        return false;
+        console.error(error);
     }
     
     /**
-     * Parses the XML file, processing each block.
-     * @param {XML root element} rootElement
+     * Creates
      */
     parseXMLFile(rootElement) {
         console.log(rootElement);
@@ -50,7 +48,5 @@ class MySceneGraph {
         this.yas = new XMLYas(rootElement);
 
         console.log(this.yas);
-        
-        return true;
     }
 }

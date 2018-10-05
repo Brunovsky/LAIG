@@ -12,7 +12,7 @@ class XMLImmediateTransformation extends XMLElement {
 
 		this.type = "transformation";
 
-		let tags = {
+		const tags = {
 			translate: XMLTranslate,
 			rotate: XMLRotate,
 			scale: XMLScale
@@ -20,8 +20,8 @@ class XMLImmediateTransformation extends XMLElement {
 
 		this.elements = [];
 
-		for (let child of node.children) {
-			let name = child.tagName.toLocaleLowerCase();
+		for (const child of node.children) {
+			const name = child.tagName.toLocaleLowerCase();
 
 			if (!(name in tags)) {
 				throw new XMLException(child, "Unexpected tagname " + name);
@@ -38,12 +38,12 @@ class XMLComponentTransformation extends XMLElement {
 
 		this.type = "transformation";
 
-		let child = node.firstElementChild;
+		const child = node.firstElementChild;
 
 		if (child == null) {
 			this.mode = "none";
 		} else {
-			let name = child.tagName.toLocaleLowerCase();
+			const name = child.tagName.toLocaleLowerCase();
 			
 			if (name == "transformationref") {
 				this.mode = "reference";
@@ -109,15 +109,15 @@ class XMLComponentMaterials extends XMLElement {
 
 		this.type = "transformation";
 
-		let tags = {
+		const tags = {
 			material: XMLMaterialRef
 		};
 
 		this.elements = [];
 
 		for (let i = 0; i < node.children.length; ++i) {
-			let child = node.children[i];
-			let name = child.tagName.toLocaleLowerCase();
+			const child = node.children[i];
+			const name = child.tagName.toLocaleLowerCase();
 
 			if (!(name in tags)) {
 				throw new XMLException(child, "Unexpected tagname " + name);
@@ -145,15 +145,15 @@ class XMLComponent extends XMLElement {
 
 		this.type = "component";
 
-		let tags = ["transformation", "materials", "texture", "children"];
+		const tags = ["transformation", "materials", "texture", "children"];
 
 		if (node.childElementCount != 4) {
 			throw new XMLException(node, "Component node does not have the expected 4 children");
 		}
 
 		for (let i = 0; i < 4; ++i) {
-			let child = node.children[i];
-			let name = child.tagName.toLocaleLowerCase();
+			const child = node.children[i];
+			const name = child.tagName.toLocaleLowerCase();
 			if (tags[i] != name) {
 				throw new XMLException(child, "Expected tagname " + tags[i]);
 			}

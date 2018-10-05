@@ -13,7 +13,7 @@ class XMLException extends XMLBase {
 		this.message = message;
 
 		do {
-			let name = node.tagName.toLocaleLowerCase();
+			const name = node.tagName.toLocaleLowerCase();
 			this.message = name + " > " + this.message;
 			node = node.parentNode;
 		} while (node.parentNode != null);
@@ -44,7 +44,7 @@ class XMLElement extends XMLBase {
 		const reader = new CGFXMLreader();
 
 		for (const key in spec) {
-			let val;
+			const val;
 
 			if (typeof spec[key] === "string") {
 				if (!reader.hasAttribute(node, key)) {
@@ -104,14 +104,14 @@ class XMLElement extends XMLBase {
 				}
 			} else if (typeof spec[key] == "object") {
 				// Recurse on a child of node with tagname key.
-				let child = node.querySelector(key);
+				const child = node.querySelector(key);
 
 				if (child == null) {
 					throw new XMLException(node, "Missing expected child node " + key);
 				}
 
 				// Do not catch possible exception.
-				let element = new XMLElement(child, spec[key]);
+				const element = new XMLElement(child, spec[key]);
 				val = element.data;
 			}
 
@@ -146,15 +146,15 @@ class XMLGroup extends XMLElement {
 			throw new XMLException(node, "Group node must have at least one child");
 		}
 
-		for (let child of node.children) {
-			let name = child.tagName.toLocaleLowerCase();
+		for (const child of node.children) {
+			const name = child.tagName.toLocaleLowerCase();
 
 			if (!(name in tags)) {
 				throw new XMLException(child, "Unexpected tagname " + name);
 			}
 
-			let element = new tags[name](child);
-			let id = element.id;
+			const element = new tags[name](child);
+			const id = element.id;
 
 			if (id == null) {
 				throw "INTERNAL: attr for XMLGroup does not demand child id";
