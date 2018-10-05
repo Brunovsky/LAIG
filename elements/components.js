@@ -126,6 +126,12 @@ class XMLComponentMaterials extends XMLElement {
 			this.elements.push(new tags[name](child));
 		}
 	}
+
+	index(i) {
+		const l = this.elements.length;
+
+		return this.elements[((i % l) + l) % l];
+	}
 }
 
 class XMLChildren extends XMLGroup {
