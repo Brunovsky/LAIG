@@ -11,8 +11,9 @@ class MyInterface extends CGFinterface {
     init(application) {
         super.init(application);
 
-        this.gui = new dat.GUI();
-        this.control = {};
+        this.datgui = new dat.GUI();
+
+        this.initKeys();
 
         return true;
     }
@@ -23,6 +24,8 @@ class MyInterface extends CGFinterface {
 
         const lights = this.scene.lights;
         const views = this.scene.views;
+
+        this.control = {};
 
         this.addLightsGroup(yas.lights);
         this.addViewsGroup(yas.views);
@@ -37,7 +40,7 @@ class MyInterface extends CGFinterface {
 
         this.control.lights = {};
 
-        const lightsGroup = this.gui.addFolder("Lights");
+        const lightsGroup = this.datgui.addFolder("Lights");
         lightsGroup.open();
 
         for (const id in lights.elements) {
@@ -59,15 +62,34 @@ class MyInterface extends CGFinterface {
 
         this.control.views = {};
 
-        const viewsGroup = this.gui.addFolder("Views");
+        const viewsGroup = this.datgui.addFolder("Views");
         viewsGroup.open();
 
         for (const id in views.elements) {
             const view = views.elements[id];
             const name = id + " (" + view.type + ")";
 
-            this.control.views[name] = value => this.scene.selectView(id);
+            this.control.views[name] = () => this.scene.selectView(id);
             viewsGroup.add(this.control.views, name);
         }
     }
+
+    initKeys() {
+        this.processKeyboard = function(){};
+        this.activeKeys = {};
+    };
+        
+    processKeyDown(event) {
+        this.activeKeys[event.code] = true;
+        console.log(event.code);
+    };
+    
+    processKeyUp(event) {
+        this.activeKeys[event.code] = false;
+        console.log(event.code);
+    };
+    
+    isKeyPressed(keyCode) {
+        return this.activeKeys[keyCode] || false;
+    };
 }

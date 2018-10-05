@@ -16,6 +16,8 @@ const LIGHT_LINEAR_ATTENUATION = 0.01;
 
 const LIGHT_QUADRATIC_ATTENUATION = 0.0025;
 
+const HZ = 60; // Update frequency
+
 function degToRad(deg) {
     return deg * DEGREE_TO_RAD;
 }

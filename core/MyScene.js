@@ -2,18 +2,11 @@
  * XMLscene class, representing the scene that is to be rendered.
  */
 class MyScene extends CGFscene {
-    /**
-     * @constructor
-     * @param {MyInterface} myInterface 
-    }
-     */
-    constructor(myInterface) {
+    constructor(gui) {
         super(); // noop
 
-        this.interface = myInterface;
-        myInterface.scene = this;
-
-        this.newCamera = false;
+        this.gui = gui;
+        gui.scene = this;
     }
 
     /**
@@ -23,15 +16,13 @@ class MyScene extends CGFscene {
     init(application) {
         super.init(application);
 
-        this.count = 0;
-
-        this.selectedCamera = null;
-
         this.graphLoaded = false;
 
         this.initDefaults();
 
         this.enableTextures(true);
+        this.setUpdatePeriod(1000 / HZ);
+
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -66,7 +57,7 @@ class MyScene extends CGFscene {
 
         this.initPrimitives();
 
-        this.interface.populate(this, this.graph.yas);
+        this.initInterface();
 
         this.graphLoaded = true;
     }
@@ -199,6 +190,8 @@ class MyScene extends CGFscene {
             this.materials[id].setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
             this.materials[id].setSpecular(specular.r, specular.g, specular.b, specular.a);
         }
+
+        this.materialIndex = 0;
     }
 
     initPrimitives() {
@@ -213,8 +206,21 @@ class MyScene extends CGFscene {
         }
     }
 
+    initInterface() {
+        this.keymap = {
+            KeyN:   "leftMaterial",
+            KeyM:   "rightMaterial"
+        };
+
+        this.keys = {
+            leftMaterial: false,
+            rightMaterial: false
+        }
+
+        this.gui.populate(this, this.graph.yas);
+    }
+
     selectLight(i, value) {
-        console.log(i, value);
         if (value) {
             this.lights[i].enable();
             this.lights[i].setVisible(ENABLED_LIGHTS_VISIBLE);
@@ -225,9 +231,8 @@ class MyScene extends CGFscene {
     }
 
     selectView(id) {
-        console.log(id);
         this.camera = this.views[id];
-        this.interface.setActiveCamera(this.camera);
+        this.gui.setActiveCamera(this.camera);
     }
 
     applyTransformation(transformation) {
@@ -267,7 +272,7 @@ class MyScene extends CGFscene {
     }
 
     display() {
-        // ---- BEGIN Pre-setup (background, matrix, lights, camera, ...)
+        this.checkKeys();
 
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -282,34 +287,28 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
         this.updateLights();
 
-        // ---- END Pre-setup (background, matrix, lights, camera, ...)
-
-        // ---- BEGIN Primary display
 
         this.pushMatrix();
 
         this.axis.display();
 
         if (this.graphLoaded) {
-            this.traverseGraph();
+            this.displaySceneGraph();
         }
 
         this.popMatrix();
-
-        // ---- END Primary display
     }
 
-    traverseGraph() {
+    displaySceneGraph() {
         this.traverser(this.graph.yas.root, null, null);
     }
 
     traverser(current, sceneMaterial, sceneTexture) {
         const transformation = current.transformation;
-        const material = current.materials.elements[0];
+        const material = current.materials.index(this.materialIndex);
         const texture = current.texture;
         const children = current.children;
 
-        // Transformation & Material & Texture Stack PUSH
         this.pushMatrix();
 
         // Transformation
@@ -346,7 +345,35 @@ class MyScene extends CGFscene {
             }
         }
 
-        // Transformation & Material & Texture Stack POP
         this.popMatrix();
+    }
+
+    update(delta) {
+        this.checkKeys();
+    }
+
+    checkKeys() {
+        for (const key in this.keymap) {
+            const press = this.gui.isKeyPressed(key);
+            const func = this.keymap[key];
+
+            if (press && !this.keys[func]) {
+                switch (func) {
+                case "leftMaterial":
+                    --this.materialIndex;
+                    break;
+                case "rightMaterial":
+                    ++this.materialIndex;
+                    break;
+                // ...
+                default:
+                    throw "INTERNAL: Unhandled checkKeys case";
+                }
+
+                console.log("New material index:", this.materialIndex);
+            }
+
+            this.keys[func] = press;
+        }
     }
 }
