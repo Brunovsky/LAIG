@@ -217,7 +217,12 @@ class Triangle extends CGFobject {
         this.A = { X: x1, Y: y1, Z: z1 };
         this.B = { X: x2, Y: y2, Z: z2 };
         this.C = { X: x3, Y: y3, Z: z3 };
-        this.coords = coords;
+        this.coords = {
+            minS: coords[0],
+            maxS: coords[1],
+            minT: coords[2],
+            maxT: coords[3]
+        };
 
         this.initBuffers();
     }
@@ -247,8 +252,13 @@ class Triangle extends CGFobject {
         ];
 
         this.texCoords = [
-
-        ]
+            this.minS, this.minT,
+            this.minS, this.minT,
+            this.maxS, this.maxT,
+            this.maxS, this.maxT,
+            this.maxS, this.minT,
+            this.maxS, this.minT
+        ];
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
@@ -270,7 +280,6 @@ class Rectangle extends CGFobject {
     }
 
     initBuffers() {
-
         // 2 6             3 7
         //  D ------------- C
         //  |               |
@@ -300,39 +309,37 @@ class Rectangle extends CGFobject {
             this.V.x2, this.V.y2, 0  // C  back
         ];
 
-
         this.indices = [
-            0, 1, 2, // ABD  front
-            3, 2, 1, // BCD  front   tudo
-            4, 6, 5, // ABD  back    bem
-            6, 7, 5  // BCD  back
+            0, 1, 2,
+            3, 2, 1,
+            4, 6, 5,
+            6, 7, 5
         ];
 
-        this.primitiveType = this.scene.gl.TRIANGLES;
-
         this.normals = [
-            0, 0, 1,   // A front    normal front
-            0, 0, 1,   // B front    normal back
-            0, 0, 1,   // D front    normal front
-            0, 0, 1,   // C front    normal back
+            0, 0, 1,
+            0, 0, 1,
+            0, 0, 1,
+            0, 0, 1,
 
-            0, 0, -1,   // A back     normal front
-            0, 0, -1,   // B back     normal back
-            0, 0, -1,   // D back     normal front
-            0, 0, -1,   // C back     normal back
+            0, 0, -1,
+            0, 0, -1,
+            0, 0, -1,
+            0, 0, -1,
         ];
 
         this.texCoords = [
-            this.minS, this.minT, // A
-            this.maxS, this.minT, // B
-            this.minS, this.maxT, // D
-            this.maxS, this.maxS, // C
-            this.minS, this.minT, // A
-            this.maxS, this.minT, // B
-            this.minS, this.maxT, // D
-            this.maxS, this.maxS  // C
+            this.minS, this.maxT,
+            this.maxS, this.maxT,
+            this.minS, this.minT,
+            this.maxS, this.minT,
+            this.minS, this.maxT,
+            this.maxS, this.maxT,
+            this.minS, this.minT,
+            this.maxS, this.minT
         ];
 
+        this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     };
 
