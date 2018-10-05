@@ -212,12 +212,15 @@ class Circle extends CGFobject {
 
 
 class Triangle extends CGFobject {
-    constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3) {
+    constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3, coords = [0,1,0,1]) {
         super(scene);
         this.A = { X: x1, Y: y1, Z: z1 };
         this.B = { X: x2, Y: y2, Z: z2 };
         this.C = { X: x3, Y: y3, Z: z3 };
-
+        this.minS = coords[0];
+        this.maxS = coords[1];
+        this.minT = coords[2];
+        this.maxT = coords[3];
         this.initBuffers();
     }
 
@@ -244,6 +247,15 @@ class Triangle extends CGFobject {
             -normal1.X, -normal1.Y, -normal1.Z,
         ];
 
+        this.texCoords = [
+this.minS, this.minT,
+this.minS, this.minT,
+this.maxS, this.maxT,
+this.maxS, this.maxT,
+this.maxS, this.minT,
+this.maxS, this.minT
+        ];
+
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     };
@@ -265,6 +277,13 @@ class Rectangle extends CGFobject {
 
     initBuffers() {
 
+
+        /*
+            C------D            
+
+
+            A------B
+        */
         this.vertices = [
             this.V.x1, this.V.y1, 0,
             this.V.x2, this.V.y1, 0,
@@ -288,21 +307,25 @@ class Rectangle extends CGFobject {
 
         this.normals = [
             0, 0, 1,
-            0, 0, -1,
             0, 0, 1,
-            0, 0, -1,
+            0, 0, 1,
+            0, 0, 1,
 
-            0, 0, 1,
             0, 0, -1,
-            0, 0, 1,
+            0, 0, -1,
+            0, 0, -1,
             0, 0, -1,
         ];
 
         this.texCoords = [
-            this.minS, this.minT,
             this.minS, this.maxT,
-            this.maxS, this.minT,
-            this.maxS, this.maxS
+            this.maxS, this.maxT,
+            this.minS, this.minT,           //
+            this.maxS, this.minT,           //C------D
+            this.minS, this.maxT,           //
+            this.maxS, this.maxT,           //A------B
+            this.minS, this.minT,
+            this.maxS, this.minT
         ];
 
         this.initGLBuffers();

@@ -132,7 +132,7 @@ class XMLYas extends XMLBase {
 
 		if (this.root == null) {
 			throw new XMLException(this.scene.node,
-				"Bad reference: root component " + id + " does not exist");
+				"Bad reference: root component " + rootId + " does not exist");
 		}
 
 		for (let i = 0; i < this.root.materials.elements.length; ++i) {
