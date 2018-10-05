@@ -1,6 +1,6 @@
 let CONE_DEFAULT_SLICES = 64, CONE_DEFAULT_STACKS = 1;
 
-class OpenCone extends CGFobject
+class Cone extends CGFobject
 {
     constructor(scene, radius = 1, height = 1, slices = 64, stacks = 1, coords = [0, 1, 0, 1])
     {
@@ -97,7 +97,7 @@ class OpenCone extends CGFobject
 
 
 
-class Cone extends CGFobject
+class ClosedCone extends CGFobject
 {
 	constructor(scene, radius = 1, height = 1, slices = 64, stacks = 1, coords = [0, 1, 0, 1])
 	{

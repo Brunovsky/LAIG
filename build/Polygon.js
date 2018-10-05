@@ -212,11 +212,12 @@ class Circle extends CGFobject {
 
 
 class Triangle extends CGFobject {
-    constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3) {
+    constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3, coords = [0, 1, 0, 1]) {
         super(scene);
         this.A = { X: x1, Y: y1, Z: z1 };
         this.B = { X: x2, Y: y2, Z: z2 };
         this.C = { X: x3, Y: y3, Z: z3 };
+        this.coords = coords;
 
         this.initBuffers();
     }
@@ -236,13 +237,18 @@ class Triangle extends CGFobject {
 
         let normal1 = triangleOrientation(this.A, this.B, this.C);
 
-        this.normals = [normal1.X, normal1.Y, normal1.Z,
+        this.normals = [
+             normal1.X,  normal1.Y,  normal1.Z,
             -normal1.X, -normal1.Y, -normal1.Z,
-            normal1.X, normal1.Y, normal1.Z,
+             normal1.X,  normal1.Y,  normal1.Z,
             -normal1.X, -normal1.Y, -normal1.Z,
-            normal1.X, normal1.Y, normal1.Z,
+             normal1.X,  normal1.Y,  normal1.Z,
             -normal1.X, -normal1.Y, -normal1.Z,
         ];
+
+        this.texCoords = [
+
+        ]
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
@@ -265,44 +271,66 @@ class Rectangle extends CGFobject {
 
     initBuffers() {
 
+        // 2 6             3 7
+        //  D ------------- C
+        //  |               |
+        //  |               |
+        //  A ------------- B
+        // 0 4             1 5
+        // 
+        // Textura:
+        // 
+        // u = 0          u = 1
+        // v = 0          v = 0
+        //  D ------------- C
+        //  |               |
+        //  |               |
+        //  A ------------- B
+        // u = 0          u = 1
+        // v = 1          v = 1
+
         this.vertices = [
-            this.V.x1, this.V.y1, 0,
-            this.V.x2, this.V.y1, 0,
-            this.V.x1, this.V.y2, 0,
-            this.V.x2, this.V.y2, 0,
-            this.V.x1, this.V.y1, 0,
-            this.V.x2, this.V.y1, 0,
-            this.V.x1, this.V.y2, 0,
-            this.V.x2, this.V.y2, 0
+            this.V.x1, this.V.y1, 0, // A  front
+            this.V.x2, this.V.y1, 0, // B  front
+            this.V.x1, this.V.y2, 0, // D  front
+            this.V.x2, this.V.y2, 0, // C  front
+            this.V.x1, this.V.y1, 0, // A  back
+            this.V.x2, this.V.y1, 0, // B  back
+            this.V.x1, this.V.y2, 0, // D  back
+            this.V.x2, this.V.y2, 0  // C  back
         ];
 
 
         this.indices = [
-            0, 1, 2,
-            3, 2, 1,
-            4, 6, 5,
-            6, 7, 5
+            0, 1, 2, // ABD  front
+            3, 2, 1, // BCD  front   tudo
+            4, 6, 5, // ABD  back    bem
+            6, 7, 5  // BCD  back
         ];
 
         this.primitiveType = this.scene.gl.TRIANGLES;
 
         this.normals = [
-            0, 0, 1,
-            0, 0, -1,
-            0, 0, 1,
-            0, 0, -1,
+            0, 0, 1,   // A front    normal front
+            0, 0, 1,   // B front    normal back
+            0, 0, 1,   // D front    normal front
+            0, 0, 1,   // C front    normal back
 
-            0, 0, 1,
-            0, 0, -1,
-            0, 0, 1,
-            0, 0, -1,
+            0, 0, -1,   // A back     normal front
+            0, 0, -1,   // B back     normal back
+            0, 0, -1,   // D back     normal front
+            0, 0, -1,   // C back     normal back
         ];
 
         this.texCoords = [
-            this.minS, this.minT,
-            this.minS, this.maxT,
-            this.maxS, this.minT,
-            this.maxS, this.maxS
+            this.minS, this.minT, // A
+            this.maxS, this.minT, // B
+            this.minS, this.maxT, // D
+            this.maxS, this.maxS, // C
+            this.minS, this.minT, // A
+            this.maxS, this.minT, // B
+            this.minS, this.maxT, // D
+            this.maxS, this.maxS  // C
         ];
 
         this.initGLBuffers();

@@ -14,7 +14,7 @@ let XMLFiguresList = {
 	prism:               XMLPrism,
 	cube:                XMLCube,
 	block:               XMLBlock,
-	sphere:              XMLSphere,https://makeorbreak.io/
+	sphere:              XMLSphere,
 	halfsphere:          XMLHalfSphere,
 
 	opencone:            XMLOpenCone,

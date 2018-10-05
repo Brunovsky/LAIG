@@ -44,7 +44,7 @@ class XMLElement extends XMLBase {
 		const reader = new CGFXMLreader();
 
 		for (const key in spec) {
-			const val;
+			let val;
 
 			if (typeof spec[key] === "string") {
 				if (!reader.hasAttribute(node, key)) {
@@ -57,7 +57,7 @@ class XMLElement extends XMLBase {
 						break;
 					case "ii":
 						val = reader.getInteger(node, key);
-						if (val == null && val <= 0) {
+						if (val == null || val <= 0) {
 							throw new XMLException(node, "Expected positive integer for attribute " + key);
 						}
 						break;
@@ -95,9 +95,8 @@ class XMLElement extends XMLBase {
 						val = reader.getItem(node, key, ['0', '1']);
 						if (val == null) {
 							throw new XMLException(node, "Expected boolean for attribute " + key);
-						} else {
-							val = val == '0' ? false : true;
 						}
+						val = val == '0' ? false : true;
 						break;
 					default:
 						throw "INTERNAL: Bad Element attribute descriptor";
@@ -125,7 +124,7 @@ class XMLElement extends XMLBase {
 	}
 
 	get(attr) {
-		return data[attr];
+		return this.data[attr];
 	}
 }
 

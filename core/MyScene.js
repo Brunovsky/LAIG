@@ -326,19 +326,19 @@ class MyScene extends CGFscene {
 
         // Texture
         if (texture.mode === "none") {
-            sceneTexture = false; // allowed for setTexture()
+            sceneTexture = null; // allowed for setTexture()
         } else if (texture.mode === "reference") {
             sceneTexture = this.textures[texture.id];
         }
 
         // Apply Material
         sceneMaterial.setTexture(sceneTexture);
-        sceneMaterial.setTextureWrap(texture.data.length_s, texture.data.length_t);
         sceneMaterial.apply();
 
         // Recurse & Display primitives
         for (const id in children.elements) {
             const child = children.elements[id];
+
             if (child.type === "componentref") {
                 this.traverser(child.ref, sceneMaterial, sceneTexture);
             } else {

@@ -12,7 +12,8 @@ class XMLYas extends XMLBase {
 			"materials", "transformations", "primitives", "components"];
 
 		if (node.childElementCount !== 9) {
-			throw new XMLException(node, "Root node does not have the expected 9 children");
+			throw new XMLException(node,
+				"Root node does not have the expected 9 children");
 		}
 
 		for (let i = 0; i < 9; ++i) {
@@ -45,7 +46,7 @@ class XMLYas extends XMLBase {
 	}
 
 	resolveReferences() {
-		for (let componentId in this.components.elements) {
+		for (const componentId in this.components.elements) {
 			const component = this.components.elements[componentId];
 
 			const transformation = component.transformation;
@@ -67,7 +68,7 @@ class XMLYas extends XMLBase {
 			}
 
 			// 2. Resolve material references
-			for (let material of materials) {
+			for (const material of materials) {
 				const id = material.id;
 
 				if (material.mode !== "reference") continue;
@@ -96,7 +97,7 @@ class XMLYas extends XMLBase {
 			}
 
 			// 4. Resolve primitiveref and componentref references
-			for (let id in children) {
+			for (const id in children) {
 				const child = children[id]; // XMLPrimitiveRef or XMLComponentRef
 
 				// 4.1. Resolve primitiveref references
@@ -182,7 +183,7 @@ class XMLYas extends XMLBase {
 
 			stack.push(id);
 
-			for (let id in children) {
+			for (const id in children) {
 				const child = children[id];
 				
 				if (child.type == "componentref") {
@@ -198,7 +199,7 @@ class XMLYas extends XMLBase {
 		this.reachable = visited;
 		this.unreachable = new Set();
 
-		for (let id in components.elements) {
+		for (const id in components.elements) {
 			if (!visited.has(id)) {
 				this.unreachable.add(id);
 			}
@@ -206,12 +207,11 @@ class XMLYas extends XMLBase {
 	}
 
 	printWarnings() {
-		const count = 0;
+		let count = 0;
 
-		for (let id of this.unreachable) {
+		for (const id of this.unreachable) {
 			console.warn("Warning: component " + id + " is not reachable");
-			++count;
-			if (count === 7) break;
+			if (++count === 7) break;
 		}
 
 		count = this.lights.elements.length;
@@ -219,6 +219,8 @@ class XMLYas extends XMLBase {
 		if (count > 8) {
 			console.warn("Warning: WebGL only supports 8 lights, but " + count
 				+ " lights are listed. Only the first 8 will be used");
+
+			this.lights.elements.length = 8;
 		}
 	}
 }
