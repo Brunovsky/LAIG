@@ -2,7 +2,7 @@
         <scene root="root" axis_length="4.0"/>
 
     <views default="cam-perspective-0">
-        <perspective id="cam-perspective-0" near="0.5" far="500" angle="30">
+        <perspective id="cam-perspective-0" near="0.5" far="500" angle="50">
             <from x="-25.0" y="15.0" z="10.0"/>
             <to x="60.0" y="-20.0" z="10.0"/>
         </perspective>
@@ -69,6 +69,12 @@
         <texture id="tex-housewall" file="images/housewall.jpg"/>
         <texture id="tex-gold" file="images/gold.jpg"/>
         <texture id="tex-window" file="images/window.jpg"/>
+  <texture id="tex-chimney" file="images/chimney.jpg"/>
+    <texture id="tex-roof" file="images/roof.jpg"/>
+  <texture id="tex-snowlyroad" file="images/snowlyroad.jpg"/>
+   <texture id="tex-snowlygrass" file="images/snowlygrass.jpg"/>
+     <texture id="tex-christmastree" file="images/christmastree.jpg"/>
+   <texture id="tex-tronco" file="images/tronco.jpg"/>
 
     </textures>
 
@@ -86,11 +92,10 @@
             <translate x="0" y="0" z="0"/>
         </transformation>
        <transformation id="tree">
-        <translate x="5" y="0" z="2"/>
-        <scale x="1.5" y="3" z="1.5"/>
+        <translate x="5" y="1.5" z="2"/>
         </transformation>
         <transformation id="basic-tanslation">
-        <translate x="2" y="0" z="1"/>
+        <translate x="2" y="1" z="1"/>
     <rotate axis="y" angle="-90"/>
         </transformation>
 
@@ -128,13 +133,13 @@
             <texture id="none" length_s="1.0" length_t="1.0"/>
             <children>
               <!--  <componentref id="cube"/>-->
-                <componentref id="christmas-tree"/>
+                <componentref id="forest"/>
                 
                 <componentref id="snow-doll"/>
 
             <componentref id="abstract-house"/>
-   
-          
+     <componentref id="road"/>
+          <componentref id="floor"/>
             </children>
         </component>
 
@@ -243,20 +248,192 @@
             </children>
         </component>
 
-<!-- Christmas Tree-->
-        <component id="christmas-tree">
-            <transformation> 
-                <transformationref id="tree"/>
+
+<component id="forest">
+            <transformation>
+                <translate x="0" y="0" z="0"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="tex-vidral" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <primitiveref id="cone"/>
-                <primitiveref id="trian"/>
+               <componentref id="christmas-tree"/>
+               <componentref id="christmas-tree2"/>
+               <componentref id="christmas-tree3"/>
+               <componentref id="christmas-tree4"/>
+               <componentref id="christmas-tree5"/>
+               <componentref id="christmas-tree6"/>
+               <componentref id="christmas-tree7"/>
+               <componentref id="christmas-tree8"/>
+               <componentref id="christmas-tree9"/>
+               <componentref id="christmas-tree10"/>
+               
             </children>
         </component>
+        
+<!-- Christmas Tree-->
+        <component id="christmas-tree">
+            <transformation> 
+             <translate x="50" y="3" z="-50"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+<component id="christmas-tree10">
+            <transformation> 
+             <translate x="60" y="3" z="-53"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+        <component id="christmas-tree9">
+            <transformation> 
+             <translate x="62" y="3" z="-45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+        <component id="christmas-tree8">
+            <transformation> 
+             <translate x="45" y="3" z="-50"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+        <component id="christmas-tree7">
+            <transformation> 
+             <translate x="60" y="3" z="-50"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+        <component id="christmas-tree6">
+            <transformation> 
+             <translate x="50" y="3" z="-60"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+        <component id="christmas-tree5">
+            <transformation> 
+             <translate x="60" y="3" z="-60"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+        <component id="christmas-tree4">
+            <transformation> 
+             <translate x="53" y="3" z="-53"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+        <component id="christmas-tree3">
+            <transformation> 
+             <translate x="55" y="3" z="-55"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+        <component id="christmas-tree2">
+            <transformation> 
+             <translate x="45" y="3" z="-45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+<component id="tree">
+            <transformation> 
+             <scale x="3" y="13" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cone"/>
+              
+            </children>
+        </component>
+
+
+        <component id="tronco">
+            <transformation> 
+            <translate x="0" y="-3.4" z="0"/>
+                <scale x="1" y="4" z="1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-tronco" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cilindro"/>
+            </children>
+        </component>
+
+
 
 <!-- snow doll-->
 
@@ -399,7 +576,7 @@
 
  <component id="abstract-house">
             <transformation> 
-            <translate x="10" y="0" z="10"/>
+            <translate x="10" y="3" z="10"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -411,8 +588,11 @@
                 <componentref id="window"/>
                 <componentref id="window2"/>
      <componentref id="door-handle"/>
-
-           
+<componentref id="triangle"/>
+<componentref id="triangle2"/>
+<componentref id="roof"/>
+           <componentref id="roof2"/>
+            <componentref id="chimney"/>
             </children>
         </component>
 
@@ -517,18 +697,120 @@
         </component>
 
 
+    <component id="triangle">
+        <transformation>
+        <translate x="-3.5" y="5.25" z="0"/>
+        <rotate axis="y" angle="90"/>
+            <scale x="7" y="3.5" z="0.5"/>
+        </transformation>
+        <materials>
+            <material id="mat-1"/>
+        </materials>
+        <texture id="inherit" length_s="1.0" length_t="1.0"/>
+        <children>
+        <primitiveref id="trian"/>
+        </children>
+        </component>
+
+<component id="triangle2">
+        <transformation>
+     <translate x="3.5" y="5.25" z="0"/>
+        <rotate axis="y" angle="90"/>
+            <scale x="7" y="3.5" z="0.5"/>
+        </transformation>
+        <materials>
+            <material id="mat-1"/>
+        </materials>
+        <texture id="inherit" length_s="1.0" length_t="1.0"/>
+        <children>
+        <primitiveref id="trian"/>
+        </children>
+        </component>
+
+
+    <component id="roof">
+        <transformation>
+     <translate x="0" y="5.25" z="-1.9"/>
+         <rotate axis="x" angle="45"/>
+ 
+            <scale x="7" y="6.31" z="0.3"/>
+           
+        </transformation>
+        <materials>
+            <material id="mat-1"/>
+        </materials>
+        <texture id="tex-roof" length_s="1.0" length_t="1.0"/>
+        <children>
+        <componentref id="cube"/>
+        </children>
+        </component>
+
+ 
+
+
+    <component id="roof2">
+        <transformation>
+     <translate x="0" y="5.25" z="1.9"/>
+         <rotate axis="x" angle="-45"/>
+ 
+            <scale x="7" y="6.31" z="0.3"/>
+           
+        </transformation>
+        <materials>
+            <material id="mat-1"/>
+        </materials>
+        <texture id="tex-roof" length_s="1.0" length_t="1.0"/>
+        <children>
+        <componentref id="cube"/>
+        </children>
+        </component>
 
 
 
+    <component id="chimney">
+        <transformation>
+        <translate x="1" y="6" z="2"/>
+            <scale x="0.7" y="3" z="0.7"/>
+        </transformation>
+        <materials>
+            <material id="mat-1"/>
+        </materials>
+        <texture id="tex-chimney" length_s="1.0" length_t="1.0"/>
+        <children>
+        <componentref id="cube"/>
+        </children>
+        </component>
+
+<!-- snowly road-->
+    <component id="road">
+        <transformation>
+        <translate x="0" y="0.1" z="0"/>
+            <scale x="999999" y="0.05" z="4"/>
+        </transformation>
+        <materials>
+            <material id="mat-1"/>
+        </materials>
+        <texture id="tex-snowlyroad" length_s="1.0" length_t="1.0"/>
+        <children>
+        <componentref id="cube"/>
+        </children>
+        </component>
 
 
 
-
-
-
-
-
-
+<!-- floor-->
+    <component id="floor">
+        <transformation>
+            <scale x="999999" y="0.05" z="999999"/>
+        </transformation>
+        <materials>
+            <material id="mat-1"/>
+        </materials>
+        <texture id="tex-snowlygrass" length_s="1.0" length_t="1.0"/>
+        <children>
+        <componentref id="cube"/>
+        </children>
+        </component>
 
 
 
