@@ -98,7 +98,7 @@
             <translate x="5" y="1.5" z="2"/>
         </transformation>
         <transformation id="basic-tanslation">
-            <translate x="2" y="1" z="1"/>
+            <translate x="2" y="0" z="1"/>
             <rotate axis="y" angle="-90"/>
         </transformation>
     </transformations>
