@@ -69,19 +69,6 @@
         <texture id="tex-housewall" file="images/housewall.jpg"/>
         <texture id="tex-gold" file="images/gold.jpg"/>
         <texture id="tex-window" file="images/window.jpg"/>
-<<<<<<< HEAD
-  <texture id="tex-chimney" file="images/chimney.jpg"/>
-    <texture id="tex-roof" file="images/roof.jpg"/>
-  <texture id="tex-snowlyroad" file="images/snowlyroad.jpg"/>
-   <texture id="tex-snowlygrass" file="images/snowlygrass.jpg"/>
-     <texture id="tex-christmastree" file="images/christmastree.jpg"/>
-   <texture id="tex-tronco" file="images/tronco.jpg"/>
-   <texture id="tex-black" file="images/black.jpg"/>
-  <texture id="tex-red" file="images/red.jpg"/>
-   <texture id="tex-chair" file="images/chair.jpg"/>
-
-    <texture id="tex-lake" file="images/lake.jpg"/>
-=======
         <texture id="tex-chimney" file="images/chimney.jpg"/>
         <texture id="tex-roof" file="images/roof.jpg"/>
         <texture id="tex-snowlyroad" file="images/snowlyroad.jpg"/>
@@ -90,7 +77,8 @@
         <texture id="tex-tronco" file="images/tronco.jpg"/>
         <texture id="tex-black" file="images/black.jpg"/>
         <texture id="tex-red" file="images/red.jpg"/>
->>>>>>> 407543a6fcf93244b8b6b26bd6e200d1affb3342
+        <texture id="tex-chair" file="images/chair.jpg"/>
+        <texture id="tex-lake" file="images/lake.jpg"/>
     </textures>
 
     <materials>
@@ -146,23 +134,14 @@
             </materials>
             <texture id="none" length_s="1.0" length_t="1.0"/>
             <children>
-<<<<<<< HEAD
                 <componentref id="lake"/>
                 <componentref id="chair"/>
                 <componentref id="forest"/>
                 <componentref id="abstract-house"/>
                 <componentref id="road"/>
+                <componentref id="bench"/>
                 <componentref id="floor"/>
            </children>
-=======
-                <!-- <componentref id="cube"/> -->
-                <componentref id="forest"/>
-                <componentref id="snow-doll"/>
-                <componentref id="abstract-house"/>
-                <!-- <componentref id="road"/> -->
-                <!-- <componentref id="floor"/> -->
-            </children>
->>>>>>> 407543a6fcf93244b8b6b26bd6e200d1affb3342
         </component>
 
         <component id="cube-lado1">
@@ -842,7 +821,6 @@
             </children>
         </component>
 
-<<<<<<< HEAD
     <component id="lake">
         <transformation>
         <translate x="30" y="0.1" z="30"/>
@@ -997,9 +975,10 @@
         <componentref id="cube"/>
         </children>
         </component>
+
 <component id="ferro4">
         <transformation>
-        <translate x="0" y="0" z="-1.7  " />
+        <translate x="0" y="0" z="-1.7"/>
             <scale x="1" y="0.1" z="0.1"/>
         </transformation>
         <materials>
@@ -1040,23 +1019,25 @@
         <children>
         <componentref id="cube"/>
         </children>
-=======
+        </component>
+
         <component id="bench">
             <transformation>
+                <translate x="0" y="1" z="5"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="wood.jpg" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="bench-board"/>
             </children>
->>>>>>> 407543a6fcf93244b8b6b26bd6e200d1affb3342
         </component>
 
         <component id="bench-board">
             <transformation>
-                <scale x="3.0" y="0.05" z="0.20"/>
+           
+             <scale x="3.0" y="0.05" z="0.20"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -1066,5 +1047,6 @@
                 <componentref id="cube"/>
             </children>
         </component>
+
     </components>
 </yas>
