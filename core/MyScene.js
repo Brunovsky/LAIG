@@ -246,9 +246,9 @@ class MyScene extends CGFscene {
                 this.translate(data.x, data.y, data.z);
                 break;
             case 'rotate':
-                const x = data.axis === 'x';
-                const y = data.axis === 'y';
-                const z = data.axis === 'z';
+                const x = data.axis === 'x' ? 1 : 0;
+                const y = data.axis === 'y' ? 1 : 0;
+                const z = data.axis === 'z' ? 1 : 0;
                 this.rotate(degToRad(data.angle), x, y, z);
                 break;
             case 'scale':

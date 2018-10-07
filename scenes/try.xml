@@ -1,5 +1,5 @@
 <yas>
-        <scene root="root" axis_length="4.0"/>
+    <scene root="root" axis_length="4.0"/>
 
     <views default="cam-perspective-0">
         <perspective id="cam-perspective-0" near="0.5" far="500" angle="50">
@@ -61,14 +61,15 @@
         <texture id="tex-leaves" file="images/leaves.jpg"/>
         <texture id="tex-rocks" file="images/rocks.jpg"/>
         <texture id="tex-trunk" file="images/trunk.jpg"/>
-           <texture id="tex-snow" file="images/snow.jpg"/>
+        <texture id="tex-snow" file="images/snow.jpg"/>
         <texture id="tex-vidral" file="images/vidral.jpg"/>
-            <texture id="tex-carrot" file="images/carrot.jpg"/>
-            <texture id="tex-eye" file="images/eye.jpg"/>
+        <texture id="tex-carrot" file="images/carrot.jpg"/>
+        <texture id="tex-eye" file="images/eye.jpg"/>
         <texture id="tex-wood" file="images/wood.jpg"/>
         <texture id="tex-housewall" file="images/housewall.jpg"/>
         <texture id="tex-gold" file="images/gold.jpg"/>
         <texture id="tex-window" file="images/window.jpg"/>
+<<<<<<< HEAD
   <texture id="tex-chimney" file="images/chimney.jpg"/>
     <texture id="tex-roof" file="images/roof.jpg"/>
   <texture id="tex-snowlyroad" file="images/snowlyroad.jpg"/>
@@ -80,13 +81,23 @@
    <texture id="tex-chair" file="images/chair.jpg"/>
 
     <texture id="tex-lake" file="images/lake.jpg"/>
+=======
+        <texture id="tex-chimney" file="images/chimney.jpg"/>
+        <texture id="tex-roof" file="images/roof.jpg"/>
+        <texture id="tex-snowlyroad" file="images/snowlyroad.jpg"/>
+        <texture id="tex-snowlygrass" file="images/snowlygrass.jpg"/>
+        <texture id="tex-christmastree" file="images/christmastree.jpg"/>
+        <texture id="tex-tronco" file="images/tronco.jpg"/>
+        <texture id="tex-black" file="images/black.jpg"/>
+        <texture id="tex-red" file="images/red.jpg"/>
+>>>>>>> 407543a6fcf93244b8b6b26bd6e200d1affb3342
     </textures>
 
     <materials>
         <material id="mat-1" shininess="10">
             <emission r="0.0" g="0.0" b="0.0" a="0"/>
-            <ambient r="0.2" g="0.2" b="0.3" a="1"/>
-            <diffuse r="0.6" g="0.6" b="0.5" a="1"/>
+            <ambient  r="0.2" g="0.2" b="0.3" a="1"/>
+            <diffuse  r="0.6" g="0.6" b="0.5" a="1"/>
             <specular r="0.4" g="0.7" b="0.8" a="1"/>
         </material>
     </materials>
@@ -95,17 +106,15 @@
         <transformation id="show-0">
             <translate x="0" y="0" z="0"/>
         </transformation>
-       <transformation id="tree">
-        <translate x="5" y="1.5" z="2"/>
+        <transformation id="tree">
+            <translate x="5" y="1.5" z="2"/>
         </transformation>
         <transformation id="basic-tanslation">
-        <translate x="2" y="1" z="1"/>
-    <rotate axis="y" angle="-90"/>
+            <translate x="2" y="1" z="1"/>
+            <rotate axis="y" angle="-90"/>
         </transformation>
-
     </transformations>
     
-
     <primitives>
         <primitive id="rect">
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
@@ -116,20 +125,18 @@
         <primitive id="cilindro">
             <cylinder base="1" top="1" height="1" stacks="32" slices="32"/>
         </primitive>
-        
         <primitive id="cone">
             <cylinder base="1" top="0" height="1" stacks="32" slices="32"/>
         </primitive>
         <primitive id="trian">
-        <triangle x1="-0.5" y1="-0.5" z1="0" x2="0" y2="0.5" z2="0" x3="0.5" y3="-0.5" z3="0"/>
+            <triangle x1="-0.5" y1="-0.5" z1="0" x2="0" y2="0.5" z2="0" x3="0.5" y3="-0.5" z3="0"/>
         </primitive>
         <primitive id="torus">
-        <torus inner="1" outer="2" slices="32" loops="1"/>
+            <torus inner="1" outer="2" slices="32" loops="1"/>
         </primitive>
     </primitives>
 
     <components>
-    
         <component id="root">
             <transformation>
                 <translate x="0" y="0" z="0"/>
@@ -139,6 +146,7 @@
             </materials>
             <texture id="none" length_s="1.0" length_t="1.0"/>
             <children>
+<<<<<<< HEAD
                 <componentref id="lake"/>
                 <componentref id="chair"/>
                 <componentref id="forest"/>
@@ -146,6 +154,15 @@
                 <componentref id="road"/>
                 <componentref id="floor"/>
            </children>
+=======
+                <!-- <componentref id="cube"/> -->
+                <componentref id="forest"/>
+                <componentref id="snow-doll"/>
+                <componentref id="abstract-house"/>
+                <!-- <componentref id="road"/> -->
+                <!-- <componentref id="floor"/> -->
+            </children>
+>>>>>>> 407543a6fcf93244b8b6b26bd6e200d1affb3342
         </component>
 
         <component id="cube-lado1">
@@ -161,7 +178,7 @@
             </children>
         </component>
 
-       <component id="cube-lado2">
+        <component id="cube-lado2">
             <transformation>
                 <translate x="0" y="0" z="0.5"/>
             </transformation>
@@ -171,7 +188,6 @@
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
-
             </children>
         </component>
 
@@ -186,7 +202,6 @@
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
-
             </children>
         </component>
 
@@ -202,7 +217,6 @@
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
-
             </children>
         </component>
 
@@ -217,7 +231,6 @@
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
-
             </children>
         </component>
 
@@ -234,6 +247,7 @@
                 <primitiveref id="rect"/>
             </children>
         </component>
+
         <component id="cube">
             <transformation>
                 <translate x="0" y="0" z="0"/>
@@ -253,8 +267,7 @@
             </children>
         </component>
 
-
-<component id="forest">
+        <component id="forest">
             <transformation>
                 <translate x="0" y="0" z="0"/>
             </transformation>
@@ -272,15 +285,14 @@
                <componentref id="christmas-tree7"/>
                <componentref id="christmas-tree8"/>
                <componentref id="christmas-tree9"/>
-               <componentref id="christmas-tree10"/>
-               
+               <componentref id="christmas-tree10"/>       
             </children>
         </component>
         
 <!-- Christmas Tree-->
         <component id="christmas-tree">
             <transformation> 
-             <translate x="50" y="3" z="-50"/>
+                <translate x="50" y="3" z="-50"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -291,9 +303,10 @@
                 <componentref id="tronco"/>
             </children>
         </component>
-<component id="christmas-tree10">
+
+        <component id="christmas-tree10">
             <transformation> 
-             <translate x="60" y="3" z="-53"/>
+                <translate x="60" y="3" z="-53"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -304,6 +317,7 @@
                 <componentref id="tronco"/>
             </children>
         </component>
+
         <component id="christmas-tree9">
             <transformation> 
              <translate x="62" y="3" z="-45"/>
@@ -317,6 +331,7 @@
                 <componentref id="tronco"/>
             </children>
         </component>
+
         <component id="christmas-tree8">
             <transformation> 
              <translate x="45" y="3" z="-50"/>
@@ -330,6 +345,7 @@
                 <componentref id="tronco"/>
             </children>
         </component>
+
         <component id="christmas-tree7">
             <transformation> 
              <translate x="60" y="3" z="-50"/>
@@ -343,6 +359,7 @@
                 <componentref id="tronco"/>
             </children>
         </component>
+
         <component id="christmas-tree6">
             <transformation> 
              <translate x="50" y="3" z="-60"/>
@@ -356,6 +373,7 @@
                 <componentref id="tronco"/>
             </children>
         </component>
+
         <component id="christmas-tree5">
             <transformation> 
              <translate x="60" y="3" z="-60"/>
@@ -369,6 +387,7 @@
                 <componentref id="tronco"/>
             </children>
         </component>
+
         <component id="christmas-tree4">
             <transformation> 
              <translate x="53" y="3" z="-53"/>
@@ -382,6 +401,7 @@
                 <componentref id="tronco"/>
             </children>
         </component>
+
         <component id="christmas-tree3">
             <transformation> 
              <translate x="55" y="3" z="-55"/>
@@ -395,6 +415,7 @@
                 <componentref id="tronco"/>
             </children>
         </component>
+
         <component id="christmas-tree2">
             <transformation> 
              <translate x="45" y="3" z="-45"/>
@@ -409,9 +430,9 @@
             </children>
         </component>
 
-<component id="tree">
+        <component id="tree">
             <transformation> 
-             <scale x="3" y="13" z="3"/>
+                <scale x="3" y="13" z="3"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -419,14 +440,12 @@
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cone"/>
-              
             </children>
         </component>
 
-
         <component id="tronco">
             <transformation> 
-            <translate x="0" y="-3.4" z="0"/>
+                <translate x="0" y="-3.4" z="0"/>
                 <scale x="1" y="4" z="1"/>
             </transformation>
             <materials>
@@ -438,11 +457,8 @@
             </children>
         </component>
 
-
-
 <!-- snow doll-->
-
-   <component id="snow-doll">
+        <component id="snow-doll">
             <transformation> 
                 <transformationref id="basic-tanslation"/>
             </transformation>
@@ -461,17 +477,14 @@
                 <componentref id="arm2"/>
                 <componentref id="hat"/>
                 <componentref id="hat2"/>
-                    <componentref id="auxiliar"/>
-
-
-
+                <componentref id="auxiliar"/>
             </children>
         </component>
   
-   <component id="midle-ball">
+        <component id="midle-ball">
             <transformation> 
                 <translate x="0" y="1.5" z="0"/>
-                  <scale x="0.7" y="0.7" z="0.7"/>
+                <scale x="0.7" y="0.7" z="0.7"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -482,8 +495,7 @@
             </children>
         </component>
 
-
-   <component id="last-ball">
+        <component id="last-ball">
             <transformation> 
                 <translate x="0" y="2.6" z="0"/>
                   <scale x="0.5" y="0.5" z="0.5"/>
@@ -497,13 +509,11 @@
             </children>
         </component>
 
-
-    <component id="nose">
+        <component id="nose">
             <transformation> 
-
                 <translate x="0" y="2.6" z="0.5"/>
-              <rotate axis="x" angle="90"/>
-                  <scale x="0.1" y="0.3" z="0.1"/>
+                <rotate axis="x" angle="90"/>
+                <scale x="0.1" y="0.3" z="0.1"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -514,12 +524,10 @@
             </children>
         </component>
 
-
-    <component id="eye1">
+        <component id="eye1">
             <transformation> 
                 <translate x="-0.2" y="2.8" z="0.45"/>
-
-                  <scale x="0.07" y="0.07" z="0.025"/>
+                <scale x="0.07" y="0.07" z="0.025"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -530,11 +538,10 @@
             </children>
         </component>
 
- <component id="eye2">
-            <transformation> 
+        <component id="eye2">
+            <transformation>
                 <translate x="0.2" y="2.8" z="0.45"/>
-
-                  <scale x="0.07" y="0.07" z="0.025"/>
+                <scale x="0.07" y="0.07" z="0.025"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -545,12 +552,11 @@
             </children>
         </component>
 
- <component id="arm">
+        <component id="arm">
             <transformation> 
-            <translate x="0.5" y="1.7" z="0.2"/>
-            <rotate axis="z" angle="50"/>
-             <scale x="1.25" y="0.025" z="0.025"/>
-     
+                <translate x="0.5" y="1.7" z="0.2"/>
+                <rotate axis="z" angle="50"/>
+                <scale x="1.25" y="0.025" z="0.025"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -561,13 +567,11 @@
             </children>
         </component>
 
- <component id="arm2">
+        <component id="arm2">
             <transformation> 
-            <translate x="-0.5" y="1.7" z="0.2"/>
-            <rotate axis="z" angle="-50"/>
-            
-             <scale x="1.25" y="0.025" z="0.025"/>
-     
+                <translate x="-0.5" y="1.7" z="0.2"/>
+                <rotate axis="z" angle="-50"/>
+                <scale x="1.25" y="0.025" z="0.025"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -578,12 +582,11 @@
             </children>
         </component>
 
-
-<component id="hat">
+        <component id="hat">
             <transformation> 
-            <translate x="0" y="3" z="0"/>
-             <scale x="0.2" y="0.1" z="0.2"/>
-            <rotate axis="x" angle="90"/>
+                <translate x="0" y="3" z="0"/>
+                <scale x="0.2" y="0.1" z="0.2"/>
+                <rotate axis="x" angle="90"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -596,8 +599,8 @@
         
         <component id="hat2">
             <transformation> 
-            <translate x="0" y="3" z="0"/>
-              <scale x="0.3" y="0.7" z="0.3"/>
+                <translate x="0" y="3" z="0"/>
+                <scale x="0.3" y="0.7" z="0.3"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -610,8 +613,8 @@
 
         <component id="auxiliar">
             <transformation> 
-            <translate x="0" y="3.2" z="0"/>
-              <scale x="0.30001" y="0.2" z="0.30001"/>
+                <translate x="0" y="3.2" z="0"/>
+                <scale x="0.30001" y="0.2" z="0.30001"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -622,16 +625,10 @@
             </children>
         </component>
 
-        
-        
 <!-- casa -->
-
-
-
-
- <component id="abstract-house">
+        <component id="abstract-house">
             <transformation> 
-            <translate x="10" y="3" z="10"/>
+                <translate x="10" y="3" z="10"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -643,20 +640,18 @@
                 <componentref id="door"/>
                 <componentref id="window"/>
                 <componentref id="window2"/>
-     <componentref id="door-handle"/>
-<componentref id="triangle"/>
-<componentref id="triangle2"/>
-<componentref id="roof"/>
-           <componentref id="roof2"/>
-            <componentref id="chimney"/>
+                <componentref id="door-handle"/>
+                <componentref id="triangle"/>
+                <componentref id="triangle2"/>
+                <componentref id="roof"/>
+                <componentref id="roof2"/>
+                <componentref id="chimney"/>
             </children>
         </component>
 
-
         <component id="house">
             <transformation> 
-            <scale x="7" y="7" z="7"/>
-     
+                <scale x="7" y="7" z="7"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -668,206 +663,186 @@
         </component>
 
         <component id="door">
-        <transformation>
-         
-            <translate x="-3.5" y="-2" z="0"/>
-            <rotate axis="y" angle="90"/>
-            <scale x="2" y="3" z="0.005"/>
-
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
-        <children>
-        <componentref id="cube"/>
-        </children>
+            <transformation>
+                <translate x="-3.5" y="-2" z="0"/>
+                <rotate axis="y" angle="90"/>
+                <scale x="2" y="3" z="0.005"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
         </component>
 
- <component id="window">
-        <transformation>
-            <translate x="-3.5" y="2" z="2"/>
-            <rotate axis="y" angle="90"/>
-            <scale x="2" y="2" z="0.005"/>
-
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-window" length_s="1.0" length_t="1.0"/>
-        <children>
-        <componentref id="cube"/>
-        </children>
+        <component id="window">
+            <transformation>
+                <translate x="-3.5" y="2" z="2"/>
+                <rotate axis="y" angle="90"/>
+                <scale x="2" y="2" z="0.005"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-window" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
         </component>
 
-
- <component id="window2">
-        <transformation>
-            <translate x="-3.5" y="2" z="-2"/>
-            <rotate axis="y" angle="90"/>
-            <scale x="2" y="2" z="0.005"/>
-
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-window" length_s="1.0" length_t="1.0"/>
-        <children>
-        <componentref id="cube"/>
-        
-        </children>
+        <component id="window2">
+            <transformation>
+                <translate x="-3.5" y="2" z="-2"/>
+                <rotate axis="y" angle="90"/>
+                <scale x="2" y="2" z="0.005"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-window" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
         </component>
 
-
-
-    <component id="helper">
-        <transformation>
-            <scale x="0.5" y="0.5" z="1.5"/>
-        <translate x="0" y="0" z="-1.2"/>
-         <rotate axis="x" angle="90"/>
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
-        <children>
-        <primitiveref id="cilindro"/>
-        </children>
+        <component id="helper">
+            <transformation>
+                <scale x="0.5" y="0.5" z="1.5"/>
+                <translate x="0" y="0" z="-1.2"/>
+                <rotate axis="x" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cilindro"/>
+            </children>
         </component>
 
-
-    <component id="door-handle">
-        <transformation>
-        <translate x="-4" y="-1.5" z="0.7"/>
-            <rotate axis="y" angle="-90"/>
-            <scale x="0.09" y="0.09" z="0.09"/>
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
-        <children>
-        <primitiveref id="sphere"/>
-        <componentref id="helper"/>
-        </children>
+        <component id="door-handle">
+            <transformation>
+                <translate x="-4" y="-1.5" z="0.7"/>
+                <rotate axis="y" angle="-90"/>
+                <scale x="0.09" y="0.09" z="0.09"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+                <componentref id="helper"/>
+            </children>
         </component>
 
-
-    <component id="triangle">
-        <transformation>
-        <translate x="-3.5" y="5.25" z="0"/>
-        <rotate axis="y" angle="90"/>
-            <scale x="7" y="3.5" z="0.5"/>
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="inherit" length_s="1.0" length_t="1.0"/>
-        <children>
-        <primitiveref id="trian"/>
-        </children>
+        <component id="triangle">
+            <transformation>
+                <translate x="-3.5" y="5.25" z="0"/>
+                <rotate axis="y" angle="90"/>
+                <scale x="7" y="3.5" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="trian"/>
+            </children>
         </component>
 
-<component id="triangle2">
-        <transformation>
-     <translate x="3.5" y="5.25" z="0"/>
-        <rotate axis="y" angle="90"/>
-            <scale x="7" y="3.5" z="0.5"/>
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="inherit" length_s="1.0" length_t="1.0"/>
-        <children>
-        <primitiveref id="trian"/>
-        </children>
+        <component id="triangle2">
+            <transformation>
+                <translate x="3.5" y="5.25" z="0"/>
+                <rotate axis="y" angle="90"/>
+                <scale x="7" y="3.5" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="trian"/>
+            </children>
         </component>
 
-
-    <component id="roof">
-        <transformation>
-     <translate x="0" y="5.25" z="-1.9"/>
-         <rotate axis="x" angle="45"/>
- 
-            <scale x="7" y="6.31" z="0.3"/>
-           
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-roof" length_s="1.0" length_t="1.0"/>
-        <children>
-        <componentref id="cube"/>
-        </children>
+        <component id="roof">
+            <transformation>
+                <translate x="0" y="5.25" z="-1.9"/>
+                <rotate axis="x" angle="45"/>
+                <scale x="7" y="6.31" z="0.3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-roof" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
         </component>
 
- 
-
-
-    <component id="roof2">
-        <transformation>
-     <translate x="0" y="5.25" z="1.9"/>
-         <rotate axis="x" angle="-45"/>
- 
-            <scale x="7" y="6.31" z="0.3"/>
-           
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-roof" length_s="1.0" length_t="1.0"/>
-        <children>
-        <componentref id="cube"/>
-        </children>
+        <component id="roof2">
+            <transformation>
+                <translate x="0" y="5.25" z="1.9"/>
+                <rotate axis="x" angle="-45"/>
+                <scale x="7" y="6.31" z="0.3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-roof" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
         </component>
 
-
-
-    <component id="chimney">
-        <transformation>
-        <translate x="1" y="6" z="2"/>
-            <scale x="0.7" y="3" z="0.7"/>
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-chimney" length_s="1.0" length_t="1.0"/>
-        <children>
-        <componentref id="cube"/>
-        </children>
+        <component id="chimney">
+            <transformation>
+                <translate x="1" y="6" z="2"/>
+                <scale x="0.7" y="3" z="0.7"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-chimney" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
         </component>
 
 <!-- snowly road-->
-    <component id="road">
-        <transformation>
-        <translate x="0" y="0.1" z="0"/>
-            <scale x="999999" y="0.05" z="4"/>
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-snowlyroad" length_s="1.0" length_t="1.0"/>
-        <children>
-        <componentref id="cube"/>
-        </children>
+        <component id="road">
+            <transformation>
+                <translate x="0" y="0.1" z="0"/>
+                <scale x="999999" y="0.05" z="4"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snowlyroad" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
         </component>
-
 
 
 <!-- floor-->
-    <component id="floor">
-        <transformation>
-            <scale x="999999" y="0.05" z="999999"/>
-        </transformation>
-        <materials>
-            <material id="mat-1"/>
-        </materials>
-        <texture id="tex-snowlygrass" length_s="1.0" length_t="1.0"/>
-        <children>
-        <componentref id="cube"/>
-        </children>
+        <component id="floor">
+            <transformation>
+                <scale x="999999" y="0.05" z="999999"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snowlygrass" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
         </component>
 
+<<<<<<< HEAD
     <component id="lake">
         <transformation>
         <translate x="30" y="0.1" z="30"/>
@@ -1065,13 +1040,31 @@
         <children>
         <componentref id="cube"/>
         </children>
+=======
+        <component id="bench">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="wood.jpg" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board"/>
+            </children>
+>>>>>>> 407543a6fcf93244b8b6b26bd6e200d1affb3342
         </component>
 
-
-
+        <component id="bench-board">
+            <transformation>
+                <scale x="3.0" y="0.05" z="0.20"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
     </components>
-    
-
-
-
 </yas>
