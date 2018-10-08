@@ -256,6 +256,8 @@
                 <componentref id="structure"/>
                 <componentref id="divider"/>
                 <componentref id="bed"/>
+                <componentref id="vertical-divider"/>
+
             </children>
         </component>
 
@@ -455,6 +457,23 @@
                  <componentref id="cube"/>
             </children>
         </component>
+
+        <component id="vertical-divider">
+        <transformation>
+                <translate x="0" y="-7.5" z="-10"/>
+                <scale x="20" y="15" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <componentref id="cube"/>
+            </children>
+        </component>
+
+        
+
 
 
     </components>
