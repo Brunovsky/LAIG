@@ -182,9 +182,9 @@
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <componentref id="stair-step-board"/>
-                <componentref id="stair-step-underbox"/>
-                <componentref id="stair-step-triangles"/>
+                <componentref id="stair-board"/>
+                <componentref id="stair-underbox"/>
+                <componentref id="stair-triangles"/>
             </children>
         </component>
 
@@ -196,8 +196,8 @@
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <componentref id="stair-step-board"/>
-                <componentref id="stair-step-underbox"/>
+                <componentref id="stair-board"/>
+                <componentref id="stair-underbox"/>
             </children>
         </component>
 
