@@ -6,53 +6,20 @@
             <from x="-15.0" y="15.0" z="15.0"/>
             <to x="0.0" y="0.0" z="0.0"/>
         </perspective>
-        <perspective id="cam-perspective-1" near="0.5" far="500" angle="30">
-            <from x="100.0" y="10.0" z="30.0"/>
-            <to x="0.0" y="0.0" z="10.0"/>
-        </perspective>
-        <perspective id="cam-perspective-2" near="0.5" far="500" angle="30">
-            <from x="40.0" y="15.0" z="50.0"/>
-            <to x="40.0" y="0.0" z="-10.0"/>
-        </perspective>
-        <ortho id="cam-ortho-1" near="0.5" far="500" left="3" right="7" top="5" bottom="6"/>
     </views>
 
     <ambient>
-        <ambient r="1" g="1" b="1" a="1.0"/>
-        <background r="0.5" g="0.74" b="0.94" a="1.0"/>
+        <ambient r="0.80" g="0.80" b="0.80" a="1.0"/>
+        <background r="0.5" g="0.60" b="0.80" a="1.0"/>
     </ambient>
 
     <lights>
-        <omni id="omni-light-0" enabled="1">
-            <location x="36" y="7" z="15" w="1"/>
-            <ambient r="0.2" g="0.2" b="0.2" a="1.0"/>
-            <diffuse r="0.3" g="0.4" b="0.25" a="1.0"/>
-            <specular r="0.9" g="0.8" b="0.7" a="1.0"/>
-        </omni>
-        <omni id="omni-light-1" enabled="1">
-            <location x="23" y="-10" z="-10" w="1"/>
-            <ambient r="0.05" g="0.10" b="0.15" a="1.0"/>
-            <diffuse r="0.2" g="0.25" b="0.35" a="1.0"/>
-            <specular r="0.6" g="0.7" b="1.0" a="1.0"/>
-        </omni>
-        <omni id="omni-light-2" enabled="1">
-            <location x="0" y="5" z="8" w="1"/>
-            <ambient r="0.05" g="0.05" b="0.05" a="1.0"/>
-            <diffuse r="0.35" g="0.45" b="0.25" a="1.0"/>
-            <specular r="0.8" g="0.8" b="0.8" a="1.0"/>
-        </omni>
-        <omni id="omni-light-3" enabled="1">
-            <location x="33" y="10" z="-4" w="1"/>
-            <ambient r="0.0" g="0.05" b="0.10" a="1.0"/>
-            <diffuse r="0.25" g="1.0" b="1.0" a="1.0"/>
-            <specular r="0.3" g="0.6" b="0.9" a="1.0"/>
-        </omni>
-        <spot id="spot-light-4" enabled="1" angle="30" exponent="15">
-            <location x="45" y="6" z="10" w="1"/>
-            <target x="45" y="0" z="10"/>
-            <ambient r="0.03" g="0.05" b="0.01" a="1"/>
-            <diffuse r="0.3" g="0.15" b="0.2" a="1"/>
-            <specular r="0.7" g="0.8" b="0.6" a="1"/>
+        <spot id="spot-light-4" enabled="1" angle="30" exponent="25">
+            <location x="0" y="30" z="10" w="1"/>
+            <target x="5" y="0" z="0"/>
+            <ambient r="0.10" g="0.10" b="0.10" a="1"/>
+            <diffuse r="0.70" g="0.70" b="0.70" a="1"/>
+            <specular r="0.95" g="0.85" b="0.90" a="1"/>
         </spot>
     </lights>
 
@@ -82,63 +49,36 @@
     <materials>
         <material id="mat-1" shininess="10">
             <emission r="0.0" g="0.0" b="0.0" a="0"/>
-            <ambient  r="0.2" g="0.2" b="0.3" a="1"/>
-            <diffuse  r="0.6" g="0.6" b="0.5" a="1"/>
-            <specular r="0.4" g="0.7" b="0.8" a="1"/>
+            <ambient  r="0.7" g="0.7" b="0.7" a="1"/>
+            <diffuse  r="0.8" g="0.9" b="0.9" a="1"/>
+            <specular r="0.90" g="0.95" b="0.95" a="1"/>
         </material>
     </materials>
  
     <transformations>
-        <transformation id="show-0">
+        <transformation id="noop">
             <translate x="0" y="0" z="0"/>
         </transformation>
-        <transformation id="tree">
-            <translate x="5" y="1.5" z="2"/>
-        </transformation>
-        <transformation id="basic-tanslation">
-            <translate x="7" y="1" z="1"/>
-            <rotate axis="y" angle="-90"/>
-        </transformation>
     </transformations>
-    
+
     <primitives>
         <primitive id="rect">
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-        </primitive>
-        <primitive id="sphere">
-            <sphere radius="1" stacks="32" slices="32"/>
-        </primitive>
-        <primitive id="cilindro">
-            <cylinder base="1" top="1" height="1" stacks="32" slices="32"/>
-        </primitive>
-        <primitive id="cone">
-            <cylinder base="1" top="0" height="1" stacks="32" slices="32"/>
-        </primitive>
-        <primitive id="trian">
-            <triangle x1="-0.5" y1="-0.5" z1="0" x2="0" y2="0.5" z2="0" x3="0.5" y3="-0.5" z3="0"/>
-        </primitive>
-        <primitive id="torus">
-            <torus inner="1" outer="2" slices="32" loops="1"/>
         </primitive>
     </primitives>
 
     <components>
         <component id="root">
             <transformation>
-                <translate x="0" y="0" z="0"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
             <children>
-                <!-- <componentref id="cube"/> -->
-                <componentref id="forest"/>
-                <componentref id="snow-doll"/>
-                <componentref id="abstract-house"/>
-                <!-- <componentref id="road"/> -->
-                <!-- <componentref id="floor"/> -->
-                <componentref id="bench"/>
+                <componentref id="bench-a"/>
+                <componentref id="bench-b"/>
+                <componentref id="bench-c"/>
             </children>
         </component>
 
@@ -182,7 +122,6 @@
             </children>
         </component>
 
-
         <component id="cube-lado4">
             <transformation>
                 <translate x="0" y="0.5" z="0"/>
@@ -197,7 +136,7 @@
             </children>
         </component>
 
-         <component id="cube-lado5">
+        <component id="cube-lado5">
             <transformation>
                 <translate x="-0.5" y="0" z="0"/>
                 <rotate axis="y" angle="90"/>
@@ -211,7 +150,7 @@
             </children>
         </component>
 
-         <component id="cube-lado6">
+        <component id="cube-lado6">
             <transformation>
                 <translate x="0.5" y="0" z="0"/>
                 <rotate axis="y" angle="90"/>
@@ -244,838 +183,1025 @@
             </children>
         </component>
 
-        <component id="forest">
-            <transformation>
-                <translate x="0" y="0" z="0"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-               <componentref id="christmas-tree"/>
-               <componentref id="christmas-tree2"/>
-               <componentref id="christmas-tree3"/>
-               <componentref id="christmas-tree4"/>
-               <componentref id="christmas-tree5"/>
-               <componentref id="christmas-tree6"/>
-               <componentref id="christmas-tree7"/>
-               <componentref id="christmas-tree8"/>
-               <componentref id="christmas-tree9"/>
-               <componentref id="christmas-tree10"/>       
-            </children>
-        </component>
-        
-<!-- Christmas Tree-->
-        <component id="christmas-tree">
-            <transformation> 
-                <translate x="50" y="3" z="-50"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="christmas-tree10">
-            <transformation> 
-                <translate x="60" y="3" z="-53"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="christmas-tree9">
-            <transformation> 
-             <translate x="62" y="3" z="-45"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="christmas-tree8">
-            <transformation> 
-             <translate x="45" y="3" z="-50"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="christmas-tree7">
-            <transformation> 
-             <translate x="60" y="3" z="-50"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="christmas-tree6">
-            <transformation> 
-             <translate x="50" y="3" z="-60"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="christmas-tree5">
-            <transformation> 
-             <translate x="60" y="3" z="-60"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="christmas-tree4">
-            <transformation> 
-             <translate x="53" y="3" z="-53"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="christmas-tree3">
-            <transformation> 
-             <translate x="55" y="3" z="-55"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="christmas-tree2">
-            <transformation> 
-             <translate x="45" y="3" z="-45"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="tree"/>
-                <componentref id="tronco"/>
-            </children>
-        </component>
-
-        <component id="tree">
-            <transformation> 
-                <scale x="3" y="13" z="3"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="cone"/>
-            </children>
-        </component>
-
-        <component id="tronco">
-            <transformation> 
-                <translate x="0" y="-3.4" z="0"/>
-                <scale x="1" y="4" z="1"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-tronco" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="cilindro"/>
-            </children>
-        </component>
-
-<!-- snow doll-->
-        <component id="snow-doll">
-            <transformation> 
-                <transformationref id="basic-tanslation"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="sphere"/>
-                <componentref id="midle-ball"/>
-                <componentref id="last-ball"/>
-                <componentref id="nose"/>
-                <componentref id="eye1"/>
-                <componentref id="eye2"/>
-                <componentref id="arm"/>
-                <componentref id="arm2"/>
-                <componentref id="hat"/>
-                <componentref id="hat2"/>
-                <componentref id="auxiliar"/>
-            </children>
-        </component>
-  
-        <component id="midle-ball">
-            <transformation> 
-                <translate x="0" y="1.5" z="0"/>
-                <scale x="0.7" y="0.7" z="0.7"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="sphere"/>
-            </children>
-        </component>
-
-        <component id="last-ball">
-            <transformation> 
-                <translate x="0" y="2.6" z="0"/>
-                  <scale x="0.5" y="0.5" z="0.5"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="sphere"/>
-            </children>
-        </component>
-
-        <component id="nose">
-            <transformation> 
-                <translate x="0" y="2.6" z="0.5"/>
-                <rotate axis="x" angle="90"/>
-                <scale x="0.1" y="0.3" z="0.1"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-carrot" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="cone"/>
-            </children>
-        </component>
-
-        <component id="eye1">
-            <transformation> 
-                <translate x="-0.2" y="2.8" z="0.45"/>
-                <scale x="0.07" y="0.07" z="0.025"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-eye" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="sphere"/>
-            </children>
-        </component>
-
-        <component id="eye2">
-            <transformation>
-                <translate x="0.2" y="2.8" z="0.45"/>
-                <scale x="0.07" y="0.07" z="0.025"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-eye" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="sphere"/>
-            </children>
-        </component>
-
-        <component id="arm">
-            <transformation> 
-                <translate x="0.5" y="1.7" z="0.2"/>
-                <rotate axis="z" angle="50"/>
-                <scale x="1.25" y="0.025" z="0.025"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="arm2">
-            <transformation> 
-                <translate x="-0.5" y="1.7" z="0.2"/>
-                <rotate axis="z" angle="-50"/>
-                <scale x="1.25" y="0.025" z="0.025"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="hat">
-            <transformation> 
-                <translate x="0" y="3" z="0"/>
-                <scale x="0.2" y="0.1" z="0.2"/>
-                <rotate axis="x" angle="90"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-black" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="torus"/>
-            </children>
-        </component>
-        
-        <component id="hat2">
-            <transformation> 
-                <translate x="0" y="3" z="0"/>
-                <scale x="0.3" y="0.7" z="0.3"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-black" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="cilindro"/>
-            </children>
-        </component>
-
-        <component id="auxiliar">
-            <transformation> 
-                <translate x="0" y="3.2" z="0"/>
-                <scale x="0.30001" y="0.2" z="0.30001"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-red" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="cilindro"/>
-            </children>
-        </component>
-
-<!-- casa -->
-        <component id="abstract-house">
-            <transformation> 
-                <translate x="10" y="3" z="10"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-housewall" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="house"/>
-                <componentref id="door"/>
-                <componentref id="window"/>
-                <componentref id="window2"/>
-                <componentref id="door-handle"/>
-                <componentref id="triangle"/>
-                <componentref id="triangle2"/>
-                <componentref id="roof"/>
-                <componentref id="roof2"/>
-                <componentref id="chimney"/>
-            </children>
-        </component>
-
-        <component id="house">
-            <transformation> 
-                <scale x="7" y="7" z="7"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-housewall" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="door">
-            <transformation>
-                <translate x="-3.5" y="-2" z="0"/>
-                <rotate axis="y" angle="90"/>
-                <scale x="2" y="3" z="0.005"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="window">
-            <transformation>
-                <translate x="-3.5" y="2" z="2"/>
-                <rotate axis="y" angle="90"/>
-                <scale x="2" y="2" z="0.005"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-window" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="window2">
-            <transformation>
-                <translate x="-3.5" y="2" z="-2"/>
-                <rotate axis="y" angle="90"/>
-                <scale x="2" y="2" z="0.005"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-window" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="helper">
-            <transformation>
-                <scale x="0.5" y="0.5" z="1.5"/>
-                <translate x="0" y="0" z="-1.2"/>
-                <rotate axis="x" angle="90"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="cilindro"/>
-            </children>
-        </component>
-
-        <component id="door-handle">
-            <transformation>
-                <translate x="-4" y="-1.5" z="0.7"/>
-                <rotate axis="y" angle="-90"/>
-                <scale x="0.09" y="0.09" z="0.09"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="sphere"/>
-                <componentref id="helper"/>
-            </children>
-        </component>
-
-        <component id="triangle">
-            <transformation>
-                <translate x="-3.5" y="5.25" z="0"/>
-                <rotate axis="y" angle="90"/>
-                <scale x="7" y="3.5" z="0.5"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="trian"/>
-            </children>
-        </component>
-
-        <component id="triangle2">
-            <transformation>
-                <translate x="3.5" y="5.25" z="0"/>
-                <rotate axis="y" angle="90"/>
-                <scale x="7" y="3.5" z="0.5"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="trian"/>
-            </children>
-        </component>
-
-        <component id="roof">
-            <transformation>
-                <translate x="0" y="5.25" z="-1.9"/>
-                <rotate axis="x" angle="45"/>
-                <scale x="7" y="6.31" z="0.3"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-roof" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="roof2">
-            <transformation>
-                <translate x="0" y="5.25" z="1.9"/>
-                <rotate axis="x" angle="-45"/>
-                <scale x="7" y="6.31" z="0.3"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-roof" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="chimney">
-            <transformation>
-                <translate x="1" y="6" z="2"/>
-                <scale x="0.7" y="3" z="0.7"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-chimney" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-<!-- snowly road-->
-        <component id="road">
-            <transformation>
-                <translate x="0" y="0.1" z="0"/>
-                <scale x="999999" y="0.05" z="4"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-snowlyroad" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-
-<!-- floor-->
-        <component id="floor">
-            <transformation>
-                <scale x="999999" y="0.05" z="999999"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-snowlygrass" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-<!-- bench -->
-        <component id="bench">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-seat"/>
-                <componentref id="bench-back"/>
-                <componentref id="bench-back-support"/>
-            </children>
-        </component>
-
+<!-- BENCH BOARDS -->
         <component id="bench-board">
             <transformation>
                 <scale x="5.0" y="0.05" z="0.25"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="bench-seat-1">
-            <transformation>
-                <translate x="0" y="0" z="0.25"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-seat-2">
-            <transformation>
-                <translate x="0" y="0" z="0.60"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-seat-3">
-            <transformation>
-                <translate x="0" y="0" z="0.95"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-seat-4">
-            <transformation>
-                <translate x="0" y="0" z="1.30"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-seat">
-            <transformation>
-                <translate x="0" y="0.50" z="0"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-seat-1"/>
-                <componentref id="bench-seat-2"/>
-                <componentref id="bench-seat-3"/>
-                <componentref id="bench-seat-4"/>
-            </children>
-        </component>
-
-        <component id="bench-back-1">
-            <transformation>
-                <rotate axis="x" angle="75"/>
-                <translate x="0" y="0" z="-0.15"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-back-2">
-            <transformation>
-                <rotate axis="x" angle="75"/>
-                <translate x="0" y="0" z="-0.50"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-back-3">
-            <transformation>
-                <rotate axis="x" angle="75"/>
-                <translate x="0" y="0" z="-0.85"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-back-4">
-            <transformation>
-                <rotate axis="x" angle="75"/>
-                <translate x="0" y="0" z="-1.20"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-back-5">
-            <transformation>
-                <rotate axis="x" angle="75"/>
-                <translate x="0" y="0" z="-1.55"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-back-6">
-            <transformation>
-                <translate x="0" y="0" z="-0.20"/>
-                <rotate axis="x" angle="75"/>
-                <translate x="0" y="0" z="-1.70"/>
-                <rotate axis="x" angle="-90"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
-        <component id="bench-back">
-            <transformation>
-                <translate x="0" y="0.50" z="0"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-back-1"/>
-                <componentref id="bench-back-2"/>
-                <componentref id="bench-back-3"/>
-                <componentref id="bench-back-4"/>
-                <componentref id="bench-back-5"/>
-                <componentref id="bench-back-6"/>
-            </children>
-        </component>
-
-        <component id="bench-back-support-1">
-            <transformation>
-                <rotate axis="x" angle="75"/>
-                <translate x="2.55" y="0" z="0"/>
-                <scale x="0.1" y="0.3" z="1.50"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="bench-back-support-2">
-            <transformation>
-                <translate x="0" y="0" z="-0.20"/>
-                <rotate axis="x" angle="75"/>
-                <translate x="0" y="0" z="-1.70"/>
-                <rotate axis="x" angle="-75"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="bench-back-support-3">
-            <transformation>
-                <translate x="0" y="0" z="-0.20"/>
-                <rotate axis="x" angle="75"/>
-                <translate x="0" y="0" z="-1.70"/>
-                <rotate axis="x" angle="-75"/>
-            </transformation>
-            <materials>
-                <material id="mat-1"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="cube"/>
-            </children>
-        </component>
-
-        <component id="bench-back-support">
-            <transformation>
-                <translate x="0" y="1.40" z="-0.50"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <componentref id="bench-back-support-1"/>
+                <componentref id="cube"/>
             </children>
         </component>
+
+        <component id="bench-board-1">
+            <transformation>
+                <translate x="0" y="0" z="0.0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board"/>
+            </children>
+        </component>
+
+        <component id="bench-board-2">
+            <transformation>
+                <translate x="0" y="0" z="0.35"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board"/>
+            </children>
+        </component>
+
+        <component id="bench-board-3">
+            <transformation>
+                <translate x="0" y="0" z="0.70"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board"/>
+            </children>
+        </component>
+
+        <component id="bench-board-4">
+            <transformation>
+                <translate x="0" y="0" z="1.05"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board"/>
+            </children>
+        </component>
+
+        <component id="bench-board-5">
+            <transformation>
+                <translate x="0" y="0" z="1.40"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board"/>
+            </children>
+        </component>
+
+        <component id="bench-board-6">
+            <transformation>
+                <translate x="0" y="0" z="1.75"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board"/>
+            </children>
+        </component>
+
+        <component id="bench-row-3">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board-1"/>
+                <componentref id="bench-board-2"/>
+                <componentref id="bench-board-3"/>
+            </children>
+        </component>
+
+        <component id="bench-row-4">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board-1"/>
+                <componentref id="bench-board-2"/>
+                <componentref id="bench-board-3"/>
+                <componentref id="bench-board-4"/>
+            </children>
+        </component>
+
+        <component id="bench-row-5">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board-1"/>
+                <componentref id="bench-board-2"/>
+                <componentref id="bench-board-3"/>
+                <componentref id="bench-board-4"/>
+                <componentref id="bench-board-5"/>
+            </children>
+        </component>
+
+        <component id="bench-row-6">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board-1"/>
+                <componentref id="bench-board-2"/>
+                <componentref id="bench-board-3"/>
+                <componentref id="bench-board-4"/>
+                <componentref id="bench-board-5"/>
+                <componentref id="bench-board-6"/>
+            </children>
+        </component>
+<!-- END BENCH BOARDS -->
+
+<!-- BENCH SIDE SUPPORTS -->
+        <component id="bench-side-support-row-3">
+            <transformation>
+                <translate x="0" y="-0.125" z="0.35"/>
+                <scale x="0.10" y="0.30" z="0.95"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-left-row-3">
+            <transformation>
+                <translate x="-2.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-side-support-row-3"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-right-row-3">
+            <transformation>
+                <translate x="2.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-side-support-row-3"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-row-4">
+            <transformation>
+                <translate x="0" y="-0.125" z="0.525"/>
+                <scale x="0.10" y="0.30" z="1.30"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-left-row-4">
+            <transformation>
+                <translate x="-2.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-side-support-row-4"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-right-row-4">
+            <transformation>
+                <translate x="2.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-side-support-row-4"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-row-5">
+            <transformation>
+                <translate x="0" y="-0.125" z="0.70"/>
+                <scale x="0.10" y="0.30" z="1.65"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-left-row-5">
+            <transformation>
+                <translate x="-2.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-side-support-row-5"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-right-row-5">
+            <transformation>
+                <translate x="2.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-side-support-row-5"/>
+            </children>
+        </component>
+        
+        <component id="bench-side-support-row-6">
+            <transformation>
+                <translate x="0" y="-0.125" z="0.875"/>
+                <scale x="0.10" y="0.30" z="2.0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-left-row-6">
+            <transformation>
+                <translate x="-2.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-side-support-row-6"/>
+            </children>
+        </component>
+
+        <component id="bench-side-support-right-row-6">
+            <transformation>
+                <translate x="2.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-side-support-row-6"/>
+            </children>
+        </component>
+<!-- END BENCH SIDE SUPPORTS -->
+
+<!-- BENCH BACK SUPPORT -->
+        <component id="bench-back-support-row-3">
+            <transformation>
+                <translate x="0" y="-0.075" z="0.30"/>
+                <scale x="0.20" y="0.10" z="0.85"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-back-support-row-4">
+            <transformation>
+                <translate x="0" y="-0.075" z="0.475"/>
+                <scale x="0.20" y="0.10" z="1.20"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-back-support-row-5">
+            <transformation>
+                <translate x="0" y="-0.075" z="0.65"/>
+                <scale x="0.20" y="0.10" z="1.55"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-back-support-row-6">
+            <transformation>
+                <translate x="0" y="-0.075" z="0.825"/>
+                <scale x="0.20" y="0.10" z="1.90"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+<!-- END BENCH BACK SUPPORT -->
+
+<!-- BASIC BENCH ROW -->
+        <component id="basic-bench-row-3">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>s
+                <componentref id="bench-row-3"/>
+                <componentref id="bench-side-support-left-row-3"/>
+                <componentref id="bench-side-support-right-row-3"/>
+            </children>
+        </component>
+
+        <component id="basic-bench-row-4">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>s
+                <componentref id="bench-row-4"/>
+                <componentref id="bench-side-support-left-row-4"/>
+                <componentref id="bench-side-support-right-row-4"/>
+            </children>
+        </component>
+
+        <component id="basic-bench-row-5">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-row-5"/>
+                <componentref id="bench-side-support-left-row-5"/>
+                <componentref id="bench-side-support-right-row-5"/>
+            </children>
+        </component>
+
+        <component id="basic-bench-row-6">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-row-6"/>
+                <componentref id="bench-side-support-left-row-6"/>
+                <componentref id="bench-side-support-right-row-6"/>
+            </children>
+        </component>
+
+        <component id="basic-bench-row-3-extended">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-row-3"/>
+                <componentref id="bench-side-support-left-row-4"/>
+                <componentref id="bench-side-support-right-row-4"/>
+            </children>
+        </component>
+
+        <component id="basic-bench-row-4-extended">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-row-4"/>
+                <componentref id="bench-side-support-left-row-5"/>
+                <componentref id="bench-side-support-right-row-5"/>
+            </children>
+        </component>
+
+        <component id="basic-bench-row-5-extended">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-row-5"/>
+                <componentref id="bench-side-support-left-row-6"/>
+                <componentref id="bench-side-support-right-row-6"/>
+            </children>
+        </component>
+<!-- END BASIC BENCH ROW -->
+
+<!-- BENCH RECLINE -->
+        <component id="bench-recline-row-3">
+            <transformation>
+                <rotate axis="x" angle="75"/>
+                <translate x="0" y="0" z="-1.05"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="basic-bench-row-3-extended"/>
+                <componentref id="bench-back-support-row-4"/>
+            </children>
+        </component>
+
+        <component id="bench-recline-row-4">
+            <transformation>
+                <rotate axis="x" angle="75"/>
+                <translate x="0" y="0" z="-1.40"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="basic-bench-row-4-extended"/>
+                <componentref id="bench-back-support-row-5"/>
+            </children>
+        </component>
+
+        <component id="bench-recline-row-5">
+            <transformation>
+                <rotate axis="x" angle="75"/>
+                <translate x="0" y="0" z="-1.75"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="basic-bench-row-5-extended"/>
+                <componentref id="bench-back-support-row-6"/>
+            </children>
+        </component>
+<!-- END BENCH RECLINE -->
+
+<!-- BENCH ARM REST -->
+        <component id="bench-armrest-short">
+            <transformation>
+                <translate x="0" y="0" z="0.40"/>
+                <scale x="0.30" y="0.10" z="0.80"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-armrest-short-left">
+            <transformation>
+                <translate x="-2.65" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-armrest-short"/>
+            </children>
+        </component>
+
+        <component id="bench-armrest-short-right">
+            <transformation>
+                <translate x="2.65" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-armrest-short"/>
+            </children>
+        </component>
+
+        <component id="bench-armrest-medium">
+            <transformation>
+                <translate x="0" y="0" z="0.60"/>
+                <scale x="0.30" y="0.10" z="1.20"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-armrest-medium-left">
+            <transformation>
+                <translate x="-2.65" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-armrest-medium"/>
+            </children>
+        </component>
+
+        <component id="bench-armrest-medium-right">
+            <transformation>
+                <translate x="2.65" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-armrest-medium"/>
+            </children>
+        </component>
+
+        <component id="bench-armrest-long">
+            <transformation>
+                <translate x="0" y="0" z="0.80"/>
+                <scale x="0.30" y="0.10" z="1.60"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-armrest-long-left">
+            <transformation>
+                <translate x="-2.65" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-armrest-long"/>
+            </children>
+        </component>
+
+        <component id="bench-armrest-long-right">
+            <transformation>
+                <translate x="2.65" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-armrest-long"/>
+            </children>
+        </component>
+<!-- END BENCH ARM REST -->
+
+<!-- BENCH LEGS -->
+        <component id="bench-leg-short-side">
+            <transformation>
+                <translate x="0" y="0.35" z="0"/>
+                <scale x="0.20" y="0.70" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-leg-short-side-left">
+            <transformation>
+                <translate x="-2.70" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-short-side"/>
+            </children>
+        </component>
+
+        <component id="bench-leg-short-side-right">
+            <transformation>
+                <translate x="2.70" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-short-side"/>
+            </children>
+        </component>
+
+        <component id="bench-leg-medium-side">
+            <transformation>
+                <translate x="0" y="0.50" z="0"/>
+                <scale x="0.20" y="1.0" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-leg-medium-side-left">
+            <transformation>
+                <translate x="-2.70" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-medium-side"/>
+            </children>
+        </component>
+
+        <component id="bench-leg-medium-side-right">
+            <transformation>
+                <translate x="2.70" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-medium-side"/>
+            </children>
+        </component>
+
+        <component id="bench-leg-long-side">
+            <transformation>
+                <translate x="0" y="0.70" z="0"/>
+                <scale x="0.20" y="1.40" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="bench-leg-long-side-left">
+            <transformation>
+                <translate x="-2.70" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-long-side"/>
+            </children>
+        </component>
+
+        <component id="bench-leg-long-side-right">
+            <transformation>
+                <translate x="2.70" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-long-side"/>
+            </children>
+        </component>
+<!-- END BENCH LEGS -->
+
+<!-- BENCH SIDESETS -->
+        <component id="bench-sideset-a">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-sideset-a-back-legs"/>
+                <componentref id="bench-sideset-a-front-legs"/>
+                <componentref id="bench-sideset-a-armrest"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-a-back-legs">
+            <transformation>
+                <translate x="0" y="0" z="0.20"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-medium-side-left"/>
+                <componentref id="bench-leg-medium-side-right"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-a-front-legs">
+            <transformation>
+                <translate x="0" y="0" z="1.0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-medium-side-left"/>
+                <componentref id="bench-leg-medium-side-right"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-a-armrest">
+            <transformation>
+                <translate x="0" y="1.05" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-armrest-long-left"/>
+                <componentref id="bench-armrest-long-right"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-b">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-sideset-b-back-legs"/>
+                <componentref id="bench-sideset-b-front-legs"/>
+                <componentref id="bench-sideset-b-armrest"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-b-back-legs">
+            <transformation>
+                <translate x="0" y="0" z="0.15"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-long-side-left"/>
+                <componentref id="bench-leg-long-side-right"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-b-front-legs">
+            <transformation>
+                <translate x="0" y="0" z="1.0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-long-side-left"/>
+                <componentref id="bench-leg-long-side-right"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-b-armrest">
+            <transformation>
+                <translate x="0" y="1.45" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-armrest-long-left"/>
+                <componentref id="bench-armrest-long-right"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-c">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-sideset-c-back-legs"/>
+                <componentref id="bench-sideset-c-front-legs"/>
+                <componentref id="bench-sideset-c-armrest"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-c-back-legs">
+            <transformation>
+                <translate x="0" y="0" z="0.15"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-short-side-left"/>
+                <componentref id="bench-leg-short-side-right"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-c-front-legs">
+            <transformation>
+                <translate x="0" y="0" z="0.85"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-leg-short-side-left"/>
+                <componentref id="bench-leg-short-side-right"/>
+            </children>
+        </component>
+
+        <component id="bench-sideset-c-armrest">
+            <transformation>
+                <translate x="0" y="0.75" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-armrest-medium-left"/>
+                <componentref id="bench-armrest-medium-right"/>
+            </children>
+        </component>
+<!-- END BENCH SIDESETS -->
+
+<!-- BENCHES -->
+        <component id="bench-a">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-sideset-a"/>
+                <componentref id="bench-a-boards"/>
+            </children>
+        </component>
+
+        <component id="bench-a-boards">
+            <transformation>
+                <translate x="0" y="0.80" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="basic-bench-row-5"/>
+                <componentref id="bench-recline-row-4"/>
+            </children>
+        </component>
+
+        <component id="bench-b">
+            <transformation>
+                <translate x="0" y="0" z="9"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-sideset-b"/>
+                <componentref id="bench-b-boards"/>
+            </children>
+        </component>
+
+        <component id="bench-b-boards">
+            <transformation>
+                <translate x="0" y="1.10" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="basic-bench-row-5"/>
+                <componentref id="bench-recline-row-5"/>
+            </children>
+        </component>
+
+        <component id="bench-c">
+            <transformation>
+                <translate x="0" y="0" z="18"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-sideset-c"/>
+                <componentref id="bench-c-boards"/>
+            </children>
+        </component>
+
+        <component id="bench-c-boards">
+            <transformation>
+                <translate x="0" y="0.60" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="basic-bench-row-4"/>
+                <componentref id="bench-recline-row-3"/>
+            </children>
+        </component>
+<!-- END BENCHES -->
     </components>
 </yas>
