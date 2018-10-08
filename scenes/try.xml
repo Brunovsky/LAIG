@@ -2,9 +2,9 @@
     <scene root="root" axis_length="4.0"/>
 
     <views default="cam-perspective-0">
-        <perspective id="cam-perspective-0" near="0.5" far="500" angle="50">
-            <from x="-25.0" y="15.0" z="10.0"/>
-            <to x="60.0" y="-20.0" z="10.0"/>
+        <perspective id="cam-perspective-0" near="0.5" far="500" angle="30">
+            <from x="-15.0" y="15.0" z="15.0"/>
+            <to x="0.0" y="0.0" z="0.0"/>
         </perspective>
         <perspective id="cam-perspective-1" near="0.5" far="500" angle="30">
             <from x="100.0" y="10.0" z="30.0"/>
@@ -1028,7 +1028,9 @@
             </materials>
             <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
             <children>
-                <componentref id="bench-board"/>
+                <componentref id="bench-seat"/>
+                <componentref id="bench-back"/>
+                <componentref id="bench-back-support"/>
             </children>
         </component>
 

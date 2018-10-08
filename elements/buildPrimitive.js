@@ -76,7 +76,7 @@ function buildPrimitive(scene, primitive) {
 	// 4. Surface Primitives
 	case 'torus':
 		return new uvSurface(scene, protoTorus(dt.inner, dt.outer),
-			intervalTorus, dt.slices, dt.stacks);
+			intervalTorus, dt.slices);
 	case 'eight':
 		return new uvSurface(scene, protoEightSurface(),
 			intervalEightSurface, dt.slices, dt.stacks);
