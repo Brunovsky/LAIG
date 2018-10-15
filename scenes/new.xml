@@ -124,6 +124,15 @@
         <primitive id="torus">
             <torus inner="1" outer="2" slices="32" loops="1"/>
         </primitive>
+        <primitive id="torus2">
+            <torus inner="0.2" outer="1.2" slices="32" loops="1"/>
+        </primitive>
+         <primitive id="half-open-sphere">
+            <openhalfsphere radius="1" stacks="32" slices="32"/>
+        </primitive>
+         <primitive id="open-cone">
+            <opencylinder  base="1" top="0.5" height="1" stacks="32" slices="32"/>
+        </primitive>
     </primitives>
 
     <components>
@@ -257,6 +266,9 @@
                 <componentref id="divider"/>
                 <componentref id="bed"/>
                 <componentref id="vertical-divider"/>
+                <componentref id="candeeiro"/>
+                <componentref id="candeeiro2"/>
+
 
             </children>
         </component>
@@ -281,7 +293,6 @@
 
         <component id="divider">
             <transformation>
-                <translate x="0" y="0" z="0"/>
                 <scale x="20" y="0.5'" z="40"/>
             </transformation>
             <materials>
@@ -295,8 +306,8 @@
         
         <component id="bed">
             <transformation>
-               <translate x="1" y="3" z="0"/>
-               <scale x="2" y="2" z="2"/>
+               <translate x="-6" y="1" z="-17"/>
+               <scale x="3" y="3" z="3"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -460,7 +471,7 @@
 
         <component id="vertical-divider">
         <transformation>
-                <translate x="0" y="-7.5" z="-10"/>
+                <translate x="0" y="-7.5" z="-7"/>
                 <scale x="20" y="15" z="0.5"/>
             </transformation>
             <materials>
@@ -473,6 +484,238 @@
         </component>
 
         
+        <component id="candeeiro">
+            <transformation>
+                <translate x="0" y="0.4" z="-17"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-red" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro_cobertura"/>
+                <componentref id="candeeiro_suporte"/>
+                <componentref id="candeeiro_base"/>
+                <componentref id="candeeiro_vareta1"/>
+                <componentref id="candeeiro_vareta2"/>
+                <componentref id="candeeiro_vareta3"/>
+                <componentref id="candeeiro_vareta4"/>
+            </children>
+        </component>
+
+        <component id="candeeiro_cobertura">
+            <transformation>
+                <translate x="0" y="2" z="0"/>
+               
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <primitiveref id="open-cone"/>
+            </children>
+        </component>
+
+        <component id="candeeiro_suporte">
+            <transformation>
+                <scale x="0.1" y="2" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <primitiveref id="cilindro"/>
+            </children>
+        </component>
+
+        <component id="candeeiro_base">
+            <transformation>
+                <scale x="1.5" y="1" z="1.5"/>
+                <rotate axis="x" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <primitiveref id="rect"/>
+            </children>
+        </component>
+
+
+        <component id="candeeiro_vareta1">
+            <transformation>
+                <translate x="0" y="1.9" z="0.05"/>
+                <rotate axis="x" angle="45"/>
+                <scale x="0.02" y="0.935" z="0.02"/>
+              
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <primitiveref id="cilindro"/>
+            </children>
+        </component>
+
+        <component id="candeeiro_vareta2">
+           <transformation>
+                <rotate axis="y" angle="90"/>
+           
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <componentref id="candeeiro_vareta1"/>
+            </children>
+        </component>
+
+        <component id="candeeiro_vareta3">
+            <transformation>
+                <rotate axis="y" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <componentref id="candeeiro_vareta1"/>
+            </children>
+        </component>
+
+        <component id="candeeiro_vareta4">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <componentref id="candeeiro_vareta1"/>
+            </children>
+        </component>
+
+        <component id="candeeiro2">
+            <transformation>
+                <translate x="4" y="0.5" z="-17"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro2_cobertura"/>
+                <componentref id="candeeiro2_suporte"/>
+                <componentref id="candeeiro2_base"/>
+                <componentref id="candeeiro2_vareta1"/>
+                <componentref id="candeeiro2_vareta2"/>
+                <componentref id="candeeiro2_vareta3"/>
+                <componentref id="candeeiro2_vareta4"/>
+            </children>
+        </component>
+
+        <component id="candeeiro2_cobertura">
+            <transformation>
+                <translate x="0" y="1" z="0"/>
+               
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <primitiveref id="open-cone"/>
+            </children>
+        </component>
+
+        <component id="candeeiro2_suporte">
+            <transformation>
+                <scale x="0.1" y="1" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <primitiveref id="cilindro"/>
+            </children>
+        </component>
+
+        <component id="candeeiro2_base">
+            <transformation>
+                <scale x="0.7" y="0.01" z="0.7"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-red" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <primitiveref id="sphere"/>
+            </children>
+        </component>
+
+
+        <component id="candeeiro2_vareta1">
+            <transformation>
+                <translate x="0" y="0.9" z="0.05"/>
+                <rotate axis="x" angle="45"/>
+                <scale x="0.02" y="0.935" z="0.02"/>
+              
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <primitiveref id="cilindro"/>
+            </children>
+        </component>
+
+        <component id="candeeiro2_vareta2">
+           <transformation>
+                <rotate axis="y" angle="90"/>
+           
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <componentref id="candeeiro2_vareta1"/>
+            </children>
+        </component>
+
+        <component id="candeeiro2_vareta3">
+            <transformation>
+                <rotate axis="y" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <componentref id="candeeiro2_vareta1"/>
+            </children>
+        </component>
+
+        <component id="candeeiro2_vareta4">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <componentref id="candeeiro2_vareta1"/>
+            </children>
+        </component>
 
 
 
