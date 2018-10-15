@@ -47,9 +47,22 @@
             <diffuse r="0.25" g="1.0" b="1.0" a="1.0"/>
             <specular r="0.3" g="0.6" b="0.9" a="1.0"/>
         </omni>
+        <omni id="candeeiro" enabled="1">
+            <location x="0.4" y="3" z="-17" w="1"/>
+            <ambient r="1.0" g="1" b="1" a="1.0"/>
+            <diffuse r="0.25" g="1.0" b="1.0" a="1.0"/>
+            <specular r="0.3" g="0.6" b="0.9" a="1.0"/>
+        </omni>
         <spot id="spot-light-4" enabled="1" angle="30" exponent="15">
             <location x="45" y="6" z="10" w="1"/>
             <target x="45" y="0" z="10"/>
+            <ambient r="0.03" g="0.05" b="0.01" a="1"/>
+            <diffuse r="0.3" g="0.15" b="0.2" a="1"/>
+            <specular r="0.7" g="0.8" b="0.6" a="1"/>
+        </spot>
+         <spot id="front" enabled="1" angle="30" exponent="15">
+            <location x="-20" y="4" z="0" w="1"/>
+            <target x="20" y="0" z="10"/>
             <ambient r="0.03" g="0.05" b="0.01" a="1"/>
             <diffuse r="0.3" g="0.15" b="0.2" a="1"/>
             <specular r="0.7" g="0.8" b="0.6" a="1"/>
@@ -80,7 +93,8 @@
         <texture id="tex-red" file="images/red.jpg"/>
         <texture id="tex-chair" file="images/chair.jpg"/>
         <texture id="tex-lake" file="images/lake.jpg"/>
-            <texture id="tex-bed" file="images/bed.jpg"/>
+        <texture id="tex-bed" file="images/bed.jpg"/>
+    
     </textures>
 
     <materials>
@@ -268,6 +282,7 @@
                 <componentref id="vertical-divider"/>
                 <componentref id="candeeiro"/>
                 <componentref id="candeeiro2"/>
+                <componentref id="mesa-cabeceira-abs"/>
 
 
             </children>
@@ -717,8 +732,162 @@
             </children>
         </component>
 
+        <component id="mesa-cabeceira-abs">
+            <transformation>
+         
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="mesa-cabeceira"/>
+                <componentref id="gaveta1"/>
+                <componentref id="gaveta2"/>
+                <componentref id="gaveta4"/>
+                <componentref id="gaveta3"/>
+                <componentref id="maçaneta1"/>
+                <componentref id="maçaneta2"/>
+                <componentref id="maçaneta3"/>
+                <componentref id="maçaneta4"/>
 
 
+            </children>
+        </component>
+
+        <component id="mesa-cabeceira">
+            <transformation>
+            <translate x="0" y="2.5" z="0"/>
+                <scale x="2" y="4" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado1"/>
+                <componentref id="cube-lado2"/>
+                <componentref id="cube-lado3"/>
+                <componentref id="cube-lado4"/>
+                <componentref id="cube-lado6"/>
+            
+            </children>
+        </component>
+
+        <component id="gaveta1">
+            <transformation>
+                <translate x="-0.5" y="4" z="0"/>
+                <scale x="1" y="1" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-red" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5"/>
+            </children>
+        </component>
+
+
+        <component id="gaveta2">
+            <transformation>
+                <translate x="-0.5" y="3" z="0"/>
+                <scale x="1" y="1" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5"/>
+            </children>
+        </component>
+
+        <component id="gaveta3">
+            <transformation>
+                <translate x="-0.5" y="2" z="0"/>
+                <scale x="1" y="1" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5"/>
+            </children>
+        </component>
+
+        <component id="gaveta4">
+            <transformation>
+                <translate x="-0.5" y="1" z="0"/>
+                <scale x="1" y="1" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5"/>
+            </children>
+        </component>
+
+        <component id="maçaneta1">
+            <transformation>
+                <translate x="-1.09" y="4" z="0"/>
+                <scale x="0.1" y="0.1" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+            </children>
+        </component>
+    
+       <component id="maçaneta2">
+            <transformation>
+                <translate x="-1.09" y="3" z="0"/>
+                <scale x="0.1" y="0.1" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+            </children>
+        </component>
+    
+       <component id="maçaneta3">
+            <transformation>
+                 <translate x="-1.09" y="2" z="0"/>
+                <scale x="0.1" y="0.1" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+            </children>
+        </component>
+    
+        <component id="maçaneta4">
+            <transformation>
+                 <translate x="-1.09" y="1" z="0"/>
+                <scale x="0.1" y="0.1" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+            </children>
+        </component>
+    
     </components>
+
 
 </yas>
