@@ -145,7 +145,7 @@
                 <componentref id="forest"/>
                 <componentref id="road"/> 
                 <componentref id="abstract-house"/>  
-                <componentref id="bench"/>
+              <!--  <componentref id="bench"/> -->
                 
            </children>
         </component>
@@ -1022,7 +1022,7 @@
             </children>
         </component>
 
-        <component id="bench">
+        <!--<component id="bench">
             <transformation>
                 <translate x="30" y="1" z="5"/>
             </transformation>
@@ -1049,6 +1049,8 @@
                 <componentref id="cube"/>
             </children>
         </component>
+
+-->
 
     </components>
 </yas>
