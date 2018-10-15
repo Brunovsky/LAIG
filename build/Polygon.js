@@ -10,6 +10,19 @@ class Regular extends CGFobject {
             maxT: coords[3]
         };
         this.initBuffers();
+        this.initTexCache();
+    }
+
+    initTexCache() {
+        const spanS = 2 * this.radius;
+        const spanT = 2 * this.radius;
+        this.adjust = true;
+        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+    }
+
+    updateTexCoords(s, t) {
+        this.texCoords = this.cache.get(s, t);
+        this.updateTexCoordsGLBuffers();
     }
 
     initBuffers() {
@@ -95,6 +108,19 @@ class Polygon extends CGFobject {
             maxT: coords[3]
         };
         this.initBuffers();
+        this.initTexCache();
+    }
+
+    initTexCache() {
+        const spanS = this.b.maxX - this.b.minX;
+        const spanT = this.b.maxZ - this.b.minZ;
+        this.adjust = true;
+        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+    }
+
+    updateTexCoords(s, t) {
+        this.texCoords = this.cache.get(s, t);
+        this.updateTexCoordsGLBuffers();
     }
 
     initBuffers() {
@@ -111,6 +137,7 @@ class Polygon extends CGFobject {
         this.indices = [];
         this.normals = [];
         this.texCoords = [];
+        this.b = b;
 
         for (let i = 0; i < V.length; ++i) {
             let X = V[i][0];
@@ -176,36 +203,22 @@ class Polygon extends CGFobject {
 
 
 
-class Square extends CGFobject {
+class Square extends Polygon {
     constructor(scene, side = 1, coords = [0, 1, 0, 1]) {
-        super(scene);
-        let V = [
+        super(scene, [
             [-side / 2, -side / 2],
-            [side / 2, -side / 2],
-            [side / 2, side / 2],
-            [-side / 2, side / 2]
-        ];
-        this.square = new Polygon(scene, V, coords);
-        this.initBuffers();
-    }
-
-    display() {
-        this.square.display();
+            [ side / 2, -side / 2],
+            [ side / 2,  side / 2],
+            [-side / 2,  side / 2]
+        ], coords);
     }
 }
 
 
 
-class Circle extends CGFobject {
+class Circle extends Regular {
     constructor(scene, radius = 1, slices = 64, coords = [0, 1, 0, 1]) {
-        super(scene);
-        this.circle = new Regular(scene, slices, radius, coords);
-        this.initBuffers();
-    }
-
-    display() {
-
-        this.circle.display();
+        super(scene, slices, radius, coords);
     }
 }
 
@@ -223,41 +236,55 @@ class Triangle extends CGFobject {
             minT: coords[2],
             maxT: coords[3]
         };
-
         this.initBuffers();
+        this.initTexCache();
+    }
+
+    initTexCache() {
+        const spanS = distVectors(this.A, this.B);
+        const spanT = triangleHeight(this.A, this.B, this.C);
+        this.adjust = true;
+        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+    }
+
+    updateTexCoords(s, t) {
+        this.texCoords = this.cache.get(s, t);
+        this.updateTexCoordsGLBuffers();
     }
 
     initBuffers() {
+        const A = this.A, B = this.B, C = this.C,
+            coords = this.coords;
+
+        const N = triangleOrientation(A, B, C);
 
         this.vertices = [
-            this.A.X, this.A.Y, this.A.Z,
-            this.A.X, this.A.Y, this.A.Z,
-            this.B.X, this.B.Y, this.B.Z,
-            this.B.X, this.B.Y, this.B.Z,
-            this.C.X, this.C.Y, this.C.Z,
-            this.C.X, this.C.Y, this.C.Z
+            A.X, A.Y, A.Z,
+            A.X, A.Y, A.Z,
+            B.X, B.Y, B.Z,
+            B.X, B.Y, B.Z,
+            C.X, C.Y, C.Z,
+            C.X, C.Y, C.Z
         ];
 
         this.indices = [0, 2, 4, 1, 5, 3];
 
-        let normal1 = triangleOrientation(this.A, this.B, this.C);
-
         this.normals = [
-             normal1.X,  normal1.Y,  normal1.Z,
-            -normal1.X, -normal1.Y, -normal1.Z,
-             normal1.X,  normal1.Y,  normal1.Z,
-            -normal1.X, -normal1.Y, -normal1.Z,
-             normal1.X,  normal1.Y,  normal1.Z,
-            -normal1.X, -normal1.Y, -normal1.Z,
+             N.X,  N.Y,  N.Z,
+            -N.X, -N.Y, -N.Z,
+             N.X,  N.Y,  N.Z,
+            -N.X, -N.Y, -N.Z,
+             N.X,  N.Y,  N.Z,
+            -N.X, -N.Y, -N.Z,
         ];
 
         this.texCoords = [
-            this.minS, this.minT,
-            this.minS, this.minT,
-            this.maxS, this.maxT,
-            this.maxS, this.maxT,
-            this.maxS, this.minT,
-            this.maxS, this.minT
+            coords.minS, coords.minT,
+            coords.minS, coords.minT,
+            coords.maxS, coords.maxT,
+            coords.maxS, coords.maxT,
+            coords.maxS, coords.minT,
+            coords.maxS, coords.minT
         ];
 
         this.primitiveType = this.scene.gl.TRIANGLES;
@@ -271,49 +298,53 @@ class Rectangle extends CGFobject {
     constructor(scene, V, coords = [0, 1, 0, 1]) {
         super(scene);
         this.V = V;
-        this.minS = coords[0];
-        this.maxS = coords[1];
-        this.minT = coords[2];
-        this.maxT = coords[3];
+        this.coords = {
+            minS: coords[0],
+            maxS: coords[1],
+            minT: coords[2],
+            maxT: coords[3]
+        };
         this.initBuffers();
+        this.initTexCache();
+    }
 
+    initTexCache() {
+        const spanS = Math.abs(this.V.x2 - this.V.x1);
+        const spanT = Math.abs(this.V.y2 - this.V.y1);
+        this.adjust = true;
+        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+    }
+
+    updateTexCoords(s, t) {
+        this.texCoords = this.cache.get(s, t);
+        this.updateTexCoordsGLBuffers();
     }
 
     initBuffers() {
-        // 2 6             3 7
-        //  D ------------- C
-        //  |               |
-        //  |               |
+        const V = this.V, coords = this.coords;
+
+
         //  A ------------- B
-        // 0 4             1 5
-        // 
-        // Textura:
-        // 
-        // u = 0          u = 1
-        // v = 0          v = 0
+        //  |               |
+        //  |               |
         //  D ------------- C
-        //  |               |
-        //  |               |
-        //  A ------------- B
-        // u = 0          u = 1
-        // v = 1          v = 1
 
         this.vertices = [
-            this.V.x1, this.V.y1, 0, // A  front
-            this.V.x2, this.V.y1, 0, // B  front
-            this.V.x1, this.V.y2, 0, // D  front
-            this.V.x2, this.V.y2, 0, // C  front
-            this.V.x1, this.V.y1, 0, // A  back
-            this.V.x2, this.V.y1, 0, // B  back
-            this.V.x1, this.V.y2, 0, // D  back
-            this.V.x2, this.V.y2, 0  // C  back
+            V.x1, V.y2, 0, // A  front
+            V.x2, V.y2, 0, // B  front
+            V.x2, V.y1, 0, // C  front
+            V.x1, V.y1, 0, // D  front
+            V.x1, V.y2, 0, // A  back
+            V.x2, V.y2, 0, // B  back
+            V.x2, V.y1, 0, // C  back
+            V.x1, V.y1, 0  // D  back
         ];
 
         this.indices = [
-            0, 1, 2,
-            3, 2, 1,
-            4, 6, 5,
-            6, 7, 5
+            0, 2, 1,
+            0, 3, 2,
+            4, 5, 6,
+            4, 6, 7
         ];
 
         this.normals = [
@@ -329,14 +360,14 @@ class Rectangle extends CGFobject {
         ];
 
         this.texCoords = [
-            this.minS, this.maxT,
-            this.maxS, this.maxT,
-            this.minS, this.minT,
-            this.maxS, this.minT,
-            this.minS, this.maxT,
-            this.maxS, this.maxT,
-            this.minS, this.minT,
-            this.maxS, this.minT
+            coords.minS, coords.minT,
+            coords.maxS, coords.minT,
+            coords.maxS, coords.maxT,
+            coords.minS, coords.maxT,
+            coords.minS, coords.minT,
+            coords.maxS, coords.minT,
+            coords.maxS, coords.maxT,
+            coords.minS, coords.maxT,
         ];
 
         this.primitiveType = this.scene.gl.TRIANGLES;
@@ -349,19 +380,12 @@ class Rectangle extends CGFobject {
 
 class Trapezium extends CGFobject {
     constructor(scene, base = 1, height = 1, top = 1, coords = [0, 1, 0, 1]) {
-        super(scene);
-        let V = [
+        super(scene, [
             [-base / 2, -height / 2],
-            [base / 2, -height / 2],
-            [top / 2, height / 2],
-            [-top / 2, height / 2]
-        ];
-        this.trapezium = new Polygon(scene, V, coords);
-        this.initBuffers();
-    }
-
-    display() {
-        this.trapezium.display();
+            [ base / 2, -height / 2],
+            [  top / 2,  height / 2],
+            [ -top / 2,  height / 2]
+        ], coords);
     }
 }
 
@@ -382,7 +406,20 @@ class tPolygon extends CGFobject {
             minT: coords[2],
             maxT: coords[3]
         };
-        this.initBuffers()
+        this.initBuffers();
+        this.initTexCache();
+    }
+
+    initTexCache() {
+        const spanS = this.b.maxX - this.b.minX;
+        const spanT = this.b.maxZ - this.b.minZ;
+        this.adjust = true;
+        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+    }
+
+    updateTexCoords(s, t) {
+        this.texCoords = this.cache.get(s, t);
+        this.updateTexCoordsGLBuffers();
     }
 
     initBuffers() {
@@ -402,6 +439,7 @@ class tPolygon extends CGFobject {
         this.indices = [];
         this.normals = [];
         this.texCoords = [];
+        this.b = b;
 
         for (let i = 0; i <= samples; ++i) {
             let t = l.minT + tInc * i;
@@ -486,6 +524,19 @@ class rPolygon extends CGFobject {
             maxT: coords[3]
         };
         this.initBuffers();
+        this.initTexCache();
+    }
+
+    initTexCache() {
+        const spanS = this.b.maxX - this.b.minX;
+        const spanT = this.b.maxZ - this.b.minZ;
+        this.adjust = true;
+        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+    }
+
+    updateTexCoords(s, t) {
+        this.texCoords = this.cache.get(s, t);
+        this.updateTexCoordsGLBuffers();
     }
 
     initBuffers() {
@@ -506,6 +557,7 @@ class rPolygon extends CGFobject {
         this.indices = [];
         this.normals = [];
         this.texCoords = [];
+        this.b = b;
 
         // Center vertex Up
         this.vertices.push(0, 0, 0);

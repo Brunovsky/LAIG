@@ -7,6 +7,8 @@ class MyScene extends CGFscene {
 
         this.gui = gui;
         gui.scene = this;
+
+        window.scene = this;
     }
 
     /**
@@ -44,19 +46,12 @@ class MyScene extends CGFscene {
      */
     onGraphLoaded() {
         this.initAxis();
-
         this.initViews();
-
         this.initAmbient();
-
         this.initLights();
-
         this.initTextures();
-
         this.initMaterials();
-
         this.initPrimitives();
-
         this.initInterface();
 
         this.graphLoaded = true;
@@ -85,7 +80,14 @@ class MyScene extends CGFscene {
 
                 this.views[id] = new CGFcamera(fov, near, far, position, target);
             } else {
-                console.warn("views > ortho is not implemented yet.");
+                const position = vec3.fromValues(data.from.x, data.from.y, data.from.z);
+                const target = vec3.fromValues(data.to.x, data.to.y, data.to.z);
+                const near = data.near, far = data.far, left = data.left,
+                    right = data.right, top = data.top, bottom = data.bottom;
+                const up = vec3.fromValues(0, 1, 0);
+
+                this.views[id] = new CGFcameraOrtho(left, right, bottom, top,
+                    near, far, position, target, up);
             }
         }
 
@@ -189,6 +191,8 @@ class MyScene extends CGFscene {
             this.materials[id].setAmbient(ambient.r, ambient.g, ambient.b, ambient.a);
             this.materials[id].setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
             this.materials[id].setSpecular(specular.r, specular.g, specular.b, specular.a);
+
+            this.materials[id].setTextureWrap("REPEAT", "REPEAT");
         }
 
         this.materialIndex = 0;
@@ -208,8 +212,8 @@ class MyScene extends CGFscene {
 
     initInterface() {
         this.keymap = {
-            KeyN:   "leftMaterial",
-            KeyM:   "rightMaterial"
+            KeyN: "leftMaterial",
+            KeyM: "rightMaterial"
         };
 
         this.keys = {
@@ -309,6 +313,9 @@ class MyScene extends CGFscene {
         const texture = current.texture;
         const children = current.children;
 
+        const s = current.texture.s;
+        const t = current.texture.t;
+
         this.pushMatrix();
 
         // Transformation
@@ -341,6 +348,10 @@ class MyScene extends CGFscene {
             if (child.type === "componentref") {
                 this.traverser(child.ref, sceneMaterial, sceneTexture);
             } else {
+                const prim = this.primitives[child.id];
+
+                if (prim.adjust) prim.updateTexCoords(s, t);
+
                 this.primitives[child.id].display();
             }
         }

@@ -14,7 +14,10 @@
             <from x="40.0" y="15.0" z="50.0"/>
             <to x="40.0" y="0.0" z="-10.0"/>
         </perspective>
-        <ortho id="cam-ortho-1" near="0.5" far="500" left="3" right="7" top="5" bottom="6"/>
+        <ortho id="cam-ortho-1" near="0.5" far="500" left="3" right="7" top="5" bottom="6">
+            <from x="40.0" y="40.0" z="40.0"/>
+            <to x="0" y="0" z="0"/>
+        </ortho>
     </views>
 
     <ambient>
@@ -1046,8 +1049,6 @@
                 <componentref id="cube"/>
             </children>
         </component>
-
-
 
     </components>
 </yas>
