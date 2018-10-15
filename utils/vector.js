@@ -119,6 +119,10 @@ function dotProduct(a, b) {
     return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
 }
 
+function distVectors(a, b) {
+    return norm(subVectors(a, b));
+}
+
 function norm(a) {
     return Math.sqrt(dotProduct(a, a));
 }
@@ -209,6 +213,12 @@ function vectorBisector(a, b, axis) {
     }
 
     return bisector;
+}
+
+// Return the C height of triangle A B C
+function triangleHeight(A, B, C) {
+    let vA = makeVector(A), vB = makeVector(B), vC = makeVector(C);
+    return distVectors(A, C) * sinVectors(subVectors(C, A), subVectors(B, A));
 }
 
 // Return the orientation of triangle given by vertices A, B, C in this order,

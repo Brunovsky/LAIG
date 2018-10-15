@@ -6,6 +6,10 @@
             <from x="-15.0" y="15.0" z="15.0"/>
             <to x="0.0" y="0.0" z="0.0"/>
         </perspective>
+        <ortho id="cam-ortho-1" near="0.5" far="500" left="-10" right="10" top="10" bottom="-10">
+            <from x="40.0" y="40.0" z="40.0"/>
+            <to x="0" y="0" z="0"/>
+        </ortho>
     </views>
 
     <ambient>
@@ -89,7 +93,7 @@
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit" length_s="0.8" length_t="0.8"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -102,7 +106,7 @@
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit" length_s="0.8" length_t="0.8"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -116,7 +120,7 @@
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit" length_s="0.8" length_t="0.8"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -130,7 +134,7 @@
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit" length_s="0.8" length_t="0.8"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -144,7 +148,7 @@
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit" length_s="0.8" length_t="0.8"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -158,7 +162,7 @@
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit" length_s="0.8" length_t="0.8"/>
             <children>
                 <primitiveref id="rect"/>
             </children>

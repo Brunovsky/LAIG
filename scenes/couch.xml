@@ -24,8 +24,8 @@
     </lights>
 
     <textures>
-        <texture id="tex-christmas" file="images/christmastree.jpg"/>
-        <texture id="tex-gold" file="images/gold.jpg"/>
+        <texture id="tex-christmas" file="images/eye.jpg"/>
+        <texture id="tex-gold" file="images/bed.jpg"/>
     </textures>
 
     <materials>
@@ -50,9 +50,6 @@
         <primitive id="cylinder">
             <cylinder base="0.5" top="0.5" height="1" slices="64" stacks="64"/>
         </primitive>
-        <primitive id="cube">
-            <cube side="1"/>
-        </primitive>
         <primitive id="torus">
             <torus inner="0.2" outer="0.35" slices="64" loops="1"/>
         </primitive>
@@ -69,6 +66,106 @@
             <texture id="tex-christmas" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="couch"/>
+            </children>
+        </component>
+
+        <component id="cube-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="0.7" length_t="0.7"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="cube-back">
+            <transformation>
+                <rotate axis="y" angle="180"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="0.7" length_t="0.7"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="cube-left">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="0.7" length_t="0.7"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="cube-right">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="0.7" length_t="0.7"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="cube-bottom">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="0.7" length_t="0.7"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="cube-top">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="0.7" length_t="0.7"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="cube">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-front"/>
+                <componentref id="cube-back"/>
+                <componentref id="cube-left"/>
+                <componentref id="cube-right"/>
+                <componentref id="cube-bottom"/>
+                <componentref id="cube-top"/>
             </children>
         </component>
 
@@ -101,7 +198,7 @@
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <primitiveref id="cube"/>
+                <componentref id="cube"/>
             </children>
         </component>
 
@@ -115,7 +212,7 @@
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <primitiveref id="cube"/>
+                <componentref id="cube"/>
             </children>
         </component>
 
@@ -155,7 +252,7 @@
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <primitiveref id="cube"/>
+                <componentref id="cube"/>
             </children>
         </component>
 
@@ -167,9 +264,9 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit" length_s="0.4" length_t="0.4"/>
             <children>
-                <primitiveref id="cube"/>
+                <componentref id="cube"/>
             </children>
         </component>
 

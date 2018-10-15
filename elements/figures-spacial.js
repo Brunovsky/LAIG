@@ -4,220 +4,220 @@
 
 // ClosedCone
 class XMLCone extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", height: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", height: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "cone";
-	}
+        this.type = "cone";
+    }
 }
 
 // ClosedPyramid
 class XMLPyramid extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", height: "pp", stacks: "ii", sides: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", height: "pp", stacks: "ii", sides: "ii"
+        });
 
-		this.type = "pyramid";
-	}
+        this.type = "pyramid";
+    }
 }
 
 // ClosedCutCone
 class XMLCylinder extends XMLElement {
-	constructor(node) {
-		super(node, {
-			base: "pp", top: "p0", height:"pp", slices:"ii", stacks:"ii"
-		});
+    constructor(node) {
+        super(node, {
+            base: "pp", top: "p0", height:"pp", slices:"ii", stacks:"ii"
+        });
 
-		this.type = "cylinder";
-	}
+        this.type = "cylinder";
+    }
 }
 
 // ClosedCutPyramid
 class XMLPrism extends XMLElement {
-	constructor(node) {
-		super(node, {
-			base: "pp", top: "pp", height: "pp", stacks: "ii", sides: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            base: "pp", top: "pp", height: "pp", stacks: "ii", sides: "ii"
+        });
 
-		this.type = "prism";
-	}
+        this.type = "prism";
+    }
 }
 
 // Cube
 class XMLCube extends XMLElement {
-	constructor(node) {
-		super(node, {
-			side: "pp"
-		});
+    constructor(node) {
+        super(node, {
+            side: "pp"
+        });
 
-		this.type = "cube";
-	}
+        this.type = "cube";
+    }
 }
 
 // Block
 class XMLBlock extends XMLElement {
-	constructor(node) {
-		super(node, {
-			x: "pp", y: "pp", z: "pp"
-		});
+    constructor(node) {
+        super(node, {
+            x: "pp", y: "pp", z: "pp"
+        });
 
-		this.type = "block";
-	}
+        this.type = "block";
+    }
 }
 
 // Sphere
 class XMLSphere extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", slices: "ii", stacks: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", slices: "ii", stacks: "ii"
+        });
 
-		this.type = "sphere";
-	}
+        this.type = "sphere";
+    }
 }
 
 // ClosedHalfSphere
 class XMLHalfSphere extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "halfsphere";
-	}
+        this.type = "halfsphere";
+    }
 }
 
 // Cone
 class XMLOpenCone extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", height: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", height: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "opencone";
-	}
+        this.type = "opencone";
+    }
 }
 
 // DoubleCone
 class XMLDoubleCone extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", height: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", height: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "doublecone";
-	}
+        this.type = "doublecone";
+    }
 }
 
 // SpheredCone
 class XMLSpheredCone extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", height: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", height: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "spheredcone";
-	}
+        this.type = "spheredcone";
+    }
 }
 
 // Pyramid
 class XMLOpenPyramid extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", height: "pp", stacks: "ii", sides: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", height: "pp", stacks: "ii", sides: "ii"
+        });
 
-		this.type = "openpyramid";
-	}
+        this.type = "openpyramid";
+    }
 }
 
 // DoublePyramid
 class XMLDoublePyramid extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", height: "pp", stacks: "ii", sides: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", height: "pp", stacks: "ii", sides: "ii"
+        });
 
-		this.type = "doublepyramid";
-	}
+        this.type = "doublepyramid";
+    }
 }
 
 // CutCone
 class XMLOpenCylinder extends XMLElement {
-	constructor(node) {
-		super(node, {
-			base: "pp", top: "pp", height: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            base: "pp", top: "pp", height: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "opencylinder";
-	}
+        this.type = "opencylinder";
+    }
 }
 
 // DoubleCutCone
 class XMLDoubleCylinder extends XMLElement {
-	constructor(node) {
-		super(node, {
-			base: "pp", top: "pp", height: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            base: "pp", top: "pp", height: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "doublecylinder";
-	}
+        this.type = "doublecylinder";
+    }
 }
 
 // SpheredCutCone
 class XMLSpheredCylinder extends XMLElement {
-	constructor(node) {
-		super(node, {
-			base: "pp", top: "pp", height: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            base: "pp", top: "pp", height: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "spheredcylinder";
-	}
+        this.type = "spheredcylinder";
+    }
 }
 
 // CutPyramid
 class XMLOpenPrism extends XMLElement {
-	constructor(node) {
-		super(node, {
-			base: "pp", top: "pp", height: "pp", stacks: "ii", sides: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            base: "pp", top: "pp", height: "pp", stacks: "ii", sides: "ii"
+        });
 
-		this.type = "openprism";
-	}
+        this.type = "openprism";
+    }
 }
 
 // DoubleCutPyramid
 class XMLDoublePrism extends XMLElement {
-	constructor(node) {
-		super(node, {
-			base: "pp", top: "pp", height: "pp", stacks: "ii", sides: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            base: "pp", top: "pp", height: "pp", stacks: "ii", sides: "ii"
+        });
 
-		this.type = "doubleprism";
-	}
+        this.type = "doubleprism";
+    }
 }
 
 // HalfSphere
 class XMLOpenHalfSphere extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "openhalfsphere";
-	}
+        this.type = "openhalfsphere";
+    }
 }
 
 // FlipSphere
 class XMLFlipSphere extends XMLElement {
-	constructor(node) {
-		super(node, {
-			radius: "pp", stacks: "ii", slices: "ii"
-		});
+    constructor(node) {
+        super(node, {
+            radius: "pp", stacks: "ii", slices: "ii"
+        });
 
-		this.type = "flipsphere";
-	}
+        this.type = "flipsphere";
+    }
 }
