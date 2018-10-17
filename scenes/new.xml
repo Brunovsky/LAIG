@@ -14,7 +14,10 @@
             <from x="40.0" y="15.0" z="50.0"/>
             <to x="40.0" y="0.0" z="-10.0"/>
         </perspective>
-        <ortho id="cam-ortho-1" near="0.5" far="500" left="3" right="7" top="5" bottom="6"/>
+        <ortho id="cam-ortho-1" near="0.5" far="500" left="3" right="7" top="5" bottom="6">
+            <from x="40.0" y="40.0" z="40.0"/>
+            <to x="0" y="0" z="0"/>
+        </ortho>
     </views>
 
     <ambient>
@@ -146,6 +149,9 @@
         </primitive>
          <primitive id="open-cone">
             <opencylinder  base="1" top="0.5" height="1" stacks="32" slices="32"/>
+        </primitive>
+        <primitive id="open-cilindro">
+            <opencylinder  base="1" top="1" height="1" stacks="32" slices="32"/>
         </primitive>
     </primitives>
 
@@ -283,6 +289,7 @@
                 <componentref id="candeeiro"/>
                 <componentref id="candeeiro2"/>
                 <componentref id="mesa-cabeceira-abs"/>
+                <componentref id="candeeiro-de-teto"/>
 
 
             </children>
@@ -734,7 +741,7 @@
 
         <component id="mesa-cabeceira-abs">
             <transformation>
-         
+                <translate x="5" y="0" z="-17"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -887,6 +894,165 @@
             </children>
         </component>
     
+
+        <component id="candeeiro-de-teto">
+            <transformation>
+                 <translate x="0" y="1" z="0"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="open-cilindro"/>
+                <componentref id="candeeiro-de-teto-abs"/>
+            </children>
+        </component>
+
+
+
+        <component id="candeeiro-de-teto-abs">
+            <transformation>
+                 <translate x="0" y="0.5" z="0"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao"/>
+                <componentref id="candeeiro-de-teto-armacao2"/>
+                <componentref id="candeeiro-de-teto-armacao3"/>
+                <componentref id="candeeiro-de-teto-armacao4"/>
+                <componentref id="candeeiro-de-teto-armacao5"/>
+                <componentref id="candeeiro-de-teto-armacao6"/>
+                <componentref id="candeeiro-de-teto-armacao7"/>
+                <componentref id="candeeiro-de-teto-fio"/>
+
+                <componentref id="candeeiro-de-teto-armacao8"/>
+            </children>
+        </component>
+        
+        <component id="candeeiro-de-teto-armacao">
+            <transformation>
+
+                 <rotate axis="x" angle="90"/>
+                 <scale x="0.05" y="0.97" z="0.05"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cilindro"/>
+            </children>
+        </component>
+        
+
+        <component id="candeeiro-de-teto-armacao2">
+            <transformation>
+                 <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao"/>
+            </children>
+        </component>
+        
+        <component id="candeeiro-de-teto-armacao3">
+            <transformation>
+
+                 <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao2"/>
+            </children>
+        </component>
+
+        <component id="candeeiro-de-teto-armacao4">
+            <transformation>
+
+                 <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao3"/>
+            </children>
+        </component>
+
+        <component id="candeeiro-de-teto-armacao5">
+            <transformation>
+                 <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao4"/>
+            </children>
+        </component>
+
+        <component id="candeeiro-de-teto-armacao6">
+            <transformation>
+                <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao5"/>
+            </children>
+        </component>
+         <component id="candeeiro-de-teto-armacao7">
+            <transformation>
+                <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao6"/>
+            </children>
+        </component>
+
+         <component id="candeeiro-de-teto-armacao8">
+            <transformation>
+                <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao7"/>
+            </children>
+        </component>
+
+         <component id="candeeiro-de-teto-fio">
+            <transformation>
+                <scale x="0.03" y="1.5" z="0.03"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cilindro"/>
+            </children>
+        </component>
     </components>
 
 
