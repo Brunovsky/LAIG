@@ -14,7 +14,10 @@
             <from x="40.0" y="15.0" z="50.0"/>
             <to x="40.0" y="0.0" z="-10.0"/>
         </perspective>
-        <ortho id="cam-ortho-1" near="0.5" far="500" left="3" right="7" top="5" bottom="6"/>
+        <ortho id="cam-ortho-1" near="0.5" far="500" left="3" right="7" top="5" bottom="6">
+            <from x="40.0" y="40.0" z="40.0"/>
+            <to x="0" y="0" z="0"/>
+        </ortho>
     </views>
 
     <ambient>
@@ -47,6 +50,12 @@
             <diffuse r="0.25" g="1.0" b="1.0" a="1.0"/>
             <specular r="0.3" g="0.6" b="0.9" a="1.0"/>
         </omni>
+        <omni id="candeeiro" enabled="1">
+            <location x="-4" y="3" z="0" w="1"/>
+            <ambient r="1.0" g="1" b="1" a="1.0"/>
+            <diffuse r="0.25" g="1.0" b="1.0" a="1.0"/>
+            <specular r="0.3" g="0.6" b="0.9" a="1.0"/>
+        </omni>
         <spot id="spot-light-4" enabled="1" angle="30" exponent="15">
             <location x="45" y="6" z="10" w="1"/>
             <target x="45" y="0" z="10"/>
@@ -54,10 +63,18 @@
             <diffuse r="0.3" g="0.15" b="0.2" a="1"/>
             <specular r="0.7" g="0.8" b="0.6" a="1"/>
         </spot>
+         <spot id="front" enabled="1" angle="30" exponent="15">
+            <location x="-20" y="4" z="0" w="1"/>
+            <target x="20" y="0" z="10"/>
+            <ambient r="0.03" g="0.05" b="0.01" a="1"/>
+            <diffuse r="0.3" g="0.15" b="0.2" a="1"/>
+            <specular r="0.7" g="0.8" b="0.6" a="1"/>
+        </spot>
     </lights>
 
     <textures>
-            <texture id="tex-colchao" file="images/colchao.jpg"/>
+        <texture id="tex-pingpong" file="images/pingpong.jpg"/>
+        <texture id="tex-colchao" file="images/colchao.jpg"/>
         <texture id="tex-bank" file="images/bank.jpg"/>
         <texture id="tex-leaves" file="images/leaves.jpg"/>
         <texture id="tex-rocks" file="images/rocks.jpg"/>
@@ -67,6 +84,7 @@
         <texture id="tex-carrot" file="images/carrot.jpg"/>
         <texture id="tex-eye" file="images/eye.jpg"/>
         <texture id="tex-wood" file="images/wood.jpg"/>
+        <texture id="tex-furniture" file="images/furniture.jpg"/>
         <texture id="tex-housewall" file="images/housewall.jpg"/>
         <texture id="tex-gold" file="images/gold.jpg"/>
         <texture id="tex-window" file="images/window.jpg"/>
@@ -80,14 +98,21 @@
         <texture id="tex-red" file="images/red.jpg"/>
         <texture id="tex-chair" file="images/chair.jpg"/>
         <texture id="tex-lake" file="images/lake.jpg"/>
-            <texture id="tex-bed" file="images/bed.jpg"/>
+        <texture id="tex-bed" file="images/bed.jpg"/>  
+        <texture id="tex-cabeceira" file="images/cabeceira.jpg"/>
+        <texture id="tex-cabeceira2" file="images/cabeceira2.png"/>
+        <texture id="tex-marfim" file="images/marfim.jpg"/>
+        <texture id="tex-grey" file="images/grey.jpg"/>
+        <texture id="tex-net" file="images/net.jpg"/>
+        <texture id="tex-tablecolor" file="images/tablecolor.jpg"/>
+    
     </textures>
 
     <materials>
         <material id="mat-1" shininess="10">
             <emission r="0.0" g="0.0" b="0.0" a="0"/>
             <ambient  r="0.2" g="0.2" b="0.3" a="1"/>
-            <diffuse  r="0.6" g="0.6" b="0.5" a="1"/>
+            <diffuse  r="1" g="0.6" b="0.5" a="1"/>
             <specular r="0.4" g="0.7" b="0.8" a="1"/>
         </material>
     </materials>
@@ -106,6 +131,14 @@
     </transformations>
     
     <primitives>
+        <primitive id="stairs-triangle">
+            <triangle x1="0" y1="-0.3" z1="-0.15"
+                x2="0" y2="-0.3" z2="0.15"
+                x3="0" y3="-0.6" z3="-0.15"/>
+        </primitive>
+        <primitive id="cube">
+            <cube side="1"/>
+        </primitive>
         <primitive id="rect">
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
         </primitive>
@@ -133,6 +166,9 @@
          <primitive id="open-cone">
             <opencylinder  base="1" top="0.5" height="1" stacks="32" slices="32"/>
         </primitive>
+        <primitive id="open-cilindro">
+            <opencylinder  base="1" top="1" height="1" stacks="32" slices="32"/>
+        </primitive>
     </primitives>
 
     <components>
@@ -147,7 +183,7 @@
             <children>
                 <componentref id="house2"/>
              
-                
+
            </children>
         </component>
 
@@ -260,40 +296,267 @@
             <materials>
                 <material id="mat-1"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-marfim" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="structure"/>
                 <componentref id="divider"/>
+                <componentref id="divider-corner"/>
                 <componentref id="bed"/>
                 <componentref id="vertical-divider"/>
                 <componentref id="candeeiro"/>
                 <componentref id="candeeiro2"/>
-
+                <componentref id="gavetao-abs"/>
+                <componentref id="candeeiro-de-teto"/>
+                <componentref id="mesa-cabeceira"/>
+                <componentref id="staircase-10s"/>
+                <componentref id="pingpong-table"/>
 
             </children>
         </component>
 
 
-        <component id="structure">
+
+        <component id="wall-right-out">
             <transformation>
-                <scale x="20" y="30" z="40"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado2" />
+            </children>
+        </component> 
+
+        <component id="wall-right-in">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado1" />
+            </children>
+        </component> 
+
+        <component id="wall-right">
+            <transformation>
+                <translate x="0" y="0" z="20"/>
+                <scale x="20.5" y="30.5" z="0.5"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                 <componentref id="cube-lado1"/>
+                <componentref id="wall-right-in"/>
+                <componentref id="wall-right-out"/>
+                <componentref id="cube-lado3"/>
+                <componentref id="cube-lado4"/>
+                <componentref id="cube-lado5"/>
+                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+        <component id="wall-left-out">
+            <transformation>
+          
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado1" />
+            </children>
+        </component> 
+
+        <component id="wall-left-in">
+            <transformation>    
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado2" />
+            </children>
+        </component> 
+
+        <component id="wall-left">
+            <transformation>
+                <translate x="0" y="0" z="-20"/>
+                <scale x="20.5" y="30.5" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-left-in"/>
+                <componentref id="wall-left-out"/>
+                <componentref id="cube-lado3"/>
+                <componentref id="cube-lado4"/>
+                <componentref id="cube-lado5"/>
+                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+        <component id="wall-roof-in">
+            <transformation>
+          
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado3" />
+            </children>
+        </component> 
+
+        <component id="wall-roof-out">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                  <componentref id="cube-lado4" />
+            </children>
+        </component> 
+
+        <component id="wall-roof">
+            <transformation>
+                <translate x="0" y="15" z="0"/>
+                <scale x="20.5  " y="0.5" z="40"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-roof-in"/>
+                <componentref id="wall-roof-out"/>
+                <componentref id="cube-lado1"/>
+                <componentref id="cube-lado2"/>
+                <componentref id="cube-lado5"/>
+                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+
+        <component id="wall-floor-out">
+            <transformation>
+          
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado3" />
+            </children>
+        </component> 
+
+        <component id="wall-floor-in">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                  <componentref id="cube-lado4" />
+            </children>
+        </component> 
+
+        <component id="wall-floor">
+            <transformation>
+                <translate x="0" y="-15" z="0"/>
+                <scale x="20.5" y="0.5" z="40"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-roof-in"/>
+                <componentref id="wall-roof-out"/>
+                <componentref id="cube-lado1"/>
+                <componentref id="cube-lado2"/>
+                <componentref id="cube-lado5"/>
+                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+        <component id="wall-back-in">
+            <transformation>
+          
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5" />
+            </children>
+        </component> 
+
+        <component id="wall-back-out">
+            <transformation>
+
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                  <componentref id="cube-lado6" />
+            </children>
+        </component> 
+
+        <component id="wall-back">
+            <transformation>
+                <translate x="10" y="0" z="0"/>
+                <scale x="0.5" y="30" z="40"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-back-in"/>
+                <componentref id="wall-back-out"/>
+                <componentref id="cube-lado1"/>
                 <componentref id="cube-lado2"/>
                 <componentref id="cube-lado3"/>
                 <componentref id="cube-lado4"/>
-                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+        <component id="structure">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-floor"/>
+                <componentref id="wall-roof"/>
+                <componentref id="wall-right"/>
+                <componentref id="wall-back"/>
+                <componentref id="wall-left"/>
             </children>
         </component>
 
         <component id="divider">
             <transformation>
-                <scale x="20" y="0.5'" z="40"/>
+                <translate x="0" y="0" z="-2.5"/>            
+                <scale x="20" y="0.5" z="35"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -304,10 +567,24 @@
             </children>
         </component>
         
+        <component id="divider-corner">
+            <transformation>
+                <translate x="-3.5" y="0" z="17.5"/>            
+                <scale x="13" y="0.5" z="5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <componentref id="cube"/>
+            </children>
+        </component>
+
         <component id="bed">
             <transformation>
-               <translate x="-6" y="1" z="-17"/>
-               <scale x="3" y="3" z="3"/>
+               <translate x="7" y="1.8" z="-16"/>
+               <scale x="5" y="5" z="5"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -316,7 +593,6 @@
             <children>
                  <componentref id="bed-structure"/>
                  <componentref id="colchao"/>
-
             </children>
         </component>
 
@@ -486,7 +762,7 @@
         
         <component id="candeeiro">
             <transformation>
-                <translate x="0" y="0.4" z="-17"/>
+               <translate x="0" y="0.4" z="-17"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -603,7 +879,8 @@
 
         <component id="candeeiro2">
             <transformation>
-                <translate x="4" y="0.5" z="-17"/>
+                <translate x="3" y="2.75" z="-19"/>
+                <scale x="0.7" y="0.7" z="0.7"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -717,8 +994,760 @@
             </children>
         </component>
 
+        <component id="gavetao-abs">
+            <transformation>
+            <translate x="9" y="-0.3" z="-5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-furniture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="gavetao"/>
+                <componentref id="gaveta1"/>
+                <componentref id="gaveta2"/>
+                <componentref id="gaveta4"/>
+                <componentref id="gaveta3"/>
+                <componentref id="maçaneta1"/>
+                <componentref id="maçaneta2"/>
+                <componentref id="maçaneta3"/>
+                <componentref id="maçaneta4"/>
 
+
+            </children>
+        </component>
+
+        <component id="gavetao">
+            <transformation>
+                <translate x="0" y="2.5" z="0"/>
+                <scale x="2" y="4" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado1"/>
+                <componentref id="cube-lado2"/>
+                <componentref id="cube-lado3"/>
+                <componentref id="cube-lado4"/>
+                <componentref id="cube-lado6"/>
+            
+            </children>
+        </component>
+
+        <component id="gaveta1">
+            <transformation>
+                <translate x="-0.5" y="4" z="0"/>
+                <scale x="1" y="1" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5"/>
+            </children>
+        </component>
+
+
+        <component id="gaveta2">
+            <transformation>
+                <translate x="-0.5" y="3" z="0"/>
+                <scale x="1" y="1" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5"/>
+            </children>
+        </component>
+
+        <component id="gaveta3">
+            <transformation>
+                <translate x="-0.5" y="2" z="0"/>
+                <scale x="1" y="1" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5"/>
+            </children>
+        </component>
+
+        <component id="gaveta4">
+            <transformation>
+                <translate x="-0.5" y="1" z="0"/>
+                <scale x="1" y="1" z="3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5"/>
+            </children>
+        </component>
+
+        <component id="maçaneta1">
+            <transformation>
+                <translate x="-1.09" y="4" z="0"/>
+                <scale x="0.1" y="0.1" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+            </children>
+        </component>
+    
+       <component id="maçaneta2">
+            <transformation>
+                <translate x="-1.09" y="3" z="0"/>
+                <scale x="0.1" y="0.1" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+            </children>
+        </component>
+    
+       <component id="maçaneta3">
+            <transformation>
+                 <translate x="-1.09" y="2" z="0"/>
+                <scale x="0.1" y="0.1" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+            </children>
+        </component>
+    
+        <component id="maçaneta4">
+            <transformation>
+                 <translate x="-1.09" y="1" z="0"/>
+                <scale x="0.1" y="0.1" z="0.1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+            </children>
+        </component>
+    
+
+        <component id="candeeiro-de-teto">
+            <transformation>
+                <translate x="-2" y="12" z="0"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="open-cilindro"/>
+                <componentref id="candeeiro-de-teto-abs"/>
+            </children>
+        </component>
+
+
+
+        <component id="candeeiro-de-teto-abs">
+            <transformation>
+                 <translate x="0" y="0.5" z="0"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao"/>
+                <componentref id="candeeiro-de-teto-armacao2"/>
+                <componentref id="candeeiro-de-teto-armacao3"/>
+                <componentref id="candeeiro-de-teto-armacao4"/>
+                <componentref id="candeeiro-de-teto-armacao5"/>
+                <componentref id="candeeiro-de-teto-armacao6"/>
+                <componentref id="candeeiro-de-teto-armacao7"/>
+                <componentref id="candeeiro-de-teto-fio"/>
+
+                <componentref id="candeeiro-de-teto-armacao8"/>
+            </children>
+        </component>
+        
+        <component id="candeeiro-de-teto-armacao">
+            <transformation>
+
+                 <rotate axis="x" angle="90"/>
+                 <scale x="0.05" y="0.97" z="0.05"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cilindro"/>
+            </children>
+        </component>
+        
+
+        <component id="candeeiro-de-teto-armacao2">
+            <transformation>
+                 <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao"/>
+            </children>
+        </component>
+        
+        <component id="candeeiro-de-teto-armacao3">
+            <transformation>
+
+                 <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao2"/>
+            </children>
+        </component>
+
+        <component id="candeeiro-de-teto-armacao4">
+            <transformation>
+
+                 <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao3"/>
+            </children>
+        </component>
+
+        <component id="candeeiro-de-teto-armacao5">
+            <transformation>
+                 <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao4"/>
+            </children>
+        </component>
+
+        <component id="candeeiro-de-teto-armacao6">
+            <transformation>
+                <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao5"/>
+            </children>
+        </component>
+         <component id="candeeiro-de-teto-armacao7">
+            <transformation>
+                <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao6"/>
+            </children>
+        </component>
+
+         <component id="candeeiro-de-teto-armacao8">
+            <transformation>
+                <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="candeeiro-de-teto-armacao7"/>
+            </children>
+        </component>
+
+        <component id="candeeiro-de-teto-fio">
+            <transformation>
+                <scale x="0.03" y="2.5" z="0.03"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cilindro"/>
+            </children>
+        </component>
+
+        <component id="mesa-cabeceira">
+            <transformation>
+                <translate x="3" y="1.5" z="-19"/>
+                <rotate axis="y" angle="90"/>
+                <scale x="1.7" y="2.5" z="2.3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-cabeceira2" length_s="2.0" length_t="2.0"/>
+            <children>
+                <componentref id="cube-lado1"/>
+                <componentref id="cube-lado2"/>             
+                <componentref id="cube-lado3"/>
+                <componentref id="cube-lado4"/>             
+                <componentref id="cube-lado6"/>
+                <componentref id="mesa-cabeceira-frente"/>
+            </children>
+        </component>
+
+        <component id="mesa-cabeceira-frente">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-cabeceira" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5"/>
+            </children>
+        </component>
+
+
+<!-- STAIRCASE-STEP -->
+        <component id="stair-board">
+            <transformation>
+                <scale x="1.2" y="0.05" z="0.4"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cube"/>
+            </children>
+        </component>
+
+        <component id="stair-underbox">
+            <transformation>
+                <translate x="0" y="-0.15" z="0"/>
+                <scale x="1.1" y="0.3" z="0.3"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cube"/>
+            </children>
+        </component>
+
+        <component id="stair-cover">
+            <transformation>
+                <translate x="0" y="-0.45" z="0"/>
+                <rotate axis="x" angle="45"/>
+                <scale x="1.1" y="0.424264069" z="1"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="stair-triangles">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="stair-triangles-left"/>
+                <componentref id="stair-triangles-right"/>
+                <componentref id="stair-cover"/>
+            </children>
+        </component>
+
+        <component id="stair-triangles-left">
+            <transformation>
+                <translate x="0.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="stairs-triangle"/>
+            </children>
+        </component>
+
+        <component id="stair-triangles-right">
+            <transformation>
+                <translate x="-0.55" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="stairs-triangle"/>
+            </children>
+        </component>
+<!-- END STAIR STEP -->
+
+<!-- STAIRCASE STEP -->
+        <component id="staircase-step">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="stair-board"/>
+                <componentref id="stair-underbox"/>
+                <componentref id="stair-triangles"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-first">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="stair-board"/>
+                <componentref id="stair-underbox"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-1">
+            <transformation>
+                <translate x="0" y="0.3" z="0.3"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step-first"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-2">
+            <transformation>
+                <translate x="0" y="0.6" z="0.6"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-3">
+            <transformation>
+                <translate x="0" y="0.9" z="0.9"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-4">
+            <transformation>
+                <translate x="0" y="1.2" z="1.2"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-5">
+            <transformation>
+                <translate x="0" y="1.5" z="1.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-6">
+            <transformation>
+                <translate x="0" y="1.8" z="1.8"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-7">
+            <transformation>
+                <translate x="0" y="2.1" z="2.1"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-8">
+            <transformation>
+                <translate x="0" y="2.4" z="2.4"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-9">
+            <transformation>
+                <translate x="0" y="2.7" z="2.7"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step"/>
+            </children>
+        </component>
+
+        <component id="staircase-step-10">
+            <transformation>
+                <translate x="0" y="3.0" z="3.0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step"/>
+            </children>
+        </component>
+<!-- END STAIRCASE STEP -->
+
+<!-- STAIRCASES -->
+        <component id="staircase-5s">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step-1"/>
+                <componentref id="staircase-step-2"/>
+                <componentref id="staircase-step-3"/>
+                <componentref id="staircase-step-4"/>
+                <componentref id="staircase-step-5"/>
+            </children>
+        </component>
+
+        <component id="staircase-10s">
+            <transformation>
+            <translate x="-2.85" y="-15" z="17.5"/>
+            <scale x="4" y="5" z="4"/>
+            <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="staircase-step-1"/>
+                <componentref id="staircase-step-2"/>
+                <componentref id="staircase-step-3"/>
+                <componentref id="staircase-step-4"/>
+                <componentref id="staircase-step-5"/>
+                <componentref id="staircase-step-6"/>
+                <componentref id="staircase-step-7"/>
+                <componentref id="staircase-step-8"/>
+                <componentref id="staircase-step-9"/>
+                <componentref id="staircase-step-10"/>
+            </children>
+        </component>
+<!-- END STAIRCASES -->
+<!-- Begin ping pong table-->
+
+
+        <component id="pingpong-table">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-tablecolor" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="pingpong-table-abs"/>
+                <componentref id="pingpong-leg1"/>
+                <componentref id="pingpong-leg2"/>
+                <componentref id="pingpong-leg3"/>
+                <componentref id="pingpong-leg4"/>
+                <componentref id="pingpong-net"/>
+                
+            </children>
+        </component>
+
+        <component id="pingpong-table-abs">
+            <transformation>
+                <translate x="0" y="2.5" z="0"/>
+                <scale x="4" y="0.2" z="7"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-tablecolor" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado1"/>
+                <componentref id="cube-lado2"/>
+                <componentref id="cube-lado3"/>
+                <componentref id="cube-lado5"/>
+                <componentref id="cube-lado6"/>
+                <componentref id="pingpong-table-up"/>
+
+            </children>
+        </component>
+
+
+        <component id="pingpong-table-up">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-pingpong" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado4"/>
+            </children>
+        </component>
+
+        <component id="pingpong-net">
+            <transformation>
+                <translate x="0" y="2.8" z="0"/>
+                <scale x="4" y="0.4" z="0.005"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-net" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="pingpong-leg1">
+            <transformation>
+                <translate x="1.9" y="1.3" z="3.4"/>
+                <scale x="0.2" y="2.5" z="0.2"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-tablecolor" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>  
+
+        <component id="pingpong-leg2">
+            <transformation>
+                <translate x="-3.8" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-pingpong" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="pingpong-leg1"/>
+            </children>
+        </component>  
+
+        <component id="pingpong-leg3">
+            <transformation>
+                <translate x="-3.8" y="0" z="-6.8"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-pingpong" length_s="1.0" length_t="1.0"/>
+            <children>
+                 <componentref id="pingpong-leg1"/>
+            </children>
+        </component>  
+
+        <component id="pingpong-leg4">
+            <transformation>
+                <translate x="0" y="0" z="-6.8"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="tex-pingpong" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="pingpong-leg1"/>
+            </children>
+        </component>
 
     </components>
+
 
 </yas>
