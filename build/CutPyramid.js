@@ -127,6 +127,17 @@ class CutPyramid extends CGFobject
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+
+    display()
+    {
+        if (!DOWN_SPACIAL) super.display();
+        else {
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI/2, 1, 0, 0);
+                super.display();
+            this.scene.popMatrix();
+        }
+    }
 }
 
 
@@ -147,6 +158,7 @@ class ClosedCutPyramid extends CGFobject
     {
         this.scene.pushMatrix();
             this.cutPyramid.display();
+            if (DOWN_SPACIAL) this.scene.rotate(Math.PI/2, 1, 0, 0);
             this.scene.pushMatrix();
                 this.scene.rotate(Math.PI, 1, 0, 0);
                 this.base.display();
@@ -175,11 +187,13 @@ class DoubleCutPyramid extends CGFobject
         this.scene.pushMatrix();
             this.scene.pushMatrix();
                 this.cutPyramid.display();
+                if (DOWN_SPACIAL) this.scene.rotate(Math.PI/2, 1, 0, 0);
                 this.scene.translate(0, this.height, 0);
                 this.top.display();
             this.scene.popMatrix();
                 this.scene.rotate(Math.PI, 1, 0, 0);
                 this.cutPyramid.display();
+                if (DOWN_SPACIAL) this.scene.rotate(Math.PI/2, 1, 0, 0);
                 this.scene.translate(0, this.height, 0);
                 this.top.display();
         this.scene.popMatrix();

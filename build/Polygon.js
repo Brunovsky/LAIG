@@ -378,7 +378,7 @@ class Rectangle extends CGFobject {
 
 
 
-class Trapezium extends CGFobject {
+class Trapezium extends Polygon {
     constructor(scene, base = 1, height = 1, top = 1, coords = [0, 1, 0, 1]) {
         super(scene, [
             [-base / 2, -height / 2],
