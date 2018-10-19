@@ -8,7 +8,7 @@ const DISABLED_LIGHTS_VISIBLE = false;
 
 const DEBUG_DISPLAY = true;
 
-const DEFAULT_YAS_FILE = "scenes/couch.xml";
+const DEFAULT_YAS_FILE = "scenes/kitchen.xml";
 
 const LIGHT_CONSTANT_ATTENUATION = 0.5;
 

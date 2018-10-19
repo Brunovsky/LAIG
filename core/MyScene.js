@@ -191,7 +191,6 @@ class MyScene extends CGFscene {
             this.materials[id].setAmbient(ambient.r, ambient.g, ambient.b, ambient.a);
             this.materials[id].setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
             this.materials[id].setSpecular(specular.r, specular.g, specular.b, specular.a);
-
             this.materials[id].setTextureWrap("REPEAT", "REPEAT");
         }
 

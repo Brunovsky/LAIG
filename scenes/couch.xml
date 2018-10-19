@@ -24,8 +24,8 @@
     </lights>
 
     <textures>
-        <texture id="tex-christmas" file="images/eye.jpg"/>
-        <texture id="tex-gold" file="images/bed.jpg"/>
+        <texture id="tex-christmas" file="images/leaves.jpg"/>
+        <texture id="tex-gold" file="images/leaves.jpg"/>
     </textures>
 
     <materials>
