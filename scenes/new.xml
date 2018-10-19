@@ -315,20 +315,241 @@
         </component>
 
 
-        <component id="structure">
+
+        <component id="wall-right-out">
             <transformation>
-                <scale x="20" y="30" z="40"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado2" />
+            </children>
+        </component> 
+
+        <component id="wall-right-in">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado1" />
+            </children>
+        </component> 
+
+        <component id="wall-right">
+            <transformation>
+                <translate x="0" y="0" z="20"/>
+                <scale x="20.5" y="30.5" z="0.5"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                 <componentref id="cube-lado1"/>
+                <componentref id="wall-right-in"/>
+                <componentref id="wall-right-out"/>
+                <componentref id="cube-lado3"/>
+                <componentref id="cube-lado4"/>
+                <componentref id="cube-lado5"/>
+                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+        <component id="wall-left-out">
+            <transformation>
+          
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado1" />
+            </children>
+        </component> 
+
+        <component id="wall-left-in">
+            <transformation>    
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado2" />
+            </children>
+        </component> 
+
+        <component id="wall-left">
+            <transformation>
+                <translate x="0" y="0" z="-20"/>
+                <scale x="20.5" y="30.5" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-left-in"/>
+                <componentref id="wall-left-out"/>
+                <componentref id="cube-lado3"/>
+                <componentref id="cube-lado4"/>
+                <componentref id="cube-lado5"/>
+                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+        <component id="wall-roof-in">
+            <transformation>
+          
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado3" />
+            </children>
+        </component> 
+
+        <component id="wall-roof-out">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                  <componentref id="cube-lado4" />
+            </children>
+        </component> 
+
+        <component id="wall-roof">
+            <transformation>
+                <translate x="0" y="15" z="0"/>
+                <scale x="20.5  " y="0.5" z="40"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-roof-in"/>
+                <componentref id="wall-roof-out"/>
+                <componentref id="cube-lado1"/>
+                <componentref id="cube-lado2"/>
+                <componentref id="cube-lado5"/>
+                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+
+        <component id="wall-floor-out">
+            <transformation>
+          
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado3" />
+            </children>
+        </component> 
+
+        <component id="wall-floor-in">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                  <componentref id="cube-lado4" />
+            </children>
+        </component> 
+
+        <component id="wall-floor">
+            <transformation>
+                <translate x="0" y="-15" z="0"/>
+                <scale x="20.5" y="0.5" z="40"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-roof-in"/>
+                <componentref id="wall-roof-out"/>
+                <componentref id="cube-lado1"/>
+                <componentref id="cube-lado2"/>
+                <componentref id="cube-lado5"/>
+                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+        <component id="wall-back-in">
+            <transformation>
+          
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube-lado5" />
+            </children>
+        </component> 
+
+        <component id="wall-back-out">
+            <transformation>
+
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                  <componentref id="cube-lado6" />
+            </children>
+        </component> 
+
+        <component id="wall-back">
+            <transformation>
+                <translate x="10" y="0" z="0"/>
+                <scale x="0.5" y="30" z="40"/>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-back-in"/>
+                <componentref id="wall-back-out"/>
+                <componentref id="cube-lado1"/>
                 <componentref id="cube-lado2"/>
                 <componentref id="cube-lado3"/>
                 <componentref id="cube-lado4"/>
-                <componentref id="cube-lado6"/>
+            </children>
+        </component> 
+
+        <component id="structure">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="mat-1"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="wall-floor"/>
+                <componentref id="wall-roof"/>
+                <componentref id="wall-right"/>
+                <componentref id="wall-back"/>
+                <componentref id="wall-left"/>
             </children>
         </component>
 
@@ -362,7 +583,7 @@
 
         <component id="bed">
             <transformation>
-               <translate x="7" y="1.8" z="-16.2"/>
+               <translate x="7" y="1.8" z="-16"/>
                <scale x="5" y="5" z="5"/>
             </transformation>
             <materials>
@@ -775,7 +996,7 @@
 
         <component id="gavetao-abs">
             <transformation>
-            <translate x="10" y="-0.3" z="-5"/>
+            <translate x="9" y="-0.3" z="-5"/>
             </transformation>
             <materials>
                 <material id="mat-1"/>
@@ -1104,7 +1325,7 @@
                 <componentref id="cube-lado3"/>
                 <componentref id="cube-lado4"/>             
                 <componentref id="cube-lado6"/>
-                 <componentref id="mesa-cabeceira-frente"/>
+                <componentref id="mesa-cabeceira-frente"/>
             </children>
         </component>
 
