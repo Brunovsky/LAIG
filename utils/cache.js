@@ -23,8 +23,6 @@ class TextureCache {
         const mS = this.spanS / s;
         const mT = this.spanT / t;
 
-        console.log(mS, mT);
-
         const texCoords = [];
 
         for (let i = 0; i < this.base.length; i += 2) {

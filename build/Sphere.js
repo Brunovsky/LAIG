@@ -92,6 +92,17 @@ class HalfSphere extends CGFobject
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+
+    display()
+    {
+        if (!DOWN_SPACIAL) super.display();
+        else {
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI/2, 1, 0, 0);
+                super.display();
+            this.scene.popMatrix();
+        }
+    }
 }
 
 
@@ -111,6 +122,7 @@ class ClosedHalfSphere extends CGFobject
         this.scene.pushMatrix();
             this.half.display();
             this.scene.rotate(Math.PI, 1, 0, 0);
+            if (DOWN_SPACIAL) this.scene.rotate(Math.PI/2, 1, 0, 0);
             this.base.display();
         this.scene.popMatrix();
     }

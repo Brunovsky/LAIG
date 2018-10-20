@@ -16,7 +16,7 @@ const DOWN_SPACIAL = true;
 
 
 
-const DEFAULT_YAS_FILE = "scenes/trialscene.xml";
+const DEFAULT_YAS_FILE = "scenes/new.xml";
 
 
 
