@@ -358,6 +358,9 @@
         <primitive id="stairs-triangle">
             <triangle x1="0" x2="0" x3="0" y1="-0.3" y2="-0.3" y3="-0.6" z1="-0.15" z2="0.15" z3="-0.15"/>
         </primitive>
+        <primitive id="cube">
+            <cube side="1"/>
+        </primitive>
         <primitive id="rect">
             <rectangle x1="-0.5" x2="0.5" y1="-0.5" y2="0.5"/>
         </primitive>
@@ -386,13 +389,13 @@
             <torus inner="0.2" loops="64" outer="1.2" slices="64"/>
         </primitive>
         <primitive id="half-open-sphere">
-            <sphere radius="1" slices="32" stacks="32"/>
+            <openhalfsphere radius="1" slices="32" stacks="32"/>
         </primitive>
         <primitive id="open-cone">
-            <cylinder base="1" height="1" slices="32" stacks="32" top="0.5"/>
+            <opencylinder base="1" height="1" slices="32" stacks="32" top="0.5"/>
         </primitive>
         <primitive id="open-cilindro">
-            <cylinder base="1" height="1" slices="32" stacks="32" top="1"/>
+            <opencylinder base="1" height="1" slices="32" stacks="32" top="1"/>
         </primitive>
     </primitives>
 
@@ -1923,7 +1926,7 @@
             </materials>
             <texture id="tex-wood1" length_s="1.2" length_t="1.0"/>
             <children>
-                <componentref id="cube"/>
+                <primitiveref id="cube"/>
             </children>
         </component>
 
