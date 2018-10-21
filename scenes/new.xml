@@ -104,6 +104,14 @@
         <texture id="tex-livingroom" file="images/livingroom.jpg"/>
         <texture id="tex-tv" file="images/tvimage.jpg"/>
         <texture id="tex-bricks" file="images/bricks.jpg"/>
+        <texture id="tex-blacktv" file="images/black2.png"/>
+        <texture id="kitchen-drawer-front" file="images/kitchen/drawer-front-1.jpg"/>
+        <texture id="kitchen-drawer-side-wood" file="images/kitchen/drawer-side-wood-1.jpg"/>
+        <texture id="kitchen-fridge-front" file="images/kitchen/fridge.jpg"/>
+        <texture id="kitchen-fridge-side" file="images/kitchen/metal-2.jpg"/>
+        <texture id="seamless-metal" file="images/kitchen/metal-1.jpg"/>
+        <texture id="tex-pillow" file="images/pillowcolor.jpg"/>
+
     </textures>
 
     <materials>
@@ -403,6 +411,8 @@
             </materials>
             <texture id="none" length_s="1.0" length_t="1.0"/>
             <children>
+                <componentref id="kitchen-drawer-1"/>
+                <componentref id="kitchen-fridge"/>
                 <componentref id="couch"/>
                 <componentref id="tv"/>
                 <componentref id="candeeiro-cozinha"/>
@@ -578,7 +588,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-livingroom" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-livingroom" length_s="1" length_t="1"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -2041,7 +2051,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-blacktv" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tv-side1"/>
                 <componentref id="tv-side2"/>
@@ -2059,7 +2069,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-black" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cube"/>
             </children>
@@ -2248,7 +2258,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-pillow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cylinder"/>
             </children>
@@ -2307,6 +2317,295 @@
             <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="torus"/>
+            </children>
+        </component>
+
+               <component id="kitchen-drawer-knob-cylinder">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <translate x="0" y="-0.65" z="0"/>
+                <scale x="0.4" y="0.5" z="0.4"/>
+            </transformation>
+            <materials>
+                <material id="dark-metal"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-knob-sphere">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark-metal"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="sphere"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-knob">
+            <transformation>
+                <translate x="0" y="0.0" z="0.5"/>
+                <scale x="0.05" y="0.05" z="0.05"/>
+                <translate x="0" y="0" z="0.65"/>
+            </transformation>
+            <materials>
+                <material id="light-metal"/>
+            </materials>
+            <texture id="seamless-metal" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-drawer-knob-cylinder"/>
+                <componentref id="kitchen-drawer-knob-sphere"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="kitchen-drawer-front" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1-back">
+            <transformation>
+                <rotate axis="y" angle="180"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1-top">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1-bottom">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1-left">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1-right">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1-sides">
+            <transformation>
+                <scale x="1" y="1.2" z="1"/>
+            </transformation>
+            <materials>
+                <material id="light-wood"/>
+            </materials>
+            <texture id="kitchen-drawer-side-wood" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-drawer-1-front"/>
+                <componentref id="kitchen-drawer-1-back"/>
+                <componentref id="kitchen-drawer-1-top"/>
+                <componentref id="kitchen-drawer-1-bottom"/>
+                <componentref id="kitchen-drawer-1-left"/>
+                <componentref id="kitchen-drawer-1-right"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1-knob-1">
+            <transformation>
+                <translate x="0" y="0.462" z="0.0"/>
+            </transformation>
+            <materials>
+                <material id="dark-metal"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-drawer-knob"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1-knob-2">
+            <transformation>
+                <translate x="-0.422" y="0.191" z="0.0"/>
+            </transformation>
+            <materials>
+                <material id="dark-metal"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-drawer-knob"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-1">
+            <transformation>
+                <translate x="0" y="-13" z="-18"/>
+                <scale x="2" y="3" z="2"/>
+
+            </transformation>
+            <materials>
+                <material id="light-wood"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-drawer-1-sides"/>
+                <componentref id="kitchen-drawer-1-knob-1"/>
+                <componentref id="kitchen-drawer-1-knob-2"/>
+            </children>
+        </component>
+
+        <component id="kitchen-fridge-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="kitchen-fridge-front" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-fridge-back">
+            <transformation>
+                <rotate axis="y" angle="180"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-fridge-top">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-fridge-bottom">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-fridge-left">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-fridge-right">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-fridge">
+            <transformation>
+                <translate x="8" y="-12" z="-18.5"/>
+                <scale x="2.5" y="6" z="2.5"/>
+            </transformation>
+            <materials>
+                <material id="light-metal"/>
+            </materials>
+            <texture id="kitchen-fridge-side" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-fridge-front"/>
+                <componentref id="kitchen-fridge-back"/>
+                <componentref id="kitchen-fridge-top"/>
+                <componentref id="kitchen-fridge-bottom"/>
+                <componentref id="kitchen-fridge-left"/>
+                <componentref id="kitchen-fridge-right"/>
             </children>
         </component>
     </components>
