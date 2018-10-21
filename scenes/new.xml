@@ -137,11 +137,35 @@
             <diffuse  r="0.80" g="0.90" b="0.90" a="1"/>
             <specular r="0.90" g="0.95" b="0.95" a="1"/>
         </material>
+        <material id="aluminum" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.80" g="0.80" b="0.82" a="1"/>
+            <diffuse  r="0.90" g="0.90" b="0.91" a="1"/>
+            <specular r="0.86" g="0.86" b="0.88" a="1"/>
+        </material>
+        <material id="polished-chrome" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.61" g="0.61" b="0.60" a="1"/>
+            <diffuse  r="0.71" g="0.70" b="0.70" a="1"/>
+            <specular r="0.74" g="0.75" b="0.74" a="1"/>
+        </material>
+        <material id="copper" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.72" g="0.45" b="0.20" a="1"/>
+            <diffuse  r="0.86" g="0.60" b="0.30" a="1"/>
+            <specular r="0.70" g="0.45" b="0.20" a="1"/>
+        </material>
         <material id="silver" shininess="10">
             <emission r="0.00" g="0.00" b="0.00" a="1"/>
             <ambient  r="0.88" g="0.88" b="0.88" a="1"/>
             <diffuse  r="0.92" g="0.92" b="0.92" a="1"/>
             <specular r="0.93" g="0.93" b="0.93" a="1"/>
+        </material>
+        <material id="granite" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.23" g="0.22" b="0.22" a="1"/>
+            <diffuse  r="0.25" g="0.24" b="0.24" a="1"/>
+            <specular r="0.21" g="0.20" b="0.20" a="1"/>
         </material>
         <material id="marble" shininess="10">
             <emission r="0.00" g="0.00" b="0.00" a="1"/>
@@ -350,9 +374,7 @@
 
     <components>
         <component id="root">
-            <transformation>
-                <translate x="0" y="0" z="0"/>
-            </transformation>
+            <transformation/>
             <materials>
                 <material id="default"/>
             </materials>
@@ -360,11 +382,11 @@
             <children>
                 <componentref id="house"/>
                 <componentref id="benches"/>
-                <componentref id="grass"/>
+                <componentref id="garden"/>
             </children>
         </component>
 
-        <component id="grass">
+        <component id="garden">
             <transformation>
                 <transformationref id="ground"/>
             </transformation>
@@ -373,11 +395,12 @@
             </materials>
             <texture id="none" length_s="1.0" length_t="1.0"/>
             <children>
-                <componentref id="grass-delegate"/>
+                <componentref id="forest"/>
+                <componentref id="grass"/>
             </children>
         </component>
 
-        <component id="grass-delegate">
+        <component id="grass">
             <transformation>
                 <translate x="-20" y="0" z="0"/>
                 <scale x="70" y="1" z="80"/>
@@ -389,6 +412,198 @@
             <texture id="tex-grass" length_s="0.1" length_t="0.1"/>
             <children>
                 <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="forest">
+            <transformation>
+                <translate x="-40" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+               <componentref id="christmas-tree"/>
+               <componentref id="christmas-tree2"/>
+               <componentref id="christmas-tree3"/>
+               <componentref id="christmas-tree4"/>
+               <componentref id="christmas-tree5"/>
+               <componentref id="christmas-tree6"/>
+               <componentref id="christmas-tree7"/>
+               <componentref id="christmas-tree8"/>
+               <componentref id="christmas-tree9"/>
+               <componentref id="christmas-tree10"/>       
+            </children>
+        </component>
+        
+        <!-- TREES -->
+        <component id="christmas-tree">
+            <transformation> 
+                <translate x="-5" y="3" z="5"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="christmas-tree10">
+            <transformation> 
+                <translate x="5" y="3" z="2"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="christmas-tree9">
+            <transformation> 
+             <translate x="7" y="3" z="10"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="christmas-tree8">
+            <transformation> 
+             <translate x="-10" y="3" z="5"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="christmas-tree7">
+            <transformation> 
+             <translate x="5" y="3" z="5"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="christmas-tree6">
+            <transformation> 
+             <translate x="-5" y="3" z="-5"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="christmas-tree5">
+            <transformation> 
+             <translate x="5" y="3" z="-5"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="christmas-tree4">
+            <transformation> 
+             <translate x="-2" y="3" z="2"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="christmas-tree3">
+            <transformation> 
+             <translate x="0" y="3" z="0"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="christmas-tree2">
+            <transformation> 
+             <translate x="-10" y="3" z="10"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="tree"/>
+                <componentref id="tronco"/>
+            </children>
+        </component>
+
+        <component id="tree">
+            <transformation> 
+                <scale x="3" y="13" z="3"/>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="medium-general"/>
+            </materials>
+            <texture id="inherit" length_s="0.5" length_t="0.5"/>
+            <children>
+                <primitiveref id="cone"/>
+            </children>
+        </component>
+
+        <component id="tronco">
+            <transformation> 
+                <translate x="0" y="-3.4" z="0"/>
+                <scale x="1" y="4" z="1"/>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="minor-general"/>
+            </materials>
+            <texture id="tex-tronco" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cilindro"/>
             </children>
         </component>
 
@@ -737,8 +952,8 @@
 
         <component id="wall-back">
             <transformation>
-                <translate x="10" y="0.125" z="0"/>
-                <scale x="0.5" y="30.25" z="40.5"/>
+                <translate x="10" y="0" z="0"/>
+                <scale x="0.5" y="30.5" z="40.5"/>
             </transformation>
             <materials>
                 <material id="light-bricks"/>
@@ -3892,8 +4107,6 @@
             </children>
         </component>
 
-
-
         <component id="kitchen-drawer-2">
             <transformation>
                 <translate x="-2" y="0" z="0"/>
@@ -3933,9 +4146,7 @@
             </children>
         </component>
 
-
-<!--OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
-                <component id="kitchen-stove-front">
+        <component id="kitchen-stove-front">
             <transformation>
                 <translate x="0" y="0" z="0.5"/>
             </transformation>
@@ -4051,5 +4262,4 @@
             </children>
         </component>
     </components>
-
 </yas>
