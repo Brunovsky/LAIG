@@ -3893,7 +3893,7 @@
 
         <component id="kitchen-drawer-1">
             <transformation>
-                <translate x="0" y="-13" z="-18"/>
+                <translate x="1" y="-13" z="-18.3"/>
                 <scale x="2" y="3" z="2"/>
 
             </transformation>
@@ -4231,7 +4231,7 @@
 
         <component id="kitchen-stove-sides">
             <transformation>
-                <translate x="-5.5" y="-13" z="-18.7"/>
+                <translate x="-7.3" y="-13.2" z="-18.7"/>
                 <scale x="2.3" y="3.4" z="2"/>
             </transformation>
             <materials>
@@ -4250,13 +4250,13 @@
 
         <component id="kitchen-drawers-top">
             <transformation>
-                <translate x="0" y="-11.1" z="-18.7"/>
+                <translate x="-1.95" y="-11.1" z="-18.7"/>
                 <scale x="8.5" y="0.2" z="2.5"/>
             </transformation>
             <materials>
                 <material id="marble-polished"/>
             </materials>
-            <texture id="tex-granito" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-granito" length_s="0.3" length_t="0.3"/>
             <children>
                 <componentref id="cube"/>
             </children>
