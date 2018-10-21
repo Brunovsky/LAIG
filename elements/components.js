@@ -93,6 +93,9 @@ class XMLComponentTexture extends XMLElement {
 
         this.type = "texture";
 
+        this.s = 1.0;
+        this.t = 1.0;
+
         if (this.id === "inherit") {
             this.mode = "inherit";
         } else if (this.id === "none") {
