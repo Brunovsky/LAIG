@@ -1,3 +1,9 @@
+/**
+ * XML Parsing Class
+ * Parses yas (entry point)
+ *
+ * After parsing the XML, validates it (see resolve())
+ */
 class XMLYas extends XMLBase {
     constructor(node) {
         super(node);
@@ -45,6 +51,10 @@ class XMLYas extends XMLBase {
         this.printWarnings();
     }
 
+    /**
+     * Resolve cross references between components, transformations,
+     * textures and materials.
+     */
     resolveReferences() {
         for (const componentId in this.components.elements) {
             const component = this.components.elements[componentId];
@@ -127,6 +137,9 @@ class XMLYas extends XMLBase {
         }
     }
 
+    /**
+     * Validate root node exists and has material and texture non-inherit
+     */
     validateRoot() {
         const id = this.scene.data.root;
         this.root = this.components.get(id);
@@ -154,6 +167,9 @@ class XMLYas extends XMLBase {
         }
     }
 
+    /**
+     * Validate default view
+     */
     validateViews() {
         const id = this.views.data.default;
         
@@ -164,6 +180,9 @@ class XMLYas extends XMLBase {
         }
     }
 
+    /**
+     * Check for cycles in the scene graph
+     */
     validateGraph() {
         const components = this.components;
         const stack = new Stack();
@@ -217,6 +236,10 @@ class XMLYas extends XMLBase {
         }
     }
 
+    /**
+     * Print relevant warnings (too many lights, unreachable components,
+     * texture and material named inherit/none).
+     */
     printWarnings() {
         let count = 0;
 

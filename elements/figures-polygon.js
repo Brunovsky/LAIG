@@ -2,6 +2,10 @@
  * 1. Planar Polygon Primitives
  */
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > square
+ */
 class XMLSquare extends XMLElement {
     constructor(node) {
         super(node, {
@@ -12,6 +16,10 @@ class XMLSquare extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > regular
+ */
 class XMLRegular extends XMLElement {
     constructor(node) {
         super(node, {
@@ -22,6 +30,10 @@ class XMLRegular extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > circle
+ */
 class XMLCircle extends XMLElement {
     constructor(node) {
         super(node, {
@@ -32,6 +44,10 @@ class XMLCircle extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > triangle
+ */
 class XMLTriangle extends XMLElement {
     constructor(node) {
         super(node, {
@@ -44,6 +60,10 @@ class XMLTriangle extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > rectangle
+ */
 class XMLRectangle extends XMLElement {
     constructor(node) {
         super(node, {
@@ -54,6 +74,10 @@ class XMLRectangle extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > trapezium
+ */
 class XMLTrapezium extends XMLElement {
     constructor(node) {
         super(node, {

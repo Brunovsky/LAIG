@@ -1,3 +1,7 @@
+/**
+ * XML Parsing Class
+ * Parses yas > textures > texture
+ */
 class XMLTexture extends XMLElement {
     constructor(node) {
         super(node, { id:"ss" , file: "ss" });
@@ -6,6 +10,10 @@ class XMLTexture extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > textures
+ */
 class XMLTextures extends XMLGroup {
     constructor(node) {
         super(node, {

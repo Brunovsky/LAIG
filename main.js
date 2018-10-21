@@ -26,7 +26,7 @@ serialInclude(['../lib/CGF.js',
     'build/revSurface.js', 'build/Sphere.js', 'build/uvSurface.js',
     'build/xSurface.js', 'build/ySurface.js', 'build/zSurface.js',
     // elements/ files
-    'elements/element.js', 'elements/yas.js', 'elements/figures.js',
+    'elements/element.js', 'elements/yas.js',
     'elements/figures-planar.js', 'elements/figures-polygon.js',
     'elements/figures-spacial.js', 'elements/figures-surface.js',
     'elements/ambient.js', 'elements/components.js', 'elements/lights.js',

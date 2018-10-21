@@ -1,3 +1,7 @@
+/**
+ * XML Parsing Class
+ * Parses yas > lights > omni
+ */
 class XMLOmni extends XMLElement {
     constructor(node) {
         super(node, {
@@ -12,6 +16,10 @@ class XMLOmni extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > lights > spot
+ */
 class XMLSpot extends XMLElement {
     constructor(node) {
         super(node, {
@@ -33,6 +41,10 @@ class XMLSpot extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > lights
+ */
 class XMLLights extends XMLGroup {
     constructor(node) {
         super(node, {

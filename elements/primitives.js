@@ -1,3 +1,7 @@
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive
+ */
 class XMLPrimitive extends XMLElement {
     constructor(node) {
         super(node, { id: "ss" });
@@ -21,6 +25,10 @@ class XMLPrimitive extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives
+ */
 class XMLPrimitives extends XMLGroup {
     constructor(node) {
         super(node, {
@@ -172,7 +180,7 @@ function buildPrimitive(scene, primitive) {
     // 4. Surface Primitives
     case 'torus':
         return new uvSurface(scene, protoTorus(dt.inner, dt.outer),
-            intervalTorus, dt.slices);
+            intervalTorus, dt.slices, dt.loops);
     case 'eight':
         return new uvSurface(scene, protoEightSurface(),
             intervalEightSurface, dt.slices, dt.stacks);

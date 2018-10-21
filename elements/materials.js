@@ -1,3 +1,7 @@
+/**
+ * XML Parsing Class
+ * Parses yas > materials > material
+ */
 class XMLMaterial extends XMLElement {
     constructor(node) {
         super(node, {
@@ -12,6 +16,10 @@ class XMLMaterial extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > materials
+ */
 class XMLMaterials extends XMLGroup {
     constructor(node) {
         super(node, {

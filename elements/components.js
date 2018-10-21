@@ -1,3 +1,7 @@
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > transformation > transformationref
+ */
 class XMLTransformationRef extends XMLElement {
     constructor(node) {
         super(node, { id: "ss" });
@@ -5,7 +9,11 @@ class XMLTransformationRef extends XMLElement {
         this.type = "transformationref";
     }
 }
-
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > transformation
+ * Immediate transformation (non empty and no transformationref)
+ */
 class XMLImmediateTransformation extends XMLElement {
     constructor(node) {
         super(node);
@@ -32,6 +40,10 @@ class XMLImmediateTransformation extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > transformation
+ */
 class XMLComponentTransformation extends XMLElement {
     constructor(node) {
         super(node);
@@ -57,6 +69,10 @@ class XMLComponentTransformation extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > children > componentref
+ */
 class XMLComponentRef extends XMLElement {
     constructor(node) {
         super(node, { id: "ss" });
@@ -65,6 +81,10 @@ class XMLComponentRef extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > children > primitiveref
+ */
 class XMLPrimitiveRef extends XMLElement {
     constructor(node) {
         super(node, { id: "ss" });
@@ -73,6 +93,10 @@ class XMLPrimitiveRef extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > materials > material
+ */
 class XMLMaterialRef extends XMLElement {
     constructor(node) {
         super(node, { id: "ss" });
@@ -87,6 +111,10 @@ class XMLMaterialRef extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > texture
+ */
 class XMLComponentTexture extends XMLElement {
     constructor(node) {
         super(node, { id: "ss" });
@@ -111,6 +139,10 @@ class XMLComponentTexture extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > materials
+ */
 class XMLComponentMaterials extends XMLElement {
     constructor(node) {
         super(node);
@@ -135,6 +167,10 @@ class XMLComponentMaterials extends XMLElement {
         }
     }
 
+    /**
+     * @param  i The n/m material counter
+     * @return The material to be applied, at index i in the list.
+     */
     index(i) {
         const l = this.elements.length;
 
@@ -142,6 +178,10 @@ class XMLComponentMaterials extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > children
+ */
 class XMLChildren extends XMLGroup {
     constructor(node) {
         super(node, {
@@ -153,6 +193,10 @@ class XMLChildren extends XMLGroup {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > components > component
+ */
 class XMLComponent extends XMLElement {
     constructor(node) {
         super(node, { id: "ss" });
@@ -180,6 +224,10 @@ class XMLComponent extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > components
+ */
 class XMLComponents extends XMLGroup {
     constructor(node) {
         super(node, {

@@ -223,6 +223,9 @@ class MyScene extends CGFscene {
         this.gui.populate(this, this.graph.yas);
     }
 
+    /**
+     * Select or unselect light and index i
+     */
     selectLight(i, value) {
         if (value) {
             this.lights[i].enable();
@@ -233,11 +236,17 @@ class MyScene extends CGFscene {
         }
     }
 
+    /**
+     * Select camera with given id
+     */
     selectView(id) {
         this.camera = this.views[id];
         this.gui.setActiveCamera(this.camera);
     }
 
+    /**
+     * Apply a transformation given by the XML description
+     */
     applyTransformation(transformation) {
         const operations = transformation.elements;
 
@@ -268,6 +277,9 @@ class MyScene extends CGFscene {
         }
     }
 
+    /**
+     * Update lights for the display cycle
+     */
     updateLights()  {
         for (let i = 0; i < this.lights.length; ++i) {
             this.lights[i].update();
@@ -302,6 +314,9 @@ class MyScene extends CGFscene {
         this.popMatrix();
     }
 
+    /**
+     * Entry point for the depth first traversal of the scene graph
+     */
     displaySceneGraph() {
         this.traverser(this.graph.yas.root, null, null);
     }
@@ -358,10 +373,16 @@ class MyScene extends CGFscene {
         this.popMatrix();
     }
 
+    /**
+     * Update data (only keys)
+     */
     update(delta) {
         this.checkKeys();
     }
 
+    /**
+     * Check interface keys
+     */
     checkKeys() {
         for (const key in this.keymap) {
             const press = this.gui.isKeyPressed(key);

@@ -1,3 +1,7 @@
+/**
+ * XML Parsing Class
+ * Parses yas > ambient
+ */
 class XMLAmbient extends XMLElement {
     constructor(node) {
         super(node, {

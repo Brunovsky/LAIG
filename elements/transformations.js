@@ -1,3 +1,7 @@
+/**
+ * XML Parsing Class
+ * Parses yas > transformations > transformation > translate
+ */
 class XMLTranslate extends XMLElement {
     constructor(node) {
         super(node, {
@@ -8,6 +12,10 @@ class XMLTranslate extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > transformations > transformation > rotate
+ */
 class XMLRotate extends XMLElement {
     constructor(node) {
         super(node, {
@@ -18,6 +26,10 @@ class XMLRotate extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > transformations > transformation > scale
+ */
 class XMLScale extends XMLElement {
     constructor(node) {
         super(node, {
@@ -32,6 +44,10 @@ class XMLScale extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > transformations > transformation
+ */
 class XMLTransformation extends XMLElement {
     constructor(node) {
         super(node, { id: "ss" });
@@ -58,6 +74,10 @@ class XMLTransformation extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > transformations
+ */
 class XMLTransformations extends XMLGroup {
     constructor(node) {
         super(node, {

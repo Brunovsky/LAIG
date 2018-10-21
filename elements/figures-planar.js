@@ -1,6 +1,11 @@
 /**
  * 3. Complex Planar Primitives
  */
+
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > heart
+ */
 class XMLHeart extends XMLElement {
     constructor(node) {
         super(node, {
@@ -11,6 +16,10 @@ class XMLHeart extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > butterfly
+ */
 class XMLButterfly extends XMLElement {
     constructor(node) {
         super(node, {
@@ -21,6 +30,10 @@ class XMLButterfly extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > folium
+ */
 class XMLFolium extends XMLElement {
     constructor(node) {
         super(node, {
@@ -31,6 +44,10 @@ class XMLFolium extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > hypocycloid
+ */
 class XMLHypocycloid extends XMLElement {
     constructor(node) {
         super(node, {

@@ -1,3 +1,6 @@
+/**
+ * Base class of all XML Parsing Classes
+ */
 class XMLBase {
     constructor(node) {
         this.node = node;
@@ -6,6 +9,7 @@ class XMLBase {
 
 /**
  * An exception of the YAS specification found in the XML structure.
+ * Thrown whenever a parsing error is found by XMLElement, XMLGroup, and others.
  */
 class XMLException extends XMLBase {
     constructor(node, message) {
@@ -29,6 +33,8 @@ class XMLException extends XMLBase {
 }
 
 /**
+ * XML Core Parsing Class
+ * 
  * Represents a leaf element of the XML structure, with a fixed set
  * of expected and mandatory attributes and children (recursively).
  *
@@ -52,46 +58,46 @@ class XMLElement extends XMLBase {
                 }
 
                 switch (spec[key]) {
-                    case "ss":
+                    case "ss": // string
                         val = reader.getString(node, key);
                         break;
-                    case "ii":
+                    case "ii": // positive integer
                         val = reader.getInteger(node, key);
                         if (val == null || val <= 0) {
                             throw new XMLException(node, "Expected positive integer for attribute " + key);
                         }
                         break;
-                    case "ff":
+                    case "ff": // float
                         val = reader.getFloat(node, key);
                         if (val == null || isNaN(val)) {
                             throw new XMLException(node, "Expected float for attribute " + key);
                         }
                         break;
-                    case "p0":
+                    case "p0": // nonnegative float
                         val = reader.getFloat(node, key);
                         if (val == null || isNaN(val) || val < 0) {
                             throw new XMLException(node, "Expected nonnegative float for attribute " + key);
                         }
                         break;
-                    case "pp":
+                    case "pp": // positive float
                         val = reader.getFloat(node, key);
                         if (val == null || isNaN(val) || val <= 0) {
                             throw new XMLException(node, "Expected positive float for attribute " + key);
                         }
                         break;
-                    case "rr":
+                    case "rr": // [0,1] float
                         val = reader.getFloat(node, key);
                         if (val == null || isNaN(val) || val < 0 || val > 1) {
                             throw new XMLException(node, "Expected [0,1] float for attribute " + key);
                         }
                         break;
-                    case "cc":
+                    case "cc": // x, y, z
                         val = reader.getItem(node, key, ['x', 'y', 'z']);
                         if (val == null) {
                             throw new XMLException(node, "Expected coordinate for attribute " + key);
                         }
                         break;
-                    case "tt":
+                    case "tt": // 0, 1
                         val = reader.getItem(node, key, ['0', '1']);
                         if (val == null) {
                             throw new XMLException(node, "Expected boolean for attribute " + key);

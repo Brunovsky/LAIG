@@ -1,3 +1,7 @@
+/**
+ * XML Parsing Class
+ * Parses yas > views > perspective
+ */
 class XMLPerspective extends XMLElement {
     constructor(node) {
         super(node, {
@@ -17,6 +21,10 @@ class XMLPerspective extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > views > ortho
+ */
 class XMLOrtho extends XMLElement {
     constructor(node) {
         super(node, {
@@ -30,6 +38,10 @@ class XMLOrtho extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > views > omni
+ */
 class XMLViews extends XMLGroup {
     constructor(node) {
         super(node, {
