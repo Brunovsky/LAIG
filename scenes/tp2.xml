@@ -99,9 +99,6 @@
         
         <!-- HOUSE & LIVINGROOM -->
         <texture id="tex-furniture" file="images/furniture.jpg"/>
-        <texture id="tex-window" file="images/window.jpg"/>
-        <texture id="tex-chimney" file="images/chimney.jpg"/>
-        <texture id="tex-chair" file="images/chair.jpg"/>
         <texture id="tex-bricks" file="images/bricks.jpg"/>
         <texture id="tex-ceiling" file="images/ceiling.jpg"/>
 
