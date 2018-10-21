@@ -100,7 +100,7 @@
         <texture id="tex-grey" file="images/grey.jpg"/>
         <texture id="tex-net" file="images/net.jpg"/>
         <texture id="tex-tablecolor" file="images/tablecolor.jpg"/>
-        <texture id="tex-bedroomfloor" file="images/bedroom-floor.jpg"/>
+        <texture id="tex-bedroomfloor" file="images/bedroomfloor.jpg"/>
         <texture id="tex-livingroom" file="images/livingroom.jpg"/>
         <texture id="tex-tv" file="images/tvimage.jpg"/>
         <texture id="tex-bricks" file="images/bricks.jpg"/>
@@ -111,7 +111,7 @@
         <texture id="kitchen-fridge-side" file="images/kitchen/metal-2.jpg"/>
         <texture id="seamless-metal" file="images/kitchen/metal-1.jpg"/>
         <texture id="tex-pillow" file="images/pillowcolor.jpg"/>
-
+        <texture id="tex-ceiling" file="images/wallpaper.jpg"/>
     </textures>
 
     <materials>
@@ -169,11 +169,17 @@
             <diffuse  r="0.26" g="0.26" b="0.24" a="1"/>
             <specular r="0.25" g="0.25" b="0.23" a="1"/>
         </material>
-        <material id="bricks" shininess="10">
+        <material id="light-bricks" shininess="10">
             <emission r="0.00" g="0.00" b="0.00" a="1"/>
-            <ambient  r="0.24" g="0.08" b="0.10" a="1"/>
-            <diffuse  r="0.23" g="0.07" b="0.09" a="1"/>
-            <specular r="0.22" g="0.07" b="0.08" a="1"/>
+            <ambient  r="0.48" g="0.32" b="0.40" a="1"/>
+            <diffuse  r="0.46" g="0.28" b="0.36" a="1"/>
+            <specular r="0.44" g="0.28" b="0.32" a="1"/>
+        </material>
+        <material id="dark-bricks" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.24" g="0.16" b="0.20" a="1"/>
+            <diffuse  r="0.23" g="0.14" b="0.18" a="1"/>
+            <specular r="0.22" g="0.14" b="0.16" a="1"/>
         </material>
         <material id="oak-wood" shininess="10">
             <emission r="0.00" g="0.00" b="0.00" a="1"/>
@@ -183,21 +189,21 @@
         </material>
         <material id="light-wood" shininess="10">
             <emission r="0.00" g="0.00" b="0.00" a="1"/>
-            <ambient  r="0.75" g="0.48" b="0.03" a="1"/>
-            <diffuse  r="0.75" g="0.47" b="0.03" a="1"/>
-            <specular r="0.50" g="0.28" b="0.02" a="1"/>
+            <ambient  r="0.63" g="0.48" b="0.38" a="1"/>
+            <diffuse  r="0.62" g="0.47" b="0.37" a="1"/>
+            <specular r="0.40" g="0.28" b="0.26" a="1"/>
         </material>
         <material id="wood" shininess="10">
             <emission r="0.00" g="0.00" b="0.00" a="1"/>
-            <ambient  r="0.52" g="0.32" b="0.02" a="1"/>
-            <diffuse  r="0.60" g="0.37" b="0.03" a="1"/>
-            <specular r="0.33" g="0.18" b="0.01" a="1"/>
+            <ambient  r="0.43" g="0.32" b="0.25" a="1"/>
+            <diffuse  r="0.50" g="0.37" b="0.28" a="1"/>
+            <specular r="0.26" g="0.18" b="0.14" a="1"/>
         </material>
         <material id="dark-wood" shininess="10">
             <emission r="0.00" g="0.00" b="0.00" a="1"/>
-            <ambient  r="0.15" g="0.10" b="0.01" a="1"/>
-            <diffuse  r="0.35" g="0.20" b="0.02" a="1"/>
-            <specular r="0.20" g="0.13" b="0.01" a="1"/>
+            <ambient  r="0.12" g="0.10" b="0.08" a="1"/>
+            <diffuse  r="0.28" g="0.20" b="0.17" a="1"/>
+            <specular r="0.16" g="0.13" b="0.11" a="1"/>
         </material>
         <material id="shiny-metal" shininess="10">
             <emission r="0.00" g="0.00" b="0.00" a="1"/>
@@ -438,7 +444,8 @@
                 <transformationref id="rect+z"/>
             </transformation>
             <materials>
-                <material id="bricks"/>
+                <material id="light-bricks"/>
+                <material id="dark-bricks"/>
             </materials>
             <texture id="tex-bricks" length_s="0.25" length_t="0.25"/>
             <children>
@@ -465,7 +472,8 @@
                 <scale x="20.5" y="30.5" z="0.5"/>
             </transformation>
             <materials>
-                <material id="bricks"/>
+                <material id="light-bricks"/>
+                <material id="dark-bricks"/>
             </materials>
             <texture id="tex-bricks" length_s="1.0" length_t="1.0"/>
             <children>
@@ -483,7 +491,8 @@
                 <transformationref id="rect-z"/>
             </transformation>
             <materials>
-                <material id="bricks"/>
+                <material id="light-bricks"/>
+                <material id="dark-bricks"/>
             </materials>
             <texture id="tex-bricks" length_s="0.25" length_t="0.25"/>
             <children>
@@ -510,7 +519,8 @@
                 <scale x="20.5" y="30.5" z="0.5"/>
             </transformation>
             <materials>
-                <material id="bricks"/>
+                <material id="light-bricks"/>
+                <material id="dark-bricks"/>
             </materials>
             <texture id="tex-bricks" length_s="1.0" length_t="1.0"/>
             <children>
@@ -528,9 +538,9 @@
                 <transformationref id="rect-y"/>
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="wallpaper"/>
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-ceiling" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -541,7 +551,8 @@
                 <transformationref id="rect+y"/>
             </transformation>
             <materials>
-                <material id="bricks"/>
+                <material id="light-bricks"/>
+                <material id="dark-bricks"/>
             </materials>
             <texture id="tex-bricks" length_s="1.0" length_t="1.0"/>
             <children>
@@ -555,7 +566,8 @@
                 <scale x="20.5  " y="0.5" z="40"/>
             </transformation>
             <materials>
-                <material id="bricks"/>
+                <material id="light-bricks"/>
+                <material id="dark-bricks"/>
             </materials>
             <texture id="tex-bricks" length_s="1.0" length_t="1.0"/>
             <children>
@@ -631,7 +643,8 @@
                 <transformationref id="rect+x"/>
             </transformation>
             <materials>
-                <material id="bricks"/>
+                <material id="light-bricks"/>
+                <material id="dark-bricks"/>
             </materials>
             <texture id="tex-bricks" length_s="0.125" length_t="0.25"/>
             <children>
@@ -645,7 +658,8 @@
                 <scale x="0.5" y="30" z="40"/>
             </transformation>
             <materials>
-                <material id="bricks"/>
+                <material id="light-bricks"/>
+                <material id="dark-bricks"/>
             </materials>
             <texture id="tex-bricks" length_s="1.0" length_t="1.0"/>
             <children>
@@ -674,77 +688,85 @@
         </component>
 
         <component id="divider-up">
-            <transformation/>
+            <transformation>
+                <transformationref id="rect+y"/>
+            </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="light-wood"/>
             </materials>
-            <texture id="tex-bedroomfloor" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-bedroomfloor" length_s="0.75" length_t="1.0"/>
             <children>
-                <componentref id="cube+y"/>
+                <primitiveref id="rect"/>
             </children>
         </component>
 
         <component id="divider-down">
-            <transformation/>
+            <transformation>
+                <transformationref id="rect-y"/>
+            </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="wallpaper"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-ceiling" length_s="1.0" length_t="1.0"/>
             <children>
-                <componentref id="cube-y"/>
+                <primitiveref id="rect"/>
             </children>
         </component>
 
         <component id="divider">
             <transformation>
-                <translate x="-0.25" y="0" z="-2.5"/>
-                <scale x="20" y="0.5" z="35"/>
+                <translate x="-0.25" y="0" z="-2.375"/>
+                <scale x="20" y="0.5" z="34.75"/>
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="concrete"/>
             </materials>
-            <texture id="inherit" length_s="10.0" length_t="10.0"/>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
             <children>
+                <componentref id="cube-x"/>
+                <componentref id="cube+x"/>
                 <componentref id="divider-down"/>
                 <componentref id="divider-up"/>
                 <componentref id="cube-z"/>
                 <componentref id="cube+z"/>
-                <componentref id="cube-x"/>
-                <componentref id="cube+x"/>
             </children>
         </component>
 
         <component id="divider-corner-up">
-            <transformation/>
+            <transformation>
+                <transformationref id="rect+y"/>
+            </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="light-wood"/>
             </materials>
-            <texture id="tex-bedroomfloor" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-bedroomfloor" length_s="1.143" length_t="7.0"/>
             <children>
-                <componentref id="cube+y"/>
+                <primitiveref id="rect"/>
             </children>
         </component>
 
         <component id="divider-corner-down">
-            <transformation/>
+            <transformation>
+                <transformationref id="rect-y"/>
+            </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="wallpaper"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-ceiling" length_s="1.143" length_t="7.0"/>
             <children>
-                <componentref id="cube-y"/>
+                <primitiveref id="rect"/>
             </children>
         </component>
 
         <component id="divider-corner">
             <transformation>
-                <translate x="-2.75" y="0" z="17.5"/>
-                <scale x="15" y="0.5" z="5"/>
+                <translate x="-2.75" y="0" z="17.375"/>
+                <scale x="15" y="0.5" z="4.75"/>
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="concrete"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="divider-corner-down"/>
                 <componentref id="divider-corner-up"/>
@@ -783,9 +805,9 @@
                 <scale x="15" y="15" z="0.5"/>
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="wallpaper"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="vertical-divider-left"/>
                 <componentref id="vertical-divider-right"/>
@@ -1569,7 +1591,9 @@
                 <scale x="1.2" y="0.05" z="0.4"/>
             </transformation>
             <materials>
+                <material id="light-wood"/>
                 <material id="wood"/>
+                <material id="dark-wood"/>
             </materials>
             <texture id="tex-wood" length_s="1.2" length_t="1.0"/>
             <children>
