@@ -4,8 +4,6 @@ class TextureCache {
         this.spanT = spanT;
         this.base = baseTexCoords;
 
-        console.log(this.spanS, this.spanT, this.base);
-
         this.cache = new Map();
     }
 
