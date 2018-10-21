@@ -99,9 +99,6 @@
         
         <!-- HOUSE & LIVINGROOM -->
         <texture id="tex-furniture" file="images/furniture.jpg"/>
-        <texture id="tex-window" file="images/window.jpg"/>
-        <texture id="tex-chimney" file="images/chimney.jpg"/>
-        <texture id="tex-chair" file="images/chair.jpg"/>
         <texture id="tex-bricks" file="images/bricks.jpg"/>
         <texture id="tex-ceiling" file="images/ceiling.jpg"/>
 
@@ -2447,7 +2444,7 @@
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <primitiveref id="cube"/>
+                <componentref id="cube"/>
             </children>
         </component>
 
