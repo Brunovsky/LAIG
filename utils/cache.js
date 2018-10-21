@@ -14,6 +14,10 @@ class TextureCache {
         this.cache = new Map();
     }
 
+    /**
+     * Ensure an entry for the pair (s,t) already exists,
+     * otherwise create one
+     */
     ensure(s, t) {
         if (!this.cache.has(s)) {
             this.cache.set(s, new Map());
@@ -24,6 +28,9 @@ class TextureCache {
         }
     }
 
+    /**
+     * Create an entry for the pair (s,t)
+     */
     make(s, t) {
         const mS = this.spanS / s;
         const mT = this.spanT / t;
@@ -37,6 +44,9 @@ class TextureCache {
         return texCoords;
     }
 
+    /**
+     * Get the entry for the pair (s,t)
+     */
     get(s, t) {
         this.ensure(s, t);
 
