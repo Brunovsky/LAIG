@@ -89,12 +89,9 @@ class XMLMaterialRef extends XMLElement {
 
 class XMLComponentTexture extends XMLElement {
     constructor(node) {
-        super(node, { id: "ss", length_s: "pp", length_t: "pp" });
+        super(node, { id: "ss" });
 
         this.type = "texture";
-
-        this.s = this.data.length_s;
-        this.t = this.data.length_t;
 
         if (this.id === "inherit") {
             this.mode = "inherit";
@@ -102,6 +99,11 @@ class XMLComponentTexture extends XMLElement {
             this.mode = "none";
         } else {
             this.mode = "reference";
+
+            let tmp = new XMLElement(node, {length_s: "pp", length_t: "pp"});
+
+            this.s = tmp.data.length_s;
+            this.t = tmp.data.length_t;
         }
     }
 }

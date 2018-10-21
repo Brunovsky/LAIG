@@ -60,18 +60,16 @@ class MyInterface extends CGFinterface {
     addViewsGroup() {
         const views = this.yas.views;
 
-        this.control.views = {};
+        this.control['View'] = views.data.default;
 
-        const viewsGroup = this.datgui.addFolder("Views");
-        viewsGroup.open();
+        const viewsList = [];
 
         for (const id in views.elements) {
-            const view = views.elements[id];
-            const name = id + " (" + view.type + ")";
-
-            this.control.views[name] = () => this.scene.selectView(id);
-            viewsGroup.add(this.control.views, name);
+            viewsList.push(id);
         }
+
+        const viewsGroup = this.datgui.add(this.control, 'View', viewsList)
+            .onChange(id => this.scene.selectView(id));
     }
 
     initKeys() {

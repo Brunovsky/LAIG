@@ -440,7 +440,7 @@
             <materials>
                 <material id="minor-general"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="inherit"/>
             <children>
                <componentref id="christmas-tree"/>
                <componentref id="christmas-tree2"/>
