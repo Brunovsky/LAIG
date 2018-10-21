@@ -3557,7 +3557,7 @@
 
         <component id="kitchen-fridge-front">
             <transformation>
-                <translate x="0" y="0" z="0.5"/>
+                <transformationref id="rect+z"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -3570,8 +3570,7 @@
 
         <component id="kitchen-fridge-back">
             <transformation>
-                <rotate axis="y" angle="180"/>
-                <translate x="0" y="0" z="0.5"/>
+                <transformationref id="rect-z"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -3584,8 +3583,7 @@
 
         <component id="kitchen-fridge-top">
             <transformation>
-                <rotate axis="x" angle="-90"/>
-                <translate x="0" y="0" z="0.5"/>
+                <transformationref id="rect+y"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -3598,8 +3596,7 @@
 
         <component id="kitchen-fridge-bottom">
             <transformation>
-                <rotate axis="x" angle="90"/>
-                <translate x="0" y="0" z="0.5"/>
+                <transformationref id="rect-y"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -3612,8 +3609,7 @@
 
         <component id="kitchen-fridge-left">
             <transformation>
-                <rotate axis="y" angle="-90"/>
-                <translate x="0" y="0" z="0.5"/>
+                <transformationref id="rect-x"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -3626,8 +3622,7 @@
 
         <component id="kitchen-fridge-right">
             <transformation>
-                <rotate axis="y" angle="90"/>
-                <translate x="0" y="0" z="0.5"/>
+                <transformationref id="rect+x"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
