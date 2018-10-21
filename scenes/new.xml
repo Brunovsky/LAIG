@@ -4286,7 +4286,6 @@
                 <componentref id="cube"/>
             </children>
         </component>
-<<<<<<< HEAD
 
 
         <component id="kitchen-table-top">
@@ -4407,8 +4406,6 @@
         </component>
 
     </components>
-=======
->>>>>>> e8a6be1545cf6fa14a29794181f668511dbe5c58
 
         <!-- SNOW DOLL-->
         <component id="snow-doll">
