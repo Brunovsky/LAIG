@@ -167,6 +167,19 @@ class MyScene extends CGFscene {
             const texture = textures.elements[id];
 
             this.textures[id] = new CGFtexture(this, texture.data.file);
+            if (this.textures[id] != null) continue;
+
+            console.warn("Texture file " + texture.data.file + " not found, searching in images/");
+            
+            this.textures[id] = new CGFtexture(this, "images/" + texture.data.file);
+            if (this.textures[id] != null) continue;
+
+            console.warn("Texture file images/" + texture.data.file + " not found, searching in tex/");
+            
+            this.textures[id] = new CGFtexture(this, "tex/" + texture.data.file);
+            if (this.textures[id] != null) continue;
+
+            console.warn("Texture file tex/" + texture.data.file + " not found");
         }
     }
 
