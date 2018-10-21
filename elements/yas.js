@@ -236,5 +236,22 @@ class XMLYas extends XMLBase {
             // Slice lights array
             this.lights.elements.length = 8;
         }
+
+        // Emit warning for material named "inherit"
+        let material = this.materials.get("inherit");
+        if (material != null) {
+            console.warn("Warning: material named 'inherit' is unusable");
+        }
+
+        // Emit warning for texture named "inherit"
+        let texture = this.textures.get("inherit");
+        if (texture != null) {
+            console.warn("Warning: texture named 'inherit' is unusable");
+        }
+
+        texture = this.textures.get("none");
+        if (texture != null) {
+            console.warn("Warning: texture named 'none' is unusable");
+        }
     }
 }
