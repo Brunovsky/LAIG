@@ -73,6 +73,9 @@
     </lights>
 
     <textures>
+        <texture id="tex-granito" file="images/granito.jpg"/>
+        <texture id="tex-fogao" file="images/fogao.jpg"/>
+        <texture id="tex-forno" file="images/forno.jpg"/>
         <texture id="tex-pingpong" file="images/pingpong.jpg"/>
         <texture id="tex-colchao" file="images/colchao.jpg"/>
         <texture id="tex-leaves" file="images/leaves.jpg"/>
@@ -111,6 +114,12 @@
         <texture id="seamless-metal" file="images/kitchen/metal-1.jpg"/>
         <texture id="tex-pillow" file="images/pillowcolor.jpg"/>
         <texture id="tex-ceiling" file="images/wallpaper.jpg"/>
+        <texture id="tex-rubik-top"    file="images/rubiks-top.png"/>
+        <texture id="tex-rubik-bottom" file="images/rubiks-bottom.png"/>
+        <texture id="tex-rubik-left"   file="images/rubiks-left.png"/>
+        <texture id="tex-rubik-right"  file="images/rubiks-right.png"/>
+        <texture id="tex-rubik-front"  file="images/rubiks-front.png"/>
+        <texture id="tex-rubik-back"   file="images/rubiks-back.png"/>
 
         <texture id="tex-wood1" file="images/wood1.jpg"/>
         <texture id="tex-wood2" file="images/wood2.jpg"/>
@@ -487,7 +496,13 @@
             </materials>
             <texture id="none" length_s="1.0" length_t="1.0"/>
             <children>
+                <componentref id="kitchen-drawers-top"/>
+                <componentref id="rubik"/>
+                <componentref id="kitchen-stove-sides"/>
                 <componentref id="kitchen-drawer-1"/>
+                <componentref id="kitchen-drawer-2"/>
+                <componentref id="kitchen-drawer-4"/>
+                <componentref id="kitchen-drawer-3"/>
                 <componentref id="kitchen-fridge"/>
                 <componentref id="couch"/>
                 <componentref id="tv"/>
@@ -3774,5 +3789,267 @@
                 <componentref id="kitchen-fridge-right"/>
             </children>
         </component>
+
+          <component id="rubik-top">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tex-rubik-top" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="rubik-bottom">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tex-rubik-bottom" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="rubik-left">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tex-rubik-left" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="rubik-right">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tex-rubik-right" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="rubik-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tex-rubik-front" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="rubik-back">
+            <transformation>
+                <rotate axis="y" angle="180"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tex-rubik-back" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="rubik">
+            <transformation>
+                <translate x="6" y="1.1" z="-11.3"/>
+                <scale x="1.7" y="1.7" z="1.7"/>
+            </transformation>
+            <materials>
+                <material id="polished-chrome"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="rubik-top"/>
+                <componentref id="rubik-bottom"/>
+                <componentref id="rubik-left"/>
+                <componentref id="rubik-right"/>
+                <componentref id="rubik-front"/>
+                <componentref id="rubik-back"/>
+            </children>
+        </component>
+
+
+
+        <component id="kitchen-drawer-2">
+            <transformation>
+                <translate x="-2" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="polished-chrome"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-drawer-1"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-3">
+            <transformation>
+                <translate x="-2" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="polished-chrome"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-drawer-2"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawer-4">
+            <transformation>
+                <translate x="-2" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="polished-chrome"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-drawer-3"/>
+            </children>
+        </component>
+
+
+<!--OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
+                <component id="kitchen-stove-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tex-forno" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-stove-back">
+            <transformation>
+                <rotate axis="y" angle="180"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-stove-top">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tex-fogao" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-stove-bottom">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-stove-left">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-stove-right">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="rect"/>
+            </children>
+        </component>
+
+        <component id="kitchen-stove-sides">
+            <transformation>
+                <translate x="-5.5" y="-13" z="-18.7"/>
+                <scale x="2.3" y="3.4" z="2"/>
+            </transformation>
+            <materials>
+                <material id="aluminum"/>
+            </materials>
+            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="kitchen-stove-front"/>
+                <componentref id="kitchen-stove-back"/>
+                <componentref id="kitchen-stove-top"/>
+                <componentref id="kitchen-stove-bottom"/>
+                <componentref id="kitchen-stove-left"/>
+                <componentref id="kitchen-stove-right"/>
+            </children>
+        </component>
+
+        <component id="kitchen-drawers-top">
+            <transformation>
+                <translate x="0" y="-11.1" z="-18.7"/>
+                <scale x="8.5" y="0.2" z="2.5"/>
+            </transformation>
+            <materials>
+                <material id="marble-polished"/>
+            </materials>
+            <texture id="tex-granito" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
     </components>
+
 </yas>
