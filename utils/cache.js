@@ -1,3 +1,10 @@
+/**
+ * Implements a texture cache to be used by the triangle and rectangle primitives.
+ *
+ * A texCoords array for a given pair (s,t) is stored here, and does not
+ * need to be repeatedly created, only assigned -- this preserves a little bit
+ * of main memory and improves speed.
+ */
 class TextureCache {
     constructor(spanS, spanT, baseTexCoords) {
         this.spanS = spanS;
