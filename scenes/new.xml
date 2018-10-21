@@ -4405,8 +4405,6 @@
             </children>
         </component>
 
-    </components>
-
         <!-- SNOW DOLL-->
         <component id="snow-doll">
             <transformation> 
@@ -4599,5 +4597,6 @@
                 <primitiveref id="cilindro"/>
             </children>
         </component>
+
     </components>
 </yas>
