@@ -103,8 +103,8 @@ function protoTorus(inner, outer) {
     return function torus(u, v) {
         return {
             X: (outer + inner * cos(v)) * cos(u),
-            Y: inner * sin(v),
-            Z: (outer + inner * cos(v)) * sin(u)
+            Y: (outer + inner * cos(v)) * sin(u),
+            Z: inner * sin(v)
         };
     }
 }

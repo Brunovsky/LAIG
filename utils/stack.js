@@ -1,3 +1,6 @@
+/**
+ * Basic stack...
+ */
 class Stack extends Array
 {
     constructor(...args)
