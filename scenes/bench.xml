@@ -174,8 +174,8 @@
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <componentref id="cube-lado1"/>
-                <componentref id="cube-lado2"/>
+                <componentref id="cube-x"/>
+                <componentref id="cube+x"/>
                 <componentref id="cube-lado3"/>
                 <componentref id="cube-lado4"/>
                 <componentref id="cube-lado5"/>
@@ -183,7 +183,7 @@
             </children>
         </component>
 
-<!-- BENCH BOARDS -->
+        <!-- BENCH BOARDS -->
         <component id="bench-board">
             <transformation>
                 <scale x="5.0" y="0.05" z="0.25"/>
