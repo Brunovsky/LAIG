@@ -1,7 +1,7 @@
 <yas>
     <scene axis_length="50.0" root="root"/>
 
-    <views default="general-view">
+    <views default="kitchen">
         <perspective id="general-view" angle="50" near="0.5" far="500">
             <from x="-35.0" y="13.0" z="20.0"/>
             <to x="0.0" y="-3.0" z="0.0"/>
@@ -439,6 +439,9 @@
             </materials>
             <texture id="none" length_s="1.0" length_t="1.0"/>
             <children>
+                <componentref id="kitchen-table-top"/>
+                <componentref id="kitchen-chair"/>
+                
                 <componentref id="kitchen-drawers-top"/>
                 <componentref id="rubik"/>
                 <componentref id="kitchen-stove-sides"/>
@@ -3927,6 +3930,125 @@
                 <componentref id="cube"/>
             </children>
         </component>
+
+
+        <component id="kitchen-table-top">
+            <transformation>
+                <translate x="-1.95" y="-12.1" z="-4.5"/>
+                <scale x="4" y="0.1" z="2"/>
+            </transformation>
+            <materials>
+                <material id="marble-polished"/>
+            </materials>
+            <texture id="tex-granito" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+<!--kitchen chairs-->
+
+
+        <component id="kitchen-chair">
+            <transformation>
+                <translate x="-1.95" y="-13.3" z="-6.5"/>
+            </transformation>
+            <materials>
+                <material id="wood"/>
+            </materials>
+            <texture id="tex-wood2" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="kitchen-chair-encosto"/>
+                <componentref id="kitchen-chair-base"/>
+                <componentref id="kitchen-chair-leg"/>
+                <componentref id="kitchen-chair-leg2"/>
+                <componentref id="kitchen-chair-leg3"/>
+                <componentref id="kitchen-chair-leg4"/>
+
+
+            </children>
+        </component>
+
+
+        <component id="kitchen-chair-base">
+            <transformation>
+                <scale x="1.7" y="0.2" z="1.7"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="kitchen-chair-encosto">
+            <transformation>
+                <translate x="0" y="1.2" z="-0.75"/>
+                <scale x="1.7" y="2.2" z="0.2"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+        <component id="kitchen-chair-leg">
+            <transformation>
+                <translate x="0.75" y="-0.8" z="0.75"/>
+                <scale x="0.2" y="1.5" z="0.2"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="cube"/>
+            </children>
+        </component>
+
+        <component id="kitchen-chair-leg2">
+            <transformation>
+                <translate x="-1.5" y="0" z="-1.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="kitchen-chair-leg"/>
+            </children>
+        </component>
+
+        <component id="kitchen-chair-leg3">
+            <transformation>
+                <translate x="0" y="0" z="-1.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="kitchen-chair-leg"/>
+            </children>
+        </component>
+
+        <component id="kitchen-chair-leg4">
+            <transformation>
+                <translate x="-1.5" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="kitchen-chair-leg"/>
+            </children>
+        </component>
+
     </components>
 
 </yas>
