@@ -73,61 +73,70 @@
     </lights>
 
     <textures>
-        <texture id="tex-granito" file="images/granito.jpg"/>
-        <texture id="tex-fogao" file="images/fogao.jpg"/>
-        <texture id="tex-forno" file="images/forno.jpg"/>
+        <!-- BEDROOM -->
+        <texture id="tex-mattress" file="images/mattress.jpg"/>
         <texture id="tex-pingpong" file="images/pingpong.jpg"/>
-        <texture id="tex-colchao" file="images/colchao.jpg"/>
-        <texture id="tex-leaves" file="images/leaves.jpg"/>
-        <texture id="tex-rocks" file="images/rocks.jpg"/>
-        <texture id="tex-trunk" file="images/trunk.jpg"/>
-        <texture id="tex-snow" file="images/snow.jpg"/>
-        <texture id="tex-eye" file="images/eye.jpg"/>
-        <texture id="tex-furniture" file="images/furniture.jpg"/>
-        <texture id="tex-housewall" file="images/housewall.jpg"/>
-        <texture id="tex-gold" file="images/gold.jpg"/>
-        <texture id="tex-window" file="images/window.jpg"/>
-        <texture id="tex-chimney" file="images/chimney.jpg"/>
-        <texture id="tex-roof" file="images/roof.jpg"/>
-        <texture id="tex-christmastree" file="images/christmastree.jpg"/>
-        <texture id="tex-tronco" file="images/tronco.jpg"/>
-        <texture id="tex-black" file="images/black.jpeg"/>
-        <texture id="tex-red" file="images/red.jpg"/>
-        <texture id="tex-chair" file="images/chair.jpg"/>
-        <texture id="tex-lake" file="images/lake.jpg"/>
         <texture id="tex-bed" file="images/bed.jpg"/>
         <texture id="tex-cabeceira" file="images/cabeceira.jpg"/>
-        <texture id="tex-cabeceira2" file="images/cabeceira2.png"/>
+        <texture id="tex-cabeceira2" file="images/cabeceira2.jpg"/>
+        <texture id="tex-bedroomfloor" file="images/bedroomfloor.jpg"/>
+        <texture id="tex-net" file="images/net.jpg"/>
+        <texture id="tex-carpet1" file="images/carpet1.jpg"/>
+        <texture id="tex-tablecolor" file="images/tablecolor.jpg"/>
+
+        <!-- KITCHEN -->
+        <texture id="tex-granito" file="images/granito.jpg"/>
+        <texture id="tex-fogao" file="images/kitchen/fogao.jpg"/>
+        <texture id="tex-forno" file="images/kitchen/forno.jpg"/>
+        <texture id="tex-drawer-front" file="images/kitchen/drawer-front-1.jpg"/>
+        <texture id="tex-drawer-side-wood" file="images/kitchen/drawer-side-wood-1.jpg"/>
+        <texture id="tex-fridge-front" file="images/kitchen/fridge.jpg"/>
+        <texture id="tex-fridge-side" file="images/kitchen/metal-2.jpg"/>
+        <texture id="seamless-metal" file="images/kitchen/metal-1.jpg"/>
+
+        <!-- SNOW DOLL -->
+        <texture id="tex-eye" file="images/eye.jpg"/>
+        
+        <!-- HOUSE & LIVINGROOM -->
+        <texture id="tex-furniture" file="images/furniture.jpg"/>
+        <texture id="tex-window" file="images/window.jpg"/>
+        <texture id="tex-chimney" file="images/chimney.jpg"/>
+        <texture id="tex-chair" file="images/chair.jpg"/>
+        <texture id="tex-bricks" file="images/bricks.jpg"/>
+        <texture id="tex-ceiling" file="images/ceiling.jpg"/>
+
+        <!-- LIVING ROOM -->
+        <texture id="tex-livingroom" file="images/livingroom.jpg"/>
+        <texture id="tex-tv" file="images/tv.jpg"/>
+        <texture id="tex-blacktv" file="images/blacktv.jpg"/>
+
+        <!-- GARDEN -->
+        <texture id="tex-tree" file="images/tree.jpg"/>
+        <texture id="tex-trunk" file="images/trunk.jpg"/>
+        <texture id="tex-grass" file="images/grass.jpg"/>
+
+        <!-- GENERIC -->
+        <texture id="tex-snow" file="images/snow.jpg"/>
+        <texture id="tex-gold" file="images/gold.jpg"/>
+        <texture id="tex-red" file="images/red.jpg"/>
+        <texture id="tex-black" file="images/black.jpeg"/>
         <texture id="tex-marfim" file="images/marfim.jpg"/>
         <texture id="tex-grey" file="images/grey.jpg"/>
-        <texture id="tex-net" file="images/net.jpg"/>
-        <texture id="tex-tablecolor" file="images/tablecolor.jpg"/>
-        <texture id="tex-bedroomfloor" file="images/bedroomfloor.jpg"/>
-        <texture id="tex-livingroom" file="images/livingroom.jpg"/>
-        <texture id="tex-tv" file="images/tvimage.jpg"/>
-        <texture id="tex-bricks" file="images/bricks.jpg"/>
-        <texture id="tex-blacktv" file="images/black2.png"/>
-        <texture id="kitchen-drawer-front" file="images/kitchen/drawer-front-1.jpg"/>
-        <texture id="kitchen-drawer-side-wood" file="images/kitchen/drawer-side-wood-1.jpg"/>
-        <texture id="kitchen-fridge-front" file="images/kitchen/fridge.jpg"/>
-        <texture id="kitchen-fridge-side" file="images/kitchen/metal-2.jpg"/>
-        <texture id="seamless-metal" file="images/kitchen/metal-1.jpg"/>
-        <texture id="tex-pillow" file="images/pillowcolor.jpg"/>
-        <texture id="tex-ceiling" file="images/wallpaper.jpg"/>
-        <texture id="tex-rubik-top"    file="images/rubiks-top.png"/>
-        <texture id="tex-rubik-bottom" file="images/rubiks-bottom.png"/>
-        <texture id="tex-rubik-left"   file="images/rubiks-left.png"/>
-        <texture id="tex-rubik-right"  file="images/rubiks-right.png"/>
-        <texture id="tex-rubik-front"  file="images/rubiks-front.png"/>
-        <texture id="tex-rubik-back"   file="images/rubiks-back.png"/>
 
+        <texture id="tex-pillow" file="images/pillowcolor.jpg"/>
+
+        <!-- RUBIK -->
+        <texture id="tex-rubik-top"    file="images/rubik/top.png"/>
+        <texture id="tex-rubik-bottom" file="images/rubik/bottom.png"/>
+        <texture id="tex-rubik-left"   file="images/rubik/left.png"/>
+        <texture id="tex-rubik-right"  file="images/rubik/right.png"/>
+        <texture id="tex-rubik-front"  file="images/rubik/front.png"/>
+        <texture id="tex-rubik-back"   file="images/rubik/back.png"/>
+
+        <!-- WOODS -->
         <texture id="tex-wood1" file="images/wood1.jpg"/>
         <texture id="tex-wood2" file="images/wood2.jpg"/>
         <texture id="tex-wood3" file="images/wood3.jpg"/>
-
-        <texture id="tex-grass" file="images/grass.jpg"/>
-
-        <texture id="tex-carpet1" file="images/carpet1.jpg"/>
     </textures>
 
     <materials>
@@ -463,7 +472,7 @@
             <materials>
                 <material id="medium-general"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -477,7 +486,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -491,7 +500,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -505,7 +514,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -519,7 +528,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -533,7 +542,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -547,7 +556,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -561,7 +570,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -575,7 +584,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -589,7 +598,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-christmastree" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -619,7 +628,7 @@
             <materials>
                 <material id="minor-general"/>
             </materials>
-            <texture id="tex-tronco" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-trunk" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cilindro"/>
             </children>
@@ -1291,7 +1300,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-colchao" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-mattress" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -3794,7 +3803,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="kitchen-drawer-front" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-drawer-front" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -3877,7 +3886,7 @@
             <materials>
                 <material id="light-wood"/>
             </materials>
-            <texture id="kitchen-drawer-side-wood" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-drawer-side-wood" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="kitchen-drawer-1-front"/>
                 <componentref id="kitchen-drawer-1-back"/>
@@ -3977,7 +3986,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="kitchen-fridge-front" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-fridge-front" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4056,7 +4065,7 @@
             <materials>
                 <material id="light-metal"/>
             </materials>
-            <texture id="kitchen-fridge-side" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-fridge-side" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="kitchen-fridge-front"/>
                 <componentref id="kitchen-fridge-back"/>
