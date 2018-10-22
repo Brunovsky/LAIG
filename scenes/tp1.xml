@@ -416,6 +416,7 @@
             </children>
         </component>
 
+        <!--
         <component id="tex-triangle">
             <transformation/>
             <materials>
@@ -426,6 +427,7 @@
                 <primitiveref id="tex-triangle"/>
             </children>
         </component>
+        -->
 
         <component id="garden">
             <transformation>
@@ -1350,7 +1352,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-black" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-ceiling" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro_cobertura"/>
                 <componentref id="candeeiro_suporte"/>
@@ -1488,7 +1490,7 @@
             <materials>
                 <material id="emit-medium"/>
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="open-cone"/>
             </children>
@@ -1748,7 +1750,7 @@
                 <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="emit-medium"/>
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
@@ -2353,7 +2355,7 @@
                 <translate x="-3" y="-4.45" z="-13"/>
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id="emit-medium"/>
             </materials>
             <texture id="tex-marfim" length_s="1.0" length_t="1.0"/>
             <children>
@@ -2822,19 +2824,6 @@
             </children>
         </component>
 
-        <component id="bench-board-6">
-            <transformation>
-                <translate x="0" y="0" z="1.75"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="bench-board"/>
-            </children>
-        </component>
-
         <component id="bench-row-3">
             <transformation>
             </transformation>
@@ -2880,6 +2869,26 @@
             </children>
         </component>
 
+        <!--
+        <component id="bench-row-5">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="bench-board-1"/>
+                <componentref id="bench-board-2"/>
+                <componentref id="bench-board-3"/>
+                <componentref id="bench-board-4"/>
+                <componentref id="bench-board-5"/>
+                <componentref id="bench-board-6"/>
+            </children>
+        </component>
+        -->
+
+        <!--
         <component id="bench-row-6">
             <transformation>
             </transformation>
@@ -2896,7 +2905,9 @@
                 <componentref id="bench-board-6"/>
             </children>
         </component>
+        -->
 
+        <!--
         <component id="bench-side-support-row-3">
             <transformation>
                 <translate x="0" y="-0.125" z="0.35"/>
@@ -2910,7 +2921,9 @@
                 <componentref id="cube"/>
             </children>
         </component>
+        -->
 
+        <!--
         <component id="bench-side-support-left-row-3">
             <transformation>
                 <translate x="-2.55" y="0" z="0"/>
@@ -2923,7 +2936,9 @@
                 <componentref id="bench-side-support-row-3"/>
             </children>
         </component>
+        -->
 
+        <!--
         <component id="bench-side-support-right-row-3">
             <transformation>
                 <translate x="2.55" y="0" z="0"/>
@@ -2936,6 +2951,7 @@
                 <componentref id="bench-side-support-row-3"/>
             </children>
         </component>
+        -->
 
         <component id="bench-side-support-row-4">
             <transformation>
@@ -3057,6 +3073,7 @@
             </children>
         </component>
 
+        <!--
         <component id="bench-back-support-row-3">
             <transformation>
                 <translate x="0" y="-0.075" z="0.30"/>
@@ -3070,6 +3087,7 @@
                 <componentref id="cube"/>
             </children>
         </component>
+        -->
 
         <component id="bench-back-support-row-4">
             <transformation>
@@ -3113,6 +3131,7 @@
             </children>
         </component>
 
+        <!--
         <component id="basic-bench-row-3">
             <transformation>
             </transformation>
@@ -3126,6 +3145,7 @@
                 <componentref id="bench-side-support-right-row-3"/>
             </children>
         </component>
+        -->
 
         <component id="basic-bench-row-4">
             <transformation>
@@ -3155,6 +3175,7 @@
             </children>
         </component>
 
+        <!--
         <component id="basic-bench-row-6">
             <transformation>
             </transformation>
@@ -3168,6 +3189,7 @@
                 <componentref id="bench-side-support-right-row-6"/>
             </children>
         </component>
+        -->
 
         <component id="basic-bench-row-3-extended">
             <transformation>
@@ -3256,6 +3278,7 @@
             </children>
         </component>
 
+        <!--
         <component id="bench-armrest-short">
             <transformation>
                 <translate x="0" y="0" z="0.40"/>
@@ -3269,7 +3292,9 @@
                 <componentref id="cube"/>
             </children>
         </component>
+        -->
 
+        <!--
         <component id="bench-armrest-short-left">
             <transformation>
                 <translate x="-2.65" y="0" z="0"/>
@@ -3282,7 +3307,9 @@
                 <componentref id="bench-armrest-short"/>
             </children>
         </component>
+        -->
 
+        <!--
         <component id="bench-armrest-short-right">
             <transformation>
                 <translate x="2.65" y="0" z="0"/>
@@ -3295,6 +3322,7 @@
                 <componentref id="bench-armrest-short"/>
             </children>
         </component>
+        -->
 
         <component id="bench-armrest-medium">
             <transformation>

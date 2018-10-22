@@ -98,11 +98,17 @@ class XMLElement extends XMLBase {
                         }
                         break;
                     case "tt": // 0, 1
-                        val = reader.getItem(node, key, ['0', '1']);
+                        val = reader.getItem(node, key, ['0', '1', 't', 'f', "true", "false"]);
                         if (val == null) {
                             throw new XMLException(node, "Expected boolean for attribute " + key);
                         }
-                        val = val == '0' ? false : true;
+                        if (val === '0' || val === '1') {
+                            val = val === '1' ? true : false;
+                        } else if (val === 'f' || val === 't') {
+                            val = val === 't' ? true : false;
+                        } else {
+                            val = val === "true" ? true : false;
+                        }
                         break;
                     default:
                         throw "INTERNAL: Bad Element attribute descriptor";
