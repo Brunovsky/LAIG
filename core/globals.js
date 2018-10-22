@@ -14,6 +14,8 @@ const HZ = 60; // Update frequency
 
 const DOWN_SPACIAL = true;
 
+const INHERIT_S_T = true;
+
 
 
 const DEFAULT_YAS_FILE = "scenes/tp2.xml";

@@ -331,17 +331,19 @@ class MyScene extends CGFscene {
      * Entry point for the depth first traversal of the scene graph
      */
     displaySceneGraph() {
-        this.traverser(this.graph.yas.root, null, null);
+        this.traverser(this.graph.yas.root, null, null, 1.0, 1.0);
     }
 
-    traverser(current, sceneMaterial, sceneTexture) {
+    traverser(current, sceneMaterial, sceneTexture, s, t) {
         const transformation = current.transformation;
         const material = current.materials.index(this.materialIndex);
         const texture = current.texture;
         const children = current.children;
 
-        const s = current.texture.s;
-        const t = current.texture.t;
+        if (!INHERIT_S_T || texture.mode != "inherit") {
+            s = texture.s;
+            t = texture.t;
+        }
 
         this.pushMatrix();
 
@@ -373,7 +375,7 @@ class MyScene extends CGFscene {
             const child = children.elements[id];
 
             if (child.type === "componentref") {
-                this.traverser(child.ref, sceneMaterial, sceneTexture);
+                this.traverser(child.ref, sceneMaterial, sceneTexture, s, t);
             } else {
                 const prim = this.primitives[child.id];
 
