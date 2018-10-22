@@ -227,9 +227,9 @@ class Circle extends Regular {
 class Triangle extends CGFobject {
     constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3) {
         super(scene);
-        this.A = { X: x1, Y: y1, Z: z1 };
-        this.B = { X: x2, Y: y2, Z: z2 };
-        this.C = { X: x3, Y: y3, Z: z3 };
+        this.C = { X: x1, Y: y1, Z: z1 };
+        this.A = { X: x2, Y: y2, Z: z2 };
+        this.B = { X: x3, Y: y3, Z: z3 };
         this.initBuffers();
         this.initTexCache();
     }

@@ -55,7 +55,7 @@ const XMLFiguresList = {
     prism:               {adjust: false, const: XMLPrism},
     cube:                {adjust: false, const: XMLCube},
     block:               {adjust: false, const: XMLBlock},
-    sphere:              {adjust: false, const: XMLSphere},
+    sphere:              {adjust: false, const: XMLFlipSphere},
     halfsphere:          {adjust: false, const: XMLHalfSphere},
 
     opencone:            {adjust: false, const: XMLOpenCone},

@@ -18,7 +18,7 @@ const INHERIT_S_T = true;
 
 
 
-const DEFAULT_YAS_FILE = "scenes/tp2.xml";
+const DEFAULT_YAS_FILE = "scenes/tp1.xml";
 
 
 

@@ -391,7 +391,7 @@ class MyScene extends CGFscene {
     /**
      * Update data (only keys)
      */
-    update(delta) {
+    update() {
         this.checkKeys();
     }
 

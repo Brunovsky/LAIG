@@ -26,20 +26,20 @@
     </ambient>
 
     <lights>
-        <omni id="omni-light-0" enabled="1">
-            <location x="36" y="7" z="15" w="1"/>
+        <omni id="Candeeiro-de-teto Piso 1" enabled="1">
+            <location x="-2" y="12" z="0" w="1"/>
             <ambient  r="0.20" g="0.20" b="0.20" a="1.0"/>
             <diffuse  r="0.30" g="0.40" b="0.25" a="1.0"/>
             <specular r="0.90" g="0.80" b="0.70" a="1.0"/>
         </omni>
-        <omni id="omni-light-1" enabled="1">
-            <location x="23" y="-10" z="-10" w="1"/>
+        <omni id="Candeeiro-de-mesa Piso 1" enabled="1">
+            <location x="3" y="4.2" z="-19" w="1"/>
             <ambient  r="0.05" g="0.10" b="0.15" a="1.0"/>
             <diffuse  r="0.20" g="0.25" b="0.35" a="1.0"/>
             <specular r="0.60" g="0.70" b="1.00" a="1.0"/>
         </omni>
-        <omni id="omni-light-2" enabled="1">
-            <location x="0" y="5" z="8" w="1"/>
+        <omni id="Candeeiro TV Piso 0" enabled="1">
+            <location x="-10" y="-12" z="19" w="1"/>
             <ambient  r="0.05" g="0.05" b="0.05" a="1.0"/>
             <diffuse  r="0.35" g="0.45" b="0.25" a="1.0"/>
             <specular r="0.80" g="0.80" b="0.80" a="1.0"/>
@@ -99,9 +99,6 @@
         
         <!-- HOUSE & LIVINGROOM -->
         <texture id="tex-furniture" file="images/furniture.jpg"/>
-        <texture id="tex-window" file="images/window.jpg"/>
-        <texture id="tex-chimney" file="images/chimney.jpg"/>
-        <texture id="tex-chair" file="images/chair.jpg"/>
         <texture id="tex-bricks" file="images/bricks.jpg"/>
         <texture id="tex-ceiling" file="images/ceiling.jpg"/>
 
@@ -358,9 +355,6 @@
         <primitive id="stairs-triangle">
             <triangle x1="0" x2="0" x3="0" y1="-0.3" y2="-0.3" y3="-0.6" z1="-0.15" z2="0.15" z3="-0.15"/>
         </primitive>
-        <primitive id="cube">
-            <cube side="1"/>
-        </primitive>
         <primitive id="rect">
             <rectangle x1="-0.5" x2="0.5" y1="-0.5" y2="0.5"/>
         </primitive>
@@ -388,14 +382,22 @@
         <primitive id="torus">
             <torus inner="0.2" loops="64" outer="1.2" slices="64"/>
         </primitive>
-        <primitive id="half-open-sphere">
-            <openhalfsphere radius="1" slices="32" stacks="32"/>
-        </primitive>
         <primitive id="open-cone">
-            <opencylinder base="1" height="1" slices="32" stacks="32" top="0.5"/>
+            <cylinder base="1" height="1" slices="32" stacks="32" top="1"/>
         </primitive>
         <primitive id="open-cilindro">
-            <opencylinder base="1" height="1" slices="32" stacks="32" top="1"/>
+            <cylinder base="1" height="1" slices="32" stacks="32" top="1"/>
+        </primitive>
+        <primitive id="heart">
+            <heart samples="1024"/>
+        </primitive>
+        <primitive id="butterfly">
+            <butterfly samples="1024"/>
+        </primitive>
+        <primitive id="tex-triangle">
+            <triangle x1="0"  y1="30" z1="0"
+                      x2="20" y2="30" z2="0"
+                      x3="8"  y3="60" z3="0"/>
         </primitive>
     </primitives>
 
@@ -410,6 +412,18 @@
                 <componentref id="house"/>
                 <componentref id="benches"/>
                 <componentref id="garden"/>
+                <!--<componentref id="tex-triangle"/>-->
+            </children>
+        </component>
+
+        <component id="tex-triangle">
+            <transformation/>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="tex-fogao" length_s="10.0" length_t="15.0"/>
+            <children>
+                <primitiveref id="tex-triangle"/>
             </children>
         </component>
 
@@ -767,6 +781,7 @@
                 <componentref id="pingpong-table"/>
                 <componentref id="carpets"/>
                 <componentref id="snow-doll"/>
+                <!--<componentref id="frames"/>-->
             </children>
         </component>
 
@@ -1473,7 +1488,7 @@
             <materials>
                 <material id="emit-medium"/>
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="open-cone"/>
             </children>
@@ -1926,7 +1941,7 @@
             </materials>
             <texture id="tex-wood1" length_s="1.2" length_t="1.0"/>
             <children>
-                <primitiveref id="cube"/>
+                <componentref id="cube"/>
             </children>
         </component>
 
@@ -2354,6 +2369,7 @@
             <transformation>
                 <translate x="0" y="4" z="0"/>
                 <scale x="0.9" y="0.9" z="0.9"/>
+                <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -2368,6 +2384,7 @@
             <transformation>
                 <translate x="0" y="3.7" z="0"/>
                 <scale x="0.7" y="0.7" z="0.7"/>
+                <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -2382,6 +2399,7 @@
             <transformation>
                 <translate x="0" y="3.5" z="0"/>
                 <scale x="0.5" y="0.5" z="0.5"/>
+                <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -2396,6 +2414,7 @@
             <transformation>
                 <translate x="0" y="3.3" z="0"/>
                 <scale x="0.3" y="0.3" z="0.3"/>
+                <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -2410,6 +2429,7 @@
             <transformation>
                 <translate x="0" y="3.2" z="0"/>
                 <scale x="0.1" y="0.1" z="0.1"/>
+                <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -2450,7 +2470,7 @@
             </materials>
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
-                <primitiveref id="cube"/>
+                <componentref id="cube"/>
             </children>
         </component>
 
@@ -2710,7 +2730,7 @@
         <component id="couch-torus">
             <transformation>
                 <translate x="0.8" y="1.13" z="-0.405"/>
-                <rotate axis="x" angle="-110"/>
+                <rotate axis="x" angle="-200"/>
             </transformation>
             <materials>
                 <material id="major-red"/>
@@ -4296,7 +4316,6 @@
             </children>
         </component>
 
-
         <component id="kitchen-table-top">
             <transformation>
                 <translate x="-1.95" y="-12.1" z="-4.5"/>
@@ -4310,9 +4329,6 @@
                 <componentref id="cube"/>
             </children>
         </component>
-
-<!--kitchen chairs-->
-
 
         <component id="kitchen-chair">
             <transformation>
@@ -4333,7 +4349,6 @@
 
             </children>
         </component>
-
 
         <component id="kitchen-chair-base">
             <transformation>
@@ -4361,6 +4376,7 @@
                 <componentref id="cube"/>
             </children>
         </component>
+
         <component id="kitchen-chair-leg">
             <transformation>
                 <translate x="0.75" y="-0.8" z="0.75"/>
@@ -4567,6 +4583,7 @@
             <transformation> 
                 <translate x="0" y="3" z="0"/>
                 <scale x="0.2" y="0.1" z="0.2"/>
+                <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
                 <material id="default"/>
@@ -4607,5 +4624,50 @@
             </children>
         </component>
 
+        <!--
+        <component id="frames">
+            <transformation>
+                <transformationref id="first-floor"/>
+            </transformation>
+            <materials>
+                <material id="wallpaper"/>
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="heart-frame"/>
+                <componentref id="butterfly-frame"/>
+            </children>
+        </component>
+
+        <component id="heart-frame">
+            <transformation>
+                <translate x="9.70" y="9" z="3"/>
+                <rotate axis="x" angle="-90"/>
+                <rotate axis="z" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="major-red"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="heart"/>
+            </children>
+        </component>
+
+        <component id="butterfly-frame">
+            <transformation>
+                <translate x="9.70" y="8.5" z="8"/>
+                <rotate axis="x" angle="-90"/>
+                <rotate axis="z" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="major-green"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="butterfly"/>
+            </children>
+        </component>
+        -->
     </components>
 </yas>
