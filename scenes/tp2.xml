@@ -388,6 +388,17 @@
         <primitive id="open-cilindro">
             <cylinder base="1" height="1" slices="32" stacks="32" top="1"/>
         </primitive>
+        <primitive id="heart">
+            <heart samples="1024"/>
+        </primitive>
+        <primitive id="butterfly">
+            <butterfly samples="1024"/>
+        </primitive>
+        <primitive id="tex-triangle">
+            <triangle x1="0"  y1="30" z1="0"
+                      x2="20" y2="30" z2="0"
+                      x3="8"  y3="60" z3="0"/>
+        </primitive>
     </primitives>
 
     <components>
@@ -401,6 +412,17 @@
                 <componentref id="house"/>
                 <componentref id="benches"/>
                 <componentref id="garden"/>
+            </children>
+        </component>
+
+        <component id="tex-triangle">
+            <transformation/>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="tex-fogao" length_s="10.0" length_t="15.0"/>
+            <children>
+                <primitiveref id="tex-triangle"/>
             </children>
         </component>
 
@@ -758,6 +780,7 @@
                 <componentref id="pingpong-table"/>
                 <componentref id="carpets"/>
                 <componentref id="snow-doll"/>
+                <componentref id="frames"/>
             </children>
         </component>
 
@@ -4604,5 +4627,48 @@
             </children>
         </component>
 
+        <component id="frames">
+            <transformation>
+                <transformationref id="first-floor"/>
+            </transformation>
+            <materials>
+                <material id="wallpaper"/>
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="heart-frame"/>
+                <componentref id="butterfly-frame"/>
+            </children>
+        </component>
+
+        <component id="heart-frame">
+            <transformation>
+                <translate x="9.70" y="9" z="3"/>
+                <rotate axis="x" angle="-90"/>
+                <rotate axis="z" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="major-red"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="heart"/>
+            </children>
+        </component>
+
+        <component id="butterfly-frame">
+            <transformation>
+                <translate x="9.70" y="8.5" z="8"/>
+                <rotate axis="x" angle="-90"/>
+                <rotate axis="z" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="major-green"/>
+            </materials>
+            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="butterfly"/>
+            </children>
+        </component>
     </components>
 </yas>

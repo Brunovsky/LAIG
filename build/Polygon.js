@@ -17,7 +17,7 @@ class Regular extends CGFobject {
         const spanS = 2 * this.radius;
         const spanT = 2 * this.radius;
         this.adjust = true;
-        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+        this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
     updateTexCoords(s, t) {
@@ -115,7 +115,7 @@ class Polygon extends CGFobject {
         const spanS = this.b.maxX - this.b.minX;
         const spanT = this.b.maxZ - this.b.minZ;
         this.adjust = true;
-        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+        this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
     updateTexCoords(s, t) {
@@ -225,26 +225,20 @@ class Circle extends Regular {
 
 
 class Triangle extends CGFobject {
-    constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3, coords = [0, 1, 0, 1]) {
+    constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3) {
         super(scene);
         this.A = { X: x1, Y: y1, Z: z1 };
         this.B = { X: x2, Y: y2, Z: z2 };
         this.C = { X: x3, Y: y3, Z: z3 };
-        this.coords = {
-            minS: coords[0],
-            maxS: coords[1],
-            minT: coords[2],
-            maxT: coords[3]
-        };
         this.initBuffers();
         this.initTexCache();
     }
 
     initTexCache() {
-        const spanS = distVectors(this.A, this.B);
-        const spanT = triangleHeight(this.A, this.B, this.C);
+        const spanS = this.c;
+        const spanT = this.heightC;
         this.adjust = true;
-        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+        this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
     updateTexCoords(s, t) {
@@ -255,6 +249,15 @@ class Triangle extends CGFobject {
     initBuffers() {
         const A = this.A, B = this.B, C = this.C,
             coords = this.coords;
+
+        const a = distVectors(B, C);
+        const b = distVectors(C, A);
+        const c = distVectors(A, B);
+
+        const cosA = cosVectors(subVectors(C, A), subVectors(B, A));
+
+        const heightC = triangleHeight(A, B, C);
+        const sA = b * cosA;
 
         const N = triangleOrientation(A, B, C);
 
@@ -279,13 +282,18 @@ class Triangle extends CGFobject {
         ];
 
         this.texCoords = [
-            coords.minS, coords.minT,
-            coords.minS, coords.minT,
-            coords.maxS, coords.maxT,
-            coords.maxS, coords.maxT,
-            coords.maxS, coords.minT,
-            coords.maxS, coords.minT
+                 0, 1,
+                 0, 1,
+                 1, 1,
+                 1, 1,
+            sA / c, 0,
+            sA / c, 0
         ];
+
+        this.a = a; this.b = b; this.c = c;
+        this.heightC = heightC; this.sA = sA;
+
+        console.log(sA, a, b, c, heightC);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
@@ -312,7 +320,7 @@ class Rectangle extends CGFobject {
         const spanS = Math.abs(this.V.x2 - this.V.x1);
         const spanT = Math.abs(this.V.y2 - this.V.y1);
         this.adjust = true;
-        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+        this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
     updateTexCoords(s, t) {
@@ -414,7 +422,7 @@ class tPolygon extends CGFobject {
         const spanS = this.b.maxX - this.b.minX;
         const spanT = this.b.maxZ - this.b.minZ;
         this.adjust = true;
-        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+        this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
     updateTexCoords(s, t) {
@@ -531,7 +539,7 @@ class rPolygon extends CGFobject {
         const spanS = this.b.maxX - this.b.minX;
         const spanT = this.b.maxZ - this.b.minZ;
         this.adjust = true;
-        this.cache = new TextureCache(spanS, spanT, this.texCoords);
+        this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
     updateTexCoords(s, t) {
