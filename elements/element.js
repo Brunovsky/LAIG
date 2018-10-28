@@ -152,7 +152,7 @@ class XMLElement extends XMLBase {
 }
 
 /**
- * An unordered group of XMLElement.
+ * An unordered group of nodes parsed by XML Parsing Classes.
  * 
  * The ids are unique in the group, and these XMLElement
  * may only have one of the tags specified in the argument tags
@@ -195,7 +195,7 @@ class XMLGroup extends XMLElement {
 }
 
 /**
- * An ordered group of XMLElement.
+ * An ordered group of nodes parsed by XML Parsing Classes.
  *
  * The elements do not necessarily have ids, and are ordered
  * in the array .elements in the order they appear in the XML.
@@ -230,3 +230,23 @@ class XMLOrderedGroup extends XMLElement {
         return this.elements[((i % l) + l) % l];
     }
 }
+
+/**
+ * A set of nodes parsed by XML Parsing Classes.
+ *
+ * The elements are identified by the tags object, may be optional,
+ * and must appear in the specified order.
+ */
+/*
+class XMLSet extends XMLElement {
+    constructor(node, tags, attr = {}) {
+        super(node, attr);
+
+        let i = 0;
+
+        for (const child of node.children) {
+
+        }
+    }
+}
+*/

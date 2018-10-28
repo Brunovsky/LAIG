@@ -190,24 +190,36 @@ class XMLComponent extends XMLElement {
 
         this.type = "component";
 
-        const tags = ["transformation", "materials", "texture", "children"];
+        function parse(node, tag, constr, optional) {
+            const name = node.tagName.toLocaleLowerCase();
 
-        if (node.childElementCount != 4) {
-            throw new XMLException(node, "Component node does not have the expected 4/5 children");
-        }
-
-        for (let i = 0; i < 4; ++i) {
-            const child = node.children[i];
-            const name = child.tagName.toLocaleLowerCase();
-            if (tags[i] != name) {
-                throw new XMLException(child, "Expected tagname " + tags[i]);
+            if (name == tag) {
+                return new constr(node);
+            } else {
+                if (optional) return null;
+                throw new XMLException(node, "Expected node " + tag, "got " + name);
             }
         }
 
-        this.transformation = new XMLComponentTransformation(node.children[0]);
-        this.materials = new XMLComponentMaterials(node.children[1]);
-        this.texture = new XMLComponentTexture(node.children[2]);
-        this.children = new XMLChildren(node.children[3]);
+        const ch = node.children;
+        let i = 0;
+
+        this.transformation = parse(ch[i++], "transformation",
+            XMLComponentTransformation, false);
+
+        this.materials = parse(ch[i++], "materials",
+            XMLComponentMaterials, false);
+
+        this.animations = parse(ch[i], "animations",
+            XMLComponentAnimations, true);
+
+        if (this.animations != null) ++i;
+
+        this.texture = parse(ch[i++], "texture",
+            XMLComponentTexture, false);
+
+        this.children = parse(ch[i++], "children",
+            XMLChildren, false);
     }
 }
 
