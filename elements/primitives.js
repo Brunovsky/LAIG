@@ -25,6 +25,61 @@ class XMLPrimitive extends XMLElement {
     }
 }
 
+class XMLPlane extends XMLElement {
+    constructor(node) {
+        super(node, {
+            id: "ss", npartsU: "ii", npartsV: "ii"
+        });
+
+        if (!(this.data.npartsU > 1) || !(this.data.npartsV > 1)) {
+            throw new XMLException(node, "Plane divisions must be greater than 1");
+        }
+    }
+}
+
+class XMLPatch extends XMLOrderedGroup {
+    constructor(node) {
+        super(node, {
+            controlpoint: XMLControlPoint
+        },{
+            id: "ss", npointsU: "ii", npointsV: "ii",
+            npartsU: "ii", npartsV: "ii"
+        });
+
+        this.type = "patch";
+    }
+}
+
+class XMLVehicle extends XMLElement {
+    constructor(node) {
+        super(node, { id: "ss" });
+
+        this.type = "vehicle";
+    }
+}
+
+class XMLTerrain extends XMLElement {
+    constructor(node) {
+        super(node, {
+            id: "ss", idtexture: "ss", idheightmap: "ss",
+            parts: "ii", heightscale: "ff"
+        });
+
+        this.type = "terrain";
+    }
+}
+
+class XMLWater extends XMLElement {
+    constructor(node) {
+        super(node, {
+            id: "ss", idtexture: "ss", idwavemap: "ss", parts: "ii",
+            heightscale: "ff", texscale: "ff"
+        });
+
+        this.type = "water";
+    }
+}
+
 /**
  * XML Parsing Class
  * Parses yas > primitives
@@ -32,7 +87,12 @@ class XMLPrimitive extends XMLElement {
 class XMLPrimitives extends XMLGroup {
     constructor(node) {
         super(node, {
-            primitive: XMLPrimitive
+            primitive: XMLPrimitive,
+            plane: XMLPlane,
+            patch: XMLPatch,
+            vehicle: XMLVehicle,
+            terrain: XMLTerrain,
+            water: XMLWater
         });
 
         this.type = "primitives";

@@ -50,7 +50,7 @@ class XMLElement extends XMLBase {
         const reader = new CGFXMLreader();
 
         for (const key in spec) {
-            let val;
+            let val, str, x, y, z;
 
             if (typeof spec[key] === "string") {
                 if (!reader.hasAttribute(node, key)) {
@@ -110,6 +110,17 @@ class XMLElement extends XMLBase {
                             val = val === "true" ? true : false;
                         }
                         break;
+                    case "ff ff ff":
+                        str = reader.getString(node, key).split(" ");
+                        val = {
+                            x: parseFloat(str[0]),
+                            y: parseFloat(str[1]),
+                            z: parseFloat(str[2])
+                        };
+                        if (isNaN(val.x) || isNaN(val.y) || isNaN(val.z)) {
+                            throw new XMLException(node, "Expected float coordinates for attribute " + key);
+                        }
+                        break;
                     default:
                         throw "INTERNAL: Bad Element attribute descriptor";
                 }
@@ -141,12 +152,11 @@ class XMLElement extends XMLBase {
 }
 
 /**
- * An ordered group of XMLElement.
- *
- * If the group has no duplicates, then the elements have ids.
+ * An unordered group of XMLElement.
  * 
  * The ids are unique in the group, and these XMLElement
- * may only have one of the tags specified in the argument tags.
+ * may only have one of the tags specified in the argument tags
+ * for the constructor.
  */
 class XMLGroup extends XMLElement {
     constructor(node, tags, attr = {}, nonEmpty = true) {
@@ -181,5 +191,42 @@ class XMLGroup extends XMLElement {
 
     get(id) {
         return this.elements[id];
+    }
+}
+
+/**
+ * An ordered group of XMLElement.
+ *
+ * The elements do not necessarily have ids, and are ordered
+ * in the array .elements in the order they appear in the XML.
+ * The tags accepted are specified as keys in argument tags of the
+ * constructor, with their respective constructors as the values.
+ */
+class XMLOrderedGroup extends XMLElement {
+    constructor(node, tags, attr = {}, nonEmpty = true) {
+        super(node, attr);
+        this.elements = [];
+
+        if (nonEmpty && node.childElementCount === 0) {
+            throw new XMLException(node, "Ordered group node must have at least one child");
+        }
+
+        for (const child of node.children) {
+            const name = child.tagName.toLocaleLowerCase();
+
+            if (!(name in tags)) {
+                throw new XMLException(child, "Unexpected tagname " + name);
+            }
+
+            const element = new tags[name](child);
+
+            this.elements.push(element);
+        }
+    }
+
+    index(i) {
+        const l = this.elements.length;
+
+        return this.elements[((i % l) + l) % l];
     }
 }

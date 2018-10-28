@@ -40,7 +40,7 @@ class MySceneGraph {
     }
     
     /**
-     * Creates
+     * Creates the yas object
      */
     parseXMLFile(rootElement) {
         console.log(rootElement);

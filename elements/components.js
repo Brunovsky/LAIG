@@ -14,29 +14,15 @@ class XMLTransformationRef extends XMLElement {
  * Parses yas > components > component > transformation
  * Immediate transformation (non empty and no transformationref)
  */
-class XMLImmediateTransformation extends XMLElement {
+class XMLImmediateTransformation extends XMLOrderedGroup {
     constructor(node) {
-        super(node);
-
-        this.type = "transformation";
-
-        const tags = {
+        super(node, {
             translate: XMLTranslate,
             rotate: XMLRotate,
             scale: XMLScale
-        };
+        });
 
-        this.elements = [];
-
-        for (const child of node.children) {
-            const name = child.tagName.toLocaleLowerCase();
-
-            if (!(name in tags)) {
-                throw new XMLException(child, "Unexpected tagname " + name);
-            }
-
-            this.elements.push(new tags[name](child));
-        }
+        this.type = "transformation";
     }
 }
 
@@ -113,6 +99,18 @@ class XMLMaterialRef extends XMLElement {
 
 /**
  * XML Parsing Class
+ * Parses yas > components > component > animations > animationref
+ */
+class XMLAnimationRef extends XMLElement {
+    constructor(node) {
+        super(node, { id: "ss" });
+
+        this.type = "animationref";
+    }
+}
+
+/**
+ * XML Parsing Class
  * Parses yas > components > component > texture
  */
 class XMLComponentTexture extends XMLElement {
@@ -143,38 +141,27 @@ class XMLComponentTexture extends XMLElement {
  * XML Parsing Class
  * Parses yas > components > component > materials
  */
-class XMLComponentMaterials extends XMLElement {
+class XMLComponentMaterials extends XMLOrderedGroup {
     constructor(node) {
-        super(node);
-
-        this.type = "transformation";
-
-        const tags = {
+        super(node, {
             material: XMLMaterialRef
-        };
+        });
 
-        this.elements = [];
-
-        for (let i = 0; i < node.children.length; ++i) {
-            const child = node.children[i];
-            const name = child.tagName.toLocaleLowerCase();
-
-            if (!(name in tags)) {
-                throw new XMLException(child, "Unexpected tagname " + name);
-            }
-
-            this.elements.push(new tags[name](child));
-        }
+        this.type = "materials";
     }
+}
 
-    /**
-     * @param  i The n/m material counter
-     * @return The material to be applied, at index i in the list.
-     */
-    index(i) {
-        const l = this.elements.length;
+/**
+ * XML Parsing Class
+ * Parses yas > components > component > animations
+ */
+class XMLComponentAnimations extends XMLOrderedGroup {
+    constructor(node) {
+        super(node, {
+            animationref: XMLAnimationRef
+        });
 
-        return this.elements[((i % l) + l) % l];
+        this.type = "animations";
     }
 }
 
@@ -206,7 +193,7 @@ class XMLComponent extends XMLElement {
         const tags = ["transformation", "materials", "texture", "children"];
 
         if (node.childElementCount != 4) {
-            throw new XMLException(node, "Component node does not have the expected 4 children");
+            throw new XMLException(node, "Component node does not have the expected 4/5 children");
         }
 
         for (let i = 0; i < 4; ++i) {
