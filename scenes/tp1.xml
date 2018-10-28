@@ -1,7 +1,7 @@
 <yas>
     <scene axis_length="50.0" root="root"/>
 
-    <views default="kitchen">
+    <views default="general-view">
         <perspective id="general-view" angle="50" near="0.5" far="500">
             <from x="-35.0" y="13.0" z="20.0"/>
             <to x="0.0" y="-3.0" z="0.0"/>
@@ -21,119 +21,99 @@
     </views>
 
     <ambient>
-        <ambient    r="0.60" g="0.60" b="0.60" a="1.0"/>
+        <ambient    r="0.00" g="0.00" b="0.00" a="1.0"/>
         <background r="0.50" g="0.74" b="0.94" a="1.0"/>
     </ambient>
 
     <lights>
-        <omni id="Candeeiro-de-teto Piso 1" enabled="1">
+        <omni id="Teto piso 1" enabled="1">
             <location x="-2" y="12" z="0" w="1"/>
             <ambient  r="0.20" g="0.20" b="0.20" a="1.0"/>
             <diffuse  r="0.30" g="0.40" b="0.25" a="1.0"/>
             <specular r="0.90" g="0.80" b="0.70" a="1.0"/>
         </omni>
-        <omni id="Candeeiro-de-mesa Piso 1" enabled="1">
+        <omni id="Mesa piso 1" enabled="1">
             <location x="3" y="4.2" z="-19" w="1"/>
             <ambient  r="0.05" g="0.10" b="0.15" a="1.0"/>
             <diffuse  r="0.20" g="0.25" b="0.35" a="1.0"/>
             <specular r="0.60" g="0.70" b="1.00" a="1.0"/>
         </omni>
-        <omni id="Candeeiro TV Piso 0" enabled="1">
+        <omni id="TV piso 0" enabled="1">
             <location x="-10" y="-12" z="19" w="1"/>
             <ambient  r="0.05" g="0.05" b="0.05" a="1.0"/>
             <diffuse  r="0.35" g="0.45" b="0.25" a="1.0"/>
             <specular r="0.80" g="0.80" b="0.80" a="1.0"/>
         </omni>
-        <omni id="omni-light-3" enabled="1">
-            <location x="33" y="10" z="-4" w="1"/>
-            <ambient  r="0.00" g="0.05" b="0.10" a="1.0"/>
-            <diffuse  r="0.25" g="1.00" b="1.00" a="1.0"/>
-            <specular r="0.30" g="0.60" b="0.90" a="1.0"/>
-        </omni>
-        <omni id="candeeiro" enabled="1">
+        <omni id="PingPong piso 1" enabled="1">
             <location x="-4" y="3" z="0" w="1"/>
             <ambient  r="1.00" g="1.00" b="1.00" a="1.0"/>
             <diffuse  r="0.25" g="1.00" b="1.00" a="1.0"/>
             <specular r="0.30" g="0.60" b="0.90" a="1.0"/>
         </omni>
-        <spot id="spot-light-4" enabled="1" angle="30" exponent="15">
-            <location x="45" y="6" z="10" w="1"/>
-            <target x="45" y="0" z="10"/>
-            <ambient  r="0.03" g="0.05" b="0.01" a="1.0"/>
-            <diffuse  r="0.30" g="0.15" b="0.20" a="1.0"/>
-            <specular r="0.70" g="0.80" b="0.60" a="1.0"/>
-        </spot>
-        <spot id="front" enabled="1" angle="30" exponent="15" >
-            <location x="-20" y="4" z="0" w="1"/>
-            <target x="20" y="0" z="10"/>
-            <ambient  r="0.03" g="0.05" b="0.01" a="1.0"/>
-            <diffuse  r="0.30" g="0.15" b="0.20" a="1.0"/>
-            <specular r="0.70" g="0.80" b="0.60" a="1.0"/>
-        </spot>
     </lights>
 
     <textures>
         <!-- BEDROOM -->
-        <texture id="tex-mattress" file="images/mattress.jpg"/>
-        <texture id="tex-pingpong" file="images/pingpong.jpg"/>
-        <texture id="tex-bed" file="images/bed.jpg"/>
-        <texture id="tex-cabeceira" file="images/cabeceira.jpg"/>
-        <texture id="tex-cabeceira2" file="images/cabeceira2.jpg"/>
-        <texture id="tex-bedroomfloor" file="images/bedroomfloor.jpg"/>
-        <texture id="tex-net" file="images/net.jpg"/>
-        <texture id="tex-carpet1" file="images/carpet1.jpg"/>
-        <texture id="tex-tablecolor" file="images/tablecolor.jpg"/>
+        <texture id="mattress" file="images/mattress.jpg"/>
+        <texture id="pingpong" file="images/pingpong.jpg"/>
+        <texture id="bed" file="images/bed.jpg"/>
+        <texture id="cabeceira" file="images/cabeceira.jpg"/>
+        <texture id="cabeceira2" file="images/cabeceira2.jpg"/>
+        <texture id="bedroomfloor" file="images/bedroomfloor.jpg"/>
+        <texture id="net" file="images/net.jpg"/>
+        <texture id="carpet1" file="images/carpet1.jpg"/>
+        <texture id="tablecolor" file="images/tablecolor.jpg"/>
 
         <!-- KITCHEN -->
-        <texture id="tex-granito" file="images/granito.jpg"/>
-        <texture id="tex-fogao" file="images/kitchen/fogao.jpg"/>
-        <texture id="tex-forno" file="images/kitchen/forno.jpg"/>
-        <texture id="tex-drawer-front" file="images/kitchen/drawer-front-1.jpg"/>
-        <texture id="tex-drawer-side-wood" file="images/kitchen/drawer-side-wood-1.jpg"/>
-        <texture id="tex-fridge-front" file="images/kitchen/fridge.jpg"/>
-        <texture id="tex-fridge-side" file="images/kitchen/metal-2.jpg"/>
+        <texture id="granito" file="images/granito.jpg"/>
+        <texture id="fogao" file="images/kitchen/fogao.jpg"/>
+        <texture id="forno" file="images/kitchen/forno.jpg"/>
+        <texture id="drawer-front" file="images/kitchen/drawer-front-1.jpg"/>
+        <texture id="drawer-side-wood" file="images/kitchen/drawer-side-wood-1.jpg"/>
+        <texture id="fridge-front" file="images/kitchen/fridge.jpg"/>
+        <texture id="fridge-side" file="images/kitchen/metal-2.jpg"/>
         <texture id="seamless-metal" file="images/kitchen/metal-1.jpg"/>
 
         <!-- SNOW DOLL -->
-        <texture id="tex-eye" file="images/eye.jpg"/>
+        <texture id="eye" file="images/eye.jpg"/>
         
         <!-- HOUSE & LIVINGROOM -->
-        <texture id="tex-furniture" file="images/furniture.jpg"/>
-        <texture id="tex-bricks" file="images/bricks.jpg"/>
-        <texture id="tex-ceiling" file="images/ceiling.jpg"/>
+        <texture id="furniture" file="images/furniture.jpg"/>
+        <texture id="bricks" file="images/bricks.jpg"/>
+        <texture id="ceiling" file="images/ceiling.jpg"/>
 
         <!-- LIVING ROOM -->
-        <texture id="tex-livingroom" file="images/livingroom.jpg"/>
-        <texture id="tex-tv" file="images/tv.jpg"/>
-        <texture id="tex-blacktv" file="images/blacktv.jpg"/>
+        <texture id="livingroom" file="images/livingroom.jpg"/>
+        <texture id="tv" file="images/tv.jpg"/>
+        <texture id="blacktv" file="images/blacktv.jpg"/>
 
         <!-- GARDEN -->
-        <texture id="tex-tree" file="images/tree.jpg"/>
-        <texture id="tex-trunk" file="images/trunk.jpg"/>
-        <texture id="tex-grass" file="images/grass.jpg"/>
+        <texture id="tree" file="images/tree.jpg"/>
+        <texture id="trunk" file="images/trunk.jpg"/>
+        <texture id="grass" file="images/grass.jpg"/>
 
         <!-- GENERIC -->
-        <texture id="tex-snow" file="images/snow.jpg"/>
-        <texture id="tex-gold" file="images/gold.jpg"/>
-        <texture id="tex-red" file="images/red.jpg"/>
-        <texture id="tex-black" file="images/black.jpeg"/>
-        <texture id="tex-marfim" file="images/marfim.jpg"/>
-        <texture id="tex-grey" file="images/grey.jpg"/>
+        <texture id="snow" file="images/snow.jpg"/>
+        <texture id="gold" file="images/gold.jpg"/>
+        <texture id="red" file="images/red.jpg"/>
+        <texture id="black" file="images/black.jpeg"/>
+        <texture id="marfim" file="images/marfim.jpg"/>
+        <texture id="grey" file="images/grey.jpg"/>
 
-        <texture id="tex-pillow" file="images/pillowcolor.jpg"/>
+        <texture id="pillow" file="images/pillowcolor.jpg"/>
 
         <!-- RUBIK -->
-        <texture id="tex-rubik-top"    file="images/rubik/top.png"/>
-        <texture id="tex-rubik-bottom" file="images/rubik/bottom.png"/>
-        <texture id="tex-rubik-left"   file="images/rubik/left.png"/>
-        <texture id="tex-rubik-right"  file="images/rubik/right.png"/>
-        <texture id="tex-rubik-front"  file="images/rubik/front.png"/>
-        <texture id="tex-rubik-back"   file="images/rubik/back.png"/>
+        <texture id="rubik-top"    file="images/rubik/top.png"/>
+        <texture id="rubik-bottom" file="images/rubik/bottom.png"/>
+        <texture id="rubik-left"   file="images/rubik/left.png"/>
+        <texture id="rubik-right"  file="images/rubik/right.png"/>
+        <texture id="rubik-front"  file="images/rubik/front.png"/>
+        <texture id="rubik-back"   file="images/rubik/back.png"/>
 
         <!-- WOODS -->
-        <texture id="tex-wood1" file="images/wood1.jpg"/>
-        <texture id="tex-wood2" file="images/wood2.jpg"/>
-        <texture id="tex-wood3" file="images/wood3.jpg"/>
+        <texture id="wood1" file="images/wood1.jpg"/>
+        <texture id="wood2" file="images/wood2.jpg"/>
+        <texture id="wood3" file="images/wood3.jpg"/>
     </textures>
 
     <materials>
@@ -394,7 +374,7 @@
         <primitive id="butterfly">
             <butterfly samples="1024"/>
         </primitive>
-        <primitive id="tex-triangle">
+        <primitive id="triangle">
             <triangle x1="0"  y1="30" z1="0"
                       x2="20" y2="30" z2="0"
                       x3="8"  y3="60" z3="0"/>
@@ -412,19 +392,19 @@
                 <componentref id="house"/>
                 <componentref id="benches"/>
                 <componentref id="garden"/>
-                <!--<componentref id="tex-triangle"/>-->
+                <!--<componentref id="triangle"/>-->
             </children>
         </component>
 
         <!--
-        <component id="tex-triangle">
+        <component id="triangle">
             <transformation/>
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-fogao" length_s="10.0" length_t="15.0"/>
+            <texture id="fogao" length_s="10.0" length_t="15.0"/>
             <children>
-                <primitiveref id="tex-triangle"/>
+                <primitiveref id="triangle"/>
             </children>
         </component>
         -->
@@ -452,7 +432,7 @@
             <materials>
                 <material id="minor-green"/>
             </materials>
-            <texture id="tex-grass" length_s="0.1" length_t="0.1"/>
+            <texture id="grass" length_s="0.1" length_t="0.1"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -488,7 +468,7 @@
             <materials>
                 <material id="medium-general"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -502,7 +482,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -516,7 +496,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -530,7 +510,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -544,7 +524,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -558,7 +538,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -572,7 +552,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -586,7 +566,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -600,7 +580,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -614,7 +594,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tree" length_s="1.0" length_t="1.0"/>
+            <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tree"/>
                 <componentref id="tronco"/>
@@ -644,7 +624,7 @@
             <materials>
                 <material id="minor-general"/>
             </materials>
-            <texture id="tex-trunk" length_s="1.0" length_t="1.0"/>
+            <texture id="trunk" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cilindro"/>
             </children>
@@ -796,7 +776,7 @@
                 <material id="light-bricks"/>
                 <material id="dark-bricks"/>
             </materials>
-            <texture id="tex-bricks" length_s="0.25" length_t="0.25"/>
+            <texture id="bricks" length_s="0.25" length_t="0.25"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -809,7 +789,7 @@
             <materials>
                 <material id="wallpaper"/>
             </materials>
-            <texture id="tex-snow" length_s="0.40" length_t="0.25"/>
+            <texture id="snow" length_s="0.40" length_t="0.25"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -823,7 +803,7 @@
             <materials>
                 <material id="concrete"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube-x"/>
                 <!--<componentref id="cube+x"/>-->
@@ -842,7 +822,7 @@
                 <material id="light-bricks"/>
                 <material id="dark-bricks"/>
             </materials>
-            <texture id="tex-bricks" length_s="0.25" length_t="0.25"/>
+            <texture id="bricks" length_s="0.25" length_t="0.25"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -855,7 +835,7 @@
             <materials>
                 <material id="wallpaper"/>
             </materials>
-            <texture id="tex-snow" length_s="0.40" length_t="0.25"/>
+            <texture id="snow" length_s="0.40" length_t="0.25"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -869,7 +849,7 @@
             <materials>
                 <material id="concrete"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube-x"/>
                 <!--<componentref id="cube+x"/>-->
@@ -887,7 +867,7 @@
             <materials>
                 <material id="wallpaper"/>
             </materials>
-            <texture id="tex-ceiling" length_s="1.0" length_t="1.0"/>
+            <texture id="ceiling" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -901,7 +881,7 @@
                 <material id="light-bricks"/>
                 <material id="dark-bricks"/>
             </materials>
-            <texture id="tex-bricks" length_s="0.25" length_t="0.25"/>
+            <texture id="bricks" length_s="0.25" length_t="0.25"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -915,7 +895,7 @@
             <materials>
                 <material id="concrete"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube-x"/>
                 <!--<componentref id="cube+x"/>-->
@@ -946,7 +926,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-livingroom" length_s="1" length_t="1"/>
+            <texture id="livingroom" length_s="1" length_t="1"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -978,7 +958,7 @@
             <materials>
                 <material id="wallpaper"/>
             </materials>
-            <texture id="tex-snow" length_s="0.40" length_t="0.25"/>
+            <texture id="snow" length_s="0.40" length_t="0.25"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -992,7 +972,7 @@
                 <material id="light-bricks"/>
                 <material id="dark-bricks"/>
             </materials>
-            <texture id="tex-bricks" length_s="0.125" length_t="0.25"/>
+            <texture id="bricks" length_s="0.125" length_t="0.25"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -1007,7 +987,7 @@
                 <material id="light-bricks"/>
                 <material id="dark-bricks"/>
             </materials>
-            <texture id="tex-bricks" length_s="1.0" length_t="1.0"/>
+            <texture id="bricks" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="wall-back-in"/>
                 <componentref id="wall-back-out"/>
@@ -1040,7 +1020,7 @@
             <materials>
                 <material id="light-wood"/>
             </materials>
-            <texture id="tex-bedroomfloor" length_s="0.75" length_t="1.0"/>
+            <texture id="bedroomfloor" length_s="0.75" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -1053,7 +1033,7 @@
             <materials>
                 <material id="wallpaper"/>
             </materials>
-            <texture id="tex-ceiling" length_s="1.0" length_t="1.0"/>
+            <texture id="ceiling" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -1067,7 +1047,7 @@
             <materials>
                 <material id="concrete"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube-x"/>
                 <componentref id="cube+x"/>
@@ -1085,7 +1065,7 @@
             <materials>
                 <material id="light-wood"/>
             </materials>
-            <texture id="tex-bedroomfloor" length_s="1.143" length_t="7.0"/>
+            <texture id="bedroomfloor" length_s="1.143" length_t="7.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -1098,7 +1078,7 @@
             <materials>
                 <material id="wallpaper"/>
             </materials>
-            <texture id="tex-ceiling" length_s="1.143" length_t="7.0"/>
+            <texture id="ceiling" length_s="1.143" length_t="7.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -1112,7 +1092,7 @@
             <materials>
                 <material id="concrete"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="divider-corner-down"/>
                 <componentref id="divider-corner-up"/>
@@ -1153,7 +1133,7 @@
             <materials>
                 <material id="wallpaper"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="vertical-divider-left"/>
                 <componentref id="vertical-divider-right"/>
@@ -1173,7 +1153,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-bed" length_s="1.0" length_t="1.0"/>
+            <texture id="bed" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="bed-structure"/>
                 <componentref id="colchao"/>
@@ -1317,7 +1297,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-mattress" length_s="1.0" length_t="1.0"/>
+            <texture id="mattress" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -1332,7 +1312,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-black" length_s="1.0" length_t="1.0"/>
+            <texture id="black" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro_cobertura"/>
                 <componentref id="candeeiro_suporte"/>
@@ -1352,7 +1332,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-ceiling" length_s="1.0" length_t="1.0"/>
+            <texture id="ceiling" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro_cobertura"/>
                 <componentref id="candeeiro_suporte"/>
@@ -1387,7 +1367,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cilindro"/>
             </children>
@@ -1401,7 +1381,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -1490,7 +1470,7 @@
             <materials>
                 <material id="emit-medium"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="open-cone"/>
             </children>
@@ -1517,7 +1497,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-red" length_s="1.0" length_t="1.0"/>
+            <texture id="red" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -1586,7 +1566,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-furniture" length_s="1.0" length_t="1.0"/>
+            <texture id="furniture" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="gavetao"/>
                 <componentref id="gaveta1"/>
@@ -1682,7 +1662,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -1696,7 +1676,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -1710,7 +1690,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -1724,7 +1704,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -1738,7 +1718,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <texture id="gold" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-de-teto-cilindro"/>
                 <componentref id="candeeiro-de-teto-abs"/>
@@ -1765,7 +1745,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-gold" length_s="1.0" length_t="1.0"/>
+            <texture id="gold" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-de-teto-armacao"/>
                 <componentref id="candeeiro-de-teto-armacao2"/>
@@ -1788,7 +1768,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cilindro"/>
             </children>
@@ -1801,7 +1781,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-de-teto-armacao"/>
             </children>
@@ -1814,7 +1794,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-de-teto-armacao2"/>
             </children>
@@ -1827,7 +1807,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-de-teto-armacao3"/>
             </children>
@@ -1840,7 +1820,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-de-teto-armacao4"/>
             </children>
@@ -1853,7 +1833,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-de-teto-armacao5"/>
             </children>
@@ -1866,7 +1846,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-de-teto-armacao6"/>
             </children>
@@ -1879,7 +1859,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-de-teto-armacao7"/>
             </children>
@@ -1893,7 +1873,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cilindro"/>
             </children>
@@ -1909,7 +1889,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-cabeceira2" length_s="2.0" length_t="2.0"/>
+            <texture id="cabeceira2" length_s="2.0" length_t="2.0"/>
             <children>
                 <componentref id="cube-z"/>
                 <componentref id="cube+z"/>
@@ -1925,7 +1905,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-cabeceira" length_s="1.0" length_t="1.0"/>
+            <texture id="cabeceira" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube-x"/>
             </children>
@@ -1941,7 +1921,7 @@
                 <material id="wood"/>
                 <material id="dark-wood"/>
             </materials>
-            <texture id="tex-wood1" length_s="1.2" length_t="1.0"/>
+            <texture id="wood1" length_s="1.2" length_t="1.0"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -1955,7 +1935,7 @@
             <materials>
                 <material id="wallpaper"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -1981,7 +1961,7 @@
             <materials>
                 <material id="wallpaper"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="stair-triangles-left"/>
                 <componentref id="stair-triangles-right"/>
@@ -2200,7 +2180,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tablecolor" length_s="1.0" length_t="1.0"/>
+            <texture id="tablecolor" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="pingpong-table-abs"/>
                 <componentref id="pingpong-leg1"/>
@@ -2219,7 +2199,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tablecolor" length_s="1.0" length_t="1.0"/>
+            <texture id="tablecolor" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube-z"/>
                 <componentref id="cube+z"/>
@@ -2235,7 +2215,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-pingpong" length_s="1.0" length_t="1.0"/>
+            <texture id="pingpong" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube+y"/>
             </children>
@@ -2249,7 +2229,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-net" length_s="1.0" length_t="1.0"/>
+            <texture id="net" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -2263,7 +2243,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tablecolor" length_s="1.0" length_t="1.0"/>
+            <texture id="tablecolor" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -2276,7 +2256,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-pingpong" length_s="1.0" length_t="1.0"/>
+            <texture id="pingpong" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="pingpong-leg1"/>
             </children>
@@ -2289,7 +2269,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-pingpong" length_s="1.0" length_t="1.0"/>
+            <texture id="pingpong" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="pingpong-leg1"/>
             </children>
@@ -2302,7 +2282,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-pingpong" length_s="1.0" length_t="1.0"/>
+            <texture id="pingpong" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="pingpong-leg1"/>
             </children>
@@ -2329,7 +2309,7 @@
             <materials>
                 <material id="medium-general"/>
             </materials>
-            <texture id="tex-carpet1" length_s="1.0" length_t="1.0"/>
+            <texture id="carpet1" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="carpet-second-floor-delegate"/>
             </children>
@@ -2343,7 +2323,7 @@
             <materials>
                 <material id="medium-general"/>
             </materials>
-            <texture id="tex-carpet1" length_s="1.0" length_t="1.0"/>
+            <texture id="carpet1" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -2357,7 +2337,7 @@
             <materials>
                 <material id="emit-medium"/>
             </materials>
-            <texture id="tex-marfim" length_s="1.0" length_t="1.0"/>
+            <texture id="marfim" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="candeeiro-cozinha-arco1"/>
                 <componentref id="candeeiro-cozinha-arco2"/>
@@ -2452,7 +2432,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-blacktv" length_s="1.0" length_t="1.0"/>
+            <texture id="blacktv" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tv-side1"/>
                 <componentref id="tv-side2"/>
@@ -2541,7 +2521,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-tv" length_s="1.0" length_t="1.0"/>
+            <texture id="tv" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -2556,7 +2536,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-black" length_s="1.0" length_t="1.0"/>
+            <texture id="black" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="couch-base"/>
                 <componentref id="couch-armrest-left"/>
@@ -2657,7 +2637,7 @@
                 <material id="major-blue"/>
                 <material id="major-yellow"/>
             </materials>
-            <texture id="tex-pillow" length_s="1.0" length_t="1.0"/>
+            <texture id="pillow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="couch-pillow-left"/>
                 <componentref id="couch-pillow-right"/>
@@ -2674,7 +2654,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-pillow" length_s="1.0" length_t="1.0"/>
+            <texture id="pillow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cylinder"/>
             </children>
@@ -3702,7 +3682,7 @@
                 <material id="light-wood"/>
                 <material id="dark-wood"/>
             </materials>
-            <texture id="tex-wood1" length_s="1.0" length_t="1.0"/>
+            <texture id="wood1" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="bench-sideset-a"/>
                 <componentref id="bench-a-boards"/>
@@ -3734,7 +3714,7 @@
                 <material id="light-wood"/>
                 <material id="oak-wood"/>
             </materials>
-            <texture id="tex-wood2" length_s="1.0" length_t="1.0"/>
+            <texture id="wood2" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="bench-sideset-b"/>
                 <componentref id="bench-b-boards"/>
@@ -3764,7 +3744,7 @@
                 <material id="light-wood"/>
                 <material id="dark-wood"/>
             </materials>
-            <texture id="tex-wood3" length_s="1.0" length_t="1.0"/>
+            <texture id="wood3" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="bench-sideset-c"/>
                 <componentref id="bench-c-boards"/>
@@ -3851,7 +3831,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-drawer-front" length_s="1.0" length_t="1.0"/>
+            <texture id="drawer-front" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -3934,7 +3914,7 @@
             <materials>
                 <material id="light-wood"/>
             </materials>
-            <texture id="tex-drawer-side-wood" length_s="1.0" length_t="1.0"/>
+            <texture id="drawer-side-wood" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="kitchen-drawer-1-front"/>
                 <componentref id="kitchen-drawer-1-back"/>
@@ -4034,7 +4014,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-fridge-front" length_s="1.0" length_t="1.0"/>
+            <texture id="fridge-front" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4113,7 +4093,7 @@
             <materials>
                 <material id="light-metal"/>
             </materials>
-            <texture id="tex-fridge-side" length_s="1.0" length_t="1.0"/>
+            <texture id="fridge-side" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="kitchen-fridge-front"/>
                 <componentref id="kitchen-fridge-back"/>
@@ -4133,7 +4113,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-rubik-top" length_s="1.0" length_t="1.0"/>
+            <texture id="rubik-top" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4147,7 +4127,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-rubik-bottom" length_s="1.0" length_t="1.0"/>
+            <texture id="rubik-bottom" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4161,7 +4141,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-rubik-left" length_s="1.0" length_t="1.0"/>
+            <texture id="rubik-left" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4175,7 +4155,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-rubik-right" length_s="1.0" length_t="1.0"/>
+            <texture id="rubik-right" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4188,7 +4168,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-rubik-front" length_s="1.0" length_t="1.0"/>
+            <texture id="rubik-front" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4202,7 +4182,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-rubik-back" length_s="1.0" length_t="1.0"/>
+            <texture id="rubik-back" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4235,7 +4215,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-forno" length_s="1.0" length_t="1.0"/>
+            <texture id="forno" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4263,7 +4243,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="tex-fogao" length_s="1.0" length_t="1.0"/>
+            <texture id="fogao" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="rect"/>
             </children>
@@ -4319,7 +4299,7 @@
             <materials>
                 <material id="aluminum"/>
             </materials>
-            <texture id="tex-grey" length_s="1.0" length_t="1.0"/>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="kitchen-stove-front"/>
                 <componentref id="kitchen-stove-back"/>
@@ -4338,7 +4318,7 @@
             <materials>
                 <material id="marble-polished"/>
             </materials>
-            <texture id="tex-granito" length_s="0.3" length_t="0.3"/>
+            <texture id="granito" length_s="0.3" length_t="0.3"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -4352,7 +4332,7 @@
             <materials>
                 <material id="marble-polished"/>
             </materials>
-            <texture id="tex-granito" length_s="1" length_t="1"/>
+            <texture id="granito" length_s="1" length_t="1"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -4365,7 +4345,7 @@
             <materials>
                 <material id="wood"/>
             </materials>
-            <texture id="tex-wood2" length_s="1" length_t="1"/>
+            <texture id="wood2" length_s="1" length_t="1"/>
             <children>
                 <componentref id="kitchen-chair-encosto"/>
                 <componentref id="kitchen-chair-base"/>
@@ -4466,7 +4446,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="snow-doll-delegate"/>
             </children>
@@ -4480,7 +4460,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="bottom-ball"/>
                 <componentref id="middle-ball"/>
@@ -4501,7 +4481,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -4515,7 +4495,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -4529,7 +4509,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -4543,7 +4523,7 @@
             <materials>
                 <material id="medium-orange"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cone"/>
             </children>
@@ -4557,7 +4537,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-eye" length_s="1.0" length_t="1.0"/>
+            <texture id="eye" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -4571,7 +4551,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-eye" length_s="1.0" length_t="1.0"/>
+            <texture id="eye" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="sphere"/>
             </children>
@@ -4586,7 +4566,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-wood1" length_s="1.0" length_t="1.0"/>
+            <texture id="wood1" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -4601,7 +4581,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-wood1" length_s="1.0" length_t="1.0"/>
+            <texture id="wood1" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="cube"/>
             </children>
@@ -4616,7 +4596,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-black" length_s="1.0" length_t="1.0"/>
+            <texture id="black" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="torus-snowman"/>
             </children>
@@ -4631,7 +4611,7 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="tex-black" length_s="1.0" length_t="1.0"/>
+            <texture id="black" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cilindro"/>
             </children>
@@ -4646,7 +4626,7 @@
             <materials>
                 <material id="major-red"/>
             </materials>
-            <texture id="tex-red" length_s="1.0" length_t="1.0"/>
+            <texture id="red" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cilindro"/>
             </children>
@@ -4676,7 +4656,7 @@
             <materials>
                 <material id="major-red"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="heart"/>
             </children>
@@ -4691,7 +4671,7 @@
             <materials>
                 <material id="major-green"/>
             </materials>
-            <texture id="tex-snow" length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="butterfly"/>
             </children>
