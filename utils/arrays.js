@@ -1,16 +1,12 @@
-/*
-if (!Array.prototype.empty) {
-    Object.defineProperty(Array.prototype, 'empty', function() {
-        return this.length === 0;
-    });
-}
+function isMatrix(matrix) {
+    if (matrix == null || matrix.length === 0) return false;
 
-Object.defineProperty(Array.prototype, 'duplicates', function() {
-    return this.reduce(function(dups, el, i, arr) {
-        if (arr.indexOf(el) !== i && dups.indexOf(el) === -1) {
-            dups.push(el);
-        }
-        return dups;
-    }, []);
-});
-*/
+    const cols = matrix.length;
+    const rows = matrix[0].length;
+
+    for (let i = 0; i < cols; ++i) {
+        if (matrix[i].length != rows) return false;
+    }
+
+    return true;
+}
