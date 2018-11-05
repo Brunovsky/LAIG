@@ -20,13 +20,14 @@ serialInclude(['../lib/CGF.js',
     // utils/ files
     'utils/arrays.js', 'utils/stack.js', 'utils/vector.js',
     'utils/reals.js', 'utils/protos.js', 'utils/cache.js',
+    'utils/bezier.js',
     // build/ files
     'build/Cone.js', 'build/Cube.js', 'build/CutCone.js', 'build/CutPyramid.js',
     'build/Cylinder.js', 'build/Polygon.js', 'build/Prism.js', 'build/Pyramid.js',
     'build/revSurface.js', 'build/Sphere.js', 'build/uvSurface.js',
     'build/xSurface.js', 'build/ySurface.js', 'build/zSurface.js',
     // elements/ files
-    'elements/element.js', 'elements/yas.js',
+    'elements/element.js', 'elements/yas.js', 'elements/figures-composite.js',
     'elements/figures-planar.js', 'elements/figures-polygon.js',
     'elements/figures-spacial.js', 'elements/figures-surface.js',
     'elements/ambient.js', 'elements/components.js', 'elements/lights.js',

@@ -159,7 +159,7 @@ class XMLComponentAnimations extends XMLOrderedGroup {
     constructor(node) {
         super(node, {
             animationref: XMLAnimationRef
-        });
+        }, {}, false);
 
         this.type = "animations";
     }

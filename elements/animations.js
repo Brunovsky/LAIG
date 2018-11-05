@@ -50,7 +50,7 @@ class XMLAnimations extends XMLGroup {
         super(node, {
             linear: XMLLinear,
             circular: XMLCircular
-        });
+        }, {}, false);
 
         this.type = "animations";
     }

@@ -40,7 +40,7 @@ class XMLPyramid extends XMLElement {
 class XMLCylinder extends XMLElement {
     constructor(node) {
         super(node, {
-            base: "pp", top: "p0", height:"pp", slices:"ii", stacks:"ii"
+            base: "pp", top: "p0", height: "pp", slices: "ii", stacks: "ii"
         });
 
         this.type = "cylinder";
