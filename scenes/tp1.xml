@@ -331,6 +331,15 @@
         </transformation>
     </transformations>
 
+    <animations>
+        <linear id="linear1" span="2">
+            <controlpoint x="0" y="0" z="0"/>
+            <controlpoint x="3" y="0" z="0"/>
+        </linear>
+
+        <circular id="circular1" span="3" center="0 0 0" radius="3" startang="20" rotang="45"/>
+    </animations>
+
     <primitives>
         <primitive id="stairs-triangle">
             <triangle x1="0" x2="0" x3="0" y1="-0.3" y2="-0.3" y3="-0.6" z1="-0.15" z2="0.15" z3="-0.15"/>
