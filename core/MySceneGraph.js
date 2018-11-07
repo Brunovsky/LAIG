@@ -41,6 +41,8 @@ class MySceneGraph {
     parseXMLFile(rootElement) {
         console.log(rootElement);
 
+        window.yasxml = rootElement;
+
         try {
             this.yas = new XMLYas(rootElement);
             console.log(this.yas);

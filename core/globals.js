@@ -29,6 +29,9 @@ const INHERIT_S_T = true;
 // Make <animations> child of <yas> optional
 const XML_ANIMATIONS_OPT = true;
 
+// Allow empty <animations> in <yas>
+const XML_ANIMATIONS_NONEMPTY = false;
 
 
-const DEFAULT_YAS_FILE = "tp1.xml";
+
+const DEFAULT_YAS_FILE = "trialscene.xml";
