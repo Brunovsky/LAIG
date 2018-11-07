@@ -312,8 +312,6 @@ class Triangle extends CGFobject
         this.a = a; this.b = b; this.c = c;
         this.heightC = heightC; this.sA = sA;
 
-        console.log(sA, a, b, c, heightC);
-
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     };

@@ -184,12 +184,19 @@ class XMLChildren extends XMLGroup {
  * XML Parsing Class
  * Parses yas > components > component
  */
-class XMLComponent extends XMLElement {
+class XMLComponent extends XMLOrderedSet {
     constructor(node) {
-        super(node, { id: "ss" });
+        super(node, [
+            {name: "transformation", xml: XMLComponentTransformation, opt: false},
+            {name: "materials", xml: XMLComponentMaterials, opt: false},
+            {name: "animations", xml: XMLComponentAnimations, opt: true},
+            {name: "texture", xml: XMLComponentTexture, opt: false},
+            {name: "children", xml: XMLChildren, opt: false},
+        ], { id: "ss" });
 
         this.type = "component";
 
+/*
         function parse(node, tag, constr, optional) {
             const name = node.tagName.toLocaleLowerCase();
 
@@ -220,6 +227,7 @@ class XMLComponent extends XMLElement {
 
         this.children = parse(ch[i++], "children",
             XMLChildren, false);
+*/
     }
 }
 

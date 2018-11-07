@@ -12,55 +12,68 @@ function getUrlVars() {
     return vars;
 }
 
+// Before includes
+(function premain() {
+    console.log("3MIEIC01 -- GROUP 4");
+    console.log("201606517", "Bruno Dias da Costa Carvalho");
+    console.log("201603404", "Carlos Daniel Coelho Ferreira Gomes");
+    console.groupCollapsed("Loading files");
+})();
+
 //Include additional files here
-serialInclude(['../lib/CGF.js',
-    // core/ files
+serialInclude([
+    // lib/ CGF Library
+    '../lib/CGF.js',
+    // core/ Main class files
     'core/MyScene.js', 'core/MySceneGraph.js', 'core/MyInterface.js',
     'core/globals.js',
-    // utils/ files
+    // utils/ Utilities for JS and CGF
     'utils/arrays.js', 'utils/stack.js', 'utils/vector.js',
     'utils/reals.js', 'utils/protos.js', 'utils/cache.js',
     'utils/bezier.js',
-    // build/ files
+    // build/ All CGFobject classes
     'build/Cone.js', 'build/Cube.js', 'build/CutCone.js', 'build/CutPyramid.js',
     'build/Cylinder.js', 'build/Plane.js', 'build/Polygon.js',
     'build/Prism.js', 'build/Pyramid.js', 'build/revSurface.js',
     'build/Sphere.js', 'build/uvSurface.js', 'build/xSurface.js',
     'build/ySurface.js', 'build/zSurface.js',
-    // elements/ files
+    // elements/ All XML parsing classes
     'elements/element.js', 'elements/yas.js', 'elements/figures-composite.js',
     'elements/figures-planar.js', 'elements/figures-polygon.js',
     'elements/figures-spacial.js', 'elements/figures-surface.js',
-    'elements/ambient.js', 'elements/components.js', 'elements/lights.js',
-    'elements/materials.js', 'elements/primitives.js', 'elements/scene.js',
-    'elements/textures.js', 'elements/transformations.js', 'elements/view.js',
-
+    'elements/ambient.js', 'elements/animations.js', 'elements/components.js',
+    'elements/lights.js', 'elements/materials.js', 'elements/primitives.js',
+    'elements/scene.js', 'elements/textures.js', 'elements/transformations.js',
+    'elements/view.js',
     main = function() {
+        console.groupEnd();
+
+        console.groupCollapsed("CGF Init @ main");
         // Standard application, scene and interface setup
         let app = new CGFapplication(document.body);
         let myInterface = new MyInterface();
         let myScene = new MyScene(myInterface);
 
         app.init();
-
         app.setScene(myScene);
         app.setInterface(myInterface);
 
         myInterface.setActiveCamera(myScene.camera);
+        console.groupEnd();
 
-        // get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-        // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
-        
         let filename = getUrlVars()['file'] || DEFAULT_YAS_FILE;
+        console.log("Filename: %s", filename);
 
         // create and load graph, and associate it to scene. 
         // Check console for loading errors
         let myGraph = new MySceneGraph(filename, myScene);
 
-        console.log(myInterface);
-        console.log(myScene);
-        console.log(myGraph);
-        
+        console.groupCollapsed("Core Classes");
+        console.log("MyInterface", myInterface);
+        console.log("MyScene", myScene);
+        console.log("MySceneGraph", myGraph);
+        console.groupEnd();
+
         // start
         app.run();
     }

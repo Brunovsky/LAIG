@@ -8,6 +8,10 @@ Math.dulog = function(a, x, b) {
     return a / ((Math.abs(x) + 1) * Math.log(b));
 }
 
+function degToRad(deg) {
+    return deg * Math.PI / 180;
+}
+
 // Value of polynomial with coefficients ...coefs at X.
 function polynomial(X, ...coefs) {
     let val = 0;

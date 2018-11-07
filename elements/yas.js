@@ -4,9 +4,20 @@
  *
  * After parsing the XML, validates it (see resolve())
  */
-class XMLYas extends XMLBase {
+class XMLYas extends XMLOrderedSet {
     constructor(node) {
-        super(node);
+        super(node, [
+            {name: "scene", xml: XMLScene, opt: false},
+            {name: "views", xml: XMLViews, opt: false},
+            {name: "ambient", xml: XMLAmbient, opt: false},
+            {name: "lights", xml: XMLLights, opt: false},
+            {name: "textures", xml: XMLTextures, opt: false},
+            {name: "materials", xml: XMLMaterials, opt: false},
+            {name: "transformations", xml: XMLTransformations, opt: false},
+            {name: "animations", xml: XMLAnimations, opt: XML_ANIMATIONS_OPT},
+            {name: "primitives", xml: XMLPrimitives, opt: false},
+            {name: "components", xml: XMLComponents, opt: false},
+        ]);
 
         this.type = "yas";
 
@@ -14,6 +25,7 @@ class XMLYas extends XMLBase {
             throw new XMLException(node, "Root node does not have tagname 'yas'");
         }
 
+        /*
         const tags = ["scene", "views", "ambient", "lights", "textures",
             "materials", "transformations", "primitives", "components"];
 
@@ -39,8 +51,22 @@ class XMLYas extends XMLBase {
         this.transformations = new XMLTransformations(node.children[6]);
         this.primitives = new XMLPrimitives(node.children[7]);
         this.components = new XMLComponents(node.children[8]);
+        */
 
+        this.log();
         this.resolve();
+    }
+
+    log() {
+        console.log(this.scene);
+        console.log(this.views);
+        console.log(this.ambient);
+        console.log(this.lights);
+        console.log(this.textures);
+        console.log(this.materials);
+        console.log(this.transformations);
+        console.log(this.primitives);
+        console.log(this.components);
     }
 
     resolve() {

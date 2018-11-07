@@ -45,6 +45,7 @@ class MyScene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
+        console.groupCollapsed("MyScene Load (onGraphLoaded)");
         this.initAxis();
         this.initViews();
         this.initAmbient();
@@ -54,7 +55,17 @@ class MyScene extends CGFscene {
         this.initPrimitives();
         this.initInterface();
 
+        console.log("Axis", this.axis);
+        console.log("Views", this.views);
+        console.log("Lights", this.lights);
+        console.log("Textures", this.textures);
+        console.log("Materials", this.materials);
+        console.log("Primitives", this.primitives);
+        console.groupEnd();
+
         this.graphLoaded = true;
+
+        console.groupCollapsed("More");
     }
 
     initAxis() {
@@ -90,8 +101,6 @@ class MyScene extends CGFscene {
                     near, far, position, target, up);
             }
         }
-
-        console.log(this.camera);
 
         this.selectView(views.data.default);
     }
@@ -253,6 +262,7 @@ class MyScene extends CGFscene {
      * Select camera with given id
      */
     selectView(id) {
+        console.log("Select View", this.views[id]);
         this.camera = this.views[id];
         this.gui.setActiveCamera(this.camera);
     }
