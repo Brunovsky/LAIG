@@ -265,6 +265,16 @@
         <primitive id="plane">
             <plane npartsU="5" npartsV="8"/>
         </primitive>
+        <primitive id="patch">
+            <patch npointsU="2" npointsV="3" npartsU="64" npartsV="64">
+                <controlpoint xx="-2" yy="1.2"  zz="-2.7"/>
+                <controlpoint xx="0"  yy="0.2"  zz="-2.4"/>
+                <controlpoint xx="2"  yy="2.2"  zz="-2.2"/>
+                <controlpoint xx="-2" yy="0.3"  zz="2.1"/>
+                <controlpoint xx="0"  yy="4.3"  zz="2.3"/>
+                <controlpoint xx="2"  yy="0.7"  zz="2.7"/>
+            </patch>
+        </primitive>
         <primitive id="unit-square">
             <square side="2"/>
         </primitive>
@@ -402,20 +412,6 @@
                 <componentref id="comp-spacial"/>
                 <componentref id="comp-planar"/>
                 <componentref id="comp-surface"/>
-                <componentref id="test"/>
-            </children>
-        </component>
-
-        <component id="test">
-            <transformation>
-                <translate x="0" y="0" z="-7.5"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="trunk" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="plane"/>
             </children>
         </component>
 
@@ -437,12 +433,14 @@
                 <componentref id="unit-triangle"/>
                 <componentref id="unit-rectangle"/>
                 <componentref id="unit-trapezium"/>
+                <componentref id="plane"/>
+                <componentref id="patch"/>
             </children>
         </component>
 
         <component id="unit-square">
             <transformation>
-                <translate x="0" y="0" z="0"/>
+                <transformationref id="show-0"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -455,7 +453,7 @@
 
         <component id="unit-regular">
             <transformation>
-                <translate x="0" y="0" z="5"/>
+                <transformationref id="show-1"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -468,7 +466,7 @@
 
         <component id="unit-circle">
             <transformation>
-                <translate x="0" y="0" z="10"/>
+                <transformationref id="show-2"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -481,7 +479,7 @@
         
         <component id="unit-triangle">
             <transformation>
-                <translate x="0" y="0" z="15"/>
+                <transformationref id="show-3"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -494,7 +492,7 @@
 
         <component id="unit-rectangle">
             <transformation>
-                <translate x="5" y="0" z="0"/>
+                <transformationref id="show-4"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -507,7 +505,7 @@
         
         <component id="unit-trapezium">
             <transformation>
-                <translate x="5" y="0" z="5"/>
+                <transformationref id="show-5"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -515,6 +513,32 @@
             <texture id="inherit"/>
             <children>
                 <primitiveref id="unit-trapezium"/>
+            </children>
+        </component>
+        
+        <component id="plane">
+            <transformation>
+                <transformationref id="show-6"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="plane"/>
+            </children>
+        </component>
+        
+        <component id="patch">
+            <transformation>
+                <transformationref id="show-7"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patch"/>
             </children>
         </component>
 
@@ -543,7 +567,7 @@
 
         <component id="unit-cone">
             <transformation>
-                <translate x="0" y="0" z="0"/>
+                <transformationref id="show-0"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -556,7 +580,7 @@
 
         <component id="unit-pyramid">
             <transformation>
-                <translate x="0" y="0" z="5"/>
+                <transformationref id="show-1"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -569,7 +593,7 @@
 
         <component id="unit-cylinder">
             <transformation>
-                <translate x="0" y="0" z="10"/>
+                <transformationref id="show-2"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -582,7 +606,7 @@
 
         <component id="unit-prism">
             <transformation>
-                <translate x="0" y="0" z="15"/>
+                <transformationref id="show-3"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -595,7 +619,7 @@
 
         <component id="unit-cube">
             <transformation>
-                <translate x="5" y="0" z="0"/>
+                <transformationref id="show-4"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -608,7 +632,7 @@
 
         <component id="unit-block">
             <transformation>
-                <translate x="5" y="0" z="5"/>
+                <transformationref id="show-5"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -621,7 +645,7 @@
 
         <component id="unit-sphere">
             <transformation>
-                <translate x="5" y="0" z="10"/>
+                <transformationref id="show-6"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -634,7 +658,7 @@
 
         <component id="unit-halfsphere">
             <transformation>
-                <translate x="5" y="0" z="15"/>
+                <transformationref id="show-7"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -663,7 +687,7 @@
 
         <component id="unit-heart">
             <transformation>
-                <translate x="0" y="0" z="0"/>
+                <transformationref id="show-0"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -676,7 +700,7 @@
 
         <component id="unit-butterfly">
             <transformation>
-                <translate x="0" y="0" z="5"/>
+                <transformationref id="show-1"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -689,7 +713,7 @@
 
         <component id="unit-folium">
             <transformation>
-                <translate x="0" y="0" z="10"/>
+                <transformationref id="show-2"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -702,7 +726,7 @@
 
         <component id="unit-hypocycloid">
             <transformation>
-                <translate x="0" y="0" z="15"/>
+                <transformationref id="show-3"/>
             </transformation>
             <materials>
                 <material id="inherit"/>

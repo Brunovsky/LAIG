@@ -33,7 +33,7 @@ serialInclude([
     'utils/bezier.js',
     // build/ All CGFobject classes
     'build/Cone.js', 'build/Cube.js', 'build/CutCone.js', 'build/CutPyramid.js',
-    'build/Cylinder.js', 'build/Plane.js', 'build/Polygon.js',
+    'build/Cylinder.js', 'build/Nurbs.js', 'build/Polygon.js',
     'build/Prism.js', 'build/Pyramid.js', 'build/revSurface.js',
     'build/Sphere.js', 'build/uvSurface.js', 'build/xSurface.js',
     'build/ySurface.js', 'build/zSurface.js',

@@ -8,6 +8,10 @@ class XMLControlPoint extends XMLElement {
             xx: "ff", yy: "ff", zz: "ff"
         });
 
+        this.xx = this.data.xx;
+        this.yy = this.data.yy;
+        this.zz = this.data.zz;
+
         this.type = "controlpoint";
     }
 }
