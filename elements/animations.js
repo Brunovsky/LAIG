@@ -33,7 +33,7 @@ class XMLLinear extends XMLOrderedGroup {
 class XMLCircular extends XMLElement {
     constructor(node) {
         super(node, {
-            id: "ss", span: "pp", center="ff ff ff",
+            id: "ss", span: "pp", center: "ff ff ff",
             radius: "ff", startang: "ff", rotang: "ff"
         });
 
@@ -50,7 +50,7 @@ class XMLAnimations extends XMLGroup {
         super(node, {
             linear: XMLLinear,
             circular: XMLCircular
-        });
+        }, {}, false);
 
         this.type = "animations";
     }

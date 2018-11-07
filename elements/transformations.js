@@ -48,29 +48,15 @@ class XMLScale extends XMLElement {
  * XML Parsing Class
  * Parses yas > transformations > transformation
  */
-class XMLTransformation extends XMLElement {
+class XMLTransformation extends XMLOrderedGroup {
     constructor(node) {
-        super(node, { id: "ss" });
-
-        this.type = "transformation";
-
-        const tags = {
+        super(node, {
             translate: XMLTranslate,
             rotate: XMLRotate,
             scale: XMLScale
-        };
+        },{ id: "ss" });
 
-        this.elements = [];
-
-        for (const child of node.children) {
-            const name = child.tagName.toLocaleLowerCase();
-
-            if (!(name in tags)) {
-                throw new XMLException(child, "Unexpected tagname " + name);
-            }
-
-            this.elements.push(new tags[name](child));
-        }
+        this.type = "transformation";
     }
 }
 

@@ -1,5 +1,7 @@
-class Regular extends CGFobject {
-    constructor(scene, sides, radius = 1, coords = [0, 1, 0, 1]) {
+class Regular extends CGFobject
+{
+    constructor(scene, sides, radius = 1, coords = [0, 1, 0, 1])
+    {
         super(scene);
         this.sides = sides;
         this.radius = radius;
@@ -13,19 +15,22 @@ class Regular extends CGFobject {
         this.initTexCache();
     }
 
-    initTexCache() {
+    initTexCache()
+    {
         const spanS = 2 * this.radius;
         const spanT = 2 * this.radius;
         this.adjust = true;
         this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
-    updateTexCoords(s, t) {
+    updateTexCoords(s, t)
+    {
         this.texCoords = this.cache.get(s, t);
         this.updateTexCoordsGLBuffers();
     }
 
-    initBuffers() {
+    initBuffers()
+    {
         const sin = Math.sin, cos = Math.cos, PI = Math.PI;
         const sides = this.sides, radius = this.radius,
             coords = this.coords;
@@ -97,8 +102,10 @@ class Regular extends CGFobject {
 
 
 
-class Polygon extends CGFobject {
-    constructor(scene, V, coords = [0, 1, 0, 1]) {
+class Polygon extends CGFobject
+{
+    constructor(scene, V, coords = [0, 1, 0, 1])
+    {
         super(scene);
         this.V = V;
         this.coords = {
@@ -111,25 +118,28 @@ class Polygon extends CGFobject {
         this.initTexCache();
     }
 
-    initTexCache() {
+    initTexCache()
+    {
         const spanS = this.b.maxX - this.b.minX;
         const spanT = this.b.maxZ - this.b.minZ;
         this.adjust = true;
         this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
-    updateTexCoords(s, t) {
+    updateTexCoords(s, t)
+    {
         this.texCoords = this.cache.get(s, t);
         this.updateTexCoordsGLBuffers();
     }
 
-    initBuffers() {
+    initBuffers()
+    {
         const V = this.V, coords = this.coords;
 
         let b = {
-            minX: Infinity,
+            minX:  Infinity,
             maxX: -Infinity,
-            minZ: Infinity,
+            minZ:  Infinity,
             maxZ: -Infinity
         };
 
@@ -203,8 +213,10 @@ class Polygon extends CGFobject {
 
 
 
-class Square extends Polygon {
-    constructor(scene, side = 1, coords = [0, 1, 0, 1]) {
+class Square extends Polygon
+{
+    constructor(scene, side = 1, coords = [0, 1, 0, 1])
+    {
         super(scene, [
             [-side / 2, -side / 2],
             [ side / 2, -side / 2],
@@ -216,16 +228,20 @@ class Square extends Polygon {
 
 
 
-class Circle extends Regular {
-    constructor(scene, radius = 1, slices = 64, coords = [0, 1, 0, 1]) {
+class Circle extends Regular
+{
+    constructor(scene, radius = 1, slices = 64, coords = [0, 1, 0, 1])
+    {
         super(scene, slices, radius, coords);
     }
 }
 
 
 
-class Triangle extends CGFobject {
-    constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3) {
+class Triangle extends CGFobject
+{
+    constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3)
+    {
         super(scene);
         this.C = { X: x1, Y: y1, Z: z1 };
         this.A = { X: x2, Y: y2, Z: z2 };
@@ -234,19 +250,22 @@ class Triangle extends CGFobject {
         this.initTexCache();
     }
 
-    initTexCache() {
+    initTexCache()
+    {
         const spanS = this.c;
         const spanT = this.heightC;
         this.adjust = true;
         this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
-    updateTexCoords(s, t) {
+    updateTexCoords(s, t)
+    {
         this.texCoords = this.cache.get(s, t);
         this.updateTexCoordsGLBuffers();
     }
 
-    initBuffers() {
+    initBuffers()
+    {
         const A = this.A, B = this.B, C = this.C,
             coords = this.coords;
 
@@ -293,8 +312,6 @@ class Triangle extends CGFobject {
         this.a = a; this.b = b; this.c = c;
         this.heightC = heightC; this.sA = sA;
 
-        console.log(sA, a, b, c, heightC);
-
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     };
@@ -302,8 +319,10 @@ class Triangle extends CGFobject {
 
 
 
-class Rectangle extends CGFobject {
-    constructor(scene, V, coords = [0, 1, 0, 1]) {
+class Rectangle extends CGFobject
+{
+    constructor(scene, V, coords = [0, 1, 0, 1])
+    {
         super(scene);
         this.V = V;
         this.coords = {
@@ -316,19 +335,22 @@ class Rectangle extends CGFobject {
         this.initTexCache();
     }
 
-    initTexCache() {
+    initTexCache()
+    {
         const spanS = Math.abs(this.V.x2 - this.V.x1);
         const spanT = Math.abs(this.V.y2 - this.V.y1);
         this.adjust = true;
         this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
-    updateTexCoords(s, t) {
+    updateTexCoords(s, t)
+    {
         this.texCoords = this.cache.get(s, t);
         this.updateTexCoordsGLBuffers();
     }
 
-    initBuffers() {
+    initBuffers()
+    {
         const V = this.V, coords = this.coords;
 
 
@@ -386,8 +408,10 @@ class Rectangle extends CGFobject {
 
 
 
-class Trapezium extends Polygon {
-    constructor(scene, base = 1, height = 1, top = 1, coords = [0, 1, 0, 1]) {
+class Trapezium extends Polygon
+{
+    constructor(scene, base = 1, height = 1, top = 1, coords = [0, 1, 0, 1])
+    {
         super(scene, [
             [-base / 2, -height / 2],
             [ base / 2, -height / 2],
@@ -399,8 +423,10 @@ class Trapezium extends Polygon {
 
 
 
-class tPolygon extends CGFobject {
-    constructor(scene, tfunction, limits = [0, 1], samples = 1024, coords = [0, 1, 0, 1]) {
+class tPolygon extends CGFobject
+{
+    constructor(scene, tfunction, limits = [0, 1], samples = 1024, coords = [0, 1, 0, 1])
+    {
         super(scene);
         this.tfunction = tfunction;
         this.limits = {
@@ -418,28 +444,31 @@ class tPolygon extends CGFobject {
         this.initTexCache();
     }
 
-    initTexCache() {
+    initTexCache()
+    {
         const spanS = this.b.maxX - this.b.minX;
         const spanT = this.b.maxZ - this.b.minZ;
         this.adjust = true;
         this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
-    updateTexCoords(s, t) {
+    updateTexCoords(s, t)
+    {
         this.texCoords = this.cache.get(s, t);
         this.updateTexCoordsGLBuffers();
     }
 
-    initBuffers() {
+    initBuffers()
+    {
         const tfunction = this.tfunction, l = this.limits,
             samples = this.samples, coords = this.coords;
 
         const tInc = (l.maxT - l.minT) / samples;
 
         let b = {
-            minX: Infinity,
+            minX:  Infinity,
             maxX: -Infinity,
-            minZ: Infinity,
+            minZ:  Infinity,
             maxZ: -Infinity
         };
 
@@ -516,8 +545,10 @@ class tPolygon extends CGFobject {
 
 
 
-class rPolygon extends CGFobject {
-    constructor(scene, rfunction, limits = [-Math.PI, Math.PI], samples = 1024, coords = [0, 1, 0, 1]) {
+class rPolygon extends CGFobject
+{
+    constructor(scene, rfunction, limits = [-Math.PI, Math.PI], samples = 1024, coords = [0, 1, 0, 1])
+    {
         super(scene);
         this.rfunction = rfunction;
         this.limits = {
@@ -535,19 +566,22 @@ class rPolygon extends CGFobject {
         this.initTexCache();
     }
 
-    initTexCache() {
+    initTexCache()
+    {
         const spanS = this.b.maxX - this.b.minX;
         const spanT = this.b.maxZ - this.b.minZ;
         this.adjust = true;
         this.cache = new InvertedTextureCache(spanS, spanT, this.texCoords);
     }
 
-    updateTexCoords(s, t) {
+    updateTexCoords(s, t)
+    {
         this.texCoords = this.cache.get(s, t);
         this.updateTexCoordsGLBuffers();
     }
 
-    initBuffers() {
+    initBuffers()
+    {
         const sin = Math.sin, cos = Math.cos, PI = Math.PI;
         const rfunction = this.rfunction, l = this.limits,
             samples = this.samples, coords = this.coords;
@@ -555,9 +589,9 @@ class rPolygon extends CGFobject {
         const thetaInc = (l.maxTheta - l.minTheta) / samples;
 
         let b = {
-            minX: Infinity,
+            minX:  Infinity,
             maxX: -Infinity,
-            minZ: Infinity,
+            minZ:  Infinity,
             maxZ: -Infinity
         };
 

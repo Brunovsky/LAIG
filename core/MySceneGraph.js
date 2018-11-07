@@ -10,13 +10,7 @@ class MySceneGraph {
         // CGF's file reader
         this.reader = new CGFXMLreader();
 
-        /*
-         * Read the contents of the xml file,
-         * and refer to this class for loading and error handlers.
-         * After the file is read, the reader calls onXMLReady.
-         * If any error occurs, the reader calls onXMLError.
-         */
-        this.reader.open(filename, this);
+        this.reader.open("scenes/" + filename, this);
     }
 
     /**
@@ -27,7 +21,9 @@ class MySceneGraph {
 
         const rootElement = this.reader.xmlDoc.documentElement;
 
+        console.groupCollapsed("XMLYas Parsing");
         this.parseXMLFile(rootElement);
+        console.groupEnd();
 
         this.scene.onGraphLoaded();
     }
@@ -36,7 +32,7 @@ class MySceneGraph {
      * Called by CGFXMLreader upon encountering an error parsing the XML file.
      */
     onXMLError(error) {
-        console.error(error);
+        console.error("XML Parse Error", error);
     }
     
     /**
@@ -45,8 +41,13 @@ class MySceneGraph {
     parseXMLFile(rootElement) {
         console.log(rootElement);
 
-        this.yas = new XMLYas(rootElement);
-
-        console.log(this.yas);
+        try {
+            this.yas = new XMLYas(rootElement);
+            console.log(this.yas);
+            return true;
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
     }
 }

@@ -1,19 +1,10 @@
 /**
- * Base class of all XML Parsing Classes
- */
-class XMLBase {
-    constructor(node) {
-        this.node = node;
-    }
-}
-
-/**
  * An exception of the YAS specification found in the XML structure.
  * Thrown whenever a parsing error is found by XMLElement, XMLGroup, and others.
  */
-class XMLException extends XMLBase {
+class XMLException extends Error {
     constructor(node, message) {
-        super(node);
+        super(message);
         this.message = message;
 
         do {
@@ -42,9 +33,9 @@ class XMLException extends XMLBase {
  * are represented in constructor argument spec. See classes like
  * XMLAmbient for example uses.
  */
-class XMLElement extends XMLBase {
+class XMLElement {
     constructor(node, spec = {}) {
-        super(node);
+        this.node = node;
         this.data = {};
 
         const reader = new CGFXMLreader();
@@ -232,21 +223,68 @@ class XMLOrderedGroup extends XMLElement {
 }
 
 /**
- * A set of nodes parsed by XML Parsing Classes.
+ * An unordered set of nodes parsed by XML Parsing Classes.
  *
- * The elements are identified by the tags object, may be optional,
- * and must appear in the specified order.
+ * The elements are named and do not necessarily have ids.
+ * 
  */
-/*
 class XMLSet extends XMLElement {
     constructor(node, tags, attr = {}) {
         super(node, attr);
 
-        let i = 0;
+        function findChild(tag) {
+            for (let i = 0; i < node.children.length; ++i) {
+                let child = node.children[i];
+                let name = child.tagName.toLocaleLowerCase();
+                if (name == tag) return child;
+            }
+            return null;
+        }
 
-        for (const child of node.children) {
+        for (const tag in tags) {
+            let child = findChild(tag);
 
+            if (child != null) {
+                this[tag] = new tags[tag].xml(child);
+            } else if (!tags[tag].opt) {
+                throw new XMLException(node, "Expected node " + tag);
+            }
         }
     }
 }
-*/
+
+/**
+ * An ordered set of nodes parsed by XML Parsing Classes.
+ *
+ * The elements are named and do not necessarily have ids.
+ * And are parsed directly into properties of this.
+ * The tags accepted are specified in the array tags, whose objects
+ * include constructor (.xml), optionality (.opt), and name (.name).
+ */
+class XMLOrderedSet extends XMLElement {
+    constructor(node, tags, attr = {}) {
+        super(node, attr);
+
+        const ch = node.children;
+
+        let i = 0;
+
+        for (const tag of tags) {
+            if (i == ch.length) {
+                throw new XMLException(node, "Expected more children nodes "
+                    + "(looking for child" + tag.name + ")");
+            }
+
+            const childTagname = ch[i].tagName.toLocaleLowerCase();
+
+            if (childTagname == tag.name) {
+                this[tag.name] = new tag.xml(ch[i++]);
+            } else if (tag.opt) {
+                this[tag.name] = null;
+            } else {
+                throw new XMLException(node, "Expected node " + tag.name
+                 + " but got " + childTagname);
+            }
+        }
+    }
+}

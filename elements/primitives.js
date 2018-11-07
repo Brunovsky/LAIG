@@ -25,61 +25,6 @@ class XMLPrimitive extends XMLElement {
     }
 }
 
-class XMLPlane extends XMLElement {
-    constructor(node) {
-        super(node, {
-            id: "ss", npartsU: "ii", npartsV: "ii"
-        });
-
-        if (!(this.data.npartsU > 1) || !(this.data.npartsV > 1)) {
-            throw new XMLException(node, "Plane divisions must be greater than 1");
-        }
-    }
-}
-
-class XMLPatch extends XMLOrderedGroup {
-    constructor(node) {
-        super(node, {
-            controlpoint: XMLControlPoint
-        },{
-            id: "ss", npointsU: "ii", npointsV: "ii",
-            npartsU: "ii", npartsV: "ii"
-        });
-
-        this.type = "patch";
-    }
-}
-
-class XMLVehicle extends XMLElement {
-    constructor(node) {
-        super(node, { id: "ss" });
-
-        this.type = "vehicle";
-    }
-}
-
-class XMLTerrain extends XMLElement {
-    constructor(node) {
-        super(node, {
-            id: "ss", idtexture: "ss", idheightmap: "ss",
-            parts: "ii", heightscale: "ff"
-        });
-
-        this.type = "terrain";
-    }
-}
-
-class XMLWater extends XMLElement {
-    constructor(node) {
-        super(node, {
-            id: "ss", idtexture: "ss", idwavemap: "ss", parts: "ii",
-            heightscale: "ff", texscale: "ff"
-        });
-
-        this.type = "water";
-    }
-}
-
 /**
  * XML Parsing Class
  * Parses yas > primitives
@@ -88,11 +33,6 @@ class XMLPrimitives extends XMLGroup {
     constructor(node) {
         super(node, {
             primitive: XMLPrimitive,
-            plane: XMLPlane,
-            patch: XMLPatch,
-            vehicle: XMLVehicle,
-            terrain: XMLTerrain,
-            water: XMLWater
         });
 
         this.type = "primitives";
@@ -117,7 +57,6 @@ const XMLFiguresList = {
     block:               {adjust: false, const: XMLBlock},
     sphere:              {adjust: false, const: XMLFlipSphere},
     halfsphere:          {adjust: false, const: XMLHalfSphere},
-
     opencone:            {adjust: false, const: XMLOpenCone},
     doublecone:          {adjust: false, const: XMLDoubleCone},
     spheredcone:         {adjust: false, const: XMLSpheredCone},
@@ -156,6 +95,14 @@ const XMLFiguresList = {
     corkscrew:           {adjust: false, const: XMLCorkscrew},
     kleinbottle:         {adjust: false, const: XMLKleinBottle},
     kleinbottle2:        {adjust: false, const: XMLKleinBottle2},
+
+    // 5. Complex Primitives
+    plane:               {adjust:  true, const: XMLPlane},
+    patch:               {adjust:  true, const: XMLPatch},
+    vehicle:             {adjust:  true, const: XMLVehicle},
+    cylinder2:           {adjust: false, const: XMLCylinder2},
+    terrain:             {adjust:  true, const: XMLTerrain},
+    water:               {adjust:  true, const: XMLWater},
 };
 
 function isTexAdjusted(primitive) {
@@ -293,6 +240,13 @@ function buildPrimitive(scene, primitive) {
         return new uvSurface(scene, protoKleinBottle2(),
             intervalKleinBottle2, dt.slices, dt.stacks);
 
+    // 5. Complex Primitives
+    case 'plane':
+    case 'patch':
+    case 'vehicle':
+    case 'cylinder2':
+    case 'terrain':
+    case 'water':
     default:
         throw "INTERNAL: Invalid primitive type detected in buildPrimitive(): " + type;
     }
