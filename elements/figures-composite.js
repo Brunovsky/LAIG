@@ -4,6 +4,8 @@ class XMLPlane extends XMLElement {
             npartsU: "ii", npartsV: "ii"
         });
 
+        this.type = "plane";
+
         if (!(this.data.npartsU > 1) || !(this.data.npartsV > 1)) {
             throw new XMLException(node, "Plane division parts must be greater than 1");
         }

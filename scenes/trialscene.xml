@@ -9,7 +9,7 @@
     </views>
 
     <ambient>
-        <ambient    r="0.05" g="0.15" b="0.02" a="1.0"/>
+        <ambient    r="0.20" g="0.35" b="0.15" a="1.0"/>
         <background r="0.02" g="0.06" b="0.10" a="1.0"/>
     </ambient>
 
@@ -262,6 +262,9 @@
     </animations>
 
     <primitives>
+        <primitive id="plane">
+            <plane npartsU="5" npartsV="8"/>
+        </primitive>
         <primitive id="unit-square">
             <square side="2"/>
         </primitive>
@@ -381,6 +384,11 @@
         <component id="root">
             <transformation>
             </transformation>
+            <animations>
+                <animationref id="unit-square"/>
+                <animationref id="unit-circle"/>
+                <animationref id="unit-square"/>
+            </animations>
             <materials>
                 <material id="major-blue"/>
                 <material id="minor-green"/>
@@ -394,6 +402,20 @@
                 <componentref id="comp-spacial"/>
                 <componentref id="comp-planar"/>
                 <componentref id="comp-surface"/>
+                <componentref id="test"/>
+            </children>
+        </component>
+
+        <component id="test">
+            <transformation>
+                <translate x="0" y="0" z="-7.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="trunk" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="plane"/>
             </children>
         </component>
 
@@ -403,16 +425,17 @@
             </transformation>
             <materials>
                 <material id="inherit"/>
+                <material id="major-yellow"/>
+                <material id="inherit"/>
+                <material id="default"/>
             </materials>
             <texture id="trunk" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="unit-square"/>
                 <componentref id="unit-regular"/>
                 <componentref id="unit-circle"/>
-                
                 <componentref id="unit-triangle"/>
                 <componentref id="unit-rectangle"/>
-                
                 <componentref id="unit-trapezium"/>
             </children>
         </component>
@@ -501,6 +524,9 @@
             </transformation>
             <materials>
                 <material id="inherit"/>
+                <material id="marble-polished"/>
+                <material id="inherit"/>
+                <material id="polished-chrome"/>
             </materials>
             <texture id="tree" length_s="1.0" length_t="1.0"/>
             <children>

@@ -42,12 +42,12 @@ class CutCone extends CGFobject
                 let theta = -thetaInc * (i + 0.5);
                 let xUnit = cos(theta);
                 let zUnit = sin(theta);
-                let X = baseRadius * xUnit * (1 - s / stacks)
-                    + topRadius * xUnit * (s / stacks);
+                let sradius = baseRadius * (1 - s / stacks)
+                    + topRadius * (s / stacks);
+                let X = xUnit * sradius;
                 let Y = s * stackHeight;
-                let Z = baseRadius * zUnit * (1 - s / stacks)
-                    + topRadius * zUnit * (s / stacks);
-
+                let Z = zUnit * sradius;
+                
                 // Up (out)
                 this.vertices.push(X, Y, Z);
                 this.normals.push(xUnit * dXZ, dY, zUnit * dXZ);

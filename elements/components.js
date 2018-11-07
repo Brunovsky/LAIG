@@ -188,46 +188,13 @@ class XMLComponent extends XMLOrderedSet {
     constructor(node) {
         super(node, [
             {name: "transformation", xml: XMLComponentTransformation, opt: false},
-            {name: "materials", xml: XMLComponentMaterials, opt: false},
             {name: "animations", xml: XMLComponentAnimations, opt: true},
+            {name: "materials", xml: XMLComponentMaterials, opt: false},
             {name: "texture", xml: XMLComponentTexture, opt: false},
             {name: "children", xml: XMLChildren, opt: false},
         ], { id: "ss" });
 
         this.type = "component";
-
-/*
-        function parse(node, tag, constr, optional) {
-            const name = node.tagName.toLocaleLowerCase();
-
-            if (name == tag) {
-                return new constr(node);
-            } else {
-                if (optional) return null;
-                throw new XMLException(node, "Expected node " + tag, "got " + name);
-            }
-        }
-
-        const ch = node.children;
-        let i = 0;
-
-        this.transformation = parse(ch[i++], "transformation",
-            XMLComponentTransformation, false);
-
-        this.materials = parse(ch[i++], "materials",
-            XMLComponentMaterials, false);
-
-        this.animations = parse(ch[i], "animations",
-            XMLComponentAnimations, true);
-
-        if (this.animations != null) ++i;
-
-        this.texture = parse(ch[i++], "texture",
-            XMLComponentTexture, false);
-
-        this.children = parse(ch[i++], "children",
-            XMLChildren, false);
-*/
     }
 }
 

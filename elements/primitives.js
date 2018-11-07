@@ -242,9 +242,11 @@ function buildPrimitive(scene, primitive) {
 
     // 5. Complex Primitives
     case 'plane':
+        return new Plane(scene, dt.npartsU, dt.npartsV);
     case 'patch':
     case 'vehicle':
     case 'cylinder2':
+        return new ClosedCutCone(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
     case 'terrain':
     case 'water':
     default:
