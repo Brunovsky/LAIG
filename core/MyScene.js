@@ -337,6 +337,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
     }
 
+
     /**
      * Entry point for the depth first traversal of the scene graph
      */
@@ -401,8 +402,10 @@ class MyScene extends CGFscene {
     /**
      * Update data (only keys)
      */
-    update() {
+    update(currTime) {
         this.checkKeys();
+
+        
     }
 
     /**
