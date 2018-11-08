@@ -248,7 +248,7 @@ function buildPrimitive(scene, primitive) {
         return new Patch(scene, dt.npartsU, dt.npartsV, fig.points);
     case 'vehicle':
     case 'cylinder2':
-        return new ClosedCutCone(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
+        return new Cylinder2(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
     case 'terrain':
     case 'water':
     default:

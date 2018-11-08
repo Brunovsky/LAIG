@@ -63,8 +63,10 @@ class Cylinder2 extends CGFobject
         this.height = height;
         this.buildPoints();
 
-        this.surface = new CGFnurbsSurface(5, stacks, this.points);
-        this.nurbs = new CGFnurbsObject(slices, stacks, this.surface);
+        console.log(this.points);
+
+        this.surface = new CGFnurbsSurface(stacks, 5, this.points);
+        this.nurbs = new CGFnurbsObject(scene, slices, stacks, this.surface);
     }
 
     buildPoints()
@@ -78,21 +80,11 @@ class Cylinder2 extends CGFobject
 
         const cosines = [], sines = [];
 
-        for (let i = 0; i < 6; ++i) {
+        for (let i = 0; i <= 8; ++i) {
             const dist = 1 + (i % 2);
-            cosines.push(dist * cos(-i * (PI / 3)));
-            sines.push(dist * sin(-i * (PI / 3)));
+            cosines.push(dist * cos(i * (PI / 3)));
+            sines.push(dist * sin(i * (PI / 3)));
         }
-
-        //                   X  1
-        //                .. .
-        //         2   ..    .
-        //           X       .
-        //        ..         X  0
-        // 3   ..            .
-        //   X __            .
-        //        -- X __    .
-        //          4     -- X  5
 
         const points = [];
 
@@ -101,13 +93,14 @@ class Cylinder2 extends CGFobject
             const sradius = baseRadius * (1 - s / stacks)
                 + topRadius * s / stacks;
 
-            const stack = [];
-            for (let i = 0; i < 6; ++i) {
+            const row = [];
+            for (let i = 6; i > 0; --i) {
                 const w = 2 - (i % 2);
-                stack.push(sradius * cosines[i], Y, sradius * sines[i], w);
+                const cp = [sradius * cosines[i], Y, sradius * sines[i], w];
+                row.push(cp);
             }
 
-            points.push(stack);
+            points.push(row);
         }
 
         this.points = points;
