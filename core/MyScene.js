@@ -53,6 +53,7 @@ class MyScene extends CGFscene {
         this.initTextures();
         this.initMaterials();
         this.initPrimitives();
+        this.initAnimation();
         this.initInterface();
 
         console.log("Axis", this.axis);
@@ -61,6 +62,7 @@ class MyScene extends CGFscene {
         console.log("Textures", this.textures);
         console.log("Materials", this.materials);
         console.log("Primitives", this.primitives);
+        console.log("Animations", this.animations);
         console.groupEnd();
 
         this.graphLoaded = true;
@@ -179,12 +181,12 @@ class MyScene extends CGFscene {
             if (this.textures[id] != null) continue;
 
             console.warn("Texture file " + texture.data.file + " not found, searching in images/");
-            
+
             this.textures[id] = new CGFtexture(this, "images/" + texture.data.file);
             if (this.textures[id] != null) continue;
 
             console.warn("Texture file images/" + texture.data.file + " not found, searching in tex/");
-            
+
             this.textures[id] = new CGFtexture(this, "tex/" + texture.data.file);
             if (this.textures[id] != null) continue;
 
@@ -216,6 +218,7 @@ class MyScene extends CGFscene {
             this.materials[id].setTextureWrap("REPEAT", "REPEAT");
         }
 
+        console.log(this.materials);
         this.materialIndex = 0;
     }
 
@@ -229,6 +232,28 @@ class MyScene extends CGFscene {
 
             this.primitives[id] = buildPrimitive(this, prim);
         }
+    }
+
+
+    initAnimation() {
+        const animations = this.graph.yas.animations;
+
+        this.animations = {};
+
+        for (const id in animations.elements) {
+            const animation = animations.elements[id];
+            if (animation.type === "linear") {
+                this.animations[id] = new LinearAnimation(this, animation.elements, animation.data.span);
+
+            }
+            else {
+                this.animations[id] = new CircularAnimation(this, animation.data.center, animation.data.radius, animation.data.startang, animation.data.rotangle, animation.data.span);
+            }
+
+        }
+
+        console.log(this.animations);
+
     }
 
     initInterface() {
@@ -277,18 +302,18 @@ class MyScene extends CGFscene {
             const data = operation.data;
 
             switch (operation.type) {
-            case 'translate':
-                this.translate(data.x, data.y, data.z);
-                break;
-            case 'rotate':
-                const x = data.axis === 'x' ? 1 : 0;
-                const y = data.axis === 'y' ? 1 : 0;
-                const z = data.axis === 'z' ? 1 : 0;
-                this.rotate(degToRad(data.angle), x, y, z);
-                break;
-            case 'scale':
-                this.scale(data.x, data.y, data.z);
-                break;
+                case 'translate':
+                    this.translate(data.x, data.y, data.z);
+                    break;
+                case 'rotate':
+                    const x = data.axis === 'x' ? 1 : 0;
+                    const y = data.axis === 'y' ? 1 : 0;
+                    const z = data.axis === 'z' ? 1 : 0;
+                    this.rotate(degToRad(data.angle), x, y, z);
+                    break;
+                case 'scale':
+                    this.scale(data.x, data.y, data.z);
+                    break;
             }
         }
     }
@@ -303,7 +328,7 @@ class MyScene extends CGFscene {
     /**
      * Update lights for the display cycle
      */
-    updateLights()  {
+    updateLights() {
         for (let i = 0; i < this.lights.length; ++i) {
             this.lights[i].update();
         }
@@ -358,6 +383,10 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
 
+        //Animations 
+        this.animations.linear1.apply();
+
+
         // Transformation
         if (transformation.mode === "reference") {
             this.applyTransformation(transformation.ref);
@@ -405,7 +434,10 @@ class MyScene extends CGFscene {
     update(currTime) {
         this.checkKeys();
 
-        
+        if (this.graphLoaded) {
+            this.animations.linear1.update(currTime);
+        }
+
     }
 
     /**
@@ -418,15 +450,15 @@ class MyScene extends CGFscene {
 
             if (press && !this.keys[func]) {
                 switch (func) {
-                case "leftMaterial":
-                    --this.materialIndex;
-                    break;
-                case "rightMaterial":
-                    ++this.materialIndex;
-                    break;
-                // ...
-                default:
-                    throw "INTERNAL: Unhandled checkKeys case";
+                    case "leftMaterial":
+                        --this.materialIndex;
+                        break;
+                    case "rightMaterial":
+                        ++this.materialIndex;
+                        break;
+                    // ...
+                    default:
+                        throw "INTERNAL: Unhandled checkKeys case";
                 }
 
                 console.log("New material index:", this.materialIndex);

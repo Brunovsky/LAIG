@@ -45,6 +45,8 @@ serialInclude([
     'elements/lights.js', 'elements/materials.js', 'elements/primitives.js',
     'elements/scene.js', 'elements/textures.js', 'elements/transformations.js',
     'elements/view.js',
+    // animations
+    'Animation/Animation.js', 'Animation/CircularAnimation.js', 'Animation/LinearAnimation.js',  
     main = function() {
         console.groupEnd();
 
