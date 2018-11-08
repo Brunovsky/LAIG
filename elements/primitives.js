@@ -110,8 +110,9 @@ function isTexAdjusted(primitive) {
 }
 
 function buildPrimitive(scene, primitive) {
-    const type = primitive.figure.type;
-    const dt = primitive.figure.data;
+    const fig = primitive.figure;
+    const type = fig.type;
+    const dt = fig.data;
 
     const PI = Math.PI;
 
@@ -242,9 +243,12 @@ function buildPrimitive(scene, primitive) {
 
     // 5. Complex Primitives
     case 'plane':
+        return new Plane(scene, dt.npartsU, dt.npartsV);
     case 'patch':
+        return new Patch(scene, dt.npartsU, dt.npartsV, fig.points);
     case 'vehicle':
     case 'cylinder2':
+        return new ClosedCutCone(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
     case 'terrain':
     case 'water':
     default:

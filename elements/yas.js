@@ -25,34 +25,6 @@ class XMLYas extends XMLOrderedSet {
             throw new XMLException(node, "Root node does not have tagname 'yas'");
         }
 
-        /*
-        const tags = ["scene", "views", "ambient", "lights", "textures",
-            "materials", "transformations", "primitives", "components"];
-
-        if (node.childElementCount !== 9) {
-            throw new XMLException(node,
-                "Root node does not have the expected 9 children");
-        }
-
-        for (let i = 0; i < 9; ++i) {
-            const child = node.children[i];
-            const name = child.tagName.toLocaleLowerCase();
-            if (tags[i] !== name) {
-                throw new XMLException(child, "Root child, expected tagname " + tags[i]);
-            }
-        }
-
-        this.scene = new XMLScene(node.children[0]);
-        this.views = new XMLViews(node.children[1]);
-        this.ambient = new XMLAmbient(node.children[2]);
-        this.lights = new XMLLights(node.children[3]);
-        this.textures = new XMLTextures(node.children[4]);
-        this.materials = new XMLMaterials(node.children[5]);
-        this.transformations = new XMLTransformations(node.children[6]);
-        this.primitives = new XMLPrimitives(node.children[7]);
-        this.components = new XMLComponents(node.children[8]);
-        */
-
         this.log();
         this.resolve();
     }
@@ -65,6 +37,7 @@ class XMLYas extends XMLOrderedSet {
         console.log(this.textures);
         console.log(this.materials);
         console.log(this.transformations);
+        console.log(this.animations);
         console.log(this.primitives);
         console.log(this.components);
     }
@@ -79,7 +52,7 @@ class XMLYas extends XMLOrderedSet {
 
     /**
      * Resolve cross references between components, transformations,
-     * textures and materials.
+     * textures, materials and animations.
      */
     resolveReferences() {
         for (const componentId in this.components.elements) {
@@ -89,6 +62,8 @@ class XMLYas extends XMLOrderedSet {
             const materials = component.materials.elements;
             const texture = component.texture;
             const children = component.children.elements;
+            const animations = component.animations ?
+                component.animations.elements : [];
 
             // 1. Resolve transformationref references
             if (transformation.mode === "reference") {
@@ -160,6 +135,20 @@ class XMLYas extends XMLOrderedSet {
                     child.ref = component; 
                 }
             }
+
+            // 5. Resolve animations reference
+            for (const animation of animations) {
+                const id = animation.id;
+
+                const animationref = this.animations.get(id);
+
+                if (animationref == null) {
+                    throw new XMLException(animation.node,
+                        "Bad reference: animation " + id + " does not exist");
+                }
+
+                animation.ref = animationref;
+            }
         }
     }
 
@@ -170,10 +159,10 @@ class XMLYas extends XMLOrderedSet {
         const id = this.scene.data.root;
         this.root = this.components.get(id);
 
-        // Root component pointed by root in <scene< must exist
+        // Root component pointed by root in <scene> must exist
         if (this.root == null) {
             throw new XMLException(this.scene.node,
-                "Bad reference: root component " + rootId + " does not exist");
+                "Bad reference: root component " + id + " does not exist");
         }
 
         // Root component cannot inherit material

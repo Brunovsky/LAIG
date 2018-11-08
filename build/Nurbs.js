@@ -16,14 +16,14 @@ class Plane extends CGFobject
         this.divs = {u: uDivs, v: vDivs};
         this.points = points;
 
-        this.surface = new CGFnurbsSurface(1, 1, points);
-        this.nurbs = new CGFnurbsObject(scene, uDivs, vDivs, points);
+        this.surface = new CGFnurbsSurface(1, 1, this.points);
+        this.nurbs = new CGFnurbsObject(scene, uDivs, vDivs, this.surface);
     }
 
     display()
     {
         this.scene.pushMatrix(); // yes, superfluous
-            this.patch.display();
+            this.nurbs.display();
         this.scene.popMatrix();
     }
 }
@@ -53,12 +53,13 @@ class Patch extends CGFobject
 
 class Cylinder2 extends CGFobject
 {
-    constructor(scene, radius = 1, height = 1, slices = 64, stacks = 1)
+    constructor(scene, baseRadius = 1, topRadius = 0.5, height = 1, slices = 64, stacks = 1)
     {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
-        this.radius = radius;
+        this.baseRadius = baseRadius;
+        this.topRadius = topRadius;
         this.height = height;
         this.buildPoints();
 
@@ -69,28 +70,19 @@ class Cylinder2 extends CGFobject
     buildPoints()
     {
         const sin = Math.sin, cos = Math.cos, PI = Math.PI;
-        const slices = this.slices, stacks = this.stacks,
-            radius = this.radius, height = this.height;
+        const baseRadius = this.baseRadius, topRadius = this.topRadius,
+            height = this.height, slices = this.slices, stacks = this.stacks;
 
         const stackHeight = height / stacks;
+        const radius = baseRadius - topRadius;
 
         const cosines = [], sines = [];
+
         for (let i = 0; i < 6; ++i) {
-            cosines.push(radius * cos(-i * (PI / 3)));
-            sines.push(radius * sin(-i * (PI / 3)));
+            const dist = 1 + (i % 2);
+            cosines.push(dist * cos(-i * (PI / 3)));
+            sines.push(dist * sin(-i * (PI / 3)));
         }
-
-        const X = [
-            cosines[0], 2 * cosines[1],
-            cosines[2], 2 * cosines[3],
-            cosines[4], 2 * cosines[5]
-        ];
-
-        const Z = [
-            sines[0], 2 * sines[1],
-            sines[2], 2 * sines[3],
-            sines[4], 2 * sines[5]
-        ];
 
         //                   X  1
         //                .. .
@@ -106,10 +98,13 @@ class Cylinder2 extends CGFobject
 
         for (let s = 0; s <= stacks; ++s) { // stack
             const Y = s * stackHeight;
+            const sradius = baseRadius * (1 - s / stacks)
+                + topRadius * s / stacks;
 
             const stack = [];
             for (let i = 0; i < 6; ++i) {
-                stack.push(X[i], Y, Z[i]);
+                const w = 2 - (i % 2);
+                stack.push(sradius * cosines[i], Y, sradius * sines[i], w);
             }
 
             points.push(stack);

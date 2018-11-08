@@ -8,10 +8,19 @@ class XMLException extends Error {
         this.message = message;
 
         do {
-            const name = node.tagName.toLocaleLowerCase();
-            this.message = name + " > " + this.message;
+            this.message = this.makeName(node) + " > " + this.message;
             node = node.parentNode;
         } while (node.parentNode != null);
+    }
+
+    makeName(node) {
+        let name = node.tagName.toLocaleLowerCase();
+
+        if (node.hasAttribute('id')) {
+            name += "#" + node.getAttribute('id');
+        }
+
+        return name;
     }
 
     error() {
