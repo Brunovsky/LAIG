@@ -34,4 +34,4 @@ const XML_ANIMATIONS_NONEMPTY = false;
 
 
 
-const DEFAULT_YAS_FILE = "trialscene.xml";
+const DEFAULT_YAS_FILE = "animations.xml";
