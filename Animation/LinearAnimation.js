@@ -4,7 +4,8 @@ class LinearAnimation extends Animation {
         this.cp = cp;
         this.elapsed_time = 0;
         this.span = span;
-        vectors();
+        this.pos = 0;
+        this.distance();
     }
 
     /** rotateAngle(vector1, vecto2r = [0,0,1]){
@@ -13,13 +14,23 @@ class LinearAnimation extends Animation {
         return Math.acos((x*vector[0] + z*vector[2])/(vecnorm*norm));
     }*/
 
-    vectors() {
-        this.vec = [];
+    distance() {
+        this.dist = [];
+        this.progress = [0];
         for (let i = 0; cp.length > i; i++) {
-            this.vec = new Array(3);
+            this.vec[i] = new Array(3);
             this.vec[i][0] = cp[i + 1][0] - cp[i][0];
             this.vec[i][1] = cp[i + 1][1] - cp[i][1];
             this.vec[i][2] = cp[i + 1][2] - cp[i][2];
+            this.dis[i] = Math.sqrt(this.vec[i][0]*this.vec[i][0] + this.vec[i][1]*this.vec[i][1] + this.vec[i][2]*this.vec[i][2])
+            this.total_dist += this.dis[i];
+        }
+        
+        let k = 0;
+        
+        for(let value of this.dis){
+            k += value;
+            this.progress.push(k/this.total_dist);
         }
     }
 
@@ -27,18 +38,18 @@ class LinearAnimation extends Animation {
 
         this.elapsed_time += currTime - this.previousTime;
         let percentage = (this.elapsed_time / 1000) / this.span;
-        let mid_point = cp.length * percentage;
-        let point = Math.floor(mid_point);
-        let k = mid_point - point;
-        let translate = {x: cp[point][0]+ k*this.vec[point][0], 
-            y: cp[point][1]+ k*this.vec[point][1],
-            z: cp[point][2]+ k*this.vec[point][2]
+        let pos_in_vec = (this.progress[this.pos+1] - percentage) / (this.progress[this.pos +1] - this.progress[this.pos]);
+
+        let translate = {x: cp[pos][0]+ pos_in_vec*this.vec[pos][0], 
+            y: cp[pos][1]+ pos_in_vec*this.vec[pos][1],
+            z: cp[ois][2]+ pos_in_vec*this.vec[pos][2]
         }
+
     }
 
     apply() {
 
-        this.scene.translate(this.translate.x,this.translate.y, this.translate.z);
+        //this.scene.translate(this.translate.x,this.translate.y, this.translate.z);
 
     }
 
