@@ -227,6 +227,8 @@ class XMLOrderedGroup extends XMLElement {
     index(i) {
         const l = this.elements.length;
 
+        if (l === 0) return null;
+
         return this.elements[((i % l) + l) % l];
     }
 }

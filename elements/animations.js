@@ -1,23 +1,5 @@
 /**
  * XML Parsing Class
- * Parses * > controlpoint
- */
-class XMLControlPoint extends XMLElement {
-    constructor(node) {
-        super(node, {
-            xx: "ff", yy: "ff", zz: "ff"
-        });
-
-        this.xx = this.data.xx;
-        this.yy = this.data.yy;
-        this.zz = this.data.zz;
-
-        this.type = "controlpoint";
-    }
-}
-
-/**
- * XML Parsing Class
  * Parses yas > animations > linear
  */
 class XMLLinear extends XMLOrderedGroup {

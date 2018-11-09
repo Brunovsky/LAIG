@@ -5,9 +5,8 @@ class Animation{
         this.end = false;
     }
 
-
     update(){
-
+    
     }
 
     apply(){

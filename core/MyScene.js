@@ -52,8 +52,8 @@ class MyScene extends CGFscene {
         this.initLights();
         this.initTextures();
         this.initMaterials();
+        this.initAnimations();
         this.initPrimitives();
-        this.initAnimation();
         this.initInterface();
 
         console.log("Axis", this.axis);
@@ -61,8 +61,8 @@ class MyScene extends CGFscene {
         console.log("Lights", this.lights);
         console.log("Textures", this.textures);
         console.log("Materials", this.materials);
-        console.log("Primitives", this.primitives);
         console.log("Animations", this.animations);
+        console.log("Primitives", this.primitives);
         console.groupEnd();
 
         this.graphLoaded = true;
@@ -218,7 +218,6 @@ class MyScene extends CGFscene {
             this.materials[id].setTextureWrap("REPEAT", "REPEAT");
         }
 
-        console.log(this.materials);
         this.materialIndex = 0;
     }
 
@@ -234,26 +233,32 @@ class MyScene extends CGFscene {
         }
     }
 
-
-    initAnimation() {
+    initAnimations() {
         const animations = this.graph.yas.animations;
 
         this.animations = {};
 
         for (const id in animations.elements) {
-            const animation = animations.elements[id];
-            if (animation.type === "linear") {
-                this.animations[id] = new LinearAnimation(this, animation.elements, animation.data.span);
+            const anim = animations.elements[id];
 
+            const span = anim.data.span;
+
+            if (anim.type === "linear") {
+                const points = anim.elements;
+
+                this.animations[id] = new LinearAnimation(this, points, span);
             }
             else {
-                this.animations[id] = new CircularAnimation(this, animation.data.center, animation.data.radius, animation.data.startang, animation.data.rotangle, animation.data.span);
+                const center = anim.data.center;
+                const radius = anim.data.radius;
+                const startangle = anim.data.startang;
+                const rotangle = anim.data.rotang;
+                const span = anim.data.span;
+
+                this.animations[id] = new CircularAnimation(this, center,
+                    radius, startangle, rotangle, span);
             }
-
         }
-
-        console.log(this.animations);
-
     }
 
     initInterface() {
@@ -376,6 +381,7 @@ class MyScene extends CGFscene {
         const texture = current.texture;
         const children = current.children;
 
+        // Use own (s,t), or inherit from parent?
         if (!INHERIT_S_T || texture.mode != "inherit") {
             s = texture.s;
             t = texture.t;
@@ -383,9 +389,9 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
 
-        //Animations 
-        this.animations.linear1.apply();
-
+        // Animations
+        // Não faças push com isto descomentado, senão quebras um ficheiro bom
+        //this.animations.linear1.apply();
 
         // Transformation
         if (transformation.mode === "reference") {
