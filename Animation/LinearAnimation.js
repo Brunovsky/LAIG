@@ -8,12 +8,12 @@ class LinearAnimation extends Animation {
         this.previousTime = 0;
         this.span = span;
         this.pos = 0;
+        this.vector_acumulator
         this.translate = {
             x: 0,
             y: 0,
             z: 0
         }
-        console.log(this.translate);
         this.distance();
         this.rotation = this.rotateAngle(this.vec[this.pos]);
     }
