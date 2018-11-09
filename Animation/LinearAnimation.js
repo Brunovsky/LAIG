@@ -3,6 +3,7 @@ class LinearAnimation extends Animation {
         super(scene);
         this.cp = cp;
         this.total_dist = 0;
+        this.comp = 0;
         this.elapsed_time = 0;
         this.previousTime = 0;
         this.span = span;
@@ -14,15 +15,17 @@ class LinearAnimation extends Animation {
         }
         console.log(this.translate);
         this.distance();
-        // this.rotation = this.rotateAngle(this.vec[this.pos]);
+        this.rotation = this.rotateAngle(this.vec[this.pos]);
     }
 
-    /*rotateAngle(vector1, vector2 = [0, 0, 1]) {
+    rotateAngle(vector1, vector2 = [0, 0, 1]) {
         let vecnorm1 = Math.sqrt(vector1[0] * vector1[0] + vector1[2] * vector1[2]);
         let vecnorm2 = Math.sqrt(vector2[0] * vector2[0] + vector2[2] * vector2[2]);
         let product = vector1[0] * vector2[0] + vector1[1] * vector2[1];
-        return Math.acos(product/(vecnorm1*vecnorm2));
-    }*/
+        if ((vecnorm1 * vecnorm2) === 0)
+            return 0;
+        return Math.acos(product / (vecnorm1 * vecnorm2));
+    }
 
     distance() {
         this.dist = [];
@@ -60,14 +63,14 @@ class LinearAnimation extends Animation {
             this.translate.y = this.cp[this.pos].yy + (1 - pos_in_vec) * this.vec[this.pos][1];
             this.translate.z = this.cp[this.pos].zz + (1 - pos_in_vec) * this.vec[this.pos][2];
 
-            if (this.progress[this.pos + 1] <= percentage)
+            if (this.progress[this.pos + 1] <= percentage) {
                 this.pos++;
-
-            /*if (this.pos > 0) {
-                this.rotation = this.rotateAngle(this.vec[this.pos - 1], this.vec[this.pos])
-            }*/
+                console.log("pqp = " + 180 / Math.PI * this.rotateAngle(this.vec[this.pos - 1], this.vec[this.pos]));
+                this.rotation += this.rotateAngle(this.vec[this.pos - 1], this.vec[this.pos]);
+            }
 
         }
+
 
         this.started = true;
         this.previousTime = currTime;
@@ -77,9 +80,13 @@ class LinearAnimation extends Animation {
     }
 
     apply() {
-
+        console.log("pos = " + this.pos);
+        console.log(this.rotation * 180 / Math.PI);
+        this.scene.pushMatrix();
+        this.scene.rotate(this.rotation, 0, 1, 0);
+        this.scene.popMatrix();
+        console.log(this.translate);
         this.scene.translate(this.translate.x, this.translate.y, this.translate.z);
-        //this.scene.rotate(this.rotation, 0, 1, 0);
 
     }
 
