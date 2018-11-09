@@ -435,7 +435,11 @@ class MyScene extends CGFscene {
         this.checkKeys();
 
         if (this.graphLoaded) {
-            this.animations.linear1.update(currTime);
+            for (const k in this.animations) {
+                if (!this.animations[k].hasEnded()) {
+                    this.animations[k].update(currTime);
+                }
+            }
         }
 
     }

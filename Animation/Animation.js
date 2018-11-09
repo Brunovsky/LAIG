@@ -1,7 +1,8 @@
 class Animation{
     constructor(scene){
         this.scene = scene;
-    
+        this.started = false;
+        this.end = false;
     }
 
 
@@ -13,4 +14,7 @@ class Animation{
         
     }
 
+    hasEnded(){
+        return this.end;
+    }
 }
