@@ -217,8 +217,6 @@ class MyScene extends CGFscene {
             this.materials[id].setSpecular(specular.r, specular.g, specular.b, specular.a);
             this.materials[id].setTextureWrap("REPEAT", "REPEAT");
         }
-
-        console.log(this.materials);
         this.materialIndex = 0;
     }
 
@@ -252,8 +250,7 @@ class MyScene extends CGFscene {
 
         }
 
-        console.log(this.animations);
-
+        this.animationsIndex = 0;
     }
 
     initInterface() {
@@ -375,7 +372,7 @@ class MyScene extends CGFscene {
         const material = current.materials.index(this.materialIndex);
         const texture = current.texture;
         const children = current.children;
-
+        const animation = current.animations.index(this.animationsIndex);
         if (!INHERIT_S_T || texture.mode != "inherit") {
             s = texture.s;
             t = texture.t;
@@ -383,8 +380,9 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
 
-        //Animations 
-        this.animations.linear1.apply();
+        //Animations
+        this.animations[this.animationsIndex].apply();
+
 
 
         // Transformation
@@ -438,6 +436,7 @@ class MyScene extends CGFscene {
             for (const k in this.animations) {
                 if (!this.animations[k].hasEnded()) {
                     this.animations[k].update(currTime);
+                    this.animationsIndex = k;
                 }
             }
         }

@@ -65,11 +65,11 @@ class LinearAnimation extends Animation {
 
             if (this.progress[this.pos + 1] <= percentage) {
                 this.pos++;
-                console.log("pqp = " + 180 / Math.PI * this.rotateAngle(this.vec[this.pos - 1], this.vec[this.pos]));
                 this.rotation += this.rotateAngle(this.vec[this.pos - 1], this.vec[this.pos]);
             }
 
         }
+        
 
 
         this.started = true;
@@ -80,13 +80,11 @@ class LinearAnimation extends Animation {
     }
 
     apply() {
-        console.log("pos = " + this.pos);
-        console.log(this.rotation * 180 / Math.PI);
-        this.scene.pushMatrix();
-        this.scene.rotate(this.rotation, 0, 1, 0);
-        this.scene.popMatrix();
-        console.log(this.translate);
+        console.log(this.rotation *180 /(Math.PI));
+
         this.scene.translate(this.translate.x, this.translate.y, this.translate.z);
+
+        this.scene.rotate(this.rotation, 0, 1, 0);
 
     }
 

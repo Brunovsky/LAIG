@@ -195,6 +195,7 @@
             </transformation>
             <animations>
                 <animationref id="linear1"/>
+                <animationref id = "circular1"/>
             </animations>
             <materials>
                 <material id="default"/>
