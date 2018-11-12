@@ -246,3 +246,15 @@ function triangleBisector(A, B, C, axis) {
         return vectorBisector(v1, v2);
     }
 }
+
+function angleVector(A, B) {
+    let vA = makeVector(A), vB = makeVector(B);
+    let cos = cosVectors(vA, vB);
+    let sin = sinVectors(vA, vB);
+    let acos = Math.asin(cos);
+    if (sin >= 0) {
+        return acos;
+    } else {
+        return 2 * Math.PI - acos;
+    }
+}

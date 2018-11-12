@@ -15,25 +15,26 @@ class LinearAnimation extends Animation {
             z: 0
         }
         this.distance();
-        this.rotation = this.rotateAngle(this.vec[this.pos], [0,0,1]);
+        this.rotation = this.rotateAngle(this.vec[this.pos]);
     }
 
-    rotateAngle(vector1, vector2) {
-       
-        let vecnorm1 = Math.sqrt(vector1[0] * vector1[0] + vector1[2] * vector1[2]);
+    rotateAngle(vector2) {
         let vecnorm2 = Math.sqrt(vector2[0] * vector2[0] + vector2[2] * vector2[2]);
-        let product = vector1[0] * vector2[0] + vector1[2] * vector2[2];
- 
-        if ((vecnorm1 * vecnorm2) === 0)
+        
+        if (vecnorm2 === 0)
             return 0;
-        return Math.acos(product / (vecnorm1 * vecnorm2));
+
+        let angle = Math.acos(vector2[2] / vecnorm2);
+        if (vector2[0] < 0)
+            angle = -1 * angle;
+
+        return angle;
     }
 
     distance() {
         this.dist = [];
         this.vec = [];
         this.progress = [0];
-        this.translate
         for (let i = 0; i + 1 < this.cp.length; i++) {
             this.vec.push(new Array(3));
 
@@ -66,12 +67,12 @@ class LinearAnimation extends Animation {
 
             if (this.progress[this.pos + 1] <= this.percentage) {
                 this.pos++;
-              //  console.log(this.vec[this.pos - 1], this.vec[this.pos]);
-                this.rotation = this.rotateAngle(this.vec[this.pos - 1], this.vec[this.pos]);
+                this.rotation = this.rotateAngle(this.vec[this.pos]);
+
             }
 
         }
-        
+
 
 
         this.started = true;
@@ -82,7 +83,7 @@ class LinearAnimation extends Animation {
     }
 
     apply() {
-       // console.log(this.rotation* 180/Math.PI);
+        console.log(this.rotation * 180 / Math.PI);
         this.scene.translate(this.translate.x, this.translate.y, this.translate.z);
 
         this.scene.rotate(this.rotation, 0, 1, 0);

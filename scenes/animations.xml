@@ -1,5 +1,4 @@
 <yas>
-    
     <scene axis_length="50.0" root="cube"/>
 
     <views default="general-view">
@@ -97,8 +96,10 @@
     <animations>
         <linear id="linear1" span="3">
             <controlpoint xx="0" yy="0" zz="0"/>
-            <controlpoint xx="10" yy="0" zz="10"/>
-            <controlpoint xx="0" yy="0" zz="10"/>
+            <controlpoint xx="-10" yy="0" zz="10"/>
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="0" zz="0"/>
+          
         </linear>
 
         <circular id="circular1" span="3" center="0 0 0" radius="3" startang="20" rotang="45"/>
@@ -106,7 +107,7 @@
 
     <primitives>
         <primitive id="cube">
-            <heart samples="2024"/>
+            <cylinder base="0.5" top="0" height="2" slices="60" stacks="60"/>
         </primitive>
     </primitives>
 

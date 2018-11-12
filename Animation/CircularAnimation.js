@@ -16,9 +16,10 @@ class CircularAnimation extends Animation {
            
             this.rotation += this.percentage * this.rotangle;
 
-
+            
 
         }
+
         this.started = true;
         this.previousTime = currTime;
 
@@ -27,6 +28,7 @@ class CircularAnimation extends Animation {
     }
 
     apply() {
+
         this.scene.rotate(this.rotation, 0, -1, 0);
     }
 }
