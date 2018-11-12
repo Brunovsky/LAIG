@@ -29,7 +29,7 @@ const INHERIT_S_T = true;
 // Make <animations> child of <yas> optional
 const XML_ANIMATIONS_OPT = true;
 
-// Allow empty <animations> in <yas>
+// Disallow empty <animations> in <yas>
 const XML_ANIMATIONS_NONEMPTY = false;
 
 

@@ -52,8 +52,8 @@ class MyScene extends CGFscene {
         this.initLights();
         this.initTextures();
         this.initMaterials();
+        this.initAnimations();
         this.initPrimitives();
-        this.initAnimation();
         this.initInterface();
 
         console.log("Axis", this.axis);
@@ -61,8 +61,8 @@ class MyScene extends CGFscene {
         console.log("Lights", this.lights);
         console.log("Textures", this.textures);
         console.log("Materials", this.materials);
-        console.log("Primitives", this.primitives);
         console.log("Animations", this.animations);
+        console.log("Primitives", this.primitives);
         console.groupEnd();
 
         this.graphLoaded = true;
@@ -232,22 +232,31 @@ class MyScene extends CGFscene {
         }
     }
 
-
-    initAnimation() {
+    initAnimations() {
         const animations = this.graph.yas.animations;
 
         this.animations = {};
 
         for (const id in animations.elements) {
-            const animation = animations.elements[id];
-            if (animation.type === "linear") {
-                this.animations[id] = new LinearAnimation(this, animation.elements, animation.data.span);
+            const anim = animations.elements[id];
 
+            const span = anim.data.span;
+
+            if (anim.type === "linear") {
+                const points = anim.elements;
+
+                this.animations[id] = new LinearAnimation(this, points, span);
             }
             else {
-                this.animations[id] = new CircularAnimation(this, animation.data.center, animation.data.radius, animation.data.startang, animation.data.rotangle, animation.data.span);
-            }
+                const center = anim.data.center;
+                const radius = anim.data.radius;
+                const startangle = anim.data.startang;
+                const rotangle = anim.data.rotang;
+                const span = anim.data.span;
 
+                this.animations[id] = new CircularAnimation(this, center,
+                    radius, startangle, rotangle, span);
+            }
         }
 
         this.animationsIndex = 0;
@@ -372,18 +381,22 @@ class MyScene extends CGFscene {
         const material = current.materials.index(this.materialIndex);
         const texture = current.texture;
         const children = current.children;
-        const animation = current.animations.index(this.animationsIndex);
+       
+        // Use own (s,t), or inherit from parent?
         if (!INHERIT_S_T || texture.mode != "inherit") {
             s = texture.s;
             t = texture.t;
         }
 
         this.pushMatrix();
-
+   
         //Animations
-        this.animations[this.animationsIndex].apply();
+        //this.animations[this.alter].apply();
 
 
+        // Animations
+        // Não faças push com isto descomentado, senão quebras um ficheiro bom
+        this.animations.linear1.apply();
 
         // Transformation
         if (transformation.mode === "reference") {
@@ -433,12 +446,16 @@ class MyScene extends CGFscene {
         this.checkKeys();
 
         if (this.graphLoaded) {
-            for (const k in this.animations) {
+           /* for (const k in this.animations) {
+                console.log(k);
                 if (!this.animations[k].hasEnded()) {
-                    this.animations[k].update(currTime);
-                    this.animationsIndex = k;
+                console.log(k);
+                    this.alter = k; 
+                
                 }
-            }
+            }*/
+            this.animations.linear1.update(currTime);
+           // this.animations[this.alter].update(currTime);
         }
 
     }

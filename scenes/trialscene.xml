@@ -22,28 +22,28 @@
         </omni>
         <spot id="light+y-20" enabled="1" angle="20" exponent="10">
             <location x="-20" y="15" z="0" w="1"/>
-            <target x="-20" y="0" z="0" w="1"/>
+            <target   x="-20" y="0" z="0" w="1"/>
             <ambient  r="0.65" g="0.75" b="0.95" a="1.0"/>
             <diffuse  r="0.70" g="0.45" b="1.00" a="1.0"/>
             <specular r="0.70" g="0.55" b="1.00" a="1.0"/>
         </spot>
         <spot id="light+y-0" enabled="1" angle="20" exponent="10">
             <location x="0" y="15" z="0" w="1"/>
-            <target x="0" y="0" z="0" w="1"/>
+            <target   x="0" y="0" z="0" w="1"/>
             <ambient  r="0.80" g="0.40" b="0.95" a="1.0"/>
             <diffuse  r="0.90" g="0.50" b="1.00" a="1.0"/>
             <specular r="0.90" g="0.50" b="1.00" a="1.0"/>
         </spot>
         <spot id="light+y+20" enabled="1" angle="20" exponent="10">
             <location x="20" y="15" z="0" w="1"/>
-            <target x="20" y="0" z="0" w="1"/>
+            <target   x="20" y="0" z="0" w="1"/>
             <ambient  r="0.95" g="0.20" b="0.55" a="1.0"/>
             <diffuse  r="0.95" g="0.30" b="0.50" a="1.0"/>
             <specular r="0.95" g="0.30" b="0.50" a="1.0"/>
         </spot>
         <spot id="light+y+50" enabled="1" angle="20" exponent="15">
             <location x="50" y="15" z="0" w="1"/>
-            <target x="50" y="0" z="0" w="1"/>
+            <target   x="50" y="0" z="0" w="1"/>
             <ambient  r="0.75" g="0.65" b="0.25" a="1.0"/>
             <diffuse  r="0.75" g="0.75" b="0.20" a="1.0"/>
             <specular r="0.75" g="0.75" b="0.20" a="1.0"/>
@@ -266,14 +266,40 @@
             <plane npartsU="5" npartsV="8"/>
         </primitive>
         <primitive id="patch">
-            <patch npointsU="2" npointsV="3" npartsU="64" npartsV="64">
-                <controlpoint xx="-2" yy="1.2"  zz="-2.7"/>
-                <controlpoint xx="0"  yy="0.2"  zz="-2.4"/>
-                <controlpoint xx="2"  yy="2.2"  zz="-2.2"/>
-                <controlpoint xx="-2" yy="0.3"  zz="2.1"/>
-                <controlpoint xx="0"  yy="4.3"  zz="2.3"/>
-                <controlpoint xx="2"  yy="0.7"  zz="2.7"/>
+            <patch npointsU="3" npointsV="9" npartsU="64" npartsV="64">
+                <controlpoint xx="0"  yy="0"  zz="2" /> <!-- P0 -->
+                <controlpoint xx="-2" yy="0"  zz="2" /> <!-- P1 -->
+                <controlpoint xx="-2" yy="0"  zz="0" /> <!-- P2 -->
+                <controlpoint xx="-2" yy="0"  zz="-2"/> <!-- P3 -->
+                <controlpoint xx="0"  yy="0"  zz="-2"/> <!-- P4 -->
+                <controlpoint xx="2"  yy="0"  zz="-2"/> <!-- P5 -->
+                <controlpoint xx="2"  yy="0"  zz="0" /> <!-- P6 -->
+                <controlpoint xx="2"  yy="0"  zz="2" /> <!-- P7 -->
+                <controlpoint xx="0"  yy="0"  zz="2" /> <!-- P8 -->
+
+                <controlpoint xx="0"  yy="2"  zz="2" /> <!-- P0 -->
+                <controlpoint xx="-2" yy="2"  zz="2" /> <!-- P1 -->
+                <controlpoint xx="-2" yy="2"  zz="0" /> <!-- P2 -->
+                <controlpoint xx="-2" yy="2"  zz="-2"/> <!-- P3 -->
+                <controlpoint xx="0"  yy="2"  zz="-2"/> <!-- P4 -->
+                <controlpoint xx="2"  yy="2"  zz="-2"/> <!-- P5 -->
+                <controlpoint xx="2"  yy="2"  zz="0" /> <!-- P6 -->
+                <controlpoint xx="2"  yy="2"  zz="2" /> <!-- P7 -->
+                <controlpoint xx="0"  yy="2"  zz="2" /> <!-- P8 -->
+
+                <controlpoint xx="0"  yy="4"  zz="2" /> <!-- P0 -->
+                <controlpoint xx="-2" yy="4"  zz="2" /> <!-- P1 -->
+                <controlpoint xx="-2" yy="4"  zz="0" /> <!-- P2 -->
+                <controlpoint xx="-2" yy="4"  zz="-2"/> <!-- P3 -->
+                <controlpoint xx="0"  yy="4"  zz="-2"/> <!-- P4 -->
+                <controlpoint xx="2"  yy="4"  zz="-2"/> <!-- P5 -->
+                <controlpoint xx="2"  yy="4"  zz="0" /> <!-- P6 -->
+                <controlpoint xx="2"  yy="4"  zz="2" /> <!-- P7 -->
+                <controlpoint xx="0"  yy="4"  zz="2" /> <!-- P8 -->
             </patch>
+        </primitive>
+        <primitive id="patch-same-cylinder">
+            <opencylinder base="2" top="2" height="4" stacks="1" slices="64"/>
         </primitive>
         <primitive id="unit-cylinder2">
             <cylinder2 base="2" top="1" height="1" stacks="3" slices="64"/>
@@ -338,7 +364,7 @@
         </primitive>
 
         <primitive id="unit-torus">
-            <torus inner="1" outer="2" slices="32" loops="1"/>
+            <torus inner="1" outer="2" slices="32" loops="64"/>
         </primitive>
         <primitive id="unit-eight">
             <eight slices="32" stacks="32"/>
@@ -437,8 +463,7 @@
                 <componentref id="unit-rectangle"/>
                 <componentref id="unit-trapezium"/>
                 <componentref id="plane"/>
-                <componentref id="patch"/>
-                <componentref id="unit-cylinder2"/>
+                <componentref id="test-patch"/>
             </children>
         </component>
 
@@ -532,10 +557,23 @@
                 <primitiveref id="plane"/>
             </children>
         </component>
-        
-        <component id="patch">
+
+        <component id="test-patch">
             <transformation>
                 <transformationref id="show-7"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="patch"/>
+                <componentref id="patch-same-cylinder"/>
+            </children>
+        </component>
+
+        <component id="patch">
+            <transformation>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -545,17 +583,17 @@
                 <primitiveref id="patch"/>
             </children>
         </component>
-        
-        <component id="unit-cylinder2">
+
+        <component id="patch-same-cylinder">
             <transformation>
-                <transformationref id="show-8"/>
+                <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
             </materials>
             <texture id="inherit"/>
             <children>
-                <primitiveref id="unit-cylinder2"/>
+                <primitiveref id="patch-same-cylinder"/>
             </children>
         </component>
 

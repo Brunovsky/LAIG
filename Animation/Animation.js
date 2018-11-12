@@ -5,8 +5,9 @@ class Animation{
         this.end = false;
     }
 
-
-    update(){
+    update(currTime){
+        this.elapsed_time += currTime - this.previousTime;
+        this.percentage = (this.elapsed_time / 1000) / this.span;
 
     }
 

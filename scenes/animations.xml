@@ -95,101 +95,24 @@
     </transformations>
 
     <animations>
-        <linear id="linear1" span="5">
+        <linear id="linear1" span="3">
             <controlpoint xx="0" yy="0" zz="0"/>
-            <controlpoint xx="3" yy="0" zz="0"/>
-              <controlpoint xx="3" yy="4" zz="0"/>
+            <controlpoint xx="10" yy="0" zz="10"/>
+            <controlpoint xx="0" yy="0" zz="10"/>
         </linear>
 
         <circular id="circular1" span="3" center="0 0 0" radius="3" startang="20" rotang="45"/>
     </animations>
 
     <primitives>
-        <primitive id="rect">
-            <rectangle x1="-0.5" x2="0.5" y1="-0.5" y2="0.5"/>
+        <primitive id="cube">
+            <heart samples="2024"/>
         </primitive>
     </primitives>
 
      <components>
         <!-- CUBE -->
-        <component id="cube-x">
-            <transformation>
-                <transformationref id="rect-x"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="rect"/>
-            </children>
-        </component>
-
-        <component id="cube+x">
-            <transformation>
-                <transformationref id="rect+x"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="rect"/>
-            </children>
-        </component>
-
-        <component id="cube-y">
-            <transformation>
-                <transformationref id="rect-y"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="rect"/>
-            </children>
-        </component>
-
-        <component id="cube+y">
-            <transformation>
-                <transformationref id="rect+y"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="rect"/>
-            </children>
-        </component>
-
-        <component id="cube-z">
-            <transformation>
-                <transformationref id="rect-z"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="rect"/>
-            </children>
-        </component>
-
-        <component id="cube+z">
-            <transformation>
-                <transformationref id="rect+z"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="rubik-top" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="rect"/>
-            </children>
-        </component>
-
+       
         <component id="cube">
             <transformation>
             </transformation>
@@ -203,12 +126,7 @@
             <texture id="granito" length_s="1.0" length_t="1.0"/>
            
             <children>
-                <componentref id="cube-x"/>
-                <componentref id="cube+x"/>
-                <componentref id="cube-y"/>
-                <componentref id="cube+y"/>
-                <componentref id="cube-z"/>
-                <componentref id="cube+z"/>
+                <primitiveref id="cube"/>
             </children>
         </component> 
     </components>

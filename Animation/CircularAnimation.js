@@ -12,10 +12,9 @@ class CircularAnimation extends Animation {
     update(currTime) {
         
         if (this.started && (this.elapsed_time / 1000 < this.span)) {
-            this.elapsed_time += currTime - this.previousTime;
-            let percentage = (this.elapsed_time / 1000) / this.span;
+          super.update(currTime);
            
-            this.rotation += percentage * this.rotangle;
+            this.rotation += this.percentage * this.rotangle;
 
 
 
