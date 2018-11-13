@@ -4,8 +4,6 @@ class LinearAnimation extends Animation {
         this.cp = cp;
         this.total_dist = 0;
         this.comp = 0;
-        this.elapsed_time = 0;
-        this.previousTime = 0;
         this.span = span;
         this.pos = 0;
         this.vector_acumulator
