@@ -1,5 +1,5 @@
 <yas>
-    <scene axis_length="50.0" root="root"/>
+    <scene axis_length="50.0" root="cube"/>
 
     <views default="general-view">
         <perspective id="general-view" angle="50" near="0.5" far="500">
@@ -151,7 +151,7 @@
             </transformation>
             <animations>
                 <animationref id = "linear1"/>
-                <animationref id = "circular1"/>
+                <!--<animationref id = "circular1"/>-->
               
             </animations>
             <materials>

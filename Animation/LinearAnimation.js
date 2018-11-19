@@ -18,10 +18,8 @@ class LinearAnimation extends Animation {
 
     rotateAngle(vector2) {
         let vecnorm2 = Math.sqrt(vector2[0] * vector2[0] + vector2[2] * vector2[2]);
-        
         if (vecnorm2 === 0)
             return 0;
-
         let angle = Math.acos(vector2[2] / vecnorm2);
         if (vector2[0] < 0)
             angle = -1 * angle;
@@ -63,13 +61,16 @@ class LinearAnimation extends Animation {
             this.translate.y = this.cp[this.pos].yy + (1 - pos_in_vec) * this.vec[this.pos][1];
             this.translate.z = this.cp[this.pos].zz + (1 - pos_in_vec) * this.vec[this.pos][2];
 
-            if (this.progress[this.pos + 1] <= this.percentage) {
+
+            if (this.progress[this.pos + 1] <= this.percentage && this.pos < this.progress.length - 2) {
                 this.pos++;
-                this.rotation = this.rotateAngle(this.vec[this.pos]);
+                if (!(this.vec[this.pos][0] === 0 && this.vec[this.pos][2] === 0))
+                    this.rotation = this.rotateAngle(this.vec[this.pos]);
 
             }
-
         }
+
+
 
 
 
