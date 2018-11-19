@@ -46,6 +46,7 @@ class MyScene extends CGFscene {
      */
     onGraphLoaded() {
         console.groupCollapsed("MyScene Load (onGraphLoaded)");
+
         this.initAxis();
         this.initViews();
         this.initAmbient();
@@ -64,9 +65,7 @@ class MyScene extends CGFscene {
         console.log("Animations", this.animations);
         console.log("Primitives", this.primitives);
         console.groupEnd();
-
         this.graphLoaded = true;
-
         console.groupCollapsed("More");
     }
 
@@ -234,32 +233,52 @@ class MyScene extends CGFscene {
 
     initAnimations() {
         const animations = this.graph.yas.animations;
-
+        const components = this.graph.yas.components.elements;
+        let array = [];
         this.animations = {};
+
+        const text = {};
 
         for (const id in animations.elements) {
             const anim = animations.elements[id];
-
             const span = anim.data.span;
 
             if (anim.type === "linear") {
-                const points = anim.elements;
-
-                this.animations[id] = new LinearAnimation(this, points, span);
+                text[anim.id] = { type: "linear", points: anim.elements, span: span };
             }
+
             else {
                 const center = anim.data.center;
                 const radius = anim.data.radius;
                 const startangle = anim.data.startang;
                 const rotangle = anim.data.rotang;
                 const span = anim.data.span;
+                text[anim.id] = { type: "circular", center: center, radius: radius, startangle: startangle, rotangle: rotangle, span: span }
 
-                this.animations[id] = new CircularAnimation(this, center,
-                    radius, startangle, rotangle, span);
             }
+
         }
 
-        this.animationsIndex = 0;
+        for (const id in components) {
+            const animeref = components[id].animations.elements;
+            array.push(1);
+            console.log(animeref);
+            if (animeref.length !== 0) {
+                for (const an in animeref) {
+                    if (text[animeref[an].id].type === "linear") {
+                        array.push(new LinearAnimation(this, text[animeref[an].id].points, text[animeref[an].id].span));
+                    }
+                    else {
+                        array.push(new CircularAnimation(this, text[animeref[an].id].center, text[animeref[an].id].radius,
+                            text[animeref[an].id].startangle, text[animeref[an].id].rotangle, text[animeref[an].id].span));
+                    }
+                }
+
+                this.animations[components[id].id] = array;
+            }
+            array = [];
+        }
+
     }
 
     initInterface() {
@@ -381,7 +400,7 @@ class MyScene extends CGFscene {
         const material = current.materials.index(this.materialIndex);
         const texture = current.texture;
         const children = current.children;
-       
+
         // Use own (s,t), or inherit from parent?
         if (!INHERIT_S_T || texture.mode != "inherit") {
             s = texture.s;
@@ -389,14 +408,17 @@ class MyScene extends CGFscene {
         }
 
         this.pushMatrix();
-   
+
         //Animations
-        //this.animations[this.alter].apply();
+
+        if (this.animations[current.id] !== undefined) {
+            let index = this.animations[current.id][0];
+            let aux = this.animations[current.id][index];
+
+            aux.apply();
+        }
 
 
-        // Animations
-        // Não faças push com isto descomentado, senão quebras um ficheiro bom
-        this.animations.linear1.apply();
 
         // Transformation
         if (transformation.mode === "reference") {
@@ -439,6 +461,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
     }
 
+
     /**
      * Update data (only keys)
      */
@@ -446,16 +469,17 @@ class MyScene extends CGFscene {
         this.checkKeys();
 
         if (this.graphLoaded) {
-           /* for (const k in this.animations) {
-                console.log(k);
-                if (!this.animations[k].hasEnded()) {
-                console.log(k);
-                    this.alter = k; 
-                
+            for (const k in this.animations) {
+                let index = this.animations[k][0];
+
+                if (!this.animations[k][index].hasEnded())
+                    this.animations[k][index].update(currTime);
+
+                if (this.animations[k][index].hasEnded() && this.animations[k][index].hasStarted()) {
+                    if (index < this.animations[k].length - 1)
+                        this.animations[k][0] += 1;
                 }
-            }*/
-            this.animations.linear1.update(currTime);
-           // this.animations[this.alter].update(currTime);
+            }
         }
 
     }

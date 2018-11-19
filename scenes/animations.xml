@@ -1,5 +1,5 @@
 <yas>
-    <scene axis_length="50.0" root="cube"/>
+    <scene axis_length="50.0" root="root"/>
 
     <views default="general-view">
         <perspective id="general-view" angle="50" near="0.5" far="500">
@@ -94,6 +94,13 @@
     </transformations>
 
     <animations>
+        <linear id="linear2" span="3">
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="10" yy="0" zz="0"/>
+            <controlpoint xx="10" yy="10" zz="0"/>
+            <controlpoint xx="0" yy="0" zz="0"/>
+          
+        </linear>
         <linear id="linear1" span="3">
             <controlpoint xx="0" yy="0" zz="0"/>
             <controlpoint xx="-10" yy="0" zz="10"/>
@@ -102,11 +109,15 @@
           
         </linear>
 
-        <circular id="circular1" span="3" center="0 0 0" radius="3" startang="20" rotang="45"/>
+        <circular id="circular1" span="3" center="3 3 3" radius="10" startang="10" rotang="80"/>
     </animations>
 
     <primitives>
         <primitive id="cube">
+            <cylinder base="0.5" top="0" height="2" slices="60" stacks="60"/>
+        </primitive>
+
+        <primitive id="cube2">
             <cylinder base="0.5" top="0" height="2" slices="60" stacks="60"/>
         </primitive>
     </primitives>
@@ -114,12 +125,34 @@
      <components>
         <!-- CUBE -->
        
+       
+        <component id="root">
+            <transformation>
+            </transformation>
+            <animations>
+              
+            </animations>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="granito" length_s="1.0" length_t="1.0"/>
+           
+            <children>
+                <componentref id="cube"/>
+                <componentref id="cube2"/>
+                
+            </children>
+        </component>
+
+
+
         <component id="cube">
             <transformation>
             </transformation>
             <animations>
-                <animationref id="linear1"/>
+                <animationref id = "linear1"/>
                 <animationref id = "circular1"/>
+              
             </animations>
             <materials>
                 <material id="default"/>
@@ -129,6 +162,24 @@
             <children>
                 <primitiveref id="cube"/>
             </children>
-        </component> 
+        </component>
+
+        <component id="cube2">
+            <transformation>
+            </transformation>
+            <animations>
+                <animationref id = "linear2"/>
+            </animations>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="granito" length_s="1.0" length_t="1.0"/>
+           
+            <children>
+                <primitiveref id="cube2"/>
+            </children>
+        </component>
+
+             
     </components>
 </yas>

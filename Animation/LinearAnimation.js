@@ -81,9 +81,7 @@ class LinearAnimation extends Animation {
     }
 
     apply() {
-        console.log(this.rotation * 180 / Math.PI);
         this.scene.translate(this.translate.x, this.translate.y, this.translate.z);
-
         this.scene.rotate(this.rotation, 0, 1, 0);
 
     }

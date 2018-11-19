@@ -20,4 +20,8 @@ class Animation{
     hasEnded(){
         return this.end;
     }
+
+    hasStarted(){
+        return this.started;
+    }
 }
