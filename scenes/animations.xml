@@ -102,14 +102,13 @@
           
         </linear>
         <linear id="linear1" span="3">
-            <controlpoint xx="0" yy="0" zz="0"/>
-            <controlpoint xx="-10" yy="0" zz="10"/>
-            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="1" yy="0" zz="0"/>
+            <controlpoint xx="-10" yy="0" zz="0"/>
             <controlpoint xx="0" yy="0" zz="0"/>
           
         </linear>
 
-        <circular id="circular1" span="3" center="3 3 3" radius="10" startang="10" rotang="80"/>
+        <circular id="circular1" span="3" center="2 0 2 " radius="5" startang="0" rotang="720"/>
     </animations>
 
     <primitives>
@@ -150,8 +149,7 @@
             <transformation>
             </transformation>
             <animations>
-                <animationref id = "linear1"/>
-                <!--<animationref id = "circular1"/>-->
+                <animationref id = "circular1"/>
               
             </animations>
             <materials>
