@@ -333,8 +333,8 @@
 
     <animations>
         <linear id="linear1" span="2">
-            <controlpoint x="0" y="0" z="0"/>
-            <controlpoint x="3" y="0" z="0"/>
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="3" yy="0" zz="0"/>
         </linear>
 
         <circular id="circular1" span="3" center="0 0 0" radius="3" startang="20" rotang="45"/>

@@ -34,4 +34,4 @@ const XML_ANIMATIONS_NONEMPTY = false;
 
 
 
-const DEFAULT_YAS_FILE = "animations.xml";
+const DEFAULT_YAS_FILE = "tp1.xml";

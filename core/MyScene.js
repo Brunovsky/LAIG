@@ -233,6 +233,7 @@ class MyScene extends CGFscene {
 
     initAnimations() {
         const animations = this.graph.yas.animations;
+        if(animations === null) return;
         const components = this.graph.yas.components.elements;
         let array = [];
         this.animations = {};
@@ -260,25 +261,26 @@ class MyScene extends CGFscene {
         }
 
         for (const id in components) {
-            const animeref = components[id].animations.elements;
-            array.push(1);
-            console.log(animeref);
-            if (animeref.length !== 0) {
-                for (const an in animeref) {
-                    if (text[animeref[an].id].type === "linear") {
-                        array.push(new LinearAnimation(this, text[animeref[an].id].points, text[animeref[an].id].span));
+            if (components[id].animations !== null) {
+                const animeref = components[id].animations.elements;
+                array.push(1);
+                console.log(animeref);
+                if (animeref.length !== 0) {
+                    for (const an in animeref) {
+                        if (text[animeref[an].id].type === "linear") {
+                            array.push(new LinearAnimation(this, text[animeref[an].id].points, text[animeref[an].id].span));
+                        }
+                        else {
+                            array.push(new CircularAnimation(this, text[animeref[an].id].center, text[animeref[an].id].radius,
+                                text[animeref[an].id].startangle, text[animeref[an].id].rotangle, text[animeref[an].id].span));
+                        }
                     }
-                    else {
-                        array.push(new CircularAnimation(this, text[animeref[an].id].center, text[animeref[an].id].radius,
-                            text[animeref[an].id].startangle, text[animeref[an].id].rotangle, text[animeref[an].id].span));
-                    }
+
+                    this.animations[components[id].id] = array;
                 }
-
-                this.animations[components[id].id] = array;
+                array = [];
             }
-            array = [];
         }
-
     }
 
     initInterface() {
