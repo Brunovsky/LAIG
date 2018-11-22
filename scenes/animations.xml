@@ -1,5 +1,5 @@
 <yas>
-    <scene axis_length="50.0" root="cube"/>
+    <scene axis_length="50.0" root="root"/>
 
     <views default="general-view">
         <perspective id="general-view" angle="50" near="0.5" far="500">
@@ -96,19 +96,22 @@
     <animations>
         <linear id="linear2" span="3">
             <controlpoint xx="0" yy="0" zz="0"/>
-            <controlpoint xx="10" yy="0" zz="0"/>
-            <controlpoint xx="10" yy="10" zz="0"/>
-            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="5" yy="0" zz="0"/>
           
         </linear>
         <linear id="linear1" span="3">
-            <controlpoint xx="1" yy="0" zz="0"/>
-            <controlpoint xx="-10" yy="0" zz="0"/>
             <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="5" zz="0"/>
           
         </linear>
+        
+        <linear id="linear3" span="4">
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="0" zz="6"/>
+        
+        </linear>
 
-        <circular id="circular1" span="3" center="2 0 2 " radius="5" startang="0" rotang="720"/>
+        <circular id="circular1" span="3" center="0 0 0 " radius="10" startang="20" rotang="180"/>
     </animations>
 
     <primitives>
@@ -121,15 +124,15 @@
         </primitive>
     </primitives>
 
-     <components>
+    <components>
         <!-- CUBE -->
        
        
         <component id="root">
-            <transformation>
+            <transformation>>
             </transformation>
             <animations>
-              
+               <animationref id="linear3" />
             </animations>
             <materials>
                 <material id="default"/>
@@ -149,7 +152,7 @@
             <transformation>
             </transformation>
             <animations>
-                <animationref id = "circular1"/>
+               <animationref id = "linear1"/>
               
             </animations>
             <materials>
@@ -177,7 +180,6 @@
                 <primitiveref id="cube2"/>
             </children>
         </component>
-
              
     </components>
 </yas>
