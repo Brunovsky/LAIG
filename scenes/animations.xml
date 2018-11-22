@@ -100,7 +100,7 @@
           
         </linear>
         <linear id="linear1" span="3">
-            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="5" yy="0" zz="0"/>
             <controlpoint xx="0" yy="5" zz="0"/>
           
         </linear>
@@ -125,9 +125,9 @@
     </primitives>
 
     <components>
+
         <!-- CUBE -->
-       
-       
+
         <component id="root">
             <transformation>>
             </transformation>
@@ -170,6 +170,8 @@
             </transformation>
             <animations>
                 <animationref id = "linear2"/>
+                <animationref id = "linear1"/>
+                
             </animations>
             <materials>
                 <material id="default"/>
