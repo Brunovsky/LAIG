@@ -19,8 +19,7 @@ const LIGHT_QUADRATIC_ATTENUATION = 0.0025;
 // Update frequency
 const HZ = 60;
 
-// Use z axis instead of y axis for the height dimension in
-// spacial primitives like cylinder and cone
+// Use z axis instead of y axis for the height dimension in spacial primitives
 const DOWN_SPACIAL = true;
 
 // Inherit (s,t) lengths from parent component when unspecified
@@ -34,4 +33,20 @@ const XML_ANIMATIONS_NONEMPTY = false;
 
 
 
-const DEFAULT_YAS_FILE = "animations.xml";
+
+// Target yas file, in folder scenes/
+const DEFAULT_YAS_FILE = "tp1.xml";
+
+// Shaders, in folder shaders/. Target field can be terrain or water.
+const SHADER_SETS = {
+    test: {
+        vertex: "vertex/test.glsl",
+        fragment: "fragment/test.glsl",
+        target: "terrain"
+    },
+    test2: {
+        vertex: "vertex/test.glsl",
+        fragment: "fragment/test.glsl",
+        target: "water"
+    },
+};

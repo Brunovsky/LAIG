@@ -745,7 +745,6 @@
             <children>
                 <componentref id="kitchen-table-top"/>
                 <componentref id="kitchen-chair"/>
-                
                 <componentref id="kitchen-drawers-top"/>
                 <componentref id="rubik"/>
                 <componentref id="kitchen-stove-sides"/>
@@ -772,7 +771,7 @@
                 <componentref id="pingpong-table"/>
                 <componentref id="carpets"/>
                 <componentref id="snow-doll"/>
-                <!--<componentref id="frames"/>-->
+                <componentref id="frames"/>
             </children>
         </component>
 
@@ -4641,7 +4640,6 @@
             </children>
         </component>
 
-        <!--
         <component id="frames">
             <transformation>
                 <transformationref id="first-floor"/>
@@ -4685,6 +4683,5 @@
                 <primitiveref id="butterfly"/>
             </children>
         </component>
-        -->
     </components>
 </yas>

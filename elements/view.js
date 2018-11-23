@@ -10,14 +10,21 @@ class XMLPerspective extends XMLElement {
             to: { x: "ff", y: "ff", z: "ff" }
         });
 
-
         this.type = "perspective";
 
-        if (this.data.from.x == this.data.to.x
-         && this.data.from.y == this.data.to.y
-         && this.data.from.z == this.data.to.z) {
-            throw new XMLEception(node, "from = to");
+        const data = this.data, from = data.from, to = data.to;
+
+        if (from.x === to.x && from.y === to.y && from.z === to.z) {
+            throw new XMLEception(node, "Position and target must differ");
         }
+
+        if (data.near >= data.far) {
+            throw new XMLException(node, "Bad near/far clipping planes");
+        }
+
+        this.from = data.from;
+        this.to = data.to;
+        this.angle = data.angle;
     }
 }
 
@@ -35,6 +42,27 @@ class XMLOrtho extends XMLElement {
         });
 
         this.type = "ortho";
+
+        const data = this.data, from = data.from, to = data.to;
+
+        if (from.x === to.x && from.y === to.y && from.z === to.z) {
+            throw new XMLEception(node, "Position and target must differ");
+        }
+
+        if (data.left === data.right) {
+            throw new XMLException(node, "Left and right must differ");
+        }
+
+        if (data.top === data.bottom) {
+            throw new XMLException(node, "Top and bottom must differ");
+        }
+
+        if (data.near >= data.far) {
+            throw new XMLException(node, "Bad near/far clipping planes");
+        }
+
+        this.from = data.from;
+        this.to = data.to;
     }
 }
 

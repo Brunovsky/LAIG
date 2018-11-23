@@ -17,7 +17,7 @@ function getUrlVars() {
     console.log("3MIEIC01 -- GROUP 4");
     console.log("201606517", "Bruno Dias da Costa Carvalho");
     console.log("201603404", "Carlos Daniel Coelho Ferreira Gomes");
-    console.groupCollapsed("Loading files");
+    console.groupCollapsed("Loading WebCGF and sources");
 })();
 
 //Include additional files here

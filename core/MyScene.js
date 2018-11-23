@@ -42,7 +42,8 @@ class MyScene extends CGFscene {
     }
 
     /* Handler called when the graph is finally loaded. 
-     * As loading is asynchronous, this may be called already after the application has started the run loop
+     * As loading is asynchronous, this may be called already after the application
+     * has started the run loop
      */
     onGraphLoaded() {
         console.groupCollapsed("MyScene Load (onGraphLoaded)");
@@ -55,45 +56,49 @@ class MyScene extends CGFscene {
         this.initMaterials();
         this.initAnimations();
         this.initPrimitives();
+        this.initShaders();
         this.initInterface();
 
         console.log("Axis", this.axis);
         console.log("Views", this.views);
+        console.log("Ambient", this.color);
         console.log("Lights", this.lights);
         console.log("Textures", this.textures);
         console.log("Materials", this.materials);
         console.log("Animations", this.animations);
         console.log("Primitives", this.primitives);
+        console.log("Shaders", this.shaders);
+        console.log("Interface", this.gui);
+
         console.groupEnd();
         this.graphLoaded = true;
-        console.groupCollapsed("More");
     }
 
     initAxis() {
-        const scene = this.graph.yas.scene;
+        const yasscene = this.graph.yas.scene;
 
-        const axisLength = scene.data.axis_length;
+        const axisLength = yasscene.data.axis_length;
         this.axis = new CGFaxis(this, axisLength, AXIS_THICKNESS);
     }
 
     initViews() {
-        const views = this.graph.yas.views;
+        const yasviews = this.graph.yas.views;
 
         this.views = {};
 
-        for (const id in views.elements) {
-            const view = views.elements[id];
+        for (const id in yasviews.elements) {
+            const view = yasviews.elements[id];
             const data = view.data;
 
             if (view.type === "perspective") {
-                const position = vec3.fromValues(data.from.x, data.from.y, data.from.z);
-                const target = vec3.fromValues(data.to.x, data.to.y, data.to.z);
+                const position = vec3.fromValues(view.from.x, view.from.y, view.from.z);
+                const target = vec3.fromValues(view.to.x, view.to.y, view.to.z);
                 const fov = degToRad(data.angle), near = data.near, far = data.far;
 
                 this.views[id] = new CGFcamera(fov, near, far, position, target);
             } else {
-                const position = vec3.fromValues(data.from.x, data.from.y, data.from.z);
-                const target = vec3.fromValues(data.to.x, data.to.y, data.to.z);
+                const position = vec3.fromValues(view.from.x, view.from.y, view.from.z);
+                const target = vec3.fromValues(view.to.x, view.to.y, view.to.z);
                 const near = data.near, far = data.far, left = data.left,
                     right = data.right, top = data.top, bottom = data.bottom;
                 const up = vec3.fromValues(0, 1, 0);
@@ -103,28 +108,28 @@ class MyScene extends CGFscene {
             }
         }
 
-        this.selectView(views.data.default);
+        this.selectView(yasviews.data.default);
     }
 
     initAmbient() {
-        const ambient = this.graph.yas.ambient;
+        const yasambient = this.graph.yas.ambient;
 
-        this.setGlobalAmbientLight(ambient.data.ambient.r,
-            ambient.data.ambient.g, ambient.data.ambient.b,
-            ambient.data.ambient.a);
+        const ambient = yasambient.data.ambient;
+        const background = yasambient.data.background;
 
-        this.gl.clearColor(ambient.data.background.r,
-            ambient.data.background.g, ambient.data.background.b,
-            ambient.data.background.a);
+        this.setGlobalAmbientLight(ambient.r, ambient.g, ambient.b, ambient.a);
+        this.gl.clearColor(background.r, background.g, background.b, background.a);
+
+        this.bg = background;
     }
 
     initLights() {
-        const lights = this.graph.yas.lights;
+        const yaslights = this.graph.yas.lights;
 
         let i = 0;
 
-        for (const id in lights.elements) {
-            const light = lights.elements[id];
+        for (const id in yaslights.elements) {
+            const light = yaslights.elements[id];
             if (i >= 8) break;
 
             light.index = i;
@@ -169,37 +174,38 @@ class MyScene extends CGFscene {
     }
 
     initTextures() {
-        const textures = this.graph.yas.textures;
+        const yastextures = this.graph.yas.textures;
 
         this.textures = {};
 
-        for (const id in textures.elements) {
-            const texture = textures.elements[id];
+        for (const id in yastextures.elements) {
+            const texture = yastextures.elements[id];
+            const file = texture.data.file;
 
-            this.textures[id] = new CGFtexture(this, texture.data.file);
+            this.textures[id] = new CGFtexture(this, file);
             if (this.textures[id] != null) continue;
 
-            console.warn("Texture file " + texture.data.file + " not found, searching in images/");
+            console.warn("Texture file %s not found, searching in images/", file);
 
-            this.textures[id] = new CGFtexture(this, "images/" + texture.data.file);
+            this.textures[id] = new CGFtexture(this, "images/" + file);
             if (this.textures[id] != null) continue;
 
-            console.warn("Texture file images/" + texture.data.file + " not found, searching in tex/");
+            console.warn("Texture file images/%s not found, searching in tex/", file);
 
-            this.textures[id] = new CGFtexture(this, "tex/" + texture.data.file);
+            this.textures[id] = new CGFtexture(this, "tex/" + file);
             if (this.textures[id] != null) continue;
 
-            console.warn("Texture file tex/" + texture.data.file + " not found");
+            console.warn("Texture file tex/%s not found", file);
         }
     }
 
     initMaterials() {
-        const materials = this.graph.yas.materials;
+        const yasmaterials = this.graph.yas.materials;
 
         this.materials = {};
 
-        for (const id in materials.elements) {
-            const material = materials.elements[id];
+        for (const id in yasmaterials.elements) {
+            const material = yasmaterials.elements[id];
 
             const shininess = material.data.shininess;
             const emission = material.data.emission;
@@ -220,31 +226,31 @@ class MyScene extends CGFscene {
     }
 
     initPrimitives() {
-        const primitives = this.graph.yas.primitives;
+        const yasprimitives = this.graph.yas.primitives;
 
         this.primitives = {};
 
-        for (const id in primitives.elements) {
-            const prim = primitives.elements[id];
+        for (const id in yasprimitives.elements) {
+            const prim = yasprimitives.elements[id];
 
             this.primitives[id] = buildPrimitive(this, prim);
         }
     }
 
     initAnimations() {
-        const animations = this.graph.yas.animations;
-        if (animations === null) return;
+        const yasanimations = this.graph.yas.animations;
+        if (yasanimations == null) return;
+
         const components = this.graph.yas.components.elements;
         this.animations = {};
         const text = {};
 
-        for (const id in animations.elements) {
-            const anim = animations.elements[id];
+        for (const id in yasanimations.elements) {
+            const anim = yasanimations.elements[id];
 
             if (anim.type === "linear") {
                 text[anim.id] = { type: "linear", points: anim.elements, span: anim.span };
             }
-
             else {
                 text[anim.id] = {
                     type: "circular", center: anim.center,
@@ -264,26 +270,46 @@ class MyScene extends CGFscene {
 
             if (components[id].animations !== null) {
                 const animeref = components[id].animations.elements;
-                if (animeref.length != null) {
-                    for (const an in animeref) {
-                        if (text[animeref[an].id].type === "linear") {
-                            componentAnim.animations.push(new LinearAnimation(this, text[animeref[an].id].points,
-                                text[animeref[an].id].span));
-                        }
-                        else {
-                            componentAnim.animation.push(new CircularAnimation(this,
-                                text[animeref[an].id].center,
-                                text[animeref[an].id].radius,
-                                text[animeref[an].id].startangle,
-                                text[animeref[an].id].rotangle,
-                                text[animeref[an].id].span));
-                        }
+                
+                for (const an in animeref) {
+                    if (text[animeref[an].id].type === "linear") {
+                        componentAnim.animations.push(new LinearAnimation(this,
+                            text[animeref[an].id].points,
+                            text[animeref[an].id].span));
                     }
+                    else {
+                        componentAnim.animation.push(new CircularAnimation(this,
+                            text[animeref[an].id].center,
+                            text[animeref[an].id].radius,
+                            text[animeref[an].id].startangle,
+                            text[animeref[an].id].rotangle,
+                            text[animeref[an].id].span));
+                    }
+                }
 
+                if (animeref.length != null) {
                     this.animations[components[id].id] = componentAnim;
                 }
                 componentAnim = [];
             }
+        }
+    }
+
+    initShaders() {
+        this.shaders = {
+            terrain: {},
+            water: {}
+        };
+
+        for (const id in SHADER_SETS) {
+            let set = SHADER_SETS[id];
+
+            const vertex = "shaders/" + set.vertex;
+            const fragment = "shaders/" + set.fragment;
+
+            const shader = new CGFshader(this.gl, vertex, fragment);
+
+            this.shaders[set.target][id] = shader;
         }
     }
 
@@ -366,22 +392,26 @@ class MyScene extends CGFscene {
     }
 
     display() {
-        this.checkKeys();
-
-        // Clear image and depth buffer everytime we update the scene
+        // OpenGL setup, similar to super.display()
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+        this.gl.clearColor(this.bg.r, this.bg.g, this.bg.b, this.bg.a);
+        this.gl.enable(this.gl.DEPTH_TEST);
 
-        // Initialize Model-View matrix as identity (no transformation)
+        // Update projection matrix
         this.updateProjectionMatrix();
+
+        // Set model matrix to the identity
         this.clearMatrixStack();
         this.loadIdentity();
 
-        // Apply transformations corresponding to the camera position relative to the origin
+        // Update view matrix
         this.applyViewMatrix();
+
+        // Update lights
         this.updateLights();
 
-
+        // Display objects
         this.pushMatrix();
 
         this.axis.display();
@@ -392,7 +422,6 @@ class MyScene extends CGFscene {
 
         this.popMatrix();
     }
-
 
     /**
      * Entry point for the depth first traversal of the scene graph
@@ -406,6 +435,7 @@ class MyScene extends CGFscene {
         const material = current.materials.index(this.materialIndex);
         const texture = current.texture;
         const children = current.children;
+        const animations = this.animations[current.id];
 
         // Use own (s,t), or inherit from parent?
         if (!INHERIT_S_T || texture.mode != "inherit") {
@@ -415,16 +445,14 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
 
-        //Animations
-
-        if (this.animations[current.id] !== undefined) {
-            let index = this.animations[current.id].index;
-            let aux = this.animations[current.id].animations[index];
+        // Animations
+        if (animations != null) {
+            let index = animations.index;
+            let aux = animations.animations[index];
 
             aux.apply();
+            // TODO: Stacking behaviour
         }
-
-
 
         // Transformation
         if (transformation.mode === "reference") {
@@ -467,7 +495,6 @@ class MyScene extends CGFscene {
         this.popMatrix();
     }
 
-
     /**
      * Update data (only keys)
      */
@@ -482,13 +509,14 @@ class MyScene extends CGFscene {
                 if (!animation.animations[index].hasEnded())
                     animation.animations[index].update(currTime);
 
-                if (animation.animations[index].hasEnded() && animation.animations[index].hasStarted()) {
+                if (animation.animations[index].hasEnded() &&
+                    animation.animations[index].hasStarted()) {
                     if (index < animation.animations.length - 1)
                         animation.index += 1;
+                    // TODO: Looping behaviour
                 }
             }
         }
-
     }
 
     /**

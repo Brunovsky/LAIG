@@ -43,6 +43,7 @@ class MyInterface extends CGFinterface {
         const lightsGroup = this.datgui.addFolder("Lights");
         lightsGroup.open();
 
+        // For every light declared
         for (const id in lights.elements) {
             const light = lights.elements[id];
             const name = id + " (" + light.type + ")";
