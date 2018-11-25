@@ -114,10 +114,8 @@ class Terrain extends Plane {
         this.texture2 = this.scene.textures[idheightmap];
  
         this.scene.myShaders[0].setUniformsValues({
-            normScale: 1, // default normScale (starting time as 1)
-            selectedColor: [1, 1.0, 1, 1.0], // default selectedColor (color white)
-            uSampler2: 2,
-            uSampler: 1,
+            uSampler2: 1,
+            uSampler: 0,
             heightscale: this.heightscale
         });
 
@@ -125,13 +123,11 @@ class Terrain extends Plane {
 
     display() {
      
-        this.scene.setActiveShader(this.scene.myShaders[0]);
-        this.texture2.bind(2);
-        this.texture1.bind(1);
-       
-    
+        this.scene.setActiveShader(this.scene.myShaders[0]);        
+        this.texture1.bind(0);
+        this.texture2.bind(1);
+ 
         super.display(); 
-
         this.scene.setActiveShader(this.scene.defaultShader);
 
     }
