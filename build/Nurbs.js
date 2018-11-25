@@ -1,60 +1,52 @@
-class Plane extends CGFobject
-{
-    constructor(scene, uDivs, vDivs)
-    {
+class Plane extends CGFobject {
+    constructor(scene, uDivs, vDivs) {
         super(scene);
         const points = [
             [
                 [-0.5, 0, -0.5, 1],
-                [ 0.5, 0, -0.5, 1]
+                [0.5, 0, -0.5, 1]
             ],
             [
-                [-0.5, 0,  0.5, 1],
-                [ 0.5, 0,  0.5, 1]
+                [-0.5, 0, 0.5, 1],
+                [0.5, 0, 0.5, 1]
             ]
         ];
-        this.divs = {u: uDivs, v: vDivs};
+        this.divs = { u: uDivs, v: vDivs };
         this.points = points;
 
         this.surface = new CGFnurbsSurface(1, 1, this.points);
         this.nurbs = new CGFnurbsObject(scene, uDivs, vDivs, this.surface);
     }
 
-    display()
-    {
+    display() {
         this.scene.pushMatrix(); // yes, superfluous
-            this.nurbs.display();
+        this.nurbs.display();
         this.scene.popMatrix();
     }
 }
 
-class Patch extends CGFobject
-{
-    constructor(scene, uDivs, vDivs, points)
-    {
+class Patch extends CGFobject {
+    constructor(scene, uDivs, vDivs, points) {
         super(scene);
         const uDegree = points.length - 1;
         const vDegree = points[0].length - 1;
-        this.divs = {u: uDivs, v: vDivs};
-        this.deg = {u: uDegree, v: vDegree};
+        this.divs = { u: uDivs, v: vDivs };
+        this.deg = { u: uDegree, v: vDegree };
         this.points = points;
 
         this.surface = new CGFnurbsSurface(uDegree, vDegree, points);
         this.nurbs = new CGFnurbsObject(scene, uDivs, vDivs, this.surface);
     }
 
-    display()
-    {
+    display() {
         this.scene.pushMatrix(); // yes, superfluous
-            this.nurbs.display();
+        this.nurbs.display();
         this.scene.popMatrix();
     }
 }
 
-class Cylinder2 extends CGFobject
-{
-    constructor(scene, baseRadius = 1, topRadius = 0.5, height = 1, slices = 64, stacks = 1)
-    {
+class Cylinder2 extends CGFobject {
+    constructor(scene, baseRadius = 1, topRadius = 0.5, height = 1, slices = 64, stacks = 1) {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
@@ -69,8 +61,7 @@ class Cylinder2 extends CGFobject
         this.nurbs = new CGFnurbsObject(scene, slices, stacks, this.surface);
     }
 
-    buildPoints()
-    {
+    buildPoints() {
         const sin = Math.sin, cos = Math.cos, PI = Math.PI;
         const baseRadius = this.baseRadius, topRadius = this.topRadius,
             height = this.height, slices = this.slices, stacks = this.stacks;
@@ -106,10 +97,42 @@ class Cylinder2 extends CGFobject
         this.points = points;
     }
 
-    display()
-    {
+    display() {
         this.scene.pushMatrix();
-            this.nurbs.display();
+        this.nurbs.display();
         this.scene.popMatrix();
+    }
+}
+
+class Terrain extends Plane {
+
+    constructor(scene, idtexture, idheightmap, parts, heightscale) {
+        super(scene, parts, parts);
+
+        this.heightscale = heightscale;
+        this.texture1 = this.scene.textures[idtexture];
+        this.texture2 = this.scene.textures[idheightmap];
+        console.log(this.texture1 + "  id=" + idtexture);
+        console.log(this.texture2 + "  id=" + idheightmap);
+
+            this.shader = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
+        this.shader.setUniformsValues({
+            normScale: 1, // default normScale (starting time as 1)
+            selectedColor: [1, 1.0, 1, 1.0], // default selectedColor (color white)
+            uSampler2: 2,
+            uSampler: 1,
+            heightscale: this.heightscale
+        });
+
+    }
+
+    display() {
+        console.log(this.scene.textures);
+
+        super.display();
+        this.scene.setActiveShader(this.shader);
+        this.texture2.bind(2);
+
+
     }
 }

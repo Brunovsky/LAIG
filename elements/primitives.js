@@ -250,7 +250,10 @@ function buildPrimitive(scene, primitive) {
     case 'cylinder2':
         return new Cylinder2(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
     case 'terrain':
+        return new Terrain(scene, dt.idtexture, dt.idheightmap, dt.parts, dt.heightscale);
     case 'water':
+    return new Water(scene, dt.idtexture, dt.idwavemap, dt.parts, dt.heightscale, id.texscale);
+
     default:
         throw "INTERNAL: Invalid primitive type detected in buildPrimitive(): " + type;
     }

@@ -1,5 +1,5 @@
 <yas>
-    <scene axis_length="50.0" root="terrain"/>
+    <scene axis_length="50.0" root="root"/>
 
     <views default="general-view">
         <perspective id="general-view" angle="50" near="0.5" far="500">
@@ -53,6 +53,8 @@
     </lights>
 
     <textures>
+        <texture id="terrain" file="images/terrain.jpg"/>
+        <texture id="heightmap" file="images/heightmap.jpg"/>
     
         <texture id="granito" file="images/granito.jpg"/>
         <texture id="rubik-top"    file="images/rubik/top.png"/>
@@ -123,9 +125,8 @@
         <primitive id="cube2">
             <cylinder base="0.5" top="0" height="2" slices="60" stacks="60"/>
         </primitive>
-
-        <primitive id="terrain">
-            <plane npartsU="11" npartsV="11"/>
+        <primitive id = "terrain">
+            <terrain idtexture="terrain" idheightmap="heightmap" parts="20" heightscale="10"/>
         </primitive>
     </primitives>
 
@@ -137,7 +138,7 @@
             <transformation>>
             </transformation>
             <animations>
-               <animationref id="linear3" />
+   
             </animations>
             <materials>
                 <material id="default"/>
@@ -147,14 +148,14 @@
             <children>
                 <componentref id="cube"/>
                 <componentref id="cube2"/>
-                
+                <componentref id="terrain"/>
             </children>
         </component>
 
 
         <component id="terrain">
             <transformation>
-                <scale x="100" y="1" z="100"/>
+                <scale x="50" y="1" z="50"/>
             </transformation>
             <animations>
               
