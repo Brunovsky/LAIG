@@ -56,6 +56,7 @@ class MyScene extends CGFscene {
         this.initMaterials();
         this.initAnimations();
         this.initPrimitives();
+        this.initShaders();
         this.initInterface();
 
         console.log("Axis", this.axis);
@@ -66,6 +67,7 @@ class MyScene extends CGFscene {
         console.log("Materials", this.materials);
         console.log("Animations", this.animations);
         console.log("Primitives", this.primitives);
+        console.log("Shaders", this.shaders);
         console.log("Interface", this.gui);
 
         console.groupEnd();
@@ -223,18 +225,6 @@ class MyScene extends CGFscene {
         this.materialIndex = 0;
     }
 
-    initPrimitives() {
-        const yasprimitives = this.graph.yas.primitives;
-
-        this.primitives = {};
-
-        for (const id in yasprimitives.elements) {
-            const prim = yasprimitives.elements[id];
-
-            this.primitives[id] = buildPrimitive(this, prim);
-        }
-    }
-
     initAnimations() {
         const yasanimations = this.graph.yas.animations;
         if (yasanimations == null) return;
@@ -291,6 +281,28 @@ class MyScene extends CGFscene {
                 componentAnim = [];
             }
         }
+    }
+
+    initPrimitives() {
+        const yasprimitives = this.graph.yas.primitives;
+
+        this.primitives = {};
+
+        for (const id in yasprimitives.elements) {
+            const prim = yasprimitives.elements[id];
+
+            this.primitives[id] = buildPrimitive(this, prim);
+        }
+    }
+
+    initShaders() {
+        this.shaders = {
+            water: {
+                vertex: "shaders/vertex/test.glsl",
+                fragment: "shaders/fragment/test.glsl",
+                heightmap: "images/water-heightmap.jpg"
+            }
+        };
     }
 
     initInterface() {
