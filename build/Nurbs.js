@@ -112,11 +112,8 @@ class Terrain extends Plane {
         this.heightscale = heightscale;
         this.texture1 = this.scene.textures[idtexture];
         this.texture2 = this.scene.textures[idheightmap];
-        console.log(this.texture1 + "  id=" + idtexture);
-        console.log(this.texture2 + "  id=" + idheightmap);
-
-            this.shader = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
-        this.shader.setUniformsValues({
+ 
+        this.scene.myShaders[0].setUniformsValues({
             normScale: 1, // default normScale (starting time as 1)
             selectedColor: [1, 1.0, 1, 1.0], // default selectedColor (color white)
             uSampler2: 2,
@@ -127,12 +124,15 @@ class Terrain extends Plane {
     }
 
     display() {
-        console.log(this.scene.textures);
-
-        super.display();
-        this.scene.setActiveShader(this.shader);
+     
+        this.scene.setActiveShader(this.scene.myShaders[0]);
         this.texture2.bind(2);
+        this.texture1.bind(1);
+       
+    
+        super.display(); 
 
+        this.scene.setActiveShader(this.scene.defaultShader);
 
     }
 }

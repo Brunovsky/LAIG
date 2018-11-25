@@ -7,6 +7,8 @@ uniform float timeFactor;
 uniform vec4 selColor;
 uniform sampler2D uSampler;
 varying vec2 vTextureCoord;
+
+
 void main()
 {
 

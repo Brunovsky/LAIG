@@ -9,7 +9,7 @@ class MyScene extends CGFscene {
         gui.scene = this;
 
         window.scene = this;
-     
+
     }
 
     /**
@@ -31,7 +31,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        
+
 
     }
 
@@ -57,6 +57,7 @@ class MyScene extends CGFscene {
         this.initLights();
         this.initTextures();
         this.initMaterials();
+        this.initShaders();
         this.initAnimations();
         this.initPrimitives();
         this.initInterface();
@@ -266,11 +267,11 @@ class MyScene extends CGFscene {
                 let componentAnim = {
                     index: 0,
                     animations: []
-                };   
+                };
                 const animeref = components[id].animations.elements;
                 if (animeref.length != 0) {
                     for (const an in animeref) {
-                                 
+
                         if (text[animeref[an].id].type === "linear") {
                             componentAnim.animations.push(new LinearAnimation(this, text[animeref[an].id].points,
                                 text[animeref[an].id].span));
@@ -284,12 +285,16 @@ class MyScene extends CGFscene {
                                 text[animeref[an].id].span));
                         }
                     }
-                    
+
                     this.animations[components[id].id] = componentAnim;
                 }
                 componentAnim = [];
             }
         }
+    }
+
+    initShaders() {
+        this.myShaders = [new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag")]
     }
 
     initInterface() {
@@ -464,7 +469,6 @@ class MyScene extends CGFscene {
                 if (prim.adjust) prim.updateTexCoords(s, t);
 
                 this.primitives[child.id].display();
-                this.setActiveShader(this.defaultShader);
             }
         }
 
@@ -482,7 +486,7 @@ class MyScene extends CGFscene {
 
         if (this.graphLoaded) {
             for (const k in this.animations) {
-                let animation = this.animations[k]; 
+                let animation = this.animations[k];
                 let index = animation.index;
                 if (!animation.animations[index].hasEnded())
                     animation.animations[index].update(currTime);
@@ -494,7 +498,7 @@ class MyScene extends CGFscene {
             }
         }
 
-     }
+    }
 
     /**
      * Check interface keys
