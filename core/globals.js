@@ -36,17 +36,3 @@ const XML_ANIMATIONS_NONEMPTY = false;
 
 // Target yas file, in folder scenes/
 const DEFAULT_YAS_FILE = "tp1.xml";
-
-// Shaders, in folder shaders/. Target field can be terrain or water.
-const SHADER_SETS = {
-    test: {
-        vertex: "vertex/test.glsl",
-        fragment: "fragment/test.glsl",
-        target: "terrain"
-    },
-    test2: {
-        vertex: "vertex/test.glsl",
-        fragment: "fragment/test.glsl",
-        target: "water"
-    },
-};

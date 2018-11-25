@@ -68,6 +68,8 @@
         <texture id="wood1" file="images/wood1.jpg"/>
         <texture id="wood2" file="images/wood2.jpg"/>
         <texture id="wood3" file="images/wood3.jpg"/>
+
+        <texture id="tv" file="images/tv.jpg"/>
     </textures>
 
     <materials>
@@ -265,44 +267,11 @@
         <primitive id="plane">
             <plane npartsU="5" npartsV="8"/>
         </primitive>
-        <primitive id="patch">
-            <patch npointsU="3" npointsV="9" npartsU="64" npartsV="64">
-                <controlpoint xx="0"  yy="0"  zz="2" /> <!-- P0 -->
-                <controlpoint xx="-2" yy="0"  zz="2" /> <!-- P1 -->
-                <controlpoint xx="-2" yy="0"  zz="0" /> <!-- P2 -->
-                <controlpoint xx="-2" yy="0"  zz="-2"/> <!-- P3 -->
-                <controlpoint xx="0"  yy="0"  zz="-2"/> <!-- P4 -->
-                <controlpoint xx="2"  yy="0"  zz="-2"/> <!-- P5 -->
-                <controlpoint xx="2"  yy="0"  zz="0" /> <!-- P6 -->
-                <controlpoint xx="2"  yy="0"  zz="2" /> <!-- P7 -->
-                <controlpoint xx="0"  yy="0"  zz="2" /> <!-- P8 -->
-
-                <controlpoint xx="0"  yy="2"  zz="2" /> <!-- P0 -->
-                <controlpoint xx="-2" yy="2"  zz="2" /> <!-- P1 -->
-                <controlpoint xx="-2" yy="2"  zz="0" /> <!-- P2 -->
-                <controlpoint xx="-2" yy="2"  zz="-2"/> <!-- P3 -->
-                <controlpoint xx="0"  yy="2"  zz="-2"/> <!-- P4 -->
-                <controlpoint xx="2"  yy="2"  zz="-2"/> <!-- P5 -->
-                <controlpoint xx="2"  yy="2"  zz="0" /> <!-- P6 -->
-                <controlpoint xx="2"  yy="2"  zz="2" /> <!-- P7 -->
-                <controlpoint xx="0"  yy="2"  zz="2" /> <!-- P8 -->
-
-                <controlpoint xx="0"  yy="4"  zz="2" /> <!-- P0 -->
-                <controlpoint xx="-2" yy="4"  zz="2" /> <!-- P1 -->
-                <controlpoint xx="-2" yy="4"  zz="0" /> <!-- P2 -->
-                <controlpoint xx="-2" yy="4"  zz="-2"/> <!-- P3 -->
-                <controlpoint xx="0"  yy="4"  zz="-2"/> <!-- P4 -->
-                <controlpoint xx="2"  yy="4"  zz="-2"/> <!-- P5 -->
-                <controlpoint xx="2"  yy="4"  zz="0" /> <!-- P6 -->
-                <controlpoint xx="2"  yy="4"  zz="2" /> <!-- P7 -->
-                <controlpoint xx="0"  yy="4"  zz="2" /> <!-- P8 -->
-            </patch>
-        </primitive>
-        <primitive id="patch-same-cylinder">
-            <opencylinder base="2" top="2" height="4" stacks="1" slices="64"/>
+        <primitive id="unit-cylinder1">
+            <opencylinder base="2" top="1" height="4" stacks="3" slices="64"/>
         </primitive>
         <primitive id="unit-cylinder2">
-            <cylinder2 base="2" top="1" height="1" stacks="3" slices="64"/>
+            <cylinder2 base="2" top="1" height="4" stacks="3" slices="64"/>
         </primitive>
         <primitive id="unit-square">
             <square side="2"/>
@@ -311,7 +280,7 @@
             <regular radius="1" sides="7"/>
         </primitive>
         <primitive id="unit-circle">
-            <circle radius="1" slices="64"/>
+            <circle radius="0.95" slices="64"/>
         </primitive>
         <primitive id="unit-triangle">
             <triangle x1="1" y1="0" z1="0"
@@ -424,9 +393,6 @@
             <transformation>
             </transformation>
             <animations>
-                <animationref id="unit-square"/>
-                <animationref id="unit-circle"/>
-                <animationref id="unit-square"/>
             </animations>
             <materials>
                 <material id="minor-green"/>
@@ -565,26 +531,27 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="inherit"/>
+            <texture id="tv" length_s="1.0" length_t="1.0"/>
             <children>
-                <componentref id="patch"/>
-                <componentref id="patch-same-cylinder"/>
+                <componentref id="patch-fit-circle"/>
+                <componentref id="patch-cylinder2"/>
             </children>
         </component>
 
-        <component id="patch">
+        <component id="patch-fit-circle">
             <transformation>
+                <translate x="0" y="4" z="0"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
             </materials>
             <texture id="inherit"/>
             <children>
-                <primitiveref id="patch"/>
+                <primitiveref id="unit-circle"/>
             </children>
         </component>
 
-        <component id="patch-same-cylinder">
+        <component id="patch-cylinder2">
             <transformation>
                 <rotate axis="x" angle="-90"/>
             </transformation>
@@ -593,7 +560,20 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primitiveref id="patch-same-cylinder"/>
+                <primitiveref id="unit-cylinder2"/>
+            </children>
+        </component>
+
+        <component id="patch-cylinder1">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-cylinder1"/>
             </children>
         </component>
 

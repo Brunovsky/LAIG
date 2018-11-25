@@ -56,7 +56,6 @@ class MyScene extends CGFscene {
         this.initMaterials();
         this.initAnimations();
         this.initPrimitives();
-        this.initShaders();
         this.initInterface();
 
         console.log("Axis", this.axis);
@@ -67,7 +66,6 @@ class MyScene extends CGFscene {
         console.log("Materials", this.materials);
         console.log("Animations", this.animations);
         console.log("Primitives", this.primitives);
-        console.log("Shaders", this.shaders);
         console.log("Interface", this.gui);
 
         console.groupEnd();
@@ -268,48 +266,30 @@ class MyScene extends CGFscene {
                 animations: []
             };
 
-            if (components[id].animations !== null) {
+            if (components[id].animations != null) {
                 const animeref = components[id].animations.elements;
                 
-                for (const an in animeref) {
-                    if (text[animeref[an].id].type === "linear") {
-                        componentAnim.animations.push(new LinearAnimation(this,
-                            text[animeref[an].id].points,
-                            text[animeref[an].id].span));
+                if (animeref.length > 0) {
+                    for (const an in animeref) {
+                        if (text[animeref[an].id].type === "linear") {
+                            componentAnim.animations.push(new LinearAnimation(this,
+                                text[animeref[an].id].points,
+                                text[animeref[an].id].span));
+                        }
+                        else {
+                            componentAnim.animations.push(new CircularAnimation(this,
+                                text[animeref[an].id].center,
+                                text[animeref[an].id].radius,
+                                text[animeref[an].id].startangle,
+                                text[animeref[an].id].rotangle,
+                                text[animeref[an].id].span));
+                        }
                     }
-                    else {
-                        componentAnim.animation.push(new CircularAnimation(this,
-                            text[animeref[an].id].center,
-                            text[animeref[an].id].radius,
-                            text[animeref[an].id].startangle,
-                            text[animeref[an].id].rotangle,
-                            text[animeref[an].id].span));
-                    }
-                }
 
-                if (animeref.length != null) {
                     this.animations[components[id].id] = componentAnim;
                 }
                 componentAnim = [];
             }
-        }
-    }
-
-    initShaders() {
-        this.shaders = {
-            terrain: {},
-            water: {}
-        };
-
-        for (const id in SHADER_SETS) {
-            let set = SHADER_SETS[id];
-
-            const vertex = "shaders/" + set.vertex;
-            const fragment = "shaders/" + set.fragment;
-
-            const shader = new CGFshader(this.gl, vertex, fragment);
-
-            this.shaders[set.target][id] = shader;
         }
     }
 
@@ -395,7 +375,7 @@ class MyScene extends CGFscene {
         // OpenGL setup, similar to super.display()
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-        this.gl.clearColor(this.bg.r, this.bg.g, this.bg.b, this.bg.a);
+        //this.gl.clearColor(this.bg.r, this.bg.g, this.bg.b, this.bg.a);
         this.gl.enable(this.gl.DEPTH_TEST);
 
         // Update projection matrix

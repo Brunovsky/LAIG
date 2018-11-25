@@ -53,62 +53,57 @@ class Patch extends CGFobject
 
 class Cylinder2 extends CGFobject
 {
-    constructor(scene, baseRadius = 1, topRadius = 0.5, height = 1, slices = 64, stacks = 1)
+    constructor(scene, base = 1, top = 0.5, height = 1, slices = 64, stacks = 1)
     {
         super(scene);
-        this.slices = slices;
+        this.slices = Math.floor((slices + 3) / 4);
         this.stacks = stacks;
-        this.baseRadius = baseRadius;
-        this.topRadius = topRadius;
+        this.base = base;
+        this.top = top;
         this.height = height;
-        this.buildPoints();
 
-        console.log(this.points);
+        const points = [
+            [
+                [base, 0, 0, 1],
+                [top, 0, height, 1]
+            ],
+            [
+                [base, base, 0, Math.sqrt(2) / 2],
+                [top, top, height, Math.sqrt(2) / 2]
+            ],
+            [
+                [0, base, 0, 1],
+                [0, top, height, 1]
+            ],
+        ];
+        /*
+        const points = [
+            [
+                [0, base, 0, 1],
+                [base, base, 0, Math.sqrt(2) / 2],
+                [base, 0, 0, 1]
+            ],
+            [
+                [0, top, height, 1],
+                [top, top, height, Math.sqrt(2) / 2],
+                [top, 0, height, 1]
+            ],
+        ];
+        */
 
-        this.surface = new CGFnurbsSurface(stacks, 5, this.points);
-        this.nurbs = new CGFnurbsObject(scene, slices, stacks, this.surface);
-    }
-
-    buildPoints()
-    {
-        const sin = Math.sin, cos = Math.cos, PI = Math.PI;
-        const baseRadius = this.baseRadius, topRadius = this.topRadius,
-            height = this.height, slices = this.slices, stacks = this.stacks;
-
-        const stackHeight = height / stacks;
-        const radius = baseRadius - topRadius;
-
-        const cosines = [], sines = [];
-
-        for (let i = 0; i <= 8; ++i) {
-            const dist = 1 + (i % 2);
-            cosines.push(dist * cos(i * (PI / 3)));
-            sines.push(dist * sin(i * (PI / 3)));
-        }
-
-        const points = [];
-
-        for (let s = 0; s <= stacks; ++s) { // stack
-            const Y = s * stackHeight;
-            const sradius = baseRadius * (1 - s / stacks)
-                + topRadius * s / stacks;
-
-            const row = [];
-            for (let i = 6; i > 0; --i) {
-                const w = 2 - (i % 2);
-                const cp = [sradius * cosines[i], Y, sradius * sines[i], w];
-                row.push(cp);
-            }
-
-            points.push(row);
-        }
-
-        this.points = points;
+        this.surface = new CGFnurbsSurface(2, 1, points);
+        this.nurbs = new CGFnurbsObject(scene, this.slices, stacks, this.surface);
     }
 
     display()
     {
         this.scene.pushMatrix();
+            this.nurbs.display();
+            this.scene.rotate(Math.PI / 2, 0, 0, 1);
+            this.nurbs.display();
+            this.scene.rotate(Math.PI / 2, 0, 0, 1);
+            this.nurbs.display();
+            this.scene.rotate(Math.PI / 2, 0, 0, 1);
             this.nurbs.display();
         this.scene.popMatrix();
     }
