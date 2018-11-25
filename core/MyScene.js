@@ -9,6 +9,7 @@ class MyScene extends CGFscene {
         gui.scene = this;
 
         window.scene = this;
+        this.factor = 20.0;
     }
 
     /**
@@ -29,6 +30,19 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
+
+        this.shaders = [
+            new CGFshader(this.gl,"shaders/shader.vert", "shaders/shader.frag")
+        ];
+        this.shaders[0].setUniformsValues({
+            normScale: this.factor, // default normScale (starting time as 1)
+            selectedColor: [1, 1.0, 1, 1.0], // default selectedColor (color white)
+            uSampler2: 2
+        });
+
+        this.texture1 = new CGFtexture(this, "images/terrain.jpg");
+        this.texture2 = new CGFtexture(this, "heightmap.jpg");
+
     }
 
     /**
@@ -257,15 +271,16 @@ class MyScene extends CGFscene {
         }
 
         for (const id in components) {
-            let componentAnim = {
-                index: 0,
-                animations: []
-            };
 
             if (components[id].animations !== null) {
+                let componentAnim = {
+                    index: 0,
+                    animations: []
+                };   
                 const animeref = components[id].animations.elements;
-                if (animeref.length != null) {
+                if (animeref.length != 0) {
                     for (const an in animeref) {
+                                 
                         if (text[animeref[an].id].type === "linear") {
                             componentAnim.animations.push(new LinearAnimation(this, text[animeref[an].id].points,
                                 text[animeref[an].id].span));
@@ -279,7 +294,7 @@ class MyScene extends CGFscene {
                                 text[animeref[an].id].span));
                         }
                     }
-
+                    
                     this.animations[components[id].id] = componentAnim;
                 }
                 componentAnim = [];
@@ -300,7 +315,14 @@ class MyScene extends CGFscene {
 
         this.gui.populate(this, this.graph.yas);
     }
-
+/* 
+    changeFactor(a){
+        this.shaders[0].setUniformsValues({
+            normScale: a, // default normScale (starting time as 1)
+            selectedColor: [1, 1.0, 1, 1.0] // default selectedColor (color white)
+        });
+    }
+ */
     /**
      * Select or unselect light and index i
      */
@@ -383,7 +405,6 @@ class MyScene extends CGFscene {
 
 
         this.pushMatrix();
-
         this.axis.display();
 
         if (this.graphLoaded) {
@@ -407,6 +428,9 @@ class MyScene extends CGFscene {
         const texture = current.texture;
         const children = current.children;
 
+        this.setActiveShader(this.shaders[0]);
+        this.texture2.bind(2);
+
         // Use own (s,t), or inherit from parent?
         if (!INHERIT_S_T || texture.mode != "inherit") {
             s = texture.s;
@@ -414,7 +438,6 @@ class MyScene extends CGFscene {
         }
 
         this.pushMatrix();
-
         //Animations
 
         if (this.animations[current.id] !== undefined) {
@@ -479,6 +502,7 @@ class MyScene extends CGFscene {
                 let animation = this.animations[k]; 
                 let index = animation.index;
 
+                console.log(animation.animations);
                 if (!animation.animations[index].hasEnded())
                     animation.animations[index].update(currTime);
 
@@ -489,7 +513,7 @@ class MyScene extends CGFscene {
             }
         }
 
-    }
+     }
 
     /**
      * Check interface keys
