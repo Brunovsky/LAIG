@@ -183,17 +183,26 @@ class MyScene extends CGFscene {
             const file = texture.data.file;
 
             this.textures[id] = new CGFtexture(this, file);
-            if (this.textures[id] != null) continue;
+            if (this.textures[id] != null) {
+                this.textures[id].yasID = id;
+                continue;
+            }
 
             console.warn("Texture file %s not found, searching in images/", file);
 
             this.textures[id] = new CGFtexture(this, "images/" + file);
-            if (this.textures[id] != null) continue;
+            if (this.textures[id] != null) {
+                this.textures[id].yasID = id;
+                continue;
+            }
 
             console.warn("Texture file images/%s not found, searching in tex/", file);
 
             this.textures[id] = new CGFtexture(this, "tex/" + file);
-            if (this.textures[id] != null) continue;
+            if (this.textures[id] != null) {
+                this.textures[id].yasID = id;
+                continue;
+            }
 
             console.warn("Texture file tex/%s not found", file);
         }
@@ -221,6 +230,8 @@ class MyScene extends CGFscene {
             this.materials[id].setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
             this.materials[id].setSpecular(specular.r, specular.g, specular.b, specular.a);
             this.materials[id].setTextureWrap("REPEAT", "REPEAT");
+
+            this.materials[id].yasID = id;
         }
         this.materialIndex = 0;
     }
@@ -558,8 +569,15 @@ class MyScene extends CGFscene {
     }
 
     updateUniforms(currTime) {
-        const ang = 2 * Math.PI / this.wavePeriod;
-        const time = Math.sin(currTime * ang) / 2;
+        const seconds = currTime / 1000;
+
+        // Wave period
+        if (WAVE_BEHAVIOUR === "linear") {
+            var time = (seconds / WAVE_PERIOD) % 1.0;
+        } else if (WAVE_BEHAVIOUR === "sine") {
+            const angularFrequency = 2 * Math.PI / WAVE_PERIOD;
+            var time = 0.5 + Math.sin(seconds * angularFrequency) / 2;
+        }
 
         this.shaders.water.setUniformsValues({
             time: time

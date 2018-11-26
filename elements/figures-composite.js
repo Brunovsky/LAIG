@@ -98,7 +98,7 @@ class XMLTerrain extends XMLElement {
     constructor(node) {
         super(node, {
             idtexture: "ss", idheightmap: "ss",
-            parts: "ii", heightscale: "ff"
+            parts: "ii", heightscale: "pp"
         });
 
         this.type = "terrain";
@@ -113,7 +113,7 @@ class XMLWater extends XMLElement {
     constructor(node) {
         super(node, {
             idtexture: "ss", idwavemap: "ss",
-            parts: "ii", heightscale: "ff", texscale: "ff"
+            parts: "ii", heightscale: "pp", texscale: "pp"
         });
 
         this.type = "water";

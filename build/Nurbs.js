@@ -6,12 +6,12 @@ class Plane extends CGFobject
         const points = [
             [
                 [-0.5, 0, -0.5, 1],
-                [ 0.5, 0, -0.5, 1]
+                [ 0.5, 0, -0.5, 1],
             ],
             [
                 [-0.5, 0,  0.5, 1],
-                [ 0.5, 0,  0.5, 1]
-            ]
+                [ 0.5, 0,  0.5, 1],
+            ],
         ];
         this.divs = {u: uDivs, v: vDivs};
         this.points = points;
@@ -105,17 +105,28 @@ class Water extends Plane
         this.texture = texture;
         this.wavemap = wavemap;
         this.parts = parts;
-        this.scale = {
-            height: heightscale,
-            texture: texscale
-        };
+        this.heightscale = heightscale;
+        this.texscale = texscale;
+
+        this.log();
+    }
+
+    log()
+    {
+        console.groupCollapsed("Water Feature");
+        console.log("Image Texture", this.texture);
+        console.log("Wavemap Texture", this.wavemap);
+        console.log("Parts", this.parts);
+        console.log("Heightscale", this.heightscale);
+        console.log("Texscale", this.texscale);
+        console.groupEnd();
     }
 
     setupShader()
     {
         this.scene.shaders.water.setUniformsValues({
-            normScale: this.scale.height,
-            texScale: this.scale.texture,
+            normScale: this.heightscale,
+            texScale: this.texscale
         });
         this.texture.bind(IMAGE_TEXTURE_GL_N);
         this.wavemap.bind(HEIGHTMAP_TEXTURE_GL_N);

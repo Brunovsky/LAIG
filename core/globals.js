@@ -32,11 +32,14 @@ const XML_ANIMATIONS_OPT = true;
 const XML_ANIMATIONS_NONEMPTY = false;
 
 // WebGL active texture numbers
-const IMAGE_TEXTURE_GL_N = 1;
-const HEIGHTMAP_TEXTURE_GL_N = 2;
+const IMAGE_TEXTURE_GL_N = 0;
+const HEIGHTMAP_TEXTURE_GL_N = 1;
 
-// Wave descriptors
-const WAVE_PERIOD = 20;
+// Wave behaviour ("linear" or "sine")
+const WAVE_BEHAVIOUR = "linear";
+
+// Wave period
+const WAVE_PERIOD = 100;
 
 
 
@@ -46,8 +49,8 @@ const DEFAULT_YAS_FILE = "trialscene.xml";
 // Shader files, in folder shaders/
 const SHADER_FILES = {
     water: {
-        vertex: "vertex/test.glsl",
-        fragment: "fragment/test.glsl"
+        vertex: "vertex/water-displace.glsl",
+        fragment: "fragment/water-displace.glsl"
     },
     terrain: {
         vertex: "vertex/test.glsl",
