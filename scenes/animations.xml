@@ -1,5 +1,5 @@
 <yas>
-    <scene axis_length="50.0" root="root"/>
+    <scene axis_length="50.0" root="cube3"/>
 
     <views default="general-view">
         <perspective id="general-view" angle="50" near="0.5" far="500">
@@ -115,12 +115,22 @@
     </animations>
 
     <primitives>
-        <primitive id="cube">
-            <cylinder base="0.5" top="0" height="2" slices="60" stacks="60"/>
+       <primitive id="cube">
+            <patch npointsU="2" npointsV="2" npartsU="3" npartsV="3">
+                <controlpoint xx="0" yy="0" zz="0"/>
+                <controlpoint xx="0" yy="1" zz="0"/>
+                <controlpoint xx="2" yy="0" zz="0"/>
+                <controlpoint xx="2" yy="2" zz="0"/>
+
+            </patch>
+        </primitive>
+
+        <primitive id="cube3">
+            <vehicle />
         </primitive>
 
         <primitive id="cube2">
-            <cylinder base="0.5" top="0" height="2" slices="60" stacks="60"/>
+            <cylinder2 base="0.5" top="0.5" height="2" slices="60" stacks="60"/>
         </primitive>
     </primitives>
 
@@ -152,7 +162,6 @@
             <transformation>
             </transformation>
             <animations>
-               <animationref id = "linear1"/>
               
             </animations>
             <materials>
@@ -180,6 +189,21 @@
            
             <children>
                 <primitiveref id="cube2"/>
+            </children>
+        </component>
+             
+              <component id="cube3">
+            <transformation>
+            </transformation>
+            <animations>
+            </animations>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="granito" length_s="1.0" length_t="1.0"/>
+           
+            <children>
+                <primitiveref id="cube3"/>
             </children>
         </component>
              
