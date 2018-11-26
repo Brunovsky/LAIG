@@ -272,7 +272,7 @@ class MyScene extends CGFscene {
 
             if (components[id].animations != null) {
                 const animeref = components[id].animations.elements;
-                
+
                 if (animeref.length > 0) {
                     for (const an in animeref) {
 
@@ -295,6 +295,7 @@ class MyScene extends CGFscene {
                 }
             }
         }
+        this.start = false;
     }
 
     initPrimitives() {
@@ -505,7 +506,7 @@ class MyScene extends CGFscene {
                 const prim = this.primitives[child.id];
 
                 if (prim.adjust) prim.updateTexCoords(s, t);
-                
+
                 sceneMaterial.setTexture(sceneTexture);
                 sceneMaterial.apply();
 
@@ -556,19 +557,25 @@ class MyScene extends CGFscene {
     }
 
     updateAnimations(currTime) {
-        for (const id in this.animations) {
-            let animation = this.animations[id]; 
-            let index = animation.index;
 
-            if (!animation.animations[index].hasEnded()) {
-                animation.animations[index].update(currTime);
-            }
-            else if (animation.animations[index].hasEnded()
-                && index < animation.animations.length - 1) {
+        if (this.start) {
+            for (const id in this.animations) {
+                let animation = this.animations[id];
+                let index = animation.index;
+
+                if (!animation.animations[index].hasEnded()) {
+                    animation.animations[index].update(currTime, this.previous);
+                }
+                else if (animation.animations[index].hasEnded()
+                    && index < animation.animations.length - 1) {
                     animation.index += 1;
-                    animation.animations[index].update(currTime);
+                    animation.animations[index].update(currTime, this.previous);
+                }
             }
         }
+        this.previous = currTime;
+        this.start = true;
+
     }
 
     updateUniforms(currTime) {

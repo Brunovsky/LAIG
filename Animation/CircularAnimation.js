@@ -9,17 +9,17 @@ class CircularAnimation extends Animation {
         this.rotation = 0;
     }
 
-    update(currTime) {
-        if (this.started && (this.elapsed_time / 1000 < this.span)) {
+    update(currTime, previousTime) {
+        
+        if (this.elapsed_time / 1000 < this.span) {
 
-            super.update(currTime);
+            super.update(currTime, previousTime);
             
+            if(this.percentage > 1)
+                this.percentage = 1; 
             this.rotation = this.percentage * this.rotangle;
-       
-        }
 
-        this.started = true;
-        this.previousTime = currTime;
+        }
 
         if (this.elapsed_time / 1000 >= this.span)
             this.end = true;

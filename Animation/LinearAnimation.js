@@ -47,17 +47,12 @@ class LinearAnimation extends Animation {
             k += value;
             this.progress.push(k / this.total_dist);
         }
-
-        console.log(this.dist);
-        console.log(this.vec);
-        console.log(this.progress);
-
     }
 
-    update(currTime) {
+    update(currTime, previousTime) {
 
-        if (this.started && (this.elapsed_time / 1000 < this.span)) {
-            super.update(currTime);
+        if (this.elapsed_time / 1000 < this.span) {
+            super.update(currTime, previousTime);
             let pos_in_vec = (this.progress[this.pos + 1] - this.percentage) / (this.progress[this.pos + 1] - this.progress[this.pos]);
 
             if (this.total_dist != 0) {
@@ -83,11 +78,6 @@ class LinearAnimation extends Animation {
         }
 
 
-
-
-
-        this.started = true;
-        this.previousTime = currTime;
 
         if (this.elapsed_time / 1000 >= this.span)
             this.end = true;
