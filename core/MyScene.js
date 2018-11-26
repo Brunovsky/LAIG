@@ -472,7 +472,6 @@ class MyScene extends CGFscene {
             let aux = animations.animations[index];
 
             aux.apply();
-            // TODO: Stacking behaviour
         }
 
         // Transformation
@@ -498,14 +497,15 @@ class MyScene extends CGFscene {
         for (const id in children.elements) {
             const child = children.elements[id];
 
+            // Apply Material
+
             if (child.type === "componentref") {
                 this.traverser(child.ref, sceneMaterial, sceneTexture, s, t);
             } else {
                 const prim = this.primitives[child.id];
 
                 if (prim.adjust) prim.updateTexCoords(s, t);
-
-                // Apply Material
+                
                 sceneMaterial.setTexture(sceneTexture);
                 sceneMaterial.apply();
 
@@ -556,18 +556,17 @@ class MyScene extends CGFscene {
     }
 
     updateAnimations(currTime) {
-        for (const k in this.animations) {
-            let animation = this.animations[k]; 
+        for (const id in this.animations) {
+            let animation = this.animations[id]; 
             let index = animation.index;
 
-            if (!animation.animations[index].hasEnded())
+            if (!animation.animations[index].hasEnded()) {
                 animation.animations[index].update(currTime);
-
-            if (animation.animations[index].hasEnded() &&
-                animation.animations[index].hasStarted()) {
-                if (index < animation.animations.length - 1)
+            }
+            else if (animation.animations[index].hasEnded()
+                && index < animation.animations.length - 1) {
                     animation.index += 1;
-                // TODO: Looping behaviour
+                    animation.animations[index].update(currTime);
             }
         }
     }

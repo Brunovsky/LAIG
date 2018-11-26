@@ -1,17 +1,16 @@
 class LinearAnimation extends Animation {
-    constructor(scene, cp = {}, span) {
+    constructor(scene, cp, span) {
         super(scene);
         this.cp = cp;
         this.total_dist = 0;
         this.comp = 0;
         this.span = span;
         this.pos = 0;
-        this.vector_acumulator
         this.translate = {
-            x: 0,
-            y: 0,
-            z: 0
-        }
+            x: cp[0].x,
+            y: cp[0].y,
+            z: cp[0].z,
+        };
         this.distance();
         this.rotation = this.rotateAngle(this.vec[this.pos]);
     }

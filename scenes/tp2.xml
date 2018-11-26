@@ -4,8 +4,8 @@
     
     <views default="general-view">
         <perspective id="general-view" angle="50" near="0.2" far="500">
-            <from x="-10.0" y="20.0" z="10.0"/>
-            <to   x="0.0" y="-5.0" z="0.0"/>
+            <from x="10.0" y="20.0" z="50.0"/>
+            <to   x="0.0" y="5.0" z="0.0"/>
         </perspective>
         <ortho id="ortho-general" near="0.2" far="500" left="-5" right="5" bottom="-5" top="5">
             <from x="50.0" y="20.0" z="-30.0"/>
@@ -359,6 +359,23 @@
             <controlpoint xx="1" yy="0" zz="15"/>
             <controlpoint xx="1" yy="15" zz="15"/>
         </linear>
+        <linear id="step-2" span="3">
+            <controlpoint xx="1" yy="15" zz="15"/>
+            <controlpoint xx="1" yy="10" zz="10"/>
+            <controlpoint xx="3" yy="7" zz="8"/>
+            <controlpoint xx="19" yy="-15" zz="20"/>
+            <controlpoint xx="4" yy="-5" zz="-10"/>
+        </linear>
+        <circular id="step-3" span="3" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
+        <circular id="step-4" span="2" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
+        <circular id="step-5" span="1" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
+        <circular id="step-6" span="5" center="-2 -5 -10" radius="6" startang="0" rotang="360"/>
+        <linear id="step-7" span="5">
+            <controlpoint xx="4" yy="-5" zz="-10"/>
+            <controlpoint xx="1" yy="10" zz="5"/>
+            <controlpoint xx="1" yy="5" zz="15"/>
+            <controlpoint xx="1" yy="0" zz="15"/>
+        </linear>
     </animations>
     
     
@@ -522,11 +539,17 @@
 
         <component id="ovni">
             <transformation>
-                <translate x="0" y="15" z="0"/>
+                <translate x="0" y="15" z="-1"/>
             </transformation>
             <animations>
                 <animationref id="step-0"/>
                 <animationref id="step-1"/>
+                <animationref id="step-2"/>
+                <animationref id="step-3"/>
+                <animationref id="step-4"/>
+                <animationref id="step-5"/>
+                <animationref id="step-6"/>
+                <animationref id="step-7"/>
             </animations>
             <materials>
                 <material id="light-metal"/>
