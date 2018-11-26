@@ -53,6 +53,8 @@
     </lights>
 
     <textures>
+        <texture id="grey" file="images/grey.jpg"/>
+
         <texture id="terrain" file="images/terrain.jpg"/>
         <texture id="heightmap" file="images/heightmap.jpg"/>
 
@@ -99,22 +101,43 @@
     </transformations>
 
     <animations>
-        <linear id="linear2" span="3">
-            <controlpoint xx="0" yy="0" zz="0"/>
-            <controlpoint xx="5" yy="0" zz="0"/>
+        <linear id="linear2" span="5">
+            <controlpoint xx="0" yy="3" zz="0"/>
+            <controlpoint xx="0" yy="15" zz="0"/>          
+            <controlpoint xx="15" yy="10" zz="0"/>
         </linear>
         <linear id="linear1" span="3">
             <controlpoint xx="5" yy="0" zz="0"/>
             <controlpoint xx="0" yy="5" zz="0"/>
         </linear>
+
         <linear id="linear3" span="4">
             <controlpoint xx="0" yy="0" zz="0"/>
             <controlpoint xx="0" yy="0" zz="6"/>
         </linear>
-        <circular id="circular1" span="3" center="0 0 0 " radius="10" startang="20" rotang="180"/>
+
+        <circular id="circular1" span="5" center="5 10 0 " radius="10" startang="20" rotang="180"/>
     </animations>
 
     <primitives>
+       <primitive id="cube">
+            <patch npointsU="2" npointsV="2" npartsU="3" npartsV="3">
+                <controlpoint xx="0" yy="0" zz="0"/>
+                <controlpoint xx="0" yy="1" zz="0"/>
+                <controlpoint xx="2" yy="0" zz="0"/>
+                <controlpoint xx="2" yy="2" zz="0"/>
+
+            </patch>
+        </primitive>
+
+        <primitive id="cube3">
+            <vehicle />
+        </primitive>
+
+        <primitive id="cube2">
+            <cylinder2 base="0.5" top="0.5" height="2" slices="60" stacks="60"/>
+
+        </primitive>
         <primitive id="cylinder">
             <cylinder base="0.5" top="0" height="2" slices="60" stacks="60"/>
         </primitive>
@@ -138,8 +161,8 @@
             <texture id="granito" length_s="1.0" length_t="1.0"/>
            
             <children>
-                <componentref id="beacon"/>
-                <componentref id="beacon2"/>
+                <componentref id="cube3"/>
+
                 <componentref id="terrain"/>
             </children>
         </component>
@@ -201,5 +224,25 @@
                 <primitiveref id="cylinder"/>
             </children>
         </component>
+             
+              <component id="cube3">
+            <transformation>
+                <scale x="0.5" y="0.5" z="0.5"/>
+            </transformation>
+            <animations>
+                <animationref id="linear2"/>
+                <animationref id="circular1"/>
+
+            </animations>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
+           
+            <children>
+                <primitiveref id="cube3"/>
+            </children>
+        </component>
+             
     </components>
 </yas>

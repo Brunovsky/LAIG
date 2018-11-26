@@ -4,12 +4,12 @@ class Plane extends CGFobject {
         const points = [
             [
                 [-0.5, 0, -0.5, 1],
-                [ 0.5, 0, -0.5, 1],
+                [0.5, 0, -0.5, 1]
             ],
             [
-                [-0.5, 0,  0.5, 1],
-                [ 0.5, 0,  0.5, 1],
-            ],
+                [-0.5, 0, 0.5, 1],
+                [0.5, 0, 0.5, 1]
+            ]
         ];
         this.divs = { u: uDivs, v: vDivs };
         this.points = points;
@@ -45,10 +45,8 @@ class Patch extends CGFobject {
     }
 }
 
-class Cylinder2 extends CGFobject
-{
-    constructor(scene, base = 1, top = 0.5, height = 1, slices = 64, stacks = 1)
-    {
+class Cylinder2 extends CGFobject {
+    constructor(scene, base = 1, top = 0.5, height = 1, slices = 64, stacks = 1) {
         super(scene);
         this.slices = Math.floor((slices + 3) / 4);
         this.stacks = stacks;
@@ -77,20 +75,72 @@ class Cylinder2 extends CGFobject
         this.nurbs = new CGFnurbsObject(scene, this.slices, stacks, this.surface);
     }
 
-    display()
-    {
+    display() {
         this.scene.pushMatrix();
-            this.nurbs.display();
-            this.scene.rotate(Math.PI / 2, 0, 0, 1);
-            this.nurbs.display();
-            this.scene.rotate(Math.PI / 2, 0, 0, 1);
-            this.nurbs.display();
-            this.scene.rotate(Math.PI / 2, 0, 0, 1);
-            this.nurbs.display();
+        this.nurbs.display();
+        this.scene.rotate(Math.PI / 2, 0, 0, 1);
+        this.nurbs.display();
+        this.scene.rotate(Math.PI / 2, 0, 0, 1);
+        this.nurbs.display();
+        this.scene.rotate(Math.PI / 2, 0, 0, 1);
+        this.nurbs.display();
         this.scene.popMatrix();
     }
 }
 
+class Vehicle extends CGFobject {
+
+    constructor(scene) {
+        super(scene);
+        this.scene = scene;
+        let raio = 5;
+        this.incr = Math.PI * 2 / 144;
+        this.controlPoints = [];
+
+        for (let i = 0; i < 144; i++) {
+            let a = Math.sin(i * this.incr) * raio;
+            let b = Math.cos(i * this.incr) * raio;
+            let point1 = [a, 0, b, 1];
+            let point2 = [a, 1, b, 1];
+
+            let point = [point1, point2];
+            this.controlPoints.push(point);
+
+        }
+
+        this.nurb = new Patch(scene, 15, 15, this.controlPoints);
+
+        this.s = new ClosedHalfSphere(scene, 2, 64, 64);
+        this.plane = new Circle(scene, 4.9, 64);
+        this.apoios = new Cylinder2(scene, 0.5, 0, 3, 64, 64);
+    }
+
+    display() {
+        this.scene.pushMatrix();
+        this.scene.translate(0,1,0);
+        this.plane.display();        
+        this.scene.popMatrix();
+        this.scene.pushMatrix();
+        this.scene.translate(0,1,0);
+        this.scene.rotate(-1*Math.PI/2, 1,0,0);
+        this.s.display();
+        this.scene.popMatrix();
+        this.plane.display();        
+
+        
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI/2, 1,0,0);
+        this.apoios.display();
+        
+
+        this.scene.popMatrix();
+
+
+        this.nurb.display();
+
+    }
+
+}
 class Terrain extends Plane {
 
     constructor(scene, texture, heightmap, parts, heightscale) {
