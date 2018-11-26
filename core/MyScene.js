@@ -494,10 +494,6 @@ class MyScene extends CGFscene {
             sceneTexture = this.textures[texture.id];
         }
 
-        // Apply Material
-        sceneMaterial.setTexture(sceneTexture);
-        sceneMaterial.apply();
-
         // Recurse & Display primitives
         for (const id in children.elements) {
             const child = children.elements[id];
@@ -508,6 +504,10 @@ class MyScene extends CGFscene {
                 const prim = this.primitives[child.id];
 
                 if (prim.adjust) prim.updateTexCoords(s, t);
+
+                // Apply Material
+                sceneMaterial.setTexture(sceneTexture);
+                sceneMaterial.apply();
 
                 this.primitives[child.id].display();
             }

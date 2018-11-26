@@ -12,7 +12,7 @@ function protoHeart() {
     return function heart(t) {
         return {
             X: 2 * sin(t) * sin(t) * sin(t),
-            Y: (13 * cos(t) - 5 * cos(2*t) - 2 * cos(3*t) - cos(4*t)) / 8
+            Y: -(13 * cos(t) - 5 * cos(2*t) - 2 * cos(3*t) - cos(4*t)) / 8
         };
     }
 }

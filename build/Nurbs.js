@@ -89,58 +89,83 @@ class Cylinder2 extends CGFobject {
 }
 
 class Vehicle extends CGFobject {
-
     constructor(scene) {
         super(scene);
-        this.scene = scene;
-        let raio = 5;
-        this.incr = Math.PI * 2 / 144;
         this.controlPoints = [];
 
-        for (let i = 0; i < 144; i++) {
-            let a = Math.sin(i * this.incr) * raio;
-            let b = Math.cos(i * this.incr) * raio;
-            let point1 = [a, 0, b, 1];
-            let point2 = [a, 1, b, 1];
+        this.buildDisc();
+        this.fixingSphere = new ClosedHalfSphere(scene, 0.7, 64, 64);
+        this.headTorus = new uvSurface(scene, protoTorus(0.075, 0.80), intervalTorus);
+        this.cannon = new Cylinder2(scene, 0.2, 0.2, 9);
+        this.tipSphere = new HalfSphere(scene, 0.2);
+    }
 
-            let point = [point1, point2];
-            this.controlPoints.push(point);
+    buildDisc() {
+        const height = 1;
+        const radius = 5;
 
-        }
+        const w = Math.sqrt(2) / 2;
 
-        this.nurb = new Patch(scene, 15, 15, this.controlPoints);
+        const points = [
+            [
+                [     0,      0, -height, 1],
+                [radius,      0, -height, 1],
+                [radius,      0,       0, 1],
+                [radius,      0,  height, 1],
+                [     0,      0,  height, 1]
+            ],
+            [
+                [     0,      0, -height, w],
+                [radius, radius, -height, w],
+                [radius, radius,       0, w],
+                [radius, radius,  height, w],
+                [     0,      0,  height, w]
+            ],
+            [
+                [     0,      0, -height, 1],
+                [     0, radius, -height, 1],
+                [     0, radius,       0, 1],
+                [     0, radius,  height, 1],
+                [     0,      0,  height, 1]
+            ],
+        ];
 
-        this.s = new ClosedHalfSphere(scene, 2, 64, 64);
-        this.plane = new Circle(scene, 4.9, 64);
-        this.apoios = new Cylinder2(scene, 0.5, 0, 3, 64, 64);
+        const surface = new CGFnurbsSurface(2, 4, points);
+        this.disc = new CGFnurbsObject(scene, 64, 64, surface);
     }
 
     display() {
         this.scene.pushMatrix();
-        this.scene.translate(0,1,0);
-        this.plane.display();        
-        this.scene.popMatrix();
+
         this.scene.pushMatrix();
-        this.scene.translate(0,1,0);
-        this.scene.rotate(-1*Math.PI/2, 1,0,0);
-        this.s.display();
-        this.scene.popMatrix();
-        this.plane.display();        
+        this.scene.translate(0, 1, 0);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+        this.fixingSphere.display();
+        this.scene.translate(0, 0, 0.1);
+        this.headTorus.display();
+        this.scene.popMatrix();  
 
-        
         this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2, 1,0,0);
-        this.apoios.display();
-        
-
+        this.cannon.display();
+        this.scene.translate(0, 0, 9);
+        this.tipSphere.display();
         this.scene.popMatrix();
 
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.disc.display();
+        this.scene.rotate(Math.PI / 2, 0, 0, 1);
+        this.disc.display();
+        this.scene.rotate(Math.PI / 2, 0, 0, 1);
+        this.disc.display();
+        this.scene.rotate(Math.PI / 2, 0, 0, 1);
+        this.disc.display();
+        this.scene.popMatrix();
 
-        this.nurb.display();
-
+        this.scene.popMatrix();
     }
-
 }
+
 class Terrain extends Plane {
 
     constructor(scene, texture, heightmap, parts, heightscale) {
