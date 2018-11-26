@@ -61,7 +61,7 @@ class MyScene extends CGFscene {
 
         console.log("Axis", this.axis);
         console.log("Views", this.views);
-        console.log("Ambient", this.color);
+        console.log("Ambient", this.bg);
         console.log("Lights", this.lights);
         console.log("Textures", this.textures);
         console.log("Materials", this.materials);
@@ -296,13 +296,27 @@ class MyScene extends CGFscene {
     }
 
     initShaders() {
+        const waterv = "shaders/" + SHADER_FILES.water.vertex;
+        const waterf = "shaders/" + SHADER_FILES.water.fragment;
+        const terrainv = "shaders/" + SHADER_FILES.terrain.vertex;
+        const terrainf = "shaders/" + SHADER_FILES.terrain.fragment;
+
         this.shaders = {
-            water: {
-                vertex: "shaders/vertex/test.glsl",
-                fragment: "shaders/fragment/test.glsl",
-                heightmap: "images/water-heightmap.jpg"
-            }
+            water: new CGFshader(this.gl, waterv, waterf),
+            terrain: new CGFshader(this.gl, terrainv, terrainf),
         };
+
+        this.shaders.water.setUniformsValues({
+            uSampler: IMAGE_TEXTURE_GL_N,
+            heightSampler: HEIGHTMAP_TEXTURE_GL_N
+        });
+
+        this.shaders.terrain.setUniformsValues({
+            uSampler: IMAGE_TEXTURE_GL_N,
+            heightSampler: HEIGHTMAP_TEXTURE_GL_N
+        });
+
+        this.wavePeriod = WAVE_PERIOD;
     }
 
     initInterface() {
@@ -491,24 +505,11 @@ class MyScene extends CGFscene {
      * Update data (only keys)
      */
     update(currTime) {
+        if (!this.graphLoaded) return;
+
         this.checkKeys();
-
-        if (this.graphLoaded) {
-            for (const k in this.animations) {
-                let animation = this.animations[k]; 
-                let index = animation.index;
-
-                if (!animation.animations[index].hasEnded())
-                    animation.animations[index].update(currTime);
-
-                if (animation.animations[index].hasEnded() &&
-                    animation.animations[index].hasStarted()) {
-                    if (index < animation.animations.length - 1)
-                        animation.index += 1;
-                    // TODO: Looping behaviour
-                }
-            }
-        }
+        this.updateAnimations(currTime);
+        this.updateUniforms(currTime);
     }
 
     /**
@@ -537,5 +538,31 @@ class MyScene extends CGFscene {
 
             this.keys[func] = press;
         }
+    }
+
+    updateAnimations(currTime) {
+        for (const k in this.animations) {
+            let animation = this.animations[k]; 
+            let index = animation.index;
+
+            if (!animation.animations[index].hasEnded())
+                animation.animations[index].update(currTime);
+
+            if (animation.animations[index].hasEnded() &&
+                animation.animations[index].hasStarted()) {
+                if (index < animation.animations.length - 1)
+                    animation.index += 1;
+                // TODO: Looping behaviour
+            }
+        }
+    }
+
+    updateUniforms(currTime) {
+        const ang = 2 * Math.PI / this.wavePeriod;
+        const time = Math.sin(currTime * ang) / 2;
+
+        this.shaders.water.setUniformsValues({
+            time: time
+        });
     }
 }

@@ -1,3 +1,11 @@
+/**
+ * 5. Composite Planar Primitives
+ */
+
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > plane
+ */
 class XMLPlane extends XMLElement {
     constructor(node) {
         super(node, {
@@ -12,6 +20,10 @@ class XMLPlane extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > patch
+ */
 class XMLPatch extends XMLOrderedGroup {
     constructor(node) {
         super(node, {
@@ -43,7 +55,7 @@ class XMLPatch extends XMLOrderedGroup {
             for (let j = 0; j < this.data.npointsV; ++j) {
                 const s = i * this.data.npointsV + j;
                 const el = this.elements[s];
-                const cp = [el.xx, el.yy, el.zz, el.ww || 1];
+                const cp = [el.x, el.y, el.z, el.w || 1];
                 row.push(cp);
             }
 
@@ -52,6 +64,10 @@ class XMLPatch extends XMLOrderedGroup {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > vehicle
+ */
 class XMLVehicle extends XMLElement {
     constructor(node) {
         super(node, {});
@@ -60,6 +76,10 @@ class XMLVehicle extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > cylinder2
+ */
 class XMLCylinder2 extends XMLElement {
     constructor(node) {
         super(node, {
@@ -70,6 +90,10 @@ class XMLCylinder2 extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > terrain
+ */
 class XMLTerrain extends XMLElement {
     constructor(node) {
         super(node, {
@@ -81,6 +105,10 @@ class XMLTerrain extends XMLElement {
     }
 }
 
+/**
+ * XML Parsing Class
+ * Parses yas > primitives > primitive > water
+ */
 class XMLWater extends XMLElement {
     constructor(node) {
         super(node, {

@@ -62,36 +62,24 @@ class Cylinder2 extends CGFobject
         this.top = top;
         this.height = height;
 
-        const points = [
+        const w = Math.sqrt(2) / 2;
+
+        this.points = [
             [
                 [base, 0, 0, 1],
                 [top, 0, height, 1]
             ],
             [
-                [base, base, 0, Math.sqrt(2) / 2],
-                [top, top, height, Math.sqrt(2) / 2]
+                [base, base, 0, w],
+                [top, top, height, w]
             ],
             [
                 [0, base, 0, 1],
                 [0, top, height, 1]
             ],
         ];
-        /*
-        const points = [
-            [
-                [0, base, 0, 1],
-                [base, base, 0, Math.sqrt(2) / 2],
-                [base, 0, 0, 1]
-            ],
-            [
-                [0, top, height, 1],
-                [top, top, height, Math.sqrt(2) / 2],
-                [top, 0, height, 1]
-            ],
-        ];
-        */
 
-        this.surface = new CGFnurbsSurface(2, 1, points);
+        this.surface = new CGFnurbsSurface(2, 1, this.points);
         this.nurbs = new CGFnurbsObject(scene, this.slices, stacks, this.surface);
     }
 
@@ -106,5 +94,41 @@ class Cylinder2 extends CGFobject
             this.scene.rotate(Math.PI / 2, 0, 0, 1);
             this.nurbs.display();
         this.scene.popMatrix();
+    }
+}
+
+class Water extends Plane
+{
+    constructor(scene, texture, wavemap, parts, heightscale, texscale)
+    {
+        super(scene, parts, parts);
+        this.texture = texture;
+        this.wavemap = wavemap;
+        this.parts = parts;
+        this.scale = {
+            height: heightscale,
+            texture: texscale
+        };
+    }
+
+    setupShader()
+    {
+        this.scene.shaders.water.setUniformsValues({
+            normScale: this.scale.height,
+            texScale: this.scale.texture,
+        });
+        this.texture.bind(IMAGE_TEXTURE_GL_N);
+        this.wavemap.bind(HEIGHTMAP_TEXTURE_GL_N);
+    }
+
+    display()
+    {
+        // TODO: consider const ss = this.scene.shaders;
+        this.scene.setActiveShader(this.scene.shaders.water);
+        this.scene.pushMatrix();
+        this.setupShader();
+        super.display();
+        this.scene.popMatrix();
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 }

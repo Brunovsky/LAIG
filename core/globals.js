@@ -31,8 +31,26 @@ const XML_ANIMATIONS_OPT = true;
 // Disallow empty <animations> in <yas>
 const XML_ANIMATIONS_NONEMPTY = false;
 
+// WebGL active texture numbers
+const IMAGE_TEXTURE_GL_N = 1;
+const HEIGHTMAP_TEXTURE_GL_N = 2;
+
+// Wave descriptors
+const WAVE_PERIOD = 20;
 
 
 
 // Target yas file, in folder scenes/
-const DEFAULT_YAS_FILE = "tp1.xml";
+const DEFAULT_YAS_FILE = "trialscene.xml";
+
+// Shader files, in folder shaders/
+const SHADER_FILES = {
+    water: {
+        vertex: "vertex/test.glsl",
+        fragment: "fragment/test.glsl"
+    },
+    terrain: {
+        vertex: "vertex/test.glsl",
+        fragment: "fragment/test.glsl"
+    }
+};
