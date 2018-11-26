@@ -3,7 +3,6 @@ class LinearAnimation extends Animation {
         super(scene);
         this.cp = cp;
         this.total_dist = 0;
-        this.comp = 0;
         this.span = span;
         this.pos = 0;
         this.translate = {

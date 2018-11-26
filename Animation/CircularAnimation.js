@@ -17,6 +17,7 @@ class CircularAnimation extends Animation {
             
             if(this.percentage > 1)
                 this.percentage = 1; 
+
             this.rotation = this.percentage * this.rotangle;
 
         }
