@@ -15,7 +15,7 @@ class XMLPerspective extends XMLElement {
         const data = this.data, from = data.from, to = data.to;
 
         if (from.x === to.x && from.y === to.y && from.z === to.z) {
-            throw new XMLEception(node, "Position and target must differ");
+            throw new XMLException(node, "Position and target must differ");
         }
 
         if (data.near >= data.far) {
@@ -46,7 +46,7 @@ class XMLOrtho extends XMLElement {
         const data = this.data, from = data.from, to = data.to;
 
         if (from.x === to.x && from.y === to.y && from.z === to.z) {
-            throw new XMLEception(node, "Position and target must differ");
+            throw new XMLException(node, "Position and target must differ");
         }
 
         if (data.left === data.right) {

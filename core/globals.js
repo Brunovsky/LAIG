@@ -44,7 +44,7 @@ const WAVE_PERIOD = 100;
 
 
 // Target yas file, in folder scenes/
-const DEFAULT_YAS_FILE = "animations.xml";
+const DEFAULT_YAS_FILE = "tp2.xml";
 
 // Shader files, in folder shaders/
 const SHADER_FILES = {

@@ -72,6 +72,9 @@ class MyScene extends CGFscene {
 
         console.groupEnd();
         this.graphLoaded = true;
+
+        console.groupCollapsed("Loading textures, others...");
+        setTimeout(console.groupEnd, 3000);
     }
 
     initAxis() {
