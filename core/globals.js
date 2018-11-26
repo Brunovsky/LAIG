@@ -44,16 +44,16 @@ const WAVE_PERIOD = 100;
 
 
 // Target yas file, in folder scenes/
-const DEFAULT_YAS_FILE = "trialscene.xml";
+const DEFAULT_YAS_FILE = "animations.xml";
 
 // Shader files, in folder shaders/
 const SHADER_FILES = {
     water: {
-        vertex: "vertex/water-displace.glsl",
-        fragment: "fragment/water-displace.glsl"
+        vertex: "water-displace-vertex.glsl",
+        fragment: "water-displace-fragment.glsl"
     },
     terrain: {
-        vertex: "vertex/test.glsl",
-        fragment: "fragment/test.glsl"
+        vertex: "terrain.vert",
+        fragment: "terrain.frag"
     }
 };

@@ -262,16 +262,17 @@ class MyScene extends CGFscene {
         }
 
         for (const id in components) {
-            let componentAnim = {
+            const componentAnim = {
                 index: 0,
                 animations: []
-            };
+            }
 
             if (components[id].animations != null) {
                 const animeref = components[id].animations.elements;
                 
                 if (animeref.length > 0) {
                     for (const an in animeref) {
+
                         if (text[animeref[an].id].type === "linear") {
                             componentAnim.animations.push(new LinearAnimation(this,
                                 text[animeref[an].id].points,
@@ -289,7 +290,6 @@ class MyScene extends CGFscene {
 
                     this.animations[components[id].id] = componentAnim;
                 }
-                componentAnim = [];
             }
         }
     }
@@ -319,12 +319,14 @@ class MyScene extends CGFscene {
 
         this.shaders.water.setUniformsValues({
             uSampler: IMAGE_TEXTURE_GL_N,
-            heightSampler: HEIGHTMAP_TEXTURE_GL_N
+            heightSampler: HEIGHTMAP_TEXTURE_GL_N,
+            uSampler2: HEIGHTMAP_TEXTURE_GL_N
         });
 
         this.shaders.terrain.setUniformsValues({
             uSampler: IMAGE_TEXTURE_GL_N,
-            heightSampler: HEIGHTMAP_TEXTURE_GL_N
+            heightSampler: HEIGHTMAP_TEXTURE_GL_N,
+            uSampler2: HEIGHTMAP_TEXTURE_GL_N
         });
 
         this.wavePeriod = WAVE_PERIOD;
@@ -430,7 +432,6 @@ class MyScene extends CGFscene {
 
         // Display objects
         this.pushMatrix();
-
         this.axis.display();
 
         if (this.graphLoaded) {

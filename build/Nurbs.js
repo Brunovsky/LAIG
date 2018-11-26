@@ -1,7 +1,5 @@
-class Plane extends CGFobject
-{
-    constructor(scene, uDivs, vDivs)
-    {
+class Plane extends CGFobject {
+    constructor(scene, uDivs, vDivs) {
         super(scene);
         const points = [
             [
@@ -13,40 +11,36 @@ class Plane extends CGFobject
                 [ 0.5, 0,  0.5, 1],
             ],
         ];
-        this.divs = {u: uDivs, v: vDivs};
+        this.divs = { u: uDivs, v: vDivs };
         this.points = points;
 
         this.surface = new CGFnurbsSurface(1, 1, this.points);
         this.nurbs = new CGFnurbsObject(scene, uDivs, vDivs, this.surface);
     }
 
-    display()
-    {
+    display() {
         this.scene.pushMatrix(); // yes, superfluous
-            this.nurbs.display();
+        this.nurbs.display();
         this.scene.popMatrix();
     }
 }
 
-class Patch extends CGFobject
-{
-    constructor(scene, uDivs, vDivs, points)
-    {
+class Patch extends CGFobject {
+    constructor(scene, uDivs, vDivs, points) {
         super(scene);
         const uDegree = points.length - 1;
         const vDegree = points[0].length - 1;
-        this.divs = {u: uDivs, v: vDivs};
-        this.deg = {u: uDegree, v: vDegree};
+        this.divs = { u: uDivs, v: vDivs };
+        this.deg = { u: uDegree, v: vDegree };
         this.points = points;
 
         this.surface = new CGFnurbsSurface(uDegree, vDegree, points);
         this.nurbs = new CGFnurbsObject(scene, uDivs, vDivs, this.surface);
     }
 
-    display()
-    {
+    display() {
         this.scene.pushMatrix(); // yes, superfluous
-            this.nurbs.display();
+        this.nurbs.display();
         this.scene.popMatrix();
     }
 }
@@ -97,6 +91,32 @@ class Cylinder2 extends CGFobject
     }
 }
 
+class Terrain extends Plane {
+
+    constructor(scene, texture, heightmap, parts, heightscale) {
+        super(scene, parts, parts);
+
+        this.heightscale = heightscale;
+        this.texture1 = texture;
+        this.texture2 = heightmap;
+    }
+
+    setupShader() {
+        this.scene.shaders.terrain.setUniformsValues({
+            normScale: this.heightscale
+        });
+        this.texture1.bind(IMAGE_TEXTURE_GL_N);
+        this.texture2.bind(HEIGHTMAP_TEXTURE_GL_N);
+    }
+
+    display() {
+        this.scene.setActiveShader(this.scene.shaders.terrain);
+        this.setupShader();
+        super.display(); 
+        this.scene.setActiveShader(this.scene.defaultShader);
+    }
+}
+
 class Water extends Plane
 {
     constructor(scene, texture, wavemap, parts, heightscale, texscale)
@@ -107,19 +127,6 @@ class Water extends Plane
         this.parts = parts;
         this.heightscale = heightscale;
         this.texscale = texscale;
-
-        this.log();
-    }
-
-    log()
-    {
-        console.groupCollapsed("Water Feature");
-        console.log("Image Texture", this.texture);
-        console.log("Wavemap Texture", this.wavemap);
-        console.log("Parts", this.parts);
-        console.log("Heightscale", this.heightscale);
-        console.log("Texscale", this.texscale);
-        console.groupEnd();
     }
 
     setupShader()
@@ -134,12 +141,9 @@ class Water extends Plane
 
     display()
     {
-        // TODO: consider const ss = this.scene.shaders;
         this.scene.setActiveShader(this.scene.shaders.water);
-        this.scene.pushMatrix();
         this.setupShader();
         super.display();
-        this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
     }
 }

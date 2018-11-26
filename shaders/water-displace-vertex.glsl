@@ -32,7 +32,7 @@ vec3 rgb2hsv(vec3 c) {
     return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
 }
 
-// Shift aTextureCoord according to texScale and time, dont clamp to [0,1]
+// Shift aTextureCoord according to texScale and time, dont mod to [0,1]
 vec2 shift(vec2 coord) {
     return texScale * coord + time;
 }
@@ -44,7 +44,7 @@ vec3 displaceGreyscale(vec3 vertex, vec3 normal, vec2 coord) {
     return vertex + grey * normScale * vec3(0.0, 1.0, 0.0);
 }
 
-// Displace vertex along normal according to heightmap at heightSampler, hue
+// Displace vertex along normal according to heightmap at heightSampler, hue linear
 vec3 displaceHuescale(vec3 vertex, vec3 normal, vec2 coord) {
     vec4 color = texture2D(heightSampler, mod(coord, 1.0));
     float hue = 1.0 - rgb2hsv(color.rgb).r;
