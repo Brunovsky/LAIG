@@ -43,7 +43,8 @@ class XMLYas extends XMLOrderedSet {
     }
 
     resolve() {
-        this.resolveReferences();
+        this.resolveComponentReferences();
+        this.resolvePrimitiveReferences();
         this.validateRoot();
         this.validateViews();
         this.validateGraph();
@@ -54,9 +55,9 @@ class XMLYas extends XMLOrderedSet {
      * Resolve cross references between components, transformations,
      * textures, materials and animations.
      */
-    resolveReferences() {
+    resolveComponentReferences() {
         for (const componentId in this.components.elements) {
-            const component = this.components.elements[componentId];
+            const component = this.components.get(componentId);
 
             const transformation = component.transformation;
             const materials = component.materials.elements;
@@ -148,6 +149,55 @@ class XMLYas extends XMLOrderedSet {
                 }
 
                 animation.ref = animationref;
+            }
+        }
+    }
+
+    /**
+     * Resolve texture references in water and terrain primitives
+     */
+    resolvePrimitiveReferences() {
+        for (const primitiveId in this.primitives.elements) {
+            const primitive = this.primitives.get(primitiveId);
+
+            const figure = primitive.figure;
+
+            // Resolve water figure references
+            if (figure.type === "water") {
+                const idtexture = figure.data.idtexture;
+                const idwavemap = figure.data.idwavemap;
+                const textureref = this.textures.get(idtexture);
+                const wavemapref = this.textures.get(idwavemap);
+
+                if (textureref == null) {
+                    throw new XMLException(figure.node,
+                        "Bad reference: texture " + idtexture + " does not exist");
+                }
+
+                if (wavemapref == null) {
+                    throw new XMLException(figure.node,
+                        "Bad reference: wavemap texture "
+                        + idwavemap + " does not exist");
+                }
+            }
+
+            // Resolve terrain figure references
+            else if (figure.type === "terrain") {
+                const idtexture = figure.data.idtexture;
+                const idheightmap = figure.data.idheightmap;
+                const textureref = this.textures.get(idtexture);
+                const heightmapref = this.textures.get(idheightmap);
+
+                if (textureref == null) {
+                    throw new XMLException(figure.node,
+                        "Bad reference: texture " + idtexture + " does not exist");
+                }
+
+                if (heightmapref == null) {
+                    throw new XMLException(figure.node,
+                        "Bad reference: heightmap texture "
+                        + idheightmap + " does not exist");
+                }
             }
         }
     }

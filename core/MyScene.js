@@ -56,16 +56,18 @@ class MyScene extends CGFscene {
         this.initMaterials();
         this.initAnimations();
         this.initPrimitives();
+        this.initShaders();
         this.initInterface();
 
         console.log("Axis", this.axis);
         console.log("Views", this.views);
-        console.log("Ambient", this.color);
+        console.log("Ambient", this.bg);
         console.log("Lights", this.lights);
         console.log("Textures", this.textures);
         console.log("Materials", this.materials);
         console.log("Animations", this.animations);
         console.log("Primitives", this.primitives);
+        console.log("Shaders", this.shaders);
         console.log("Interface", this.gui);
 
         console.groupEnd();
@@ -181,17 +183,26 @@ class MyScene extends CGFscene {
             const file = texture.data.file;
 
             this.textures[id] = new CGFtexture(this, file);
-            if (this.textures[id] != null) continue;
+            if (this.textures[id] != null) {
+                this.textures[id].yasID = id;
+                continue;
+            }
 
             console.warn("Texture file %s not found, searching in images/", file);
 
             this.textures[id] = new CGFtexture(this, "images/" + file);
-            if (this.textures[id] != null) continue;
+            if (this.textures[id] != null) {
+                this.textures[id].yasID = id;
+                continue;
+            }
 
             console.warn("Texture file images/%s not found, searching in tex/", file);
 
             this.textures[id] = new CGFtexture(this, "tex/" + file);
-            if (this.textures[id] != null) continue;
+            if (this.textures[id] != null) {
+                this.textures[id].yasID = id;
+                continue;
+            }
 
             console.warn("Texture file tex/%s not found", file);
         }
@@ -219,20 +230,10 @@ class MyScene extends CGFscene {
             this.materials[id].setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
             this.materials[id].setSpecular(specular.r, specular.g, specular.b, specular.a);
             this.materials[id].setTextureWrap("REPEAT", "REPEAT");
+
+            this.materials[id].yasID = id;
         }
         this.materialIndex = 0;
-    }
-
-    initPrimitives() {
-        const yasprimitives = this.graph.yas.primitives;
-
-        this.primitives = {};
-
-        for (const id in yasprimitives.elements) {
-            const prim = yasprimitives.elements[id];
-
-            this.primitives[id] = buildPrimitive(this, prim);
-        }
     }
 
     initAnimations() {
@@ -261,16 +262,17 @@ class MyScene extends CGFscene {
         }
 
         for (const id in components) {
-            let componentAnim = {
+            const componentAnim = {
                 index: 0,
                 animations: []
-            };
+            }
 
             if (components[id].animations != null) {
                 const animeref = components[id].animations.elements;
                 
                 if (animeref.length > 0) {
                     for (const an in animeref) {
+
                         if (text[animeref[an].id].type === "linear") {
                             componentAnim.animations.push(new LinearAnimation(this,
                                 text[animeref[an].id].points,
@@ -288,9 +290,46 @@ class MyScene extends CGFscene {
 
                     this.animations[components[id].id] = componentAnim;
                 }
-                componentAnim = [];
             }
         }
+    }
+
+    initPrimitives() {
+        const yasprimitives = this.graph.yas.primitives;
+
+        this.primitives = {};
+
+        for (const id in yasprimitives.elements) {
+            const prim = yasprimitives.elements[id];
+
+            this.primitives[id] = buildPrimitive(this, prim);
+        }
+    }
+
+    initShaders() {
+        const waterv = "shaders/" + SHADER_FILES.water.vertex;
+        const waterf = "shaders/" + SHADER_FILES.water.fragment;
+        const terrainv = "shaders/" + SHADER_FILES.terrain.vertex;
+        const terrainf = "shaders/" + SHADER_FILES.terrain.fragment;
+
+        this.shaders = {
+            water: new CGFshader(this.gl, waterv, waterf),
+            terrain: new CGFshader(this.gl, terrainv, terrainf),
+        };
+
+        this.shaders.water.setUniformsValues({
+            uSampler: IMAGE_TEXTURE_GL_N,
+            heightSampler: HEIGHTMAP_TEXTURE_GL_N,
+            uSampler2: HEIGHTMAP_TEXTURE_GL_N
+        });
+
+        this.shaders.terrain.setUniformsValues({
+            uSampler: IMAGE_TEXTURE_GL_N,
+            heightSampler: HEIGHTMAP_TEXTURE_GL_N,
+            uSampler2: HEIGHTMAP_TEXTURE_GL_N
+        });
+
+        this.wavePeriod = WAVE_PERIOD;
     }
 
     initInterface() {
@@ -393,7 +432,6 @@ class MyScene extends CGFscene {
 
         // Display objects
         this.pushMatrix();
-
         this.axis.display();
 
         if (this.graphLoaded) {
@@ -479,24 +517,11 @@ class MyScene extends CGFscene {
      * Update data (only keys)
      */
     update(currTime) {
+        if (!this.graphLoaded) return;
+
         this.checkKeys();
-
-        if (this.graphLoaded) {
-            for (const k in this.animations) {
-                let animation = this.animations[k]; 
-                let index = animation.index;
-
-                if (!animation.animations[index].hasEnded())
-                    animation.animations[index].update(currTime);
-
-                if (animation.animations[index].hasEnded() &&
-                    animation.animations[index].hasStarted()) {
-                    if (index < animation.animations.length - 1)
-                        animation.index += 1;
-                    // TODO: Looping behaviour
-                }
-            }
-        }
+        this.updateAnimations(currTime);
+        this.updateUniforms(currTime);
     }
 
     /**
@@ -525,5 +550,38 @@ class MyScene extends CGFscene {
 
             this.keys[func] = press;
         }
+    }
+
+    updateAnimations(currTime) {
+        for (const k in this.animations) {
+            let animation = this.animations[k]; 
+            let index = animation.index;
+
+            if (!animation.animations[index].hasEnded())
+                animation.animations[index].update(currTime);
+
+            if (animation.animations[index].hasEnded() &&
+                animation.animations[index].hasStarted()) {
+                if (index < animation.animations.length - 1)
+                    animation.index += 1;
+                // TODO: Looping behaviour
+            }
+        }
+    }
+
+    updateUniforms(currTime) {
+        const seconds = currTime / 1000;
+
+        // Wave period
+        if (WAVE_BEHAVIOUR === "linear") {
+            var time = (seconds / WAVE_PERIOD) % 1.0;
+        } else if (WAVE_BEHAVIOUR === "sine") {
+            const angularFrequency = 2 * Math.PI / WAVE_PERIOD;
+            var time = 0.5 + Math.sin(seconds * angularFrequency) / 2;
+        }
+
+        this.shaders.water.setUniformsValues({
+            time: time
+        });
     }
 }

@@ -29,8 +29,15 @@ class MyInterface extends CGFinterface {
 
         this.addLightsGroup(yas.lights);
         this.addViewsGroup(yas.views);
+    //    this.addFactor()
     }
 
+/*     addFactor(){
+
+        this.datgui.add(this.scene,"factor", -5, 5).onChange(factor => this.scene.changeFactor(factor));
+
+    }
+ */
     /**
      * Adds a folder for the lights.
      * @param {array} lights

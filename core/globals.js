@@ -31,8 +31,29 @@ const XML_ANIMATIONS_OPT = true;
 // Disallow empty <animations> in <yas>
 const XML_ANIMATIONS_NONEMPTY = false;
 
+// WebGL active texture numbers
+const IMAGE_TEXTURE_GL_N = 0;
+const HEIGHTMAP_TEXTURE_GL_N = 1;
+
+// Wave behaviour ("linear" or "sine")
+const WAVE_BEHAVIOUR = "linear";
+
+// Wave period
+const WAVE_PERIOD = 100;
 
 
 
 // Target yas file, in folder scenes/
 const DEFAULT_YAS_FILE = "animations.xml";
+
+// Shader files, in folder shaders/
+const SHADER_FILES = {
+    water: {
+        vertex: "water-displace-vertex.glsl",
+        fragment: "water-displace-fragment.glsl"
+    },
+    terrain: {
+        vertex: "terrain.vert",
+        fragment: "terrain.frag"
+    }
+};

@@ -20,8 +20,6 @@ class XMLPrimitive extends XMLElement {
         } else {
             this.figure = new XMLFiguresList[name].const(child);
         }
-
-        this.cache = new Map();
     }
 }
 
@@ -97,12 +95,12 @@ const XMLFiguresList = {
     kleinbottle2:        {adjust: false, const: XMLKleinBottle2},
 
     // 5. Complex Primitives
-    plane:               {adjust:  true, const: XMLPlane},
-    patch:               {adjust:  true, const: XMLPatch},
-    vehicle:             {adjust:  true, const: XMLVehicle},
+    plane:               {adjust: false, const: XMLPlane},
+    patch:               {adjust: false, const: XMLPatch},
+    vehicle:             {adjust: false, const: XMLVehicle},
     cylinder2:           {adjust: false, const: XMLCylinder2},
-    terrain:             {adjust:  true, const: XMLTerrain},
-    water:               {adjust:  true, const: XMLWater},
+    terrain:             {adjust: false, const: XMLTerrain},
+    water:               {adjust: false, const: XMLWater},
 };
 
 function isTexAdjusted(primitive) {
@@ -113,8 +111,6 @@ function buildPrimitive(scene, primitive) {
     const fig = primitive.figure;
     const type = fig.type;
     const dt = fig.data;
-
-    const PI = Math.PI;
 
     switch (type) {
     // 1. Planar Primitives
@@ -241,17 +237,21 @@ function buildPrimitive(scene, primitive) {
         return new uvSurface(scene, protoKleinBottle2(),
             intervalKleinBottle2, dt.slices, dt.stacks);
 
-    // 5. Complex Primitives
+    // 5. Composite Primitives
     case 'plane':
         return new Plane(scene, dt.npartsU, dt.npartsV);
     case 'patch':
         return new Patch(scene, dt.npartsU, dt.npartsV, fig.points);
     case 'vehicle':
-            return new Vehicle(scene);
+        return new Vehicle(scene);
     case 'cylinder2':
         return new Cylinder2(scene, dt.base, dt.top, dt.height, dt.slices, dt.stacks);
     case 'terrain':
+        return new Terrain(scene, scene.textures[dt.idtexture],
+            scene.textures[dt.idheightmap], dt.parts, dt.heightscale);
     case 'water':
+        return new Water(scene, scene.textures[dt.idtexture],
+            scene.textures[dt.idwavemap], dt.parts, dt.heightscale, dt.texscale);
     default:
         throw "INTERNAL: Invalid primitive type detected in buildPrimitive(): " + type;
     }

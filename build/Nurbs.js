@@ -54,36 +54,24 @@ class Cylinder2 extends CGFobject {
         this.top = top;
         this.height = height;
 
-        const points = [
+        const w = Math.sqrt(2) / 2;
+
+        this.points = [
             [
                 [base, 0, 0, 1],
                 [top, 0, height, 1]
             ],
             [
-                [base, base, 0, Math.sqrt(2) / 2],
-                [top, top, height, Math.sqrt(2) / 2]
+                [base, base, 0, w],
+                [top, top, height, w]
             ],
             [
                 [0, base, 0, 1],
                 [0, top, height, 1]
             ],
         ];
-        /*
-        const points = [
-            [
-                [0, base, 0, 1],
-                [base, base, 0, Math.sqrt(2) / 2],
-                [base, 0, 0, 1]
-            ],
-            [
-                [0, top, height, 1],
-                [top, top, height, Math.sqrt(2) / 2],
-                [top, 0, height, 1]
-            ],
-        ];
-        */
 
-        this.surface = new CGFnurbsSurface(2, 1, points);
+        this.surface = new CGFnurbsSurface(2, 1, this.points);
         this.nurbs = new CGFnurbsObject(scene, this.slices, stacks, this.surface);
     }
 
@@ -152,4 +140,60 @@ class Vehicle extends CGFobject {
 
     }
 
+}
+class Terrain extends Plane {
+
+    constructor(scene, texture, heightmap, parts, heightscale) {
+        super(scene, parts, parts);
+
+        this.heightscale = heightscale;
+        this.texture1 = texture;
+        this.texture2 = heightmap;
+    }
+
+    setupShader() {
+        this.scene.shaders.terrain.setUniformsValues({
+            normScale: this.heightscale
+        });
+        this.texture1.bind(IMAGE_TEXTURE_GL_N);
+        this.texture2.bind(HEIGHTMAP_TEXTURE_GL_N);
+    }
+
+    display() {
+        this.scene.setActiveShader(this.scene.shaders.terrain);
+        this.setupShader();
+        super.display(); 
+        this.scene.setActiveShader(this.scene.defaultShader);
+    }
+}
+
+class Water extends Plane
+{
+    constructor(scene, texture, wavemap, parts, heightscale, texscale)
+    {
+        super(scene, parts, parts);
+        this.texture = texture;
+        this.wavemap = wavemap;
+        this.parts = parts;
+        this.heightscale = heightscale;
+        this.texscale = texscale;
+    }
+
+    setupShader()
+    {
+        this.scene.shaders.water.setUniformsValues({
+            normScale: this.heightscale,
+            texScale: this.texscale
+        });
+        this.texture.bind(IMAGE_TEXTURE_GL_N);
+        this.wavemap.bind(HEIGHTMAP_TEXTURE_GL_N);
+    }
+
+    display()
+    {
+        this.scene.setActiveShader(this.scene.shaders.water);
+        this.setupShader();
+        super.display();
+        this.scene.setActiveShader(this.scene.defaultShader);
+    }
 }

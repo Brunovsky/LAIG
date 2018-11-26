@@ -70,6 +70,12 @@
         <texture id="wood3" file="images/wood3.jpg"/>
 
         <texture id="tv" file="images/tv.jpg"/>
+
+        <texture id="water" file="images/eye.jpg"/>
+        <texture id="water-height" file="images/water-height.jpg"/>
+        <texture id="water-height2" file="images/water-height2.jpg"/>
+        <texture id="terrain" file="images/terrain.jpg"/>
+        <texture id="terrain-height" file="images/terrain-height.jpg"/>
     </textures>
 
     <materials>
@@ -264,8 +270,8 @@
     </animations>
 
     <primitives>
-        <primitive id="plane">
-            <plane npartsU="5" npartsV="8"/>
+        <primitive id="unit-plane">
+            <plane npartsU="64" npartsV="64"/>
         </primitive>
         <primitive id="unit-cylinder1">
             <opencylinder base="2" top="1" height="4" stacks="3" slices="64"/>
@@ -386,6 +392,14 @@
         <primitive id="unit-kleinbottle2">
             <kleinbottle2 slices="32" stacks="32"/>
         </primitive>
+        <!--<primitive id="terrain">
+            <terrain idtexture="terrain" idheightmap="terrain-height"
+                parts="256" heightscale="1"/>
+        </primitive>-->
+        <primitive id="water">
+            <water idtexture="water" idwavemap="water-height2"
+                parts="64" heightscale="1.5" texscale="2"/>
+        </primitive>
     </primitives>
 
     <components>
@@ -395,11 +409,11 @@
             <animations>
             </animations>
             <materials>
-                <material id="minor-green"/>
-                <material id="major-general"/>
                 <material id="shiny-metal"/>
-                <material id="major-blue"/>
                 <material id="aluminum"/>
+                <material id="major-general"/>
+                <material id="minor-green"/>
+                <material id="major-blue"/>
             </materials>
             <texture id="none"/>
             <children>
@@ -407,6 +421,21 @@
                 <componentref id="comp-spacial"/>
                 <componentref id="comp-planar"/>
                 <componentref id="comp-surface"/>
+                <componentref id="complex"/>
+            </children>
+        </component>
+
+        <component id="complex">
+            <transformation>
+                <translate x="0" y="-10" z="0"/>
+                <scale x="20" y="1" z="20"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="water"/>
             </children>
         </component>
 
@@ -428,7 +457,7 @@
                 <componentref id="unit-triangle"/>
                 <componentref id="unit-rectangle"/>
                 <componentref id="unit-trapezium"/>
-                <componentref id="plane"/>
+                <componentref id="unit-plane"/>
                 <componentref id="test-patch"/>
             </children>
         </component>
@@ -511,16 +540,17 @@
             </children>
         </component>
         
-        <component id="plane">
+        <component id="unit-plane">
             <transformation>
-                <transformationref id="show-6"/>
+                <translate x="5" y="0" z="10"/>
+                <scale x="2" y="2" z="2"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="inherit"/>
+            <texture id="tv" length_s="1.0" length_t="1.0"/>
             <children>
-                <primitiveref id="plane"/>
+                <primitiveref id="unit-plane"/>
             </children>
         </component>
 
