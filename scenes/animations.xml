@@ -1,5 +1,5 @@
 <yas>
-    <scene axis_length="50.0" root="root"/>
+    <scene axis_length="50.0" root="cube3"/>
 
     <views default="general-view">
         <perspective id="general-view" angle="50" near="0.5" far="500">
@@ -55,8 +55,8 @@
     <textures>
         <texture id="grey" file="images/grey.jpg"/>
 
-        <texture id="terrain" file="images/terrain.jpg"/>
-        <texture id="heightmap" file="images/heightmap.jpg"/>
+        <texture id="terrain" file="images/try.jpg"/>
+        <texture id="heightmap" file="images/try2.jpg"/>
 
         <texture id="water" file="images/water.jpg"/>
         <texture id="wavemap" file="images/wavemap.jpg"/>
@@ -101,10 +101,11 @@
     </transformations>
 
     <animations>
-        <linear id="linear2" span="5">
+        <linear id="linear2" span="1">
             <controlpoint xx="0" yy="3" zz="0"/>
-            <controlpoint xx="0" yy="15" zz="0"/>          
-            <controlpoint xx="15" yy="10" zz="0"/>
+            <controlpoint xx="0" yy="0" zz="0"/>     
+            <controlpoint xx="0" yy="3" zz="0"/>          
+
         </linear>
         <linear id="linear1" span="3">
             <controlpoint xx="5" yy="0" zz="0"/>
@@ -116,7 +117,7 @@
             <controlpoint xx="0" yy="0" zz="6"/>
         </linear>
 
-        <circular id="circular1" span="5" center="5 10 0 " radius="10" startang="20" rotang="180"/>
+        <circular id="circular1" span="1" center="5 10 0 " radius="0" startang="60" rotang="380"/>
     </animations>
 
     <primitives>
@@ -143,7 +144,7 @@
         </primitive>
         <primitive id="terrain">
             <terrain idtexture="terrain" idheightmap="heightmap"
-                parts="128" heightscale="10"/>
+                parts="128" heightscale="1"/>
         </primitive>
         <primitive id="water">
             <water idtexture="water" idwavemap="wavemap"
@@ -183,7 +184,7 @@
 
         <component id="water">
             <transformation>
-                <translate x="0" y="2.2" z="0"/>
+                <translate x="0" y="-0.2" z="0"/>
             </transformation>
             <materials>
                 <material id="inherit"/>

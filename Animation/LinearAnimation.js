@@ -48,6 +48,11 @@ class LinearAnimation extends Animation {
             k += value;
             this.progress.push(k / this.total_dist);
         }
+
+        console.log(this.dist);
+        console.log(this.vec);
+        console.log(this.progress);
+
     }
 
     update(currTime) {
@@ -56,16 +61,24 @@ class LinearAnimation extends Animation {
             super.update(currTime);
             let pos_in_vec = (this.progress[this.pos + 1] - this.percentage) / (this.progress[this.pos + 1] - this.progress[this.pos]);
 
+            if (this.total_dist != 0) {
+                this.translate.x = this.cp[this.pos].xx + (1 - pos_in_vec) * this.vec[this.pos][0];
+                this.translate.y = this.cp[this.pos].yy + (1 - pos_in_vec) * this.vec[this.pos][1];
+                this.translate.z = this.cp[this.pos].zz + (1 - pos_in_vec) * this.vec[this.pos][2];
+            }
+            else {
+                this.translate.x = this.cp[this.pos].xx;
+                this.translate.y = this.cp[this.pos].yy;
+                this.translate.z = this.cp[this.pos].zz;
+                this.rotation = 0;
 
-            this.translate.x = this.cp[this.pos].xx + (1 - pos_in_vec) * this.vec[this.pos][0];
-            this.translate.y = this.cp[this.pos].yy + (1 - pos_in_vec) * this.vec[this.pos][1];
-            this.translate.z = this.cp[this.pos].zz + (1 - pos_in_vec) * this.vec[this.pos][2];
-
+            }
 
             if (this.progress[this.pos + 1] <= this.percentage && this.pos < this.progress.length - 2) {
                 this.pos++;
                 if (!(this.vec[this.pos][0] === 0 && this.vec[this.pos][2] === 0))
                     this.rotation = this.rotateAngle(this.vec[this.pos]);
+
 
             }
         }
