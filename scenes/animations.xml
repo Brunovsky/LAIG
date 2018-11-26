@@ -53,6 +53,8 @@
     </lights>
 
     <textures>
+        <texture id="grey" file="images/grey.jpg"/>
+
         <texture id="granito" file="images/granito.jpg"/>
         <texture id="rubik-top"    file="images/rubik/top.png"/>
     </textures>
@@ -94,10 +96,14 @@
     </transformations>
 
     <animations>
-        <linear id="linear2" span="3">
+        <linear id="linear2" span="5">
             <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="5" yy="0" zz="0"/>          
+            <controlpoint xx="5" yy="10" zz="0"/>
+            <controlpoint xx="21" yy="21" zz="0"/>
+            <controlpoint xx="2" yy="0" zz="25"/>
             <controlpoint xx="5" yy="0" zz="0"/>
-          
+
         </linear>
         <linear id="linear1" span="3">
             <controlpoint xx="5" yy="0" zz="0"/>
@@ -111,7 +117,7 @@
         
         </linear>
 
-        <circular id="circular1" span="3" center="0 0 0 " radius="10" startang="20" rotang="180"/>
+        <circular id="circular1" span="3" center="5 0 0 " radius="10" startang="20" rotang="180"/>
     </animations>
 
     <primitives>
@@ -196,11 +202,14 @@
             <transformation>
             </transformation>
             <animations>
+                <animationref id="linear2"/>
+                <animationref id="circular1"/>
+
             </animations>
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="granito" length_s="1.0" length_t="1.0"/>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
            
             <children>
                 <primitiveref id="cube3"/>

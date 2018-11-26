@@ -106,10 +106,10 @@ class Vehicle extends CGFobject {
         super(scene);
         this.scene = scene;
         let raio = 5;
-        this.incr = Math.PI * 2 / 72;
+        this.incr = Math.PI * 2 / 144;
         this.controlPoints = [];
 
-        for (let i = 0; i < 72; i++) {
+        for (let i = 0; i < 144; i++) {
             let a = Math.sin(i * this.incr) * raio;
             let b = Math.cos(i * this.incr) * raio;
             let point1 = [a, 0, b, 1];
@@ -120,13 +120,36 @@ class Vehicle extends CGFobject {
 
         }
 
+        this.nurb = new Patch(scene, 15, 15, this.controlPoints);
 
-        this.nurb = new Patch(scene, 12, 12, this.controlPoints);
+        this.s = new ClosedHalfSphere(scene, 2, 64, 64);
+        this.plane = new Circle(scene, 4.9, 64);
+        this.apoios = new Cylinder2(scene, 0.5, 0, 3, 64, 64);
     }
 
     display() {
+        this.scene.pushMatrix();
+        this.scene.translate(0,1,0);
+        this.plane.display();        
+        this.scene.popMatrix();
+        this.scene.pushMatrix();
+        this.scene.translate(0,1,0);
+        this.scene.rotate(-1*Math.PI/2, 1,0,0);
+        this.s.display();
+        this.scene.popMatrix();
+        this.plane.display();        
+
+        
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI/2, 1,0,0);
+        this.apoios.display();
+        
+
+        this.scene.popMatrix();
+
 
         this.nurb.display();
+
     }
 
 }
