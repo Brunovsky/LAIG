@@ -8,8 +8,10 @@ class XMLLinear extends XMLOrderedGroup {
             controlpoint: XMLControlPoint
         }, { id: "ss", span: "pp" }, false);
 
-        this.span = this.data.span;
         this.type = "linear";
+
+        this.span = this.data.span;
+        this.points = this.elements;
     }
 }
 
@@ -24,13 +26,13 @@ class XMLCircular extends XMLElement {
             radius: "ff", startang: "ff", rotang: "ff"
         });
 
+        this.type = "circular";
+
+        this.span = this.data.span;
         this.center = this.data.center;
         this.radius = this.data.radius;
-        this.startangle = this.data.startang;
-        this.rotangle = this.data.rotang;
-        this.span = this.data.span;
-
-        this.type = "circular";
+        this.startang = this.data.startang;
+        this.rotang = this.data.rotang;
     }
 }
 

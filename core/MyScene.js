@@ -23,7 +23,7 @@ class MyScene extends CGFscene {
         this.initDefaults();
 
         this.enableTextures(true);
-        this.setUpdatePeriod(1000 / HZ);
+        this.setUpdatePeriod(1000 / HZ); // this function is messed up (inverted logic)
 
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
@@ -70,8 +70,8 @@ class MyScene extends CGFscene {
         console.log("Shaders", this.shaders);
         console.log("Interface", this.gui);
 
-        console.groupEnd();
         this.graphLoaded = true;
+        console.groupEnd();
 
         console.groupCollapsed("Loading textures, others...");
         setTimeout(console.groupEnd, 3000);
@@ -90,7 +90,7 @@ class MyScene extends CGFscene {
         this.views = {};
 
         for (const id in yasviews.elements) {
-            const view = yasviews.elements[id];
+            const view = yasviews.get(id);
             const data = view.data;
 
             if (view.type === "perspective") {
@@ -132,7 +132,7 @@ class MyScene extends CGFscene {
         let i = 0;
 
         for (const id in yaslights.elements) {
-            const light = yaslights.elements[id];
+            const light = yaslights.get(id);
             if (i >= 8) break;
 
             light.index = i;
@@ -182,7 +182,7 @@ class MyScene extends CGFscene {
         this.textures = {};
 
         for (const id in yastextures.elements) {
-            const texture = yastextures.elements[id];
+            const texture = yastextures.get(id);
             const file = texture.data.file;
 
             this.textures[id] = new CGFtexture(this, file);
@@ -217,7 +217,7 @@ class MyScene extends CGFscene {
         this.materials = {};
 
         for (const id in yasmaterials.elements) {
-            const material = yasmaterials.elements[id];
+            const material = yasmaterials.get(id);
 
             const shininess = material.data.shininess;
             const emission = material.data.emission;
@@ -240,62 +240,50 @@ class MyScene extends CGFscene {
     }
 
     initAnimations() {
+        const yascomponents = this.graph.yas.components;
         const yasanimations = this.graph.yas.animations;
+
+        this.animations = {};
+
         if (yasanimations == null) return;
 
-        const components = this.graph.yas.components.elements;
-        this.animations = {};
-        const text = {};
+        // 1. Iterate components
+        for (const id in yascomponents.elements) {
+            const component = yascomponents.get(id);
+            const animrefs = component.animations;
 
-        for (const id in yasanimations.elements) {
-            const anim = yasanimations.elements[id];
+            // 2.1. Skip if no animations
+            if (component.animations == null) continue;
+            if (animrefs.elements.length === 0) continue;
 
-            if (anim.type === "linear") {
-                text[anim.id] = { type: "linear", points: anim.elements, span: anim.span };
-            }
-            else {
-                text[anim.id] = {
-                    type: "circular", center: anim.center,
-                    radius: anim.radius, startangle: anim.startangle,
-                    rotangle: anim.rotangle, span: anim.span
-                }
-
-            }
-
-        }
-
-        for (const id in components) {
-            const componentAnim = {
+            // 2.2. Component's animations tracker
+            const tracker = {
                 index: 0,
-                animations: []
-            }
+                animations: [],
+                max: animrefs.elements.length - 1
+            };
 
-            if (components[id].animations != null) {
-                const animeref = components[id].animations.elements;
+            // 2.3. Iterate the animations, adding them to the tracker
+            for (const i in animrefs.elements) {
+                const animationId = animrefs.index(i).id; // xml reference
+                const anim = yasanimations.get(animationId); // xml animation
 
-                if (animeref.length > 0) {
-                    for (const an in animeref) {
+                if (anim.type === "linear") {
+                    const an = new LinearAnimation(this, anim.span, anim.points);
 
-                        if (text[animeref[an].id].type === "linear") {
-                            componentAnim.animations.push(new LinearAnimation(this,
-                                text[animeref[an].id].points,
-                                text[animeref[an].id].span));
-                        }
-                        else {
-                            componentAnim.animations.push(new CircularAnimation(this,
-                                text[animeref[an].id].center,
-                                text[animeref[an].id].radius,
-                                text[animeref[an].id].startangle,
-                                text[animeref[an].id].rotangle,
-                                text[animeref[an].id].span));
-                        }
-                    }
+                    tracker.animations.push(an);
+                }
+                else {
+                    const an = new CircularAnimation(this, anim.span, anim.center,
+                        anim.radius, degToRad(anim.startang), degToRad(anim.rotang));
 
-                    this.animations[components[id].id] = componentAnim;
+                    tracker.animations.push(an);
                 }
             }
+
+            // 3. Store the tracker
+            this.animations[id] = tracker;
         }
-        this.start = false;
     }
 
     initPrimitives() {
@@ -304,7 +292,7 @@ class MyScene extends CGFscene {
         this.primitives = {};
 
         for (const id in yasprimitives.elements) {
-            const prim = yasprimitives.elements[id];
+            const prim = yasprimitives.get(id);
 
             this.primitives[id] = buildPrimitive(this, prim);
         }
@@ -549,7 +537,7 @@ class MyScene extends CGFscene {
                         throw "INTERNAL: Unhandled checkKeys case";
                 }
 
-                console.log("New material index:", this.materialIndex);
+                console.log("New material index: %d", this.materialIndex);
             }
 
             this.keys[func] = press;
@@ -557,31 +545,19 @@ class MyScene extends CGFscene {
     }
 
     updateAnimations(currTime) {
+        for (const id in this.animations) {
+            let tracker = this.animations[id];
 
-        if (this.start) {
-            for (const id in this.animations) {
-                let animation = this.animations[id];
-                let index = animation.index;
+            let current = tracker.animations[tracker.index];
+            if (current.hasEnded() && tracker.index < tracker.max) ++tracker.index;
 
-                if (!animation.animations[index].hasEnded()) {
-                    animation.animations[index].update(currTime, this.previous);
-                }
-                else if (animation.animations[index].hasEnded()
-                    && index < animation.animations.length - 1) {
-                    animation.index += 1;
-                    animation.animations[index].update(currTime, this.previous);
-                }
-            }
+            tracker.animations[tracker.index].update(currTime);
         }
-        this.previous = currTime;
-        this.start = true;
-
     }
 
     updateUniforms(currTime) {
         const seconds = currTime / 1000;
 
-        // Wave period
         if (WAVE_BEHAVIOUR === "linear") {
             var time = (seconds / WAVE_PERIOD) % 1.0;
         } else if (WAVE_BEHAVIOUR === "sine") {

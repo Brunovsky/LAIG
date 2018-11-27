@@ -430,21 +430,9 @@
         <primitive id="cube">
             <cube side="1"/>
         </primitive>
-        <primitive id="terrain">
-            <terrain idtexture="terrain" idheightmap="terrain-heightmap"
-                parts="128" heightscale="10"/>
-        </primitive>
-        <primitive id="landscape">
-            <terrain idtexture="landscape" idheightmap="landscape-heightmap"
-                parts="128" heightscale="8"/>
-        </primitive>
         <primitive id="volcano">
             <terrain idtexture="volcano" idheightmap="volcano-heightmap"
                 parts="128" heightscale="25"/>
-        </primitive>
-        <primitive id="water">
-            <water idtexture="water" idwavemap="water-wavemap"
-                parts="128" heightscale="1" texscale="2"/>
         </primitive>
         <primitive id="vehicle">
             <vehicle/>
@@ -477,13 +465,24 @@
             </materials>
             <texture id="none"/>
             <children>
-                <componentref id="terrain"/>
-                <componentref id="landscape"/>
                 <componentref id="volcano"/>
-                <componentref id="water"/>
             </children>
         </component>
 
+        <component id="volcano">
+            <transformation>
+                <translate x="0" y="-4.5" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="volcano"/>
+            </children>
+        </component>
+
+        <!--
         <component id="terrain">
             <transformation>
                 <translate x="-0.8" y="0" z="0.1"/>
@@ -510,19 +509,6 @@
             </children>
         </component>
 
-        <component id="volcano">
-            <transformation>
-                <translate x="0" y="-4.5" z="0"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="volcano"/>
-            </children>
-        </component>
-
         <component id="water">
             <transformation>
                 <translate x="-0.25" y="2.3" z="0.1"/>
@@ -536,10 +522,11 @@
                 <primitiveref id="water"/>
             </children>
         </component>
+        -->
 
         <component id="ovni">
             <transformation>
-                <translate x="0" y="15" z="-1"/>
+                <translate x="0" y="15" z="0"/>
             </transformation>
             <animations>
                 <animationref id="step-0"/>

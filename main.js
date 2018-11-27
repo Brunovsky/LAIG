@@ -26,7 +26,7 @@ serialInclude([
     '../lib/CGF.js',
     // core/ Main class files
     'core/MyScene.js', 'core/MySceneGraph.js', 'core/MyInterface.js',
-    'core/globals.js',
+    'core/globals.js', 'core/Animations.js',
     // utils/ Utilities for JS and CGF
     'utils/arrays.js', 'utils/stack.js', 'utils/vector.js',
     'utils/reals.js', 'utils/protos.js', 'utils/cache.js',
@@ -45,8 +45,6 @@ serialInclude([
     'elements/lights.js', 'elements/materials.js', 'elements/primitives.js',
     'elements/scene.js', 'elements/textures.js', 'elements/transformations.js',
     'elements/view.js', 'elements/controlpoint.js',
-    // animations
-    'Animation/Animation.js', 'Animation/CircularAnimation.js', 'Animation/LinearAnimation.js',  
     main = function() {
         console.groupEnd();
 

@@ -17,7 +17,7 @@ const LIGHT_LINEAR_ATTENUATION = 0.01;
 const LIGHT_QUADRATIC_ATTENUATION = 0.0025;
 
 // Update frequency
-const HZ = 60;
+const HZ = 140;
 
 // Use z axis instead of y axis for the height dimension in spacial primitives
 const DOWN_SPACIAL = true;
@@ -35,11 +35,20 @@ const XML_ANIMATIONS_NONEMPTY = false;
 const IMAGE_TEXTURE_GL_N = 0;
 const HEIGHTMAP_TEXTURE_GL_N = 1;
 
-// Wave behaviour ("linear" or "sine")
+// Wave behaviour (linear or sine)
 const WAVE_BEHAVIOUR = "linear";
 
 // Wave period
 const WAVE_PERIOD = 100;
+
+// CircularAnimation follows right hand rule or left hand rule?
+const CIRCULAR_ROTATION_RULE = "right";
+
+// Animation behaviour: at the end of the animation chain (restart, stop or reset)
+const ANIMATION_END = "stop";
+
+// Animation behaviour: between animations in the chain (single or accumulate)
+const ANIMATION_BETWEEN = "single";
 
 
 
@@ -49,8 +58,8 @@ const DEFAULT_YAS_FILE = "tp2.xml";
 // Shader files, in folder shaders/
 const SHADER_FILES = {
     water: {
-        vertex: "water-displace-vertex.glsl",
-        fragment: "water-displace-fragment.glsl"
+        vertex: "water.vert",
+        fragment: "water.frag"
     },
     terrain: {
         vertex: "terrain.vert",
