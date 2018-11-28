@@ -366,11 +366,14 @@
             <controlpoint xx="19" yy="-15" zz="20"/>
             <controlpoint xx="4" yy="-5" zz="-10"/>
         </linear>
-        <circular id="step-3" span="3" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
-        <circular id="step-4" span="2" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
-        <circular id="step-5" span="1" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
-        <circular id="step-6" span="5" center="-2 -5 -10" radius="6" startang="0" rotang="360"/>
-        <linear id="step-7" span="5">
+        <circular id="step-3" span="8" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
+        <circular id="step-4" span="6" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
+        <circular id="step-5" span="4" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
+        <circular id="step-6" span="3" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
+        <circular id="step-7" span="2" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
+        <circular id="step-8" span="1" center="4 -5 -10" radius="0" startang="0" rotang="720"/>
+        <circular id="step-9" span="5" center="-2 -5 -10" radius="6" startang="0" rotang="360"/>
+        <linear id="step-10" span="5">
             <controlpoint xx="4" yy="-5" zz="-10"/>
             <controlpoint xx="1" yy="10" zz="5"/>
             <controlpoint xx="1" yy="5" zz="15"/>
@@ -537,6 +540,9 @@
                 <animationref id="step-5"/>
                 <animationref id="step-6"/>
                 <animationref id="step-7"/>
+                <animationref id="step-8"/>
+                <animationref id="step-9"/>
+                <animationref id="step-10"/>
             </animations>
             <materials>
                 <material id="light-metal"/>
