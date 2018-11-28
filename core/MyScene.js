@@ -573,6 +573,7 @@ class MyScene extends CGFscene {
         case "continuous":
             anim = chain.animations[chain.index];
             
+            // This should always be false. We'll keep it for now.
             if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
             anim = chain.animations[chain.index]
             
