@@ -8,6 +8,10 @@ Math.dulog = function(a, x, b) {
     return a / ((Math.abs(x) + 1) * Math.log(b));
 }
 
+Math.clamp = function(num, min, max) {
+  return Math.min(Math.max(num, min), max);
+};
+
 function degToRad(deg) {
     return deg * Math.PI / 180;
 }

@@ -256,14 +256,14 @@ class MyScene extends CGFscene {
             if (component.animations == null) continue;
             if (animrefs.elements.length === 0) continue;
 
-            // 2.2. Component's animations tracker
-            const tracker = {
+            // 2.2. Component's animation chain
+            const chain = {
                 index: 0,
                 animations: [],
                 max: animrefs.elements.length - 1
             };
 
-            // 2.3. Iterate the animations, adding them to the tracker
+            // 2.3. Iterate the animations, adding them to the chain
             for (const i in animrefs.elements) {
                 const animationId = animrefs.index(i).id; // xml reference
                 const anim = yasanimations.get(animationId); // xml animation
@@ -271,18 +271,18 @@ class MyScene extends CGFscene {
                 if (anim.type === "linear") {
                     const an = new LinearAnimation(this, anim.span, anim.points);
 
-                    tracker.animations.push(an);
+                    chain.animations.push(an);
                 }
                 else {
                     const an = new CircularAnimation(this, anim.span, anim.center,
                         anim.radius, degToRad(anim.startang), degToRad(anim.rotang));
 
-                    tracker.animations.push(an);
+                    chain.animations.push(an);
                 }
             }
 
-            // 3. Store the tracker
-            this.animations[id] = tracker;
+            // 3. Store the chain
+            this.animations[id] = chain;
         }
     }
 
@@ -361,6 +361,25 @@ class MyScene extends CGFscene {
     }
 
     /**
+     * Apply animations given by an animation chain
+     */
+    applyAnimations(chain) {
+        if (chain == null) return;
+
+        // Behaviour: ANIMATION_BETWEEN
+        switch (ANIMATION_BETWEEN) {
+        case "single":
+            chain.animations[chain.index].apply();
+            break;
+        case "accumulate":
+            for (let i = 0; i <= chain.index; ++i) {
+                chain.animations[i].apply();
+            }
+            break;
+        }
+    }
+
+    /**
      * Apply a transformation given by the XML description
      */
     applyTransformation(transformation) {
@@ -370,18 +389,18 @@ class MyScene extends CGFscene {
             const data = operation.data;
 
             switch (operation.type) {
-                case 'translate':
-                    this.translate(data.x, data.y, data.z);
-                    break;
-                case 'rotate':
-                    const x = data.axis === 'x' ? 1 : 0;
-                    const y = data.axis === 'y' ? 1 : 0;
-                    const z = data.axis === 'z' ? 1 : 0;
-                    this.rotate(degToRad(data.angle), x, y, z);
-                    break;
-                case 'scale':
-                    this.scale(data.x, data.y, data.z);
-                    break;
+            case 'translate':
+                this.translate(data.x, data.y, data.z);
+                break;
+            case 'rotate':
+                const x = data.axis === 'x' ? 1 : 0;
+                const y = data.axis === 'y' ? 1 : 0;
+                const z = data.axis === 'z' ? 1 : 0;
+                this.rotate(degToRad(data.angle), x, y, z);
+                break;
+            case 'scale':
+                this.scale(data.x, data.y, data.z);
+                break;
             }
         }
     }
@@ -456,12 +475,7 @@ class MyScene extends CGFscene {
         this.pushMatrix();
 
         // Animations
-        if (animations != null) {
-            let index = animations.index;
-            let aux = animations.animations[index];
-
-            aux.apply();
-        }
+        this.applyAnimations(animations);
 
         // Transformation
         if (transformation.mode === "reference") {
@@ -486,8 +500,6 @@ class MyScene extends CGFscene {
         for (const id in children.elements) {
             const child = children.elements[id];
 
-            // Apply Material
-
             if (child.type === "componentref") {
                 this.traverser(child.ref, sceneMaterial, sceneTexture, s, t);
             } else {
@@ -495,6 +507,7 @@ class MyScene extends CGFscene {
 
                 if (prim.adjust) prim.updateTexCoords(s, t);
 
+                // Apply Material
                 sceneMaterial.setTexture(sceneTexture);
                 sceneMaterial.apply();
 
@@ -544,14 +557,64 @@ class MyScene extends CGFscene {
         }
     }
 
+    updateChain(chain, currTime) {
+        let anim;
+
+        // Behaviour: ANIMATION_UPDATE
+        switch (ANIMATION_UPDATE) {
+        case "simple":
+            anim = chain.animations[chain.index];
+
+            if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
+            anim = chain.animations[chain.index];
+
+            anim.update(currTime);
+            break;
+        case "continuous":
+            anim = chain.animations[chain.index];
+            
+            if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
+            anim = chain.animations[chain.index]
+            
+            let delta = anim.update(currTime);
+
+            while (anim.hasEnded() && chain.index < chain.max) {
+                anim = chain.animations[chain.index];
+
+                if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
+                anim = chain.animations[chain.index];
+
+                anim.epoch(currTime - delta);
+                delta = anim.update(currTime) || 0;
+
+                if (chain.index === chain.max) return delta;
+                // quit quickly if at the end of the chain
+            }
+            break;
+        }
+    }
+
     updateAnimations(currTime) {
         for (const id in this.animations) {
-            let tracker = this.animations[id];
+            let chain = this.animations[id];
 
-            let current = tracker.animations[tracker.index];
-            if (current.hasEnded() && tracker.index < tracker.max) ++tracker.index;
+            // Behaviour: ANIMATION_END
+            switch (ANIMATION_END) {
+            case "stop":
+                this.updateChain(chain, currTime);
+                break;
+            case "restart":
+                this.updateChain(chain, currTime);
+                const current = chain.animations[chain.index];
 
-            tracker.animations[tracker.index].update(currTime);
+                if (current.hasEnded() && chain.index === chain.max) {
+                    for (let i = 0; i <= chain.max; ++i) {
+                        chain.animations[i].reset();
+                    }
+                    chain.index = 0;
+                }
+                break;
+            }
         }
     }
 

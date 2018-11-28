@@ -1,24 +1,34 @@
 class Animation {
     constructor(scene, span) {
         this.scene = scene;
-        this.span = span;
-        this.percentage = 0;
+        this.span = span * 1000; // ms now
 
-        this.reset();
+        this.time = {
+            begin: 0,
+            stamp: 0,
+            elapsed: 0
+        };
+
+        this.percentage = 0;
+    }
+
+    epoch(time) {
+        this.time.begin = time;
     }
 
     update(currTime) {
+        const diff = currTime - this.time.stamp;
+
         this.time.stamp = currTime;
         this.time.begin = this.time.begin || currTime;
-        this.time.elapsed = this.time.stamp - this.time.begin;
+        this.time.elapsed = currTime - this.time.begin;
 
-        this.percentage = (this.time.elapsed / 1000) / this.span;
+        this.percentage = this.time.elapsed / this.span;
         if (this.percentage >= 1.0) this.percentage = 1.0;
 
-        return 
+        this.delta = Math.clamp(this.time.elapsed - this.span, 0, diff);
+        return this.delta;
     }
-
-    apply() {}
 
     reset() {
         this.time = {
@@ -26,10 +36,13 @@ class Animation {
             stamp: 0,
             elapsed: 0
         };
+
+        this.percentage = 0;
     }
 
     hasEnded() {
-        return this.percentage === 1.0;
+        return this.percentage
+        === 1.0;
     }
 }
 
@@ -38,14 +51,14 @@ class LinearAnimation extends Animation {
         super(scene, span);
 
         if (controlPoints.length === 0) throw "INTERNAL: Empty control points";
-        
-        // Repeat the control point if the list is singular
-        if (controlPoints.length === 1) {
-            controlPoints = [controlPoints[0], controlPoints[0]];
-        }
+            
+            // Repeat the control point if the list is singular
+            if (controlPoints.length === 1) {
+                controlPoints = [controlPoints[0], controlPoints[0]];
+            }
 
-        this.cp = controlPoints;
-        this.computeProgress();
+            this.cp = controlPoints;
+            this.computeProgress();
 
         // Status
         this.translate = {x: this.cp[0].x, y: this.cp[0].y, z: this.cp[0].z};
@@ -91,17 +104,18 @@ class LinearAnimation extends Animation {
     }
 
     rotateAngle(vec) {
-        let norm = Math.hypot(vec.x, vec.z);
+        const norm = Math.hypot(vec.x, vec.z);
         if (norm === 0) return 0;
 
-        let angle = Math.sign(vec.x) * Math.acos(vec.z / norm);
+        let angle = Math.acos(vec.z / norm);
+        if (vec.x < 0) angle = -angle;
 
         return angle;
     }
 
     update(currTime) {
         super.update(currTime);
-
+        
         // Load variables
         const cp = this.cp, vec = this.vec, progress = this.progress;
         const percentage = this.percentage;
@@ -118,13 +132,20 @@ class LinearAnimation extends Animation {
         this.translate.y = cp[p].y + coef * vec[p].y;
         this.translate.z = cp[p].z + coef * vec[p].z;
         this.rotation = this.rotateAngle(vec[p]);
+
+        return this.delta;
     }
 
     apply() {
-        super.apply();
-
         this.scene.translate(this.translate.x, this.translate.y, this.translate.z);
         this.scene.rotate(this.rotation, 0, 1, 0);
+    }
+
+    reset() {
+        super.reset();
+
+        this.translate = {x: this.cp[0].x, y: this.cp[0].y, z: this.cp[0].z};
+        this.rotation = this.rotateAngle(this.vec[0]);
     }
 }
 
@@ -145,11 +166,11 @@ class CircularAnimation extends Animation {
         super.update(currTime);
 
         this.rotation = this.startang + this.rotang * this.percentage;
+
+        return this.delta;
     }
 
     apply() {
-        super.apply();
-
         if (CIRCULAR_ROTATION_RULE === "right") {
             this.scene.translate(this.center.x, this.center.y, this.center.z);
             this.scene.rotate(this.rotation, 0, -1, 0);
@@ -161,5 +182,11 @@ class CircularAnimation extends Animation {
             this.scene.translate(this.radius, 0, 0);
             this.scene.rotate(Math.PI, 0, 1, 0);
         }
+    }
+
+    reset() {
+        super.reset();
+
+        this.rotation = this.startang;
     }
 }

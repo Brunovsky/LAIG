@@ -353,10 +353,10 @@
     <animations>
         <linear id="step-0" span="5">
             <controlpoint xx="1" yy="0" zz="15"/>
-            <controlpoint xx="1" yy="0" zz="15"/>
+            <controlpoint xx="1" yy="5" zz="15"/>
         </linear>
-        <linear id="step-1" span="5">
-            <controlpoint xx="1" yy="0" zz="15"/>
+        <linear id="step-1" span="3">
+            <controlpoint xx="1" yy="5" zz="15"/>
             <controlpoint xx="1" yy="15" zz="15"/>
         </linear>
         <linear id="step-2" span="3">

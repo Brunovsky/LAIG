@@ -44,11 +44,14 @@ const WAVE_PERIOD = 100;
 // CircularAnimation follows right hand rule or left hand rule?
 const CIRCULAR_ROTATION_RULE = "right";
 
-// Animation behaviour: at the end of the animation chain (restart, stop or reset)
-const ANIMATION_END = "stop";
+// Animation behaviour: at the end of the animation chain (restart or stop)
+const ANIMATION_END = "restart";
 
 // Animation behaviour: between animations in the chain (single or accumulate)
 const ANIMATION_BETWEEN = "single";
+
+// Animation behaviour: update (simple or continuous)
+const ANIMATION_UPDATE = "continuous";
 
 
 
