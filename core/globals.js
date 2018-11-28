@@ -45,7 +45,7 @@ const WAVE_PERIOD = 100;
 const CIRCULAR_ROTATION_RULE = "right";
 
 // Animation behaviour: at the end of the animation chain (restart or stop)
-const ANIMATION_END = "restart";
+const ANIMATION_END = "stop";
 
 // Animation behaviour: between animations in the chain (single or accumulate)
 const ANIMATION_BETWEEN = "single";
