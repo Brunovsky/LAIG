@@ -45,7 +45,7 @@ const WAVE_PERIOD = 100;
 const CIRCULAR_ROTATION_RULE = "right";
 
 // Animation behaviour: at the end of the animation chain (restart or stop)
-const ANIMATION_END = "stop";
+const ANIMATION_END = "restart";
 
 // Animation behaviour: between animations in the chain (single or accumulate)
 const ANIMATION_BETWEEN = "single";
@@ -56,7 +56,7 @@ const ANIMATION_UPDATE = "continuous";
 
 
 // Target yas file, in folder scenes/
-const DEFAULT_YAS_FILE = "tp2.xml";
+const DEFAULT_YAS_FILE = "basic.xml";
 
 // Shader files, in folder shaders/
 const SHADER_FILES = {

@@ -47,107 +47,192 @@ class XMLElement {
         this.node = node;
         this.data = {};
 
-        const reader = new CGFXMLreader();
+        this.reader = new CGFXMLreader();
 
         for (const key in spec) {
-            let val, str, x, y, z;
-
-            if (typeof spec[key] === "string") {
-                if (!reader.hasAttribute(node, key)) {
-                    throw new XMLException(node, "Missing attribute " + key);
-                }
-
-                switch (spec[key]) {
-                    case "ss": // string
-                        val = reader.getString(node, key);
-                        break;
-                    case "ii": // positive integer
-                        val = reader.getInteger(node, key);
-                        if (val == null || val <= 0) {
-                            throw new XMLException(node, "Expected positive integer for attribute " + key);
-                        }
-                        break;
-                    case "ff": // float
-                        val = reader.getFloat(node, key);
-                        if (val == null || isNaN(val)) {
-                            throw new XMLException(node, "Expected float for attribute " + key);
-                        }
-                        break;
-                    case "p0": // nonnegative float
-                        val = reader.getFloat(node, key);
-                        if (val == null || isNaN(val) || val < 0) {
-                            throw new XMLException(node, "Expected nonnegative float for attribute " + key);
-                        }
-                        break;
-                    case "pp": // positive float
-                        val = reader.getFloat(node, key);
-                        if (val == null || isNaN(val) || val <= 0) {
-                            throw new XMLException(node, "Expected positive float for attribute " + key);
-                        }
-                        break;
-                    case "rr": // [0,1] float
-                        val = reader.getFloat(node, key);
-                        if (val == null || isNaN(val) || val < 0 || val > 1) {
-                            throw new XMLException(node, "Expected [0,1] float for attribute " + key);
-                        }
-                        break;
-                    case "cc": // x, y, z
-                        val = reader.getItem(node, key, ['x', 'y', 'z']);
-                        if (val == null) {
-                            throw new XMLException(node, "Expected coordinate for attribute " + key);
-                        }
-                        break;
-                    case "tt": // 0, 1
-                        val = reader.getItem(node, key, ['0', '1', 't', 'f', "true", "false"]);
-                        if (val == null) {
-                            throw new XMLException(node, "Expected boolean for attribute " + key);
-                        }
-                        if (val === '0' || val === '1') {
-                            val = val === '1' ? true : false;
-                        } else if (val === 'f' || val === 't') {
-                            val = val === 't' ? true : false;
-                        } else {
-                            val = val === "true" ? true : false;
-                        }
-                        break;
-                    case "ff ff ff":
-                        str = reader.getString(node, key).split(" ");
-                        val = {
-                            x: parseFloat(str[0]),
-                            y: parseFloat(str[1]),
-                            z: parseFloat(str[2])
-                        };
-                        if (isNaN(val.x) || isNaN(val.y) || isNaN(val.z)) {
-                            throw new XMLException(node, "Expected float coordinates for attribute " + key);
-                        }
-                        break;
-                    default:
-                        throw "INTERNAL: Bad Element attribute descriptor";
-                }
-            } else if (typeof spec[key] == "object") {
-                // Recurse on a child of node with tagname key.
-                const child = node.querySelector(key);
-
-                if (child == null) {
-                    throw new XMLException(node, "Missing expected child node " + key);
-                }
-
-                // Do not catch possible exception.
-                const element = new XMLElement(child, spec[key]);
-                val = element.data;
-            }
-
-            this.data[key] = val;
+            this.data[key] = this.extract(key, spec[key]);
         }
 
         // For convenience: lift the id from data.
-        if (this.data.id != null) {
-            this.id = this.data.id;
-        }
+        if (this.data.id != null) this.id = this.data.id;
     }
 
-    get(attr) {
-        return this.data[attr];
+    extract(key, spec) {
+        const node = this.node, reader = this.reader;
+
+        // 1. String spec: attribute
+        if (typeof spec === "string") {
+            // No such attribute?
+            if (!reader.hasAttribute(node, key)) {
+                throw new XMLException(node, "Missing attribute " + key);
+            }
+
+            return this.parseAttribute(key, spec);
+        }
+
+        // 2. Object spec: child
+        if (typeof spec === "object") {
+            // Recurse on a child of node with tagname key.
+            const child = node.querySelector(key);
+
+            // No such child?
+            if (child == null) {
+                throw new XMLException(node, "Missing expected child node " + key);
+            }
+
+            // Do not catch possible exception.
+            const element = new XMLElement(child, spec);
+            return element.data;
+        }
+
+        throw new Error("INTERNAL: Unexpected spec type");
+    }
+
+    parseAttribute(key, spec) {
+        const node = this.node, reader = this.reader;
+        let val;
+
+        switch (spec) {
+        case "ss": // string
+            val = reader.getString(node, key);
+            break;
+        case "ii": // positive integer
+            val = reader.getInteger(node, key);
+            if (val == null || val <= 0) {
+                throw this.expected("positive integer", key);
+            }
+            break;
+        case "ff": // float
+            val = reader.getFloat(node, key);
+            if (val == null || isNaN(val)) {
+                throw this.expected("float", key);
+            }
+            break;
+        case "p0": // nonnegative float
+            val = reader.getFloat(node, key);
+            if (val == null || isNaN(val) || val < 0) {
+                throw this.expected("nonnegative float", key);
+            }
+            break;
+        case "pp": // positive float
+            val = reader.getFloat(node, key);
+            if (val == null || isNaN(val) || val <= 0) {
+                throw this.expected("positive float", key);
+            }
+            break;
+        case "rr": // [0,1] float
+            val = reader.getFloat(node, key);
+            if (val == null || isNaN(val) || val < 0 || val > 1) {
+                throw this.expected("[0,1] float", key);
+            }
+            break;
+        case "cc": // x, y, z
+            val = reader.getItem(node, key, ['x', 'y', 'z']);
+            if (val == null) {
+                throw this.expected("axis", key);
+            }
+            break;
+        case "tt": // 0, 1
+            val = reader.getItem(node, key, ['0', '1', 't', 'f', "true", "false"]);
+            if (val == null) {
+                throw this.expected("boolean", key);
+            }
+            val = (val === '1' || val === 't' || val === "true");
+            break;
+        case "ff ff ff":
+            val = reader.getString(node, key).split(" ");
+            val = {
+                x: parseFloat(val[0]),
+                y: parseFloat(val[1]),
+                z: parseFloat(val[2])
+            };
+            if (isNaN(val.x) || isNaN(val.y) || isNaN(val.z)) {
+                throw this.expected("coordinates", key);
+            }
+            break;
+        default:
+            throw new Error("INTERNAL: Bad Element attribute descriptor");
+        }
+
+        return val;
+    }
+
+    expected(msg, key) {
+        return new XMLException(this.node, "Expected " + msg + " for attribute " + key);
+    }
+
+    get(key) {
+        return this.data[key];
+    }
+}
+
+/**
+ * XML Core Parsing Class
+ * 
+ * Represents a leaf element of the XML structure, with a fixed set
+ * of expected attributes and children (recursively) which may or may
+ * not be optionally present -- with default values for optional attributes.
+ *
+ * The attribute names, their types, their optionality and the expected
+ * children are represented in constructor argument spec.
+ */
+class XMLOptional extends XMLElement {
+    constructor(node, spec = {}) {
+        super(node);
+
+        for (const key in spec) {
+            const s = spec[key];
+
+            if (s.spec != null && s.def != null) {
+                this.data[key] = this.extract(key, s.spec, true, s.def);
+            } else if (s instanceof Array) {
+                this.data[key] = this.extract(key, s[0], true, s[1]);
+            } else {
+                this.data[key] = this.extract(key, s, false);
+            }
+        }
+
+        // For convenience: lift the id from data.
+        if (this.data.id != null) this.id = this.data.id;
+    }
+
+    extract(key, spec, optional, def = null) {
+        const node = this.node, reader = this.reader;
+
+        // 1. String spec: attribute
+        if (typeof spec === "string") {
+            // No such attribute?
+            if (!reader.hasAttribute(node, key)) {
+                if (!optional) {
+                    throw new XMLException(node, "Missing attribute " + key);
+                }
+                
+                return def;
+            }
+
+            return this.parseAttribute(key, spec);
+        }
+
+        // 2. Object spec: child
+        if (typeof spec === "object") {
+            // Recurse on a child of node with tagname key.
+            const child = node.querySelector(key);
+
+            // No such child?
+            if (child == null) {
+                if (!optional) {
+                    throw new XMLException(node, "Missing expected child node " + key);
+                }
+
+                return def;
+            }
+
+            // Do not catch possible exception.
+            const element = new XMLOptional(child, spec);
+            return element.data;
+        }
+
+        throw new Error("INTERNAL: Unexpected spec type");
     }
 }
 
@@ -178,7 +263,7 @@ class XMLGroup extends XMLElement {
             const id = element.id;
 
             if (id == null) {
-                throw "INTERNAL: attr for XMLGroup does not demand child id";
+                throw "INTERNAL: tag for XMLGroup does not demand child id";
             }
 
             if (id in this.elements) {

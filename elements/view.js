@@ -5,7 +5,7 @@
 class XMLPerspective extends XMLElement {
     constructor(node) {
         super(node, {
-            id: "ss", near: "ff", far: "ff", angle: "ff",
+            id: "ss", near: "pp", far: "pp", angle: "pp",
             from: { x: "ff", y: "ff", z: "ff" },
             to: { x: "ff", y: "ff", z: "ff" }
         });
@@ -35,7 +35,7 @@ class XMLPerspective extends XMLElement {
 class XMLOrtho extends XMLElement {
     constructor(node) {
         super(node, {
-            id: "ss", near: "ff", far: "ff",
+            id: "ss", near: "pp", far: "pp",
             left: "ff", right: "ff", top: "ff", bottom: "ff",
             from: { x: "ff", y: "ff", z: "ff" },
             to: { x: "ff", y: "ff", z: "ff" }

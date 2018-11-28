@@ -1,0 +1,304 @@
+<yas>
+    <scene axis_length="10.0" root="root"/>
+    
+    
+    <views default="general-view">
+        <perspective id="general-view" angle="50" near="0.1" far="500">
+            <from x="10.0" y="20.0" z="30.0"/>
+            <to x="0.0" y="0.0" z="0.0"/>
+        </perspective>
+        <ortho id="general-ortho" near="0.1" far="500"
+            left="-18" right="18" bottom="-10" top="10">
+            <from x="10.0" y="20.0" z="30.0"/>
+            <to x="0.0" y="0.0" z="0.0"/>
+        </ortho>
+    </views>
+    
+    
+    <ambient>
+        <ambient    r="1.00" g="1.00" b="1.00" a="1"/>
+        <background r="0.50" g="0.72" b="0.94" a="1"/>
+    </ambient>
+    
+    
+    <lights>
+        <omni id="Top" enabled="1">
+            <location x="0.00" y="20.0" z="0.00" w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+        <omni id="Left" enabled="1">
+            <location x="-20"  y="0.00" z="0.00" w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+        <omni id="Right" enabled="1">
+            <location x="20"   y="0.00" z="0.00"   w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+        <omni id="Back" enabled="1">
+            <location x="0.00" y="0.00" z="-20"  w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+        <omni id="Front" enabled="1">
+            <location x="0.00" y="0.00" z="20"   w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+    </lights>
+    
+    
+    <textures>
+        <texture id="black-tissue" file="images/black.jpg"/>
+        <texture id="bricks" file="images/bricks.jpg"/>
+        <texture id="ceiling" file="images/ceiling.jpg"/>
+        <texture id="dark-metal" file="images/dark-metal.jpg"/>
+        <texture id="gold" file="images/gold.jpg"/>
+        <texture id="grass" file="images/grass.jpg"/>
+        <texture id="heart" file="images/heart.jpg"/>
+        <texture id="red" file="images/red.jpg"/>
+        <texture id="snow" file="images/snow.jpg"/>
+
+        <texture id="water" file="images/water.jpg"/>
+        <texture id="water-height" file="images/wavemap.jpg"/>
+
+        <texture id="volcano" file="images/volcano.jpg"/>
+        <texture id="volcano-height" file="images/volcano-heightmap.jpg"/>
+
+        <texture id="terrain" file="images/terrain.jpg"/>
+        <texture id="terrain-height" file="images/terrain-heightmap.jpg"/>
+    </textures>
+    
+    
+    <materials>
+        <material id="default" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.70" g="0.70" b="0.70" a="1"/>
+            <diffuse  r="0.80" g="0.90" b="0.90" a="1"/>
+            <specular r="0.90" g="0.95" b="0.95" a="1"/>
+        </material>
+        <material id="aluminum" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.80" g="0.80" b="0.82" a="1"/>
+            <diffuse  r="0.90" g="0.90" b="0.91" a="1"/>
+            <specular r="0.86" g="0.86" b="0.88" a="1"/>
+        </material>
+        <material id="wood" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.63" g="0.48" b="0.38" a="1"/>
+            <diffuse  r="0.62" g="0.47" b="0.37" a="1"/>
+            <specular r="0.40" g="0.28" b="0.26" a="1"/>
+        </material>
+        <material id="shiny-metal" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.85" g="0.85" b="0.85" a="1"/>
+            <diffuse  r="0.95" g="0.95" b="0.95" a="1"/>
+            <specular r="0.99" g="0.99" b="0.99" a="1"/>
+        </material>
+        <material id="dark-metal" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.52" g="0.52" b="0.52" a="1"/>
+            <diffuse  r="0.64" g="0.64" b="0.64" a="1"/>
+            <specular r="0.94" g="0.94" b="0.94" a="1"/>
+        </material>
+        <material id="wallpaper" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.60" g="0.60" b="0.60" a="1"/>
+            <diffuse  r="0.50" g="0.50" b="0.50" a="1"/>
+            <specular r="0.25" g="0.25" b="0.25" a="1"/>
+        </material>
+        <material id="major-red" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.70" g="0.20" b="0.20" a="1"/>
+            <diffuse  r="0.80" g="0.25" b="0.25" a="1"/>
+            <specular r="0.55" g="0.18" b="0.18" a="1"/>
+        </material>
+        <material id="major-green" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.08" g="0.20" b="0.08" a="1"/>
+            <diffuse  r="0.10" g="0.30" b="0.10" a="1"/>
+            <specular r="0.07" g="0.15" b="0.07" a="1"/>
+        </material>
+        <material id="major-blue" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.10" g="0.10" b="0.90" a="1"/>
+            <diffuse  r="0.15" g="0.15" b="0.85" a="1"/>
+            <specular r="0.08" g="0.08" b="0.65" a="1"/>
+        </material>
+        <material id="major-yellow" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.55" g="0.55" b="0.20" a="1"/>
+            <diffuse  r="0.65" g="0.65" b="0.25" a="1"/>
+            <specular r="0.45" g="0.45" b="0.18" a="1"/>
+        </material>
+        <material id="emit-medium" shininess="10">
+            <emission r="1.00" g="1.00" b="1.00" a="1"/>
+            <ambient  r="0.60" g="0.60" b="0.60" a="1"/>
+            <diffuse  r="0.65" g="0.65" b="0.65" a="1"/>
+            <specular r="0.60" g="0.60" b="0.60" a="1"/>
+        </material>
+    </materials>
+    
+    
+    <transformations>
+        <transformation id="rect-x">
+            <rotate axis="y" angle="-90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect+x">
+            <rotate axis="y" angle="90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect-y">
+            <rotate axis="x" angle="90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect+y">
+            <rotate axis="x" angle="-90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect-z">
+            <rotate axis="y" angle="180"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect+z">
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+    </transformations>
+    
+    
+    <animations>
+        <linear id="up+10/10" span="10">
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="10" zz="0"/>
+        </linear>
+        <linear id="up+10/2" span="2">
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="10" zz="0"/>
+        </linear>
+        <linear id="up-10/10" span="10">
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="-10" zz="0"/>
+        </linear>
+        <linear id="up-10/2" span="2">
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="-10" zz="0"/>
+        </linear>
+        <circular id="circ-5/2/10" span="10" center="0 0 0" radius="5" startang="0" rotang="720"/>
+        <circular id="circ-5/2/2"  span="2"  center="0 0 0" radius="5" startang="0" rotang="720"/>
+        <circular id="circ-5/1/10" span="10" center="0 0 0" radius="5" startang="0" rotang="360"/>
+        <circular id="circ-5/1/2"  span="2"  center="0 0 0" radius="5" startang="0" rotang="360"/>
+    </animations>
+    
+    
+    <primitives>
+        <primitive id="cube">
+            <cube side="1"/>
+        </primitive>
+        <primitive id="sphere">
+            <sphere radius="1" slices="64" stacks="64"/>
+        </primitive>
+        <primitive id="rect">
+            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+        </primitive>
+        <primitive id="cone">
+            <cone radius="1" height="1" stacks="1" slices="64"/>
+        </primitive>
+        <primitive id="cylinder">
+            <cylinder base="1" top="1" height="1" stacks="1" slices="64"/>
+        </primitive>
+        <primitive id="heart">
+            <heart samples="2048"/>
+        </primitive>
+        <primitive id="butterfly">
+            <butterfly samples="2048"/>
+        </primitive>
+        <primitive id="volcano">
+            <terrain idtexture="volcano" idheightmap="volcano-height"
+                parts="64" heightscale="10"/>
+        </primitive>
+        <primitive id="terrain">
+            <terrain idtexture="terrain" idheightmap="terrain-height"
+                parts="128" heightscale="5"/>
+        </primitive>
+        <primitive id="water">
+            <water idtexture="water" idwavemap="water-height"
+                parts="128" heightscale="0.5" texscale="2"/>
+        </primitive>
+        <primitive id="vehicle">
+            <vehicle/>
+        </primitive>
+    </primitives>
+    
+    
+    <components>
+        <component id="root">
+            <transformation></transformation>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="ceiling" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="water"/>
+                <componentref id="volcano"/>
+                <componentref id="vehicle"/>
+            </children>
+        </component>
+
+        <component id="water">
+            <transformation>
+                <translate x="0" y="1.5" z="0"/>
+                <scale x="50" y="1" z="50"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="water"/>
+            </children>
+        </component>
+        
+        <component id="volcano">
+            <transformation>
+                <scale x="40" y="1" z="40"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="volcano"/>
+            </children>
+        </component>
+
+        <component id="vehicle">
+            <transformation>
+                <translate x="0" y="10" z="0"/>
+            </transformation>
+            <animations>
+                <animationref id="up+10/2"/>
+                <animationref id="up-10/2"/>
+                <animationref id="circ-5/2/10"/>
+                <animationref id="circ-5/1/2"/>
+            </animations>
+            <materials>
+                <material id="shiny-metal"/>
+                <material id="major-green"/>
+                <material id="major-red"/>
+                <material id="major-blue"/>
+            </materials>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="vehicle"/>
+            </children>
+        </component>
+    </components>
+</yas>

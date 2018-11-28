@@ -41,12 +41,13 @@ class MyScene extends CGFscene {
             vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
 
-    /* Handler called when the graph is finally loaded. 
+    /**
+     * Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application
      * has started the run loop
      */
     onGraphLoaded() {
-        console.groupCollapsed("MyScene Load (onGraphLoaded)");
+        console.groupCollapsed("MyScene Init (onGraphLoaded)");
 
         this.initAxis();
         this.initViews();
@@ -577,7 +578,7 @@ class MyScene extends CGFscene {
             if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
             anim = chain.animations[chain.index]
             
-            let delta = anim.update(currTime);
+            let delta = anim.update(currTime) || 0;
 
             while (anim.hasEnded() && chain.index < chain.max) {
                 anim = chain.animations[chain.index];
@@ -605,7 +606,7 @@ class MyScene extends CGFscene {
                 this.updateChain(chain, currTime);
                 break;
             case "restart":
-                this.updateChain(chain, currTime);
+                this.updateChain(chain, currTime); // do not carry delta, overkill
                 const current = chain.animations[chain.index];
 
                 if (current.hasEnded() && chain.index === chain.max) {
