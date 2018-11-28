@@ -1,0 +1,1072 @@
+<yas>
+    <scene axis_length="50.0" root="root"/>
+
+    <views default="origin">
+        <perspective id="origin" angle="50" near="0.5" far="500">
+            <from x="25.0" y="15.0" z="25.0"/>
+            <to x="0.0" y="-3.0" z="0.0"/>
+        </perspective>
+    </views>
+
+    <ambient>
+        <ambient    r="0.20" g="0.35" b="0.15" a="1.0"/>
+        <background r="0.02" g="0.06" b="0.10" a="1.0"/>
+    </ambient>
+
+    <lights>
+        <omni id="light-z" enabled="1">
+            <location x="0" y="2" z="-10" w="1"/>
+            <ambient  r="0.35" g="0.90" b="0.65" a="1.0"/>
+            <diffuse  r="0.45" g="1.00" b="0.80" a="1.0"/>
+            <specular r="0.55" g="1.00" b="0.80" a="1.0"/>
+        </omni>
+        <spot id="light+y-20" enabled="1" angle="20" exponent="10">
+            <location x="-20" y="15" z="0" w="1"/>
+            <target   x="-20" y="0" z="0" w="1"/>
+            <ambient  r="0.65" g="0.75" b="0.95" a="1.0"/>
+            <diffuse  r="0.70" g="0.45" b="1.00" a="1.0"/>
+            <specular r="0.70" g="0.55" b="1.00" a="1.0"/>
+        </spot>
+        <spot id="light+y-0" enabled="1" angle="20" exponent="10">
+            <location x="0" y="15" z="0" w="1"/>
+            <target   x="0" y="0" z="0" w="1"/>
+            <ambient  r="0.80" g="0.40" b="0.95" a="1.0"/>
+            <diffuse  r="0.90" g="0.50" b="1.00" a="1.0"/>
+            <specular r="0.90" g="0.50" b="1.00" a="1.0"/>
+        </spot>
+        <spot id="light+y+20" enabled="1" angle="20" exponent="10">
+            <location x="20" y="15" z="0" w="1"/>
+            <target   x="20" y="0" z="0" w="1"/>
+            <ambient  r="0.95" g="0.20" b="0.55" a="1.0"/>
+            <diffuse  r="0.95" g="0.30" b="0.50" a="1.0"/>
+            <specular r="0.95" g="0.30" b="0.50" a="1.0"/>
+        </spot>
+        <spot id="light+y+50" enabled="1" angle="20" exponent="15">
+            <location x="50" y="15" z="0" w="1"/>
+            <target   x="50" y="0" z="0" w="1"/>
+            <ambient  r="0.75" g="0.65" b="0.25" a="1.0"/>
+            <diffuse  r="0.75" g="0.75" b="0.20" a="1.0"/>
+            <specular r="0.75" g="0.75" b="0.20" a="1.0"/>
+        </spot>
+    </lights>
+
+    <textures>
+        <texture id="bricks" file="images/bricks.jpg"/>
+        <texture id="ceiling" file="images/ceiling.jpg"/>
+
+        <texture id="tree" file="images/tree.jpg"/>
+        <texture id="trunk" file="images/trunk.jpg"/>
+        <texture id="grass" file="images/grass.jpg"/>
+
+        <texture id="snow" file="images/snow.jpg"/>
+        <texture id="gold" file="images/gold.jpg"/>
+        <texture id="red" file="images/red.jpg"/>
+        <texture id="black" file="images/black.jpeg"/>
+        <texture id="marfim" file="images/marfim.jpg"/>
+        <texture id="grey" file="images/grey.jpg"/>
+
+        <texture id="wood1" file="images/wood1.jpg"/>
+        <texture id="wood2" file="images/wood2.jpg"/>
+        <texture id="wood3" file="images/wood3.jpg"/>
+
+        <texture id="tv" file="images/tv.jpg"/>
+
+        <texture id="water" file="images/eye.jpg"/>
+        <texture id="water-height" file="images/water-height.jpg"/>
+        <texture id="water-height2" file="images/water-height2.jpg"/>
+        <texture id="terrain" file="images/terrain.jpg"/>
+        <texture id="terrain-height" file="images/terrain-height.jpg"/>
+    </textures>
+
+    <materials>
+        <material id="default" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.70" g="0.70" b="0.70" a="1"/>
+            <diffuse  r="0.80" g="0.90" b="0.90" a="1"/>
+            <specular r="0.90" g="0.95" b="0.95" a="1"/>
+        </material>
+        <material id="aluminum" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.80" g="0.80" b="0.82" a="1"/>
+            <diffuse  r="0.90" g="0.90" b="0.91" a="1"/>
+            <specular r="0.86" g="0.86" b="0.88" a="1"/>
+        </material>
+        <material id="polished-chrome" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.61" g="0.61" b="0.60" a="1"/>
+            <diffuse  r="0.71" g="0.70" b="0.70" a="1"/>
+            <specular r="0.74" g="0.75" b="0.74" a="1"/>
+        </material>
+        <material id="marble" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.35" g="0.34" b="0.33" a="1"/>
+            <diffuse  r="0.39" g="0.37" b="0.36" a="1"/>
+            <specular r="0.33" g="0.32" b="0.31" a="1"/>
+        </material>
+        <material id="marble-polished" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.65" g="0.63" b="0.61" a="1"/>
+            <diffuse  r="0.71" g="0.69" b="0.67" a="1"/>
+            <specular r="0.65" g="0.63" b="0.62" a="1"/>
+        </material>
+        <material id="wood" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.43" g="0.32" b="0.25" a="1"/>
+            <diffuse  r="0.50" g="0.37" b="0.28" a="1"/>
+            <specular r="0.26" g="0.18" b="0.14" a="1"/>
+        </material>
+        <material id="shiny-metal" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.85" g="0.85" b="0.85" a="1"/>
+            <diffuse  r="0.95" g="0.95" b="0.95" a="1"/>
+            <specular r="0.99" g="0.99" b="0.99" a="1"/>
+        </material>
+        <material id="light-metal" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.75" g="0.75" b="0.75" a="1"/>
+            <diffuse  r="0.85" g="0.85" b="0.85" a="1"/>
+            <specular r="0.93" g="0.93" b="0.93" a="1"/>
+        </material>
+        <material id="dark-metal" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.52" g="0.52" b="0.52" a="1"/>
+            <diffuse  r="0.64" g="0.64" b="0.64" a="1"/>
+            <specular r="0.94" g="0.94" b="0.94" a="1"/>
+        </material>
+        <material id="major-red" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.70" g="0.20" b="0.20" a="1"/>
+            <diffuse  r="0.80" g="0.25" b="0.25" a="1"/>
+            <specular r="0.55" g="0.18" b="0.18" a="1"/>
+        </material>
+        <material id="major-green" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.20" g="0.70" b="0.20" a="1"/>
+            <diffuse  r="0.25" g="0.80" b="0.25" a="1"/>
+            <specular r="0.18" g="0.55" b="0.18" a="1"/>
+        </material>
+        <material id="major-blue" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.20" g="0.20" b="0.70" a="1"/>
+            <diffuse  r="0.25" g="0.25" b="0.80" a="1"/>
+            <specular r="0.18" g="0.18" b="0.55" a="1"/>
+        </material>
+        <material id="major-yellow" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.55" g="0.55" b="0.20" a="1"/>
+            <diffuse  r="0.65" g="0.65" b="0.25" a="1"/>
+            <specular r="0.45" g="0.45" b="0.18" a="1"/>
+        </material>
+        <material id="minor-green" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.10" g="0.35" b="0.10" a="1"/>
+            <diffuse  r="0.15" g="0.45" b="0.15" a="1"/>
+            <specular r="0.10" g="0.30" b="0.10" a="1"/>
+        </material>
+        <material id="medium-general" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.35" g="0.35" b="0.35" a="1"/>
+            <diffuse  r="0.40" g="0.40" b="0.40" a="1"/>
+            <specular r="0.35" g="0.35" b="0.35" a="1"/>
+        </material>
+        <material id="major-general" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.60" g="0.60" b="0.60" a="1"/>
+            <diffuse  r="0.65" g="0.65" b="0.65" a="1"/>
+            <specular r="0.60" g="0.60" b="0.60" a="1"/>
+        </material>
+    </materials>
+
+    <transformations>
+        <transformation id="rect-x">
+            <rotate axis="y" angle="-90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect+x">
+            <rotate axis="y" angle="90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect-y">
+            <rotate axis="x" angle="90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect+y">
+            <rotate axis="x" angle="-90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect-z">
+            <rotate axis="y" angle="180"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect+z">
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="show-0">
+            <translate x="0" y="0" z="0"/>
+        </transformation>
+        <transformation id="show-1">
+            <translate x="0" y="0" z="5"/>
+        </transformation>
+        <transformation id="show-2">
+            <translate x="0" y="0" z="10"/>
+        </transformation>
+        <transformation id="show-3">
+            <translate x="0" y="0" z="15"/>
+        </transformation>
+        <transformation id="show-4">
+            <translate x="5" y="0" z="0"/>
+        </transformation>
+        <transformation id="show-5">
+            <translate x="5" y="0" z="5"/>
+        </transformation>
+        <transformation id="show-6">
+            <translate x="5" y="0" z="10"/>
+        </transformation>
+        <transformation id="show-7">
+            <translate x="5" y="0" z="15"/>
+        </transformation>
+        <transformation id="show-8">
+            <translate x="10" y="0" z="0"/>
+        </transformation>
+        <transformation id="show-9">
+            <translate x="10" y="0" z="5"/>
+        </transformation>
+        <transformation id="show-10">
+            <translate x="10" y="0" z="10"/>
+        </transformation>
+        <transformation id="show-11">
+            <translate x="10" y="0" z="15"/>
+        </transformation>
+        <transformation id="show-12">
+            <translate x="15" y="0" z="0"/>
+        </transformation>
+        <transformation id="show-13">
+            <translate x="15" y="0" z="5"/>
+        </transformation>
+        <transformation id="show-14">
+            <translate x="15" y="0" z="10"/>
+        </transformation>
+        <transformation id="show-15">
+            <translate x="15" y="0" z="15"/>
+        </transformation>
+        <transformation id="show-16">
+            <translate x="20" y="0" z="0"/>
+        </transformation>
+        <transformation id="show-17">
+            <translate x="20" y="0" z="5"/>
+        </transformation>
+    </transformations>
+
+    <animations>
+        <linear id="unit-square" span="4">
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="0" zz="1"/>
+            <controlpoint xx="1" yy="0" zz="1"/>
+            <controlpoint xx="1" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="0" zz="0"/>
+        </linear>
+        <circular id="unit-circle" span="5" center="0 0 0"
+            radius="1" startang="90" rotang="270"/>
+    </animations>
+
+    <primitives>
+        <primitive id="unit-plane">
+            <plane npartsU="64" npartsV="64"/>
+        </primitive>
+        <primitive id="unit-cylinder1">
+            <opencylinder base="2" top="1" height="4" stacks="3" slices="64"/>
+        </primitive>
+        <primitive id="unit-cylinder2">
+            <cylinder2 base="2" top="1" height="4" stacks="3" slices="64"/>
+        </primitive>
+        <primitive id="unit-square">
+            <square side="2"/>
+        </primitive>
+        <primitive id="unit-regular">
+            <regular radius="1" sides="7"/>
+        </primitive>
+        <primitive id="unit-circle">
+            <circle radius="0.95" slices="64"/>
+        </primitive>
+        <primitive id="unit-triangle">
+            <triangle x1="1" y1="0" z1="0"
+                      x2="0" y2="1" z2="0"
+                      x3="0" y3="0" z3="2"/>
+        </primitive>
+        <primitive id="unit-rectangle">
+            <rectangle x1="0" y1="0" x2="3.8" y2="2"/>
+        </primitive>
+        <primitive id="unit-trapezium">
+            <trapezium base="2" top="1" height="1"/>
+        </primitive>
+
+        <primitive id="unit-cone">
+            <cone radius="1" height="1" stacks="4" slices="64"/>
+        </primitive>
+        <primitive id="unit-pyramid">
+            <pyramid radius="1" height="1" stacks="3" sides="5"/>
+        </primitive>
+        <primitive id="unit-cylinder">
+            <cylinder base="2" top="1" height="1" stacks="3" slices="64"/>
+        </primitive>
+        <primitive id="unit-prism">
+            <prism base="1" top="1" height="1" stacks="4" sides="4"/>
+        </primitive>
+        <primitive id="unit-cube">
+            <cube side="1"/>
+        </primitive>
+        <primitive id="unit-block">
+            <block x="1" y="2" z="3"/>
+        </primitive>
+        <primitive id="unit-sphere">
+            <sphere radius="1" stacks="32" slices="64"/>
+        </primitive>
+        <primitive id="unit-halfsphere">
+            <halfsphere radius="1" stacks="32" slices="64"/>
+        </primitive>
+
+        <primitive id="unit-heart">
+            <heart samples="2048"/>
+        </primitive>
+        <primitive id="unit-butterfly">
+            <butterfly samples="2048"/>
+        </primitive>
+        <primitive id="unit-folium">
+            <folium a="2" b="2" samples="2048"/>
+        </primitive>
+        <primitive id="unit-hypocycloid">
+            <hypocycloid a="1" b="1" samples="2048"/>
+        </primitive>
+
+        <primitive id="unit-torus">
+            <torus inner="1" outer="2" slices="32" loops="64"/>
+        </primitive>
+        <primitive id="unit-eight">
+            <eight slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-astroidal">
+            <astroidal slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-kiss">
+            <kiss slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-bohemiandome">
+            <bohemiandome a="1" b="1" c="1" slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-crossedtrough">
+            <crossedtrough slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-sine">
+            <sine slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-cayley">
+            <cayley slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-mobius">
+            <mobius slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-elliptichyperboloid">
+            <elliptichyperboloid slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-crosscap">
+            <crosscap slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-crosscap2">
+            <crosscap2 slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-cornucopia">
+            <cornucopia a="1" b="1" slices="64" stacks="64"/>
+        </primitive>
+        <primitive id="unit-henneberg">
+            <henneberg slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-roman">
+            <roman slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-corkscrew">
+            <corkscrew a="1" b="1" slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-kleinbottle">
+            <kleinbottle slices="32" stacks="32"/>
+        </primitive>
+        <primitive id="unit-kleinbottle2">
+            <kleinbottle2 slices="32" stacks="32"/>
+        </primitive>
+        <!--<primitive id="terrain">
+            <terrain idtexture="terrain" idheightmap="terrain-height"
+                parts="256" heightscale="1"/>
+        </primitive>-->
+        <primitive id="water">
+            <water idtexture="water" idwavemap="water-height2"
+                parts="64" heightscale="1.5" texscale="2"/>
+        </primitive>
+    </primitives>
+
+    <components>
+        <component id="root">
+            <transformation>
+            </transformation>
+            <animations>
+            </animations>
+            <materials>
+                <material id="shiny-metal"/>
+                <material id="aluminum"/>
+                <material id="major-general"/>
+                <material id="minor-green"/>
+                <material id="major-blue"/>
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="comp-polygon"/>
+                <componentref id="comp-spacial"/>
+                <componentref id="comp-planar"/>
+                <componentref id="comp-surface"/>
+                <componentref id="complex"/>
+            </children>
+        </component>
+
+        <component id="complex">
+            <transformation>
+                <translate x="0" y="-10" z="0"/>
+                <scale x="20" y="1" z="20"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="water"/>
+            </children>
+        </component>
+
+        <component id="comp-polygon">
+            <transformation>
+                <translate x="0" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+                <material id="major-yellow"/>
+                <material id="inherit"/>
+                <material id="default"/>
+            </materials>
+            <texture id="trunk" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="unit-square"/>
+                <componentref id="unit-regular"/>
+                <componentref id="unit-circle"/>
+                <componentref id="unit-triangle"/>
+                <componentref id="unit-rectangle"/>
+                <componentref id="unit-trapezium"/>
+                <componentref id="unit-plane"/>
+                <componentref id="test-patch"/>
+            </children>
+        </component>
+
+        <component id="unit-square">
+            <transformation>
+                <transformationref id="show-0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="trunk" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="unit-square"/>
+            </children>
+        </component>
+
+        <component id="unit-regular">
+            <transformation>
+                <transformationref id="show-1"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-regular"/>
+            </children>
+        </component>
+
+        <component id="unit-circle">
+            <transformation>
+                <transformationref id="show-2"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-circle"/>
+            </children>
+        </component>
+        
+        <component id="unit-triangle">
+            <transformation>
+                <transformationref id="show-3"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="wood1" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="unit-triangle"/>
+            </children>
+        </component>
+
+        <component id="unit-rectangle">
+            <transformation>
+                <transformationref id="show-4"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="wood2" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="unit-rectangle"/>
+            </children>
+        </component>
+        
+        <component id="unit-trapezium">
+            <transformation>
+                <transformationref id="show-5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-trapezium"/>
+            </children>
+        </component>
+        
+        <component id="unit-plane">
+            <transformation>
+                <translate x="5" y="0" z="10"/>
+                <scale x="2" y="2" z="2"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tv" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="unit-plane"/>
+            </children>
+        </component>
+
+        <component id="test-patch">
+            <transformation>
+                <transformationref id="show-7"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="tv" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="patch-fit-circle"/>
+                <componentref id="patch-cylinder2"/>
+            </children>
+        </component>
+
+        <component id="patch-fit-circle">
+            <transformation>
+                <translate x="0" y="4" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-circle"/>
+            </children>
+        </component>
+
+        <component id="patch-cylinder2">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-cylinder2"/>
+            </children>
+        </component>
+
+        <component id="patch-cylinder1">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-cylinder1"/>
+            </children>
+        </component>
+
+        <component id="comp-spacial">
+            <transformation>
+                <translate x="-20" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+                <material id="marble-polished"/>
+                <material id="inherit"/>
+                <material id="polished-chrome"/>
+            </materials>
+            <texture id="bricks" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="unit-cone"/>
+                <componentref id="unit-pyramid"/>
+                <componentref id="unit-cylinder"/>
+                <componentref id="unit-prism"/>
+                <componentref id="unit-cube"/>
+                <componentref id="unit-block"/>
+                <componentref id="unit-sphere"/>
+                <componentref id="unit-halfsphere"/>
+            </children>
+        </component>
+
+        <component id="unit-cone">
+            <transformation>
+                <transformationref id="show-0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-cone"/>
+            </children>
+        </component>
+
+        <component id="unit-pyramid">
+            <transformation>
+                <transformationref id="show-1"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="unit-pyramid"/>
+            </children>
+        </component>
+
+        <component id="unit-cylinder">
+            <transformation>
+                <transformationref id="show-2"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-cylinder"/>
+            </children>
+        </component>
+
+        <component id="unit-prism">
+            <transformation>
+                <transformationref id="show-3"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-prism"/>
+            </children>
+        </component>
+
+        <component id="unit-cube">
+            <transformation>
+                <transformationref id="show-4"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-cube"/>
+            </children>
+        </component>
+
+        <component id="unit-block">
+            <transformation>
+                <transformationref id="show-5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="unit-block"/>
+            </children>
+        </component>
+
+        <component id="unit-sphere">
+            <transformation>
+                <transformationref id="show-6"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-sphere"/>
+            </children>
+        </component>
+
+        <component id="unit-halfsphere">
+            <transformation>
+                <transformationref id="show-7"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-halfsphere"/>
+            </children>
+        </component>
+
+        <component id="comp-planar">
+            <transformation>
+                <translate x="20" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="bricks" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="unit-heart"/>
+                <componentref id="unit-butterfly"/>
+                <componentref id="unit-folium"/>
+                <componentref id="unit-hypocycloid"/>
+            </children>
+        </component>
+
+        <component id="unit-heart">
+            <transformation>
+                <transformationref id="show-0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-heart"/>
+            </children>
+        </component>
+
+        <component id="unit-butterfly">
+            <transformation>
+                <transformationref id="show-1"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-butterfly"/>
+            </children>
+        </component>
+
+        <component id="unit-folium">
+            <transformation>
+                <transformationref id="show-2"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-folium"/>
+            </children>
+        </component>
+
+        <component id="unit-hypocycloid">
+            <transformation>
+                <transformationref id="show-3"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-hypocycloid"/>
+            </children>
+        </component>
+
+        <component id="comp-surface">
+            <transformation>
+                <translate x="40" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+                <material id="major-red"/>
+                <material id="inherit"/>
+                <material id="dark-metal"/>
+            </materials>
+            <texture id="wood2" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="unit-torus"/>
+                <componentref id="unit-eight"/>
+                <componentref id="unit-astroidal"/>
+                <componentref id="unit-kiss"/>
+                <componentref id="unit-bohemiandome"/>
+                <componentref id="unit-crossedtrough"/>
+                <componentref id="unit-sine"/>
+                <componentref id="unit-cayley"/>
+                <componentref id="unit-mobius"/>
+                <componentref id="unit-elliptichyperboloid"/>
+                <componentref id="unit-crosscap"/>
+                <componentref id="unit-crosscap2"/>
+                <componentref id="unit-cornucopia"/>
+                <componentref id="unit-henneberg"/>
+                <componentref id="unit-roman"/>
+                <componentref id="unit-corkscrew"/>
+                <componentref id="unit-kleinbottle"/>
+                <componentref id="unit-kleinbottle2"/>
+            </children>
+        </component>
+
+        <component id="unit-torus">
+            <transformation>
+                <transformationref id="show-0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-torus"/>
+            </children>
+        </component>
+
+        <component id="unit-eight">
+            <transformation>
+                <transformationref id="show-1"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="2.0" length_t="3.0"/>
+            <children>
+                <primitiveref id="unit-eight"/>
+            </children>
+        </component>
+
+        <component id="unit-astroidal">
+            <transformation>
+                <transformationref id="show-2"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-astroidal"/>
+            </children>
+        </component>
+
+        <component id="unit-kiss">
+            <transformation>
+                <transformationref id="show-3"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" length_s="0.25" length_t="0.5"/>
+            <children>
+                <primitiveref id="unit-kiss"/>
+            </children>
+        </component>
+
+        <component id="unit-bohemiandome">
+            <transformation>
+                <transformationref id="show-4"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-bohemiandome"/>
+            </children>
+        </component>
+
+        <component id="unit-crossedtrough">
+            <transformation>
+                <transformationref id="show-5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-crossedtrough"/>
+            </children>
+        </component>
+
+        <component id="unit-sine">
+            <transformation>
+                <transformationref id="show-6"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-sine"/>
+            </children>
+        </component>
+
+        <component id="unit-cayley">
+            <transformation>
+                <transformationref id="show-7"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-cayley"/>
+            </children>
+        </component>
+
+        <component id="unit-mobius">
+            <transformation>
+                <transformationref id="show-8"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-mobius"/>
+            </children>
+        </component>
+
+        <component id="unit-elliptichyperboloid">
+            <transformation>
+                <transformationref id="show-9"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-elliptichyperboloid"/>
+            </children>
+        </component>
+
+        <component id="unit-crosscap">
+            <transformation>
+                <transformationref id="show-10"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-crosscap"/>
+            </children>
+        </component>
+
+        <component id="unit-crosscap2">
+            <transformation>
+                <transformationref id="show-11"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-crosscap2"/>
+            </children>
+        </component>
+
+        <component id="unit-cornucopia">
+            <transformation>
+                <transformationref id="show-12"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-cornucopia"/>
+            </children>
+        </component>
+
+        <component id="unit-henneberg">
+            <transformation>
+                <transformationref id="show-13"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-henneberg"/>
+            </children>
+        </component>
+
+        <component id="unit-roman">
+            <transformation>
+                <transformationref id="show-14"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-roman"/>
+            </children>
+        </component>
+
+        <component id="unit-corkscrew">
+            <transformation>
+                <transformationref id="show-15"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-corkscrew"/>
+            </children>
+        </component>
+
+        <component id="unit-kleinbottle">
+            <transformation>
+                <transformationref id="show-16"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-kleinbottle"/>
+            </children>
+        </component>
+
+        <component id="unit-kleinbottle2">
+            <transformation>
+                <transformationref id="show-17"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unit-kleinbottle2"/>
+            </children>
+        </component>
+    </components>
+</yas>

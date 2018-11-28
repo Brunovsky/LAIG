@@ -1,0 +1,249 @@
+<yas>
+    <scene axis_length="50.0" root="cube3"/>
+
+    <views default="general-view">
+        <perspective id="general-view" angle="50" near="0.5" far="500">
+            <from x="-35.0" y="13.0" z="20.0"/>
+            <to x="0.0" y="-3.0" z="0.0"/>
+        </perspective>
+        <perspective id="living-room" angle="60" near="0.5" far="500">
+            <from x="-25.0" y="-2.0" z="9.0"/>
+            <to x="10.0" y="-14.0" z="12.0"/>
+        </perspective>
+        <perspective id="kitchen" angle="60" near="0.5" far="500">
+            <from x="-20.0" y="-5.0" z="-3.0"/>
+            <to x="0.0" y="-10" z="-20.0"/>
+        </perspective>
+        <ortho id="ortho-general" near="0.5" far="500" left="-36" right="36" bottom="-20" top="20">
+            <from x="-40.0" y="10.0" z="-10.0"/>
+            <to x="0" y="0" z="0"/>
+        </ortho>
+    </views>
+
+    <ambient>
+        <ambient    r="0.00" g="0.00" b="0.00" a="1.0"/>
+        <background r="0.50" g="0.74" b="0.94" a="1.0"/>
+    </ambient>
+
+    <lights>
+        <omni id="Teto piso 1" enabled="1">
+            <location x="-2" y="12" z="0" w="1"/>
+            <ambient  r="0.20" g="0.20" b="0.20" a="1.0"/>
+            <diffuse  r="0.30" g="0.40" b="0.25" a="1.0"/>
+            <specular r="0.90" g="0.80" b="0.70" a="1.0"/>
+        </omni>
+        <omni id="Mesa piso 1" enabled="1">
+            <location x="3" y="4.2" z="-19" w="1"/>
+            <ambient  r="0.05" g="0.10" b="0.15" a="1.0"/>
+            <diffuse  r="0.20" g="0.25" b="0.35" a="1.0"/>
+            <specular r="0.60" g="0.70" b="1.00" a="1.0"/>
+        </omni>
+        <omni id="TV piso 0" enabled="1">
+            <location x="-10" y="-12" z="19" w="1"/>
+            <ambient  r="0.05" g="0.05" b="0.05" a="1.0"/>
+            <diffuse  r="0.35" g="0.45" b="0.25" a="1.0"/>
+            <specular r="0.80" g="0.80" b="0.80" a="1.0"/>
+        </omni>
+        <omni id="PingPong piso 1" enabled="1">
+            <location x="-4" y="3" z="0" w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1.0"/>
+            <diffuse  r="0.25" g="1.00" b="1.00" a="1.0"/>
+            <specular r="0.30" g="0.60" b="0.90" a="1.0"/>
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id="grey" file="images/grey.jpg"/>
+
+        <texture id="terrain" file="images/try.jpg"/>
+        <texture id="heightmap" file="images/try2.jpg"/>
+
+        <texture id="water" file="images/water.jpg"/>
+        <texture id="wavemap" file="images/wavemap.jpg"/>
+    
+        <texture id="granito" file="images/granito.jpg"/>
+        <texture id="rubik-top"    file="images/rubik/top.png"/>
+    </textures>
+
+    <materials>
+        <material id="default" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.70" g="0.70" b="0.70" a="1"/>
+            <diffuse  r="0.80" g="0.90" b="0.90" a="1"/>
+            <specular r="0.90" g="0.95" b="0.95" a="1"/>
+        </material>
+    </materials>
+
+    <transformations>
+        <transformation id="rect-x">
+            <rotate axis="y" angle="-90"/>
+        <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect+x">
+            <rotate axis="y" angle="90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect-y">
+            <rotate axis="x" angle="90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect+y">
+            <rotate axis="x" angle="-90"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect-z">
+            <rotate axis="y" angle="180"/>
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+        <transformation id="rect+z">
+            <translate x="0" y="0" z="0.5"/>
+        </transformation>
+    </transformations>
+
+    <animations>
+        <linear id="linear2" span="1">
+            <controlpoint xx="0" yy="3" zz="0"/>
+            <controlpoint xx="0" yy="0" zz="0"/>     
+            <controlpoint xx="0" yy="3" zz="0"/>          
+
+        </linear>
+        <linear id="linear1" span="3">
+            <controlpoint xx="5" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="5" zz="0"/>
+        </linear>
+
+        <linear id="linear3" span="4">
+            <controlpoint xx="0" yy="0" zz="0"/>
+            <controlpoint xx="0" yy="0" zz="6"/>
+        </linear>
+
+        <circular id="circular1" span="1" center="5 10 0 " radius="0" startang="60" rotang="380"/>
+    </animations>
+
+    <primitives>
+       <primitive id="cube">
+            <patch npointsU="2" npointsV="2" npartsU="3" npartsV="3">
+                <controlpoint xx="0" yy="0" zz="0"/>
+                <controlpoint xx="0" yy="1" zz="0"/>
+                <controlpoint xx="2" yy="0" zz="0"/>
+                <controlpoint xx="2" yy="2" zz="0"/>
+
+            </patch>
+        </primitive>
+
+        <primitive id="cube3">
+            <vehicle />
+        </primitive>
+
+        <primitive id="cube2">
+            <cylinder2 base="0.5" top="0.5" height="2" slices="60" stacks="60"/>
+
+        </primitive>
+        <primitive id="cylinder">
+            <cylinder base="0.5" top="0" height="2" slices="60" stacks="60"/>
+        </primitive>
+        <primitive id="terrain">
+            <terrain idtexture="terrain" idheightmap="heightmap"
+                parts="128" heightscale="1"/>
+        </primitive>
+        <primitive id="water">
+            <water idtexture="water" idwavemap="wavemap"
+                parts="128" heightscale="1" texscale="2"/>
+        </primitive>
+    </primitives>
+
+    <components>
+        <component id="root">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="granito" length_s="1.0" length_t="1.0"/>
+           
+            <children>
+                <componentref id="cube3"/>
+
+                <componentref id="terrain"/>
+            </children>
+        </component>
+
+        <component id="terrain">
+            <transformation>
+                <scale x="50" y="1" z="50"/>
+            </transformation>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="terrain"/>
+                <componentref id="water"/>
+            </children>
+        </component>
+
+        <component id="water">
+            <transformation>
+                <translate x="0" y="-0.2" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="water"/>
+            </children>
+        </component>
+
+        <component id="beacon">
+            <transformation>
+            </transformation>
+            <animations>
+               <animationref id = "linear1"/>
+            </animations>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="granito" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="beacon2">
+            <transformation>
+            </transformation>
+            <animations>
+                <animationref id = "linear2"/>
+                <animationref id = "linear1"/>
+            </animations>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="granito" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cylinder"/>
+            </children>
+        </component>
+             
+              <component id="cube3">
+            <transformation>
+                <scale x="0.5" y="0.5" z="0.5"/>
+            </transformation>
+            <animations>
+                <animationref id="linear2"/>
+                <animationref id="circular1"/>
+
+            </animations>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="grey" length_s="1.0" length_t="1.0"/>
+           
+            <children>
+                <primitiveref id="cube3"/>
+            </children>
+        </component>
+             
+    </components>
+</yas>
