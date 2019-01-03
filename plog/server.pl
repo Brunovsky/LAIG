@@ -114,7 +114,7 @@ parse_input(bot/Board/P/Cap/Turn/Options, Response) :-
     choose_move(Tree, Move, Options),
     move(Move, Game, NewGame), !,
     (game_over(NewGame, P) -> Status = win-P; other_player(P, Status)),
-    response_game(NewGame, Move, Status, Response).
+    response_game(NewGame, Move, Status, Response), !.
 
 parse_input(move/Move/Board/P/Cap/Turn/Options, Response) :-
     sanitize_options(Options, Sanitized),
@@ -133,6 +133,16 @@ parse_input(move/Move/Board/P/Cap/Turn/Options, '"invalid_move"') :-
     opt_tournament(Sanitized, Tournament),
     \+ valid_move(Board, Turn, Tournament, Move), !.
 
+parse_input(valid/Move/Board/Turn/Options, true) :-
+    sanitize_options(Options, Sanitized),
+    opt_tournament(Sanitized, Tournament),
+    valid_move(Board, Turn, Tournament, Move), !.
+
+parse_input(valid/Move/Board/Turn/Options, false) :-
+    sanitize_options(Options, Sanitized),
+    opt_tournament(Sanitized, Tournament),
+    \+ valid_move(Board, Turn, Tournament, Move), !.
+
 parse_input(_, anything).
 
 json_char(c, '"c"').
@@ -144,10 +154,9 @@ json_char(win-w, '"win-w"').
 json_char(win-b, '"win-b"').
 
 response_game(Game, Move, Status, Response) :-
-    Game = game(Board, P, Cap, Turn, _),
+    Game = game(Board, _, Cap, Turn, _),
     matrix_map(json_char, Board, StringBoard),
-    json_char(P, StringP),
     json_char(Status, StringStatus),
-    Response = [StringBoard, StringP, Cap, Turn, Move, StringStatus].
+    Response = [StringBoard, StringStatus, Cap, Turn, Move].
 
 % [[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c],[c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c]]
