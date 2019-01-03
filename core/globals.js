@@ -56,7 +56,7 @@ const ANIMATION_UPDATE = "continuous";
 
 
 // Target yas file, in folder scenes/
-const DEFAULT_YAS_FILE = "basic.xml";
+const DEFAULT_YAS_FILE = "board.xml";
 
 // Shader files, in folder shaders/
 const SHADER_FILES = {
