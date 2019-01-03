@@ -18,25 +18,47 @@ class Board extends CGFobject {
             }
             this.circle.push(aux)
         }
-
-        this.whitePieces = []
-        this.blackPieces = []
-
         this.plane = new Plane(scene, 15, 15)
 
+        this.piecesBlack = new PieceContainer(scene, 4)
+        this.piecesWhite = new PieceContainer(scene, 4)
+        this.capturedPiecesBlack = new PieceContainer(scene, 4)
+        this.capturedPiecesWhite = new PieceContainer(scene, 4)
 
     }
 
     display() {
         if (!this.scene.pickMode) {
-
+            //board
             this.scene.pushMatrix()
             this.scene.scale(10, 1, 10)
             this.plane.display()
             this.scene.popMatrix()
-        }
 
-       else{
+            //block of pieces
+            this.scene.pushMatrix()
+            this.scene.translate(-7, 0, -4)
+            this.piecesBlack.display()
+            this.scene.popMatrix()
+    
+    
+            this.scene.pushMatrix()
+            this.scene.translate(7, 0, 4)
+            this.piecesWhite.display()
+            this.scene.popMatrix()
+    
+            this.scene.pushMatrix()
+            this.scene.scale(1,0.3,1)
+            this.scene.translate(7, 0, -4)
+            this.capturedPiecesBlack.display()
+            this.scene.popMatrix()
+    
+            this.scene.pushMatrix()
+            this.scene.scale(1,0.3,1)
+            this.scene.translate(-7, 0, 4)
+            this.capturedPiecesWhite.display()
+            this.scene.popMatrix()
+        } else {
             for (let i = 1; i < 20; i++) {
                 for (let j = 1; j < 20; j++) {
                     this.scene.pushMatrix()
@@ -48,6 +70,8 @@ class Board extends CGFobject {
             }
 
         }
+
+       
     }
 
     id(i, j) {
@@ -67,7 +91,7 @@ class Board extends CGFobject {
 }
 
 
-class Piece extends CGFobject {
+class Piece extends Prism {
     constructor(scene) {
         super(scene);
         this.controlPoints = [];
@@ -131,4 +155,30 @@ class Piece extends CGFobject {
         this.scene.popMatrix();
         this.scene.popMatrix();
     }
+}
+
+class PieceContainer extends CGFobject {
+    constructor(scene, sides, radius = 1, height = 1, stacks = 1, coords = [0, 1, 0, 1]) {
+        super(scene);
+        this.prism = new Prism(scene, sides, radius, height, stacks, coords);
+        this.base = new Regular(scene, sides, radius);
+        this.height = height;
+        this.initBuffers();
+    }
+
+    display() {
+        this.scene.pushMatrix();
+
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0)
+
+        this.prism.display();
+        if (DOWN_SPACIAL) this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI, 1, 0, 0);
+        this.base.display();
+        this.scene.popMatrix();
+        this.scene.popMatrix();
+
+    }
+
 }
