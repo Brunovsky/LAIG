@@ -69,3 +69,9 @@ const SHADER_FILES = {
         fragment: "terrain.frag"
     }
 };
+
+
+
+// Pente server url prefix
+var HOST_PENTE = 'http://localhost:8081'
+

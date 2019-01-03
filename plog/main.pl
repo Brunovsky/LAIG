@@ -43,6 +43,9 @@
 % Examples
 :- compile('src/examples.pl').
 
+% Server
+:- compile('server.pl').
+
 % ***** Shorthands
 
 re :- compile('main.pl').

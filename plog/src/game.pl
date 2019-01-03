@@ -68,6 +68,20 @@ start_game(bot, bot, Options) :-
 cls :- repeat_call(nl, 50).
 
 /**
+ * bot_play/3
+ * bot_play(+Game, -NewGame, -Move, -Status).
+ *   Next iteration of the game, bot move.
+ */
+bot_play(Game, NewGame, Move, Q) :-
+    Game = game(_, P, _, _, Options), !,
+    display_game(Game), !,
+    analyze_tree(Game, Tree),
+    choose_move(Tree, Move, Options),
+    move(Move, Game, NewGame),
+    other_player(P, Q), !.
+    %(game_over(NewGame, P) -> Status = win-P; other_player(P, Status)).
+
+/**
  * gloop_player_player/1, gloop_player_bot/1, gloop_bot_player/1, gloop_bot_bot/1
  * gloop_*_*(+Game).
  *   Next iteration of the game.
