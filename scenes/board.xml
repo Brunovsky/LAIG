@@ -1,0 +1,105 @@
+<yas>
+    <scene axis_length="10.0" root="root"/>
+    
+    
+    <views default="general-view">
+        <perspective id="general-view" angle="50" near="0.1" far="500">
+            <from x="10.0" y="20.0" z="30.0"/>
+            <to x="0.0" y="0.0" z="0.0"/>
+        </perspective>
+        <ortho id="general-ortho" near="0.1" far="500"
+            left="-18" right="18" bottom="-10" top="10">
+            <from x="10.0" y="20.0" z="30.0"/>
+            <to x="0.0" y="0.0" z="0.0"/>
+        </ortho>
+    </views>
+    
+    
+    <ambient>
+        <ambient    r="1.00" g="1.00" b="1.00" a="1"/>
+        <background r="0.50" g="0.72" b="0.94" a="1"/>
+    </ambient>
+    
+    
+    <lights>
+        <omni id="Top" enabled="1">
+            <location x="0.00" y="20.0" z="0.00" w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+        <omni id="Left" enabled="1">
+            <location x="-20"  y="0.00" z="0.00" w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+        <omni id="Right" enabled="1">
+            <location x="20"   y="0.00" z="0.00"   w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+        <omni id="Back" enabled="1">
+            <location x="0.00" y="0.00" z="-20"  w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+        <omni id="Front" enabled="1">
+            <location x="0.00" y="0.00" z="20"   w="1"/>
+            <ambient  r="1.00" g="1.00" b="1.00" a="1"/>
+            <diffuse  r="1.00" g="1.00" b="1.00" a="1"/>
+            <specular r="1.00" g="1.00" b="1.00" a="1"/>
+        </omni>
+    </lights>
+    
+    
+    <textures>
+        <texture id="go" file="images/go.png"/>
+    </textures>
+    
+    
+    <materials>
+        <material id="default" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.70" g="0.70" b="0.70" a="1"/>
+            <diffuse  r="0.80" g="0.90" b="0.90" a="1"/>
+            <specular r="0.90" g="0.95" b="0.95" a="1"/>
+        </material>
+    </materials>
+    
+    
+    <transformations>
+        <transformation id="no">
+            <translate x="0" y="0" z="0"/>
+        </transformation>
+    </transformations>
+    
+    
+    <animations>
+    </animations>
+    
+    
+    <primitives>
+        <primitive id="board">
+            <board  idtexture="go" vertOffset="0.5" horOffset="0.5"/>
+        </primitive>
+    </primitives>
+    
+    
+    <components>
+        <component id="root">
+            <transformation></transformation>
+            
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="go"  length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="board"/>
+            </children>
+        </component>
+
+    </components>
+</yas>

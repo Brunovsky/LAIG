@@ -21,6 +21,7 @@ class MyScene extends CGFscene {
         this.graphLoaded = false;
 
         this.initDefaults();
+        this.setPickEnabled(true);
 
         this.enableTextures(true);
         this.setUpdatePeriod(1000 / HZ); // this function is messed up (inverted logic)
@@ -76,6 +77,7 @@ class MyScene extends CGFscene {
 
         console.groupCollapsed("Loading textures, others...");
         setTimeout(console.groupEnd, 3000);
+        this.piece = new Piece(this)
     }
 
     initAxis() {
@@ -97,14 +99,20 @@ class MyScene extends CGFscene {
             if (view.type === "perspective") {
                 const position = vec3.fromValues(view.from.x, view.from.y, view.from.z);
                 const target = vec3.fromValues(view.to.x, view.to.y, view.to.z);
-                const fov = degToRad(data.angle), near = data.near, far = data.far;
+                const fov = degToRad(data.angle),
+                    near = data.near,
+                    far = data.far;
 
                 this.views[id] = new CGFcamera(fov, near, far, position, target);
             } else {
                 const position = vec3.fromValues(view.from.x, view.from.y, view.from.z);
                 const target = vec3.fromValues(view.to.x, view.to.y, view.to.z);
-                const near = data.near, far = data.far, left = data.left,
-                    right = data.right, top = data.top, bottom = data.bottom;
+                const near = data.near,
+                    far = data.far,
+                    left = data.left,
+                    right = data.right,
+                    top = data.top,
+                    bottom = data.bottom;
                 const up = vec3.fromValues(0, 1, 0);
 
                 this.views[id] = new CGFcameraOrtho(left, right, bottom, top,
@@ -273,8 +281,7 @@ class MyScene extends CGFscene {
                     const an = new LinearAnimation(this, anim.span, anim.points);
 
                     chain.animations.push(an);
-                }
-                else {
+                } else {
                     const an = new CircularAnimation(this, anim.span, anim.center,
                         anim.radius, degToRad(anim.startang), degToRad(anim.rotang));
 
@@ -297,6 +304,8 @@ class MyScene extends CGFscene {
 
             this.primitives[id] = buildPrimitive(this, prim);
         }
+
+    
     }
 
     initShaders() {
@@ -369,14 +378,14 @@ class MyScene extends CGFscene {
 
         // Behaviour: ANIMATION_BETWEEN
         switch (ANIMATION_BETWEEN) {
-        case "single":
-            chain.animations[chain.index].apply();
-            break;
-        case "accumulate":
-            for (let i = 0; i <= chain.index; ++i) {
-                chain.animations[i].apply();
-            }
-            break;
+            case "single":
+                chain.animations[chain.index].apply();
+                break;
+            case "accumulate":
+                for (let i = 0; i <= chain.index; ++i) {
+                    chain.animations[i].apply();
+                }
+                break;
         }
     }
 
@@ -390,18 +399,18 @@ class MyScene extends CGFscene {
             const data = operation.data;
 
             switch (operation.type) {
-            case 'translate':
-                this.translate(data.x, data.y, data.z);
-                break;
-            case 'rotate':
-                const x = data.axis === 'x' ? 1 : 0;
-                const y = data.axis === 'y' ? 1 : 0;
-                const z = data.axis === 'z' ? 1 : 0;
-                this.rotate(degToRad(data.angle), x, y, z);
-                break;
-            case 'scale':
-                this.scale(data.x, data.y, data.z);
-                break;
+                case 'translate':
+                    this.translate(data.x, data.y, data.z);
+                    break;
+                case 'rotate':
+                    const x = data.axis === 'x' ? 1 : 0;
+                    const y = data.axis === 'y' ? 1 : 0;
+                    const z = data.axis === 'z' ? 1 : 0;
+                    this.rotate(degToRad(data.angle), x, y, z);
+                    break;
+                case 'scale':
+                    this.scale(data.x, data.y, data.z);
+                    break;
             }
         }
     }
@@ -422,7 +431,28 @@ class MyScene extends CGFscene {
         }
     }
 
+    logPicking() {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i = 0; i < this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj) {
+                        var customId = this.pickResults[i][1];
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                    }
+                }
+                this.pickResults.splice(0, this.pickResults.length);
+            }
+        }
+
+    }
+
     display() {
+
+        //setting up picking
+        this.logPicking();
+        this.clearPickRegistration();
+
         // OpenGL setup, similar to super.display()
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -450,13 +480,18 @@ class MyScene extends CGFscene {
             this.displaySceneGraph();
         }
 
+
+
         this.popMatrix();
+
+
     }
 
     /**
      * Entry point for the depth first traversal of the scene graph
      */
     displaySceneGraph() {
+        
         this.traverser(this.graph.yas.root, null, null, 1.0, 1.0);
     }
 
@@ -546,7 +581,7 @@ class MyScene extends CGFscene {
                     case "rightMaterial":
                         ++this.materialIndex;
                         break;
-                    // ...
+                        // ...
                     default:
                         throw "INTERNAL: Unhandled checkKeys case";
                 }
@@ -563,36 +598,36 @@ class MyScene extends CGFscene {
 
         // Behaviour: ANIMATION_UPDATE
         switch (ANIMATION_UPDATE) {
-        case "simple":
-            anim = chain.animations[chain.index];
-
-            if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
-            anim = chain.animations[chain.index];
-
-            anim.update(currTime);
-            break;
-        case "continuous":
-            anim = chain.animations[chain.index];
-            
-            // This should always be false. We'll keep it for now.
-            if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
-            anim = chain.animations[chain.index]
-            
-            let delta = anim.update(currTime) || 0;
-
-            while (anim.hasEnded() && chain.index < chain.max) {
+            case "simple":
                 anim = chain.animations[chain.index];
 
                 if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
                 anim = chain.animations[chain.index];
 
-                anim.epoch(currTime - delta);
-                delta = anim.update(currTime) || 0;
+                anim.update(currTime);
+                break;
+            case "continuous":
+                anim = chain.animations[chain.index];
 
-                if (chain.index === chain.max) return delta;
-                // quit quickly if at the end of the chain
-            }
-            break;
+                // This should always be false. We'll keep it for now.
+                if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
+                anim = chain.animations[chain.index]
+
+                let delta = anim.update(currTime) || 0;
+
+                while (anim.hasEnded() && chain.index < chain.max) {
+                    anim = chain.animations[chain.index];
+
+                    if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
+                    anim = chain.animations[chain.index];
+
+                    anim.epoch(currTime - delta);
+                    delta = anim.update(currTime) || 0;
+
+                    if (chain.index === chain.max) return delta;
+                    // quit quickly if at the end of the chain
+                }
+                break;
         }
     }
 
@@ -602,20 +637,20 @@ class MyScene extends CGFscene {
 
             // Behaviour: ANIMATION_END
             switch (ANIMATION_END) {
-            case "stop":
-                this.updateChain(chain, currTime);
-                break;
-            case "restart":
-                this.updateChain(chain, currTime); // do not carry delta, overkill
-                const current = chain.animations[chain.index];
+                case "stop":
+                    this.updateChain(chain, currTime);
+                    break;
+                case "restart":
+                    this.updateChain(chain, currTime); // do not carry delta, overkill
+                    const current = chain.animations[chain.index];
 
-                if (current.hasEnded() && chain.index === chain.max) {
-                    for (let i = 0; i <= chain.max; ++i) {
-                        chain.animations[i].reset();
+                    if (current.hasEnded() && chain.index === chain.max) {
+                        for (let i = 0; i <= chain.max; ++i) {
+                            chain.animations[i].reset();
+                        }
+                        chain.index = 0;
                     }
-                    chain.index = 0;
-                }
-                break;
+                    break;
             }
         }
     }

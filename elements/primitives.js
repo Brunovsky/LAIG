@@ -101,6 +101,7 @@ const XMLFiguresList = {
     cylinder2:           {adjust: false, const: XMLCylinder2},
     terrain:             {adjust: false, const: XMLTerrain},
     water:               {adjust: false, const: XMLWater},
+    board:               {adjust: false, const: XMLBoard}
 };
 
 function isTexAdjusted(primitive) {
@@ -252,6 +253,8 @@ function buildPrimitive(scene, primitive) {
     case 'water':
         return new Water(scene, scene.textures[dt.idtexture],
             scene.textures[dt.idwavemap], dt.parts, dt.heightscale, dt.texscale);
+    case 'board':
+        return new Board(scene, scene.textures[dt.idtexture], dt.vertOffset, dt.horOffset);
     default:
         throw "INTERNAL: Invalid primitive type detected in buildPrimitive(): " + type;
     }

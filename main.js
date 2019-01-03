@@ -36,7 +36,7 @@ serialInclude([
     'build/Cylinder.js', 'build/Nurbs.js', 'build/Polygon.js',
     'build/Prism.js', 'build/Pyramid.js', 'build/revSurface.js',
     'build/Sphere.js', 'build/uvSurface.js', 'build/xSurface.js',
-    'build/ySurface.js', 'build/zSurface.js',
+    'build/ySurface.js', 'build/zSurface.js',  'build/Board.js',
     // elements/ All XML parsing classes
     'elements/element.js', 'elements/yas.js', 'elements/figures-composite.js',
     'elements/figures-planar.js', 'elements/figures-polygon.js',
