@@ -23,8 +23,6 @@ class Board extends CGFobject {
         this.blackPieces = []
 
         this.plane = new Plane(scene, 15, 15)
-
-
     }
 
     display() {
@@ -35,8 +33,7 @@ class Board extends CGFobject {
             this.plane.display()
             this.scene.popMatrix()
         }
-
-       else{
+        else{
             for (let i = 1; i < 20; i++) {
                 for (let j = 1; j < 20; j++) {
                     this.scene.pushMatrix()
@@ -46,23 +43,21 @@ class Board extends CGFobject {
                     this.scene.popMatrix()
                 }
             }
-
         }
     }
 
     id(i, j) {
-
         let twoDigitsi = (i).toLocaleString('en-US', {
             minimumIntegerDigits: 2,
             useGrouping: false
         })
+
         let twoDigitsj = (j).toLocaleString('en-US', {
             minimumIntegerDigits: 2,
             useGrouping: false
         })
 
         return parseInt(twoDigitsi + twoDigitsj)
-
     }
 }
 

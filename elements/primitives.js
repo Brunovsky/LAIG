@@ -101,7 +101,11 @@ const XMLFiguresList = {
     cylinder2:           {adjust: false, const: XMLCylinder2},
     terrain:             {adjust: false, const: XMLTerrain},
     water:               {adjust: false, const: XMLWater},
-    board:               {adjust: false, const: XMLBoard}
+
+    // 6. Pente Primitives
+    board:               {adjust: false, const: XMLBoard},
+    piece:               {adjust: false, const: XMLPiece},
+    bowl:                {adjust: false, const: XMLBowl}
 };
 
 function isTexAdjusted(primitive) {
@@ -253,8 +257,16 @@ function buildPrimitive(scene, primitive) {
     case 'water':
         return new Water(scene, scene.textures[dt.idtexture],
             scene.textures[dt.idwavemap], dt.parts, dt.heightscale, dt.texscale);
+
+    // 6. Pente Primitives
     case 'board':
-        return new Board(scene, scene.textures[dt.idtexture], dt.vertOffset, dt.horOffset);
+        return new Board(scene, scene.textures[dt.idtexture], dt.vertOffset,
+            dt.horOffset, dt.size);
+    case 'piece':
+        return new Piece(scene, dt.color);
+    case 'bowl':
+        return new Bowl(scene, dt.color);
+
     default:
         throw "INTERNAL: Invalid primitive type detected in buildPrimitive(): " + type;
     }

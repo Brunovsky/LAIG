@@ -83,7 +83,7 @@
     
     <primitives>
         <primitive id="board">
-            <board  idtexture="go" vertOffset="0.5" horOffset="0.5"/>
+            <board  idtexture="go" vertOffset="0.5" horOffset="0.5" size="19"/>
         </primitive>
     </primitives>
     
