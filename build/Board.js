@@ -40,21 +40,21 @@ class Board extends CGFobject {
             this.scene.translate(-7, 0, -4)
             this.piecesBlack.display()
             this.scene.popMatrix()
-    
-    
+
+
             this.scene.pushMatrix()
             this.scene.translate(7, 0, 4)
             this.piecesWhite.display()
             this.scene.popMatrix()
-    
+
             this.scene.pushMatrix()
-            this.scene.scale(1,0.3,1)
+            this.scene.scale(1, 0.3, 1)
             this.scene.translate(7, 0, -4)
             this.capturedPiecesBlack.display()
             this.scene.popMatrix()
-    
+
             this.scene.pushMatrix()
-            this.scene.scale(1,0.3,1)
+            this.scene.scale(1, 0.3, 1)
             this.scene.translate(-7, 0, 4)
             this.capturedPiecesWhite.display()
             this.scene.popMatrix()
@@ -71,7 +71,7 @@ class Board extends CGFobject {
 
         }
 
-       
+
     }
 
     id(i, j) {
@@ -181,4 +181,99 @@ class PieceContainer extends CGFobject {
 
     }
 
+}
+
+class Clock extends CGFobject {
+    constructor(scene) {
+        super(scene)
+
+        this.secondsr = new Square(scene)
+        this.secondsl = new Square(scene)
+        this.minutesr = new Square(scene)
+        this.minutesl = new Square(scene)
+        this.clockMinutesr = 0
+        this.clockMinutesl = 0
+        this.clockSecondsr = 0
+        this.clockSecondsl = 0
+
+        this.textures = [
+            new CGFtexture(scene,'../images/number0.png'),
+            new CGFtexture(scene,'../images/number1.png'),
+            new CGFtexture(scene,'../images/number2.png'),
+            new CGFtexture(scene,'../images/number3.png'),
+            new CGFtexture(scene,'../images/number4.png'),
+            new CGFtexture(scene,'../images/number5.png'),
+            new CGFtexture(scene,'../images/number6.png'),
+            new CGFtexture(scene,'../images/number7.png'),
+            new CGFtexture(scene,'../images/number8.png'),
+            new CGFtexture(scene,'../images/number9.png'),
+        ]
+
+        this.clockMaterial = new CGFappearance(scene)
+       
+
+        this.timeElapsed = 0
+    }
+
+    display() {
+        this.clock = true
+
+        this.scene.pushMatrix()
+
+        this.scene.pushMatrix()
+        this.scene.translate(2, 0, 0)
+        this.clockMaterial.setTexture(this.textures[this.clockSecondsr])
+        this.clockMaterial.apply()
+        this.secondsr.display()
+        this.scene.popMatrix()
+
+        this.scene.pushMatrix()
+        this.scene.translate(1, 0, 0)
+        this.clockMaterial.setTexture(this.textures[this.clockSecondsl])
+        this.clockMaterial.apply()
+        this.secondsl.display()
+        this.scene.popMatrix()
+
+        this.scene.pushMatrix()
+        this.scene.translate(-1, 0, 0)
+        this.clockMaterial.setTexture(this.textures[this.clockMinutesr])
+        this.clockMaterial.apply()
+        this.minutesr.display()
+        this.scene.popMatrix()
+
+        this.scene.pushMatrix()
+        this.clockMaterial.setTexture(this.textures[this.clockMinutesl])
+        this.clockMaterial.apply()
+        this.scene.translate(-2, 0, 0)
+        this.minutesl.display()
+        this.scene.popMatrix()
+
+
+        this.scene.popMatrix()
+
+    }
+
+    updateClock(delta) {
+        if (this.clock) {
+            console.log("r = " +this.clockSecondsr)
+            console.log(this.clockSecondsl)
+            this.timeElapsed += delta - (this.current || delta)
+            this.current = delta
+            let seconds = this.timeElapsed / 1000
+            let clockMinutes = Math.trunc(seconds / 60)
+            let clockSeconds = seconds % 60
+
+            console.log('seconds % 60 = ' + clockSeconds)
+            console.log(Math.floor(clockSeconds / 10))
+            this.clockMinutesr = Math.trunc((clockMinutes / 10 - Math.floor(clockMinutes / 10))*10)
+            this.clockMinutesl = clockMinutes / 10 | 0
+            this.clockSecondsr = Math.trunc((clockSeconds / 10 - Math.floor(clockSeconds / 10)) * 10)
+            this.clockSecondsl = clockSeconds / 10 | 0 //truncate 0 bit  a bit
+
+        }
+    }
+
+    resetClock(){
+        this.timeElapsed = 0
+    }
 }
