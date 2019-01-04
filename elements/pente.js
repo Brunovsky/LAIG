@@ -5,7 +5,8 @@
 class XMLBoard extends XMLElement {
     constructor(node) {
         super(node, {
-            idtexture: "ss", vertOffset: "pp", horOffset: "pp", size: "ii"
+            idtexture: "ss", leftOffset: "pp", rightOffset: "pp", topOffset: "pp",
+            botOffset: "pp", size: "ii"
         });
 
         this.type = "board";
@@ -18,9 +19,7 @@ class XMLBoard extends XMLElement {
  */
 class XMLPiece extends XMLElement {
     constructor(node) {
-        super(node, {
-            color: "ss"
-        });
+        super(node, {});
 
         this.type = "piece";
     }
@@ -32,9 +31,7 @@ class XMLPiece extends XMLElement {
  */
 class XMLBowl extends XMLElement {
     constructor(node) {
-        super(node, {
-            color: "ss"
-        });
+        super(node, {});
 
         this.type = "bowl";
     }

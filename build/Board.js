@@ -1,37 +1,52 @@
-class Board extends CGFobject {
-    constructor(scene, texture, vertOffset, horOffset) {
-        super(scene);
-        this.texture = texture
-        this.vertOffset = vertOffset
-        this.horOffset = horOffset
+const PICKING_RADIUS = 0.4; // should be < 0.5
+const CONTAINER_SIDES = 4;
+const PIECE_RADIUS = 0.40;
+const PIECE_HEIGHT = 0.1;
 
-        this.horTanslation = -5
-        this.vertTranlation = -5
+class Board extends CGFobject {
+    constructor(scene, texture, left, right, top, bot, size = 19) {
+        super(scene);
+
+        // Board texture
+        this.texture = texture
+        this.size = size
+
+        // Texture offset
+        this.leftOffset = left
+        this.rightOffset = right
+        this.topOffset = top
+        this.botOffset = bot
+        const xInterval = (1 - left - right) / (size - 1)
+        const yInterval = (1 - top - bot) / (size - 1)
+        this.xScale = 1 / xInterval
+        this.yScale = 1 / yInterval
+
+        // Picking
         this.circle = []
 
-        for (let i = 1; i < 20; i++) {
-
+        for (let i = 1; i <= size; i++) {
             let aux = []
-            for (let j = 1; j < 20; j++) {
-
-                aux.push(new Circle(scene, 0.2, 15))
+            for (let j = 1; j <= size; j++) {
+                aux.push(new Circle(scene, PICKING_RADIUS))
             }
             this.circle.push(aux)
         }
-        this.plane = new Plane(scene, 15, 15)
 
-        this.piecesBlack = new PieceContainer(scene, 4)
-        this.piecesWhite = new PieceContainer(scene, 4)
-        this.capturedPiecesBlack = new PieceContainer(scene, 4)
-        this.capturedPiecesWhite = new PieceContainer(scene, 4)
+        // Board
+        this.plane = new Plane(scene, 1, 1)
 
+        // Bowls
+        this.piecesBlack = new PieceContainer(scene, CONTAINER_SIDES)
+        this.piecesWhite = new PieceContainer(scene, CONTAINER_SIDES)
+        this.capturedPiecesBlack = new PieceContainer(scene, CONTAINER_SIDES)
+        this.capturedPiecesWhite = new PieceContainer(scene, CONTAINER_SIDES)
     }
 
     display() {
         if (!this.scene.pickMode) {
             //board
             this.scene.pushMatrix()
-            this.scene.scale(10, 1, 10)
+            this.scene.scale(this.xScale, 1, this.yScale)
             this.plane.display()
             this.scene.popMatrix()
 
@@ -40,7 +55,6 @@ class Board extends CGFobject {
             this.scene.translate(-7, 0, -4)
             this.piecesBlack.display()
             this.scene.popMatrix()
-
 
             this.scene.pushMatrix()
             this.scene.translate(7, 0, 4)
@@ -59,18 +73,22 @@ class Board extends CGFobject {
             this.capturedPiecesWhite.display()
             this.scene.popMatrix()
         } else {
-            for (let i = 1; i < 20; i++) {
-                for (let j = 1; j < 20; j++) {
+            for (let i = 1; i <= this.size; i++) {
+                for (let j = 1; j <= this.size; j++) {
+                    const circle = this.circle[i - 1][j - 1]
+
+                    const horz = (i - 1) * this.horzTranslation
+                    const vert = (j - 1) * this.vertTranslation
+
                     this.scene.pushMatrix()
-                    this.scene.translate(this.horTanslation + j * this.horOffset, 0, this.vertTranlation + i * this.vertOffset)
-                    this.scene.registerForPick(this.id(i, j), this.circle[i - 1][j - 1])
-                    this.circle[i - 1][j - 1].display()
+                    this.scene.translate(this.leftOffset - 0.5, 0, this.topOffset - 0.5)
+                    this.scene.translate(horz, 0.1, vert)
+                    //this.scene.registerForPick(this.id(i, j), circle)
+                    circle.display()
                     this.scene.popMatrix()
                 }
             }
         }
-
-
     }
 
     id(i, j) {
@@ -88,21 +106,20 @@ class Board extends CGFobject {
     }
 }
 
-
 class Piece extends Prism {
     constructor(scene) {
         super(scene);
-        this.controlPoints = [];
+        //this.controlPoints = [];
 
         this.buildDisc();
-        this.fixingSphere = new ClosedHalfSphere(scene, 0.7, 64, 64);
-        this.headTorus = new uvSurface(scene, protoTorus(0.075, 0.80), intervalTorus);
-        this.tipSphere = new HalfSphere(scene, 0.2);
+        //this.fixingSphere = new ClosedHalfSphere(scene, PIECE_RADIUS, 64, 64);
+        //this.headTorus = new uvSurface(scene, protoTorus(0.075, 0.80), intervalTorus);
+        //this.tipSphere = new HalfSphere(scene, 0.2);
     }
 
     buildDisc() {
-        const height = 1;
-        const radius = 5;
+        const height = PIECE_HEIGHT;
+        const radius = PIECE_RADIUS;
 
         const w = Math.sqrt(2) / 2;
 
@@ -134,13 +151,9 @@ class Piece extends Prism {
         this.disc = new CGFnurbsObject(scene, 64, 64, surface);
     }
 
-    display() {
+    display() {        
         this.scene.pushMatrix();
-        this.scene.translate(0, 0.05, 0)
-        this.scene.scale(0.05, 0.05, 0.05)
-        this.scene.pushMatrix();
-
-        this.scene.pushMatrix();
+        this.scene.translate(0, PIECE_HEIGHT / 2, 0);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.disc.display();
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
@@ -149,8 +162,6 @@ class Piece extends Prism {
         this.disc.display();
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
         this.disc.display();
-        this.scene.popMatrix();
-        this.scene.popMatrix();
         this.scene.popMatrix();
     }
 }
@@ -176,9 +187,7 @@ class PieceContainer extends CGFobject {
         this.base.display();
         this.scene.popMatrix();
         this.scene.popMatrix();
-
     }
-
 }
 
 class Clock extends CGFobject {

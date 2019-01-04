@@ -260,12 +260,12 @@ function buildPrimitive(scene, primitive) {
 
     // 6. Pente Primitives
     case 'board':
-        return new Board(scene, scene.textures[dt.idtexture], dt.vertOffset,
-            dt.horOffset, dt.size);
+        return new Board(scene, scene.textures[dt.idtexture], dt.leftOffset,
+            dt.rightOffset, dt.topOffset, dt.botOffset, dt.size || 19);
     case 'piece':
-        return new Piece(scene, dt.color);
+        return new Piece(scene);
     case 'bowl':
-        return new Bowl(scene, dt.color);
+        return new Bowl(scene);
 
     default:
         throw "INTERNAL: Invalid primitive type detected in buildPrimitive(): " + type;
