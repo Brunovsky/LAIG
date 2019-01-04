@@ -77,7 +77,7 @@ class MyScene extends CGFscene {
 
         console.groupCollapsed("Loading textures, others...");
         setTimeout(console.groupEnd, 3000);
-        this.piece = new Piece(this)
+
     }
 
     initAxis() {
@@ -305,7 +305,7 @@ class MyScene extends CGFscene {
             this.primitives[id] = buildPrimitive(this, prim);
         }
 
-    
+
     }
 
     initShaders() {
@@ -478,8 +478,8 @@ class MyScene extends CGFscene {
 
         if (this.graphLoaded) {
             this.displaySceneGraph();
+        
         }
-
 
 
         this.popMatrix();
@@ -491,7 +491,7 @@ class MyScene extends CGFscene {
      * Entry point for the depth first traversal of the scene graph
      */
     displaySceneGraph() {
-        
+
         this.traverser(this.graph.yas.root, null, null, 1.0, 1.0);
     }
 
