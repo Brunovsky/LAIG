@@ -255,16 +255,11 @@ class Clock extends CGFobject {
 
     updateClock(delta) {
         if (this.clock) {
-            console.log("r = " +this.clockSecondsr)
-            console.log(this.clockSecondsl)
             this.timeElapsed += delta - (this.current || delta)
             this.current = delta
             let seconds = this.timeElapsed / 1000
             let clockMinutes = Math.trunc(seconds / 60)
             let clockSeconds = seconds % 60
-
-            console.log('seconds % 60 = ' + clockSeconds)
-            console.log(Math.floor(clockSeconds / 10))
             this.clockMinutesr = Math.trunc((clockMinutes / 10 - Math.floor(clockMinutes / 10))*10)
             this.clockMinutesl = clockMinutes / 10 | 0
             this.clockSecondsr = Math.trunc((clockSeconds / 10 - Math.floor(clockSeconds / 10)) * 10)
