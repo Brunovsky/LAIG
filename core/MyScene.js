@@ -356,28 +356,39 @@ class MyScene extends CGFscene {
 
     setPiece(i, row, col, color) {
         const compid = `game-piece-${i}`;
+        const colorpiece = `${color}-piece`;
 
         const components = this.graph.yas.components;
         const parent = components.get('game-pieces');
 
+        const div = document.createElement('div'), div2 = document.createElement('div');
+
         const xml = `<component id="${compid}">
                 <transformation>
-                    <translate x="${row}" y="0" z="${col}"/>
-                    <translate x="-9" y="0" z="-9"/>
+                    <translate x="${row-10}" y="0" z="${col-10}"></translate>
                 </transformation>
                 <materials>
                     <material id="inherit"/>
                 </materials>
-                <texture id="inherit"/>
+                <texture id="inherit"></texture>
                 <children>
-                    <componentref id="${color}-piece"/>
+                    <componentref id="${colorpiece}"/>
                 </children>
+                <!-- i=${i}, row=${row}, col=${col}, color=${color} -->
             </component>`;
 
-        const xmlref = `<componentref id="${compid}">`;
+        const xmlref = `<componentref id="${compid}"></componentref>`;
 
-        components.elements[compid] = new XMLComponent(xml);
-        parent.children.elements[compid] = new XMLComponentRef(xmlref);
+        div.innerHTML = xml;
+        const piece = new XMLComponent(div.firstChild);
+        piece.children.get(colorpiece).ref = components.get(colorpiece);
+
+        div2.innerHTML = xmlref;
+        const pieceref = new XMLComponentRef(div2.firstChild);
+        pieceref.ref = piece;
+
+        components.elements[compid] = piece;
+        parent.children.elements[compid] = pieceref;
     }
 
     removePiece(i) {

@@ -22,7 +22,7 @@
  *   Establishes the default values for all options.
  */
 default(board_size, 19).
-default(difficulty, 3).
+default(difficulty, 2).
 default(flip_board, false).
 default(tournament_rule, true).
 default(traverse, false).

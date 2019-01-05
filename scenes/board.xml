@@ -228,13 +228,22 @@
             <materials>
                 <material id="default"/>
             </materials>
+            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="game-pieces"/>
+                <componentref id="game"/>
+            </children>
+        </component>
+
+        <component id="game">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="default"/>
+            </materials>
             <texture id="go"  length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="board"/>
-                <!--<componentref id="piece-1"/>-->
-                <!--<componentref id="piece-2"/>-->
-                <!--<componentref id="piece-3"/>-->
-                <!--<componentref id="piece-4"/>-->
             </children>
         </component>
 
@@ -249,6 +258,7 @@
             </children>
         </component>
 
+        <!--
         <component id="piece-1">
             <transformation>
                 <transformationref id="row-1"/>
@@ -300,6 +310,7 @@
                 <componentref id="white-piece"/>
             </children>
         </component>
+        -->
 
         <component id="white-piece">
             <transformation>

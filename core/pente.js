@@ -148,8 +148,8 @@ class PenteQueue {
         const turn = pente.turn;
         const move = pente.move;
         const next = pente.next;
-        if (next === 'w' || next === 'win-w') var color = 'white';
-        if (next === 'b' || next === 'win-b') var color = 'black';
+        if (next === 'b' || next === 'win-w') var color = 'white';
+        if (next === 'w' || next === 'win-b') var color = 'black';
 
         this.scene.setPiece(turn, move[0], move[1], color);
 

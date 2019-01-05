@@ -6,11 +6,12 @@ class XMLException extends Error {
     constructor(node, message) {
         super(message);
         this.message = message;
+        console.log(node);
 
         do {
             this.message = this.makeName(node) + " > " + this.message;
             node = node.parentNode;
-        } while (node.parentNode != null);
+        } while (node && node.parentNode != null);
     }
 
     makeName(node) {
@@ -368,7 +369,7 @@ class XMLOrderedSet extends XMLElement {
         for (const tag of tags) {
             if (i == ch.length) {
                 throw new XMLException(node, "Expected more children nodes "
-                    + "(looking for child" + tag.name + ")");
+                    + "(looking for child " + tag.name + ")");
             }
 
             const childTagname = ch[i].tagName.toLocaleLowerCase();
