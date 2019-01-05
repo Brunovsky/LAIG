@@ -77,13 +77,12 @@ class Board extends CGFobject {
                 for (let j = 1; j <= this.size; j++) {
                     const circle = this.circle[i - 1][j - 1]
 
-                    const horz = (i - 1) * this.horzTranslation
-                    const vert = (j - 1) * this.vertTranslation
+                    const horz = i - (this.size + 1) / 2
+                    const vert = j - (this.size + 1) / 2
 
                     this.scene.pushMatrix()
-                    this.scene.translate(this.leftOffset - 0.5, 0, this.topOffset - 0.5)
                     this.scene.translate(horz, 0.1, vert)
-                    //this.scene.registerForPick(this.id(i, j), circle)
+                    this.scene.registerForPick(this.id(i, j), circle)
                     circle.display()
                     this.scene.popMatrix()
                 }
