@@ -72,6 +72,7 @@ class Board extends CGFobject {
             this.scene.translate(-7, 0, 4)
             this.capturedPiecesWhite.display()
             this.scene.popMatrix()
+
         } else {
             for (let i = 1; i <= this.size; i++) {
                 for (let j = 1; j <= this.size; j++) {
@@ -89,6 +90,7 @@ class Board extends CGFobject {
             }
         }
     }
+
 
     id(i, j) {
         let twoDigitsi = (i).toLocaleString('en-US', {
@@ -193,31 +195,36 @@ class Clock extends CGFobject {
     constructor(scene) {
         super(scene)
 
+        this.countdown = false
         this.secondsr = new Square(scene)
         this.secondsl = new Square(scene)
         this.minutesr = new Square(scene)
         this.minutesl = new Square(scene)
+        this.colonPrim = new Square(scene)
+
         this.clockMinutesr = 0
         this.clockMinutesl = 0
         this.clockSecondsr = 0
         this.clockSecondsl = 0
 
         this.textures = [
-            new CGFtexture(scene,'../images/number0.png'),
-            new CGFtexture(scene,'../images/number1.png'),
-            new CGFtexture(scene,'../images/number2.png'),
-            new CGFtexture(scene,'../images/number3.png'),
-            new CGFtexture(scene,'../images/number4.png'),
-            new CGFtexture(scene,'../images/number5.png'),
-            new CGFtexture(scene,'../images/number6.png'),
-            new CGFtexture(scene,'../images/number7.png'),
-            new CGFtexture(scene,'../images/number8.png'),
-            new CGFtexture(scene,'../images/number9.png'),
+            new CGFtexture(scene, '../images/number0.png'),
+            new CGFtexture(scene, '../images/number1.png'),
+            new CGFtexture(scene, '../images/number2.png'),
+            new CGFtexture(scene, '../images/number3.png'),
+            new CGFtexture(scene, '../images/number4.png'),
+            new CGFtexture(scene, '../images/number5.png'),
+            new CGFtexture(scene, '../images/number6.png'),
+            new CGFtexture(scene, '../images/number7.png'),
+            new CGFtexture(scene, '../images/number8.png'),
+            new CGFtexture(scene, '../images/number9.png'),
         ]
 
-        this.clockMaterial = new CGFappearance(scene)
-       
+        this.colon = new CGFtexture(scene, '../images/colon.png')
 
+        this.clockMaterial = new CGFappearance(scene)
+
+        this.countdownNumber = 15
         this.timeElapsed = 0
     }
 
@@ -227,21 +234,30 @@ class Clock extends CGFobject {
         this.scene.pushMatrix()
 
         this.scene.pushMatrix()
-        this.scene.translate(2, 0, 0)
+        this.scene.translate(1.5, 0, 0)
         this.clockMaterial.setTexture(this.textures[this.clockSecondsr])
         this.clockMaterial.apply()
         this.secondsr.display()
         this.scene.popMatrix()
 
         this.scene.pushMatrix()
-        this.scene.translate(1, 0, 0)
+        this.scene.translate(0.5, 0, 0)
         this.clockMaterial.setTexture(this.textures[this.clockSecondsl])
         this.clockMaterial.apply()
         this.secondsl.display()
         this.scene.popMatrix()
 
+
         this.scene.pushMatrix()
-        this.scene.translate(-1, 0, 0)
+        this.scene.scale(0.4,1,1)
+        this.clockMaterial.setTexture(this.colon)
+        this.clockMaterial.apply()
+        this.colonPrim.display()
+        this.scene.popMatrix()
+
+
+        this.scene.pushMatrix()
+        this.scene.translate(-0.5, 0, 0)
         this.clockMaterial.setTexture(this.textures[this.clockMinutesr])
         this.clockMaterial.apply()
         this.minutesr.display()
@@ -250,7 +266,7 @@ class Clock extends CGFobject {
         this.scene.pushMatrix()
         this.clockMaterial.setTexture(this.textures[this.clockMinutesl])
         this.clockMaterial.apply()
-        this.scene.translate(-2, 0, 0)
+        this.scene.translate(-1.5, 0, 0)
         this.minutesl.display()
         this.scene.popMatrix()
 
@@ -261,12 +277,18 @@ class Clock extends CGFobject {
 
     updateClock(delta) {
         if (this.clock) {
-            this.timeElapsed += delta - (this.current || delta)
+            if (this.countdown) {
+                this.timeElapsed -= delta - (this.current || delta)
+                if (this.timeElapsed <= 0)
+                    this.resetClock(this.countdownNumber)
+            } else
+                this.timeElapsed += delta - (this.current || delta)
+
             this.current = delta
             let seconds = this.timeElapsed / 1000
             let clockMinutes = Math.trunc(seconds / 60)
             let clockSeconds = seconds % 60
-            this.clockMinutesr = Math.trunc((clockMinutes / 10 - Math.floor(clockMinutes / 10))*10)
+            this.clockMinutesr = Math.trunc((clockMinutes / 10 - Math.floor(clockMinutes / 10)) * 10)
             this.clockMinutesl = clockMinutes / 10 | 0
             this.clockSecondsr = Math.trunc((clockSeconds / 10 - Math.floor(clockSeconds / 10)) * 10)
             this.clockSecondsl = clockSeconds / 10 | 0 //truncate 0 bit  a bit
@@ -274,7 +296,14 @@ class Clock extends CGFobject {
         }
     }
 
-    resetClock(){
-        this.timeElapsed = 0
+    resetClock(countdown) {
+        if (!countdown) {
+            this.timeElapsed = 0
+            this.countdown = false
+        } else {
+            this.countdown = true
+            this.timeElapsed = 1000 * countdown
+            this.countdownNumber = countdown
+        }
     }
 }
