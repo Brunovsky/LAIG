@@ -1,8 +1,8 @@
 /**
-* MyInterface class, creating a GUI interface.
-*
-* http://workshop.chromeexperiments.com/examples/gui
-*/
+ * MyInterface class, creating a GUI interface.
+ *
+ * http://workshop.chromeexperiments.com/examples/gui
+ */
 class MyInterface extends CGFinterface {
     constructor() {
         super();
@@ -29,15 +29,46 @@ class MyInterface extends CGFinterface {
 
         this.addLightsGroup(yas.lights);
         this.addViewsGroup(yas.views);
-    //    this.addFactor()
+        this.addStartGaming()
+        this.gaming()
+        //    this.addFactor()
     }
 
-/*     addFactor(){
+    /*     addFactor(){
 
-        this.datgui.add(this.scene,"factor", -5, 5).onChange(factor => this.scene.changeFactor(factor));
+            this.datgui.add(this.scene,"factor", -5, 5).onChange(factor => this.scene.changeFactor(factor));
 
+        }
+     */
+
+ 
+    addStartGaming() {
+        const startGameGroup = this.datgui.addFolder("Start Game")
+        const obj = {
+            HumanxHuman: function humanhuman(){console.log("HumanxHuman")},
+            HumanxBot: function humanbot() {console.log("HumanxBot")},
+            BotxHuman: function  bothuman() {console.log("BotxHuman")},
+            BotxBot: function botbot() {console.log("BotxBot")}
+        };
+
+        startGameGroup.add(obj, "HumanxHuman")
+        startGameGroup.add(obj, "HumanxBot")
+        startGameGroup.add(obj, "BotxHuman")
+        startGameGroup.add(obj, "BotxBot")
     }
- */
+
+    gaming(){
+        const gameEngine = this.datgui.addFolder("Gaming")
+        
+        const obj = {
+            undo: function undo(){console.log("undo")},
+            replay: function replay(){console.log("replay")}
+        }
+
+        gameEngine.add(obj, "undo")
+        gameEngine.add(obj, "replay")
+    }
+
     /**
      * Adds a folder for the lights.
      * @param {array} lights
@@ -81,20 +112,20 @@ class MyInterface extends CGFinterface {
     }
 
     initKeys() {
-        this.processKeyboard = function(){};
+        this.processKeyboard = function () {};
         this.activeKeys = {};
     };
-        
+
     processKeyDown(event) {
         this.activeKeys[event.code] = true;
         console.log(event.code);
     };
-    
+
     processKeyUp(event) {
         this.activeKeys[event.code] = false;
         console.log(event.code);
     };
-    
+
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
     };
