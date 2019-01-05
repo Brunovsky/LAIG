@@ -174,7 +174,7 @@ class XMLChildren extends XMLGroup {
         super(node, {
             primitiveref: XMLPrimitiveRef,
             componentref: XMLComponentRef
-        });
+        }, {}, false);
 
         this.type = "children";
     }

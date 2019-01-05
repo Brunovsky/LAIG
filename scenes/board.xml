@@ -58,8 +58,6 @@
     <textures>
         <texture id="go" file="images/go.png"/>
         <texture id="snow" file="images/snow.jpg"/>
-        <texture id="white" file="images/white.png"/>
-        <texture id="black" file="images/black.png"/>
     </textures>
     
     
@@ -233,10 +231,21 @@
             <texture id="go"  length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="board"/>
-                <componentref id="piece-1"/>
-                <componentref id="piece-2"/>
-                <componentref id="piece-3"/>
-                <componentref id="piece-4"/>
+                <!--<componentref id="piece-1"/>-->
+                <!--<componentref id="piece-2"/>-->
+                <!--<componentref id="piece-3"/>-->
+                <!--<componentref id="piece-4"/>-->
+            </children>
+        </component>
+
+        <component id="game-pieces">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
+            <children>
             </children>
         </component>
 

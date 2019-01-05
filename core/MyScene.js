@@ -61,7 +61,7 @@ class MyScene extends CGFscene {
         this.initShaders();
         this.initInterface();
 
-        //this.initPente();
+        this.initPente();
 
         console.log("Axis", this.axis);
         console.log("Views", this.views);
@@ -74,7 +74,7 @@ class MyScene extends CGFscene {
         console.log("Shaders", this.shaders);
         console.log("Interface", this.gui);
 
-        //console.log("Pente", this.pente);
+        console.log("Pente", this.pente);
 
         this.graphLoaded = true;
         console.groupEnd();
@@ -351,7 +351,56 @@ class MyScene extends CGFscene {
     }
 
     initPente() {
+        this.pente = new PenteQueue(scene, 'bot', 'bot', 19, []);
+    }
 
+    setPiece(i, row, col, color) {
+        const compid = `game-piece-${i}`;
+
+        const components = this.graph.yas.components;
+        const parent = components.get('game-pieces');
+
+        const xml = `<component id="${compid}">
+                <transformation>
+                    <translate x="${row}" y="0" z="${col}"/>
+                    <translate x="-9" y="0" z="-9"/>
+                </transformation>
+                <materials>
+                    <material id="inherit"/>
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <componentref id="${color}-piece"/>
+                </children>
+            </component>`;
+
+        const xmlref = `<componentref id="${compid}">`;
+
+        components.elements[compid] = new XMLComponent(xml);
+        parent.children.elements[compid] = new XMLComponentRef(xmlref);
+    }
+
+    removePiece(i) {
+        const compid = `game-piece-${i}`;
+
+        const components = this.graph.yas.components;
+        const parent = components.get('game-pieces');
+
+        delete components.elements[compid];
+        delete parent.children.elements[compid];
+    }
+
+    removeAllPieces() {
+        const components = this.graph.yas.components;
+        const parent = components.get('game-pieces');
+
+        parent.children.elements = {};
+
+        for (const id in components.elements) {
+            if (/game-piece-\d+/.test(id)) {
+                delete components.elements[id];
+            }
+        }
     }
 
     /**
