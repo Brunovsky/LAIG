@@ -26,7 +26,7 @@ serialInclude([
     '../lib/CGF.js',
     // core/ Main class files
     'core/MyScene.js', 'core/MySceneGraph.js', 'core/MyInterface.js',
-    'core/globals.js', 'core/Animations.js',
+    'core/globals.js', 'core/Animations.js', 'core/pente.js',
     // utils/ Utilities for JS and CGF
     'utils/arrays.js', 'utils/stack.js', 'utils/vector.js',
     'utils/reals.js', 'utils/protos.js', 'utils/cache.js',
@@ -38,7 +38,8 @@ serialInclude([
     'build/Sphere.js', 'build/uvSurface.js', 'build/xSurface.js',
     'build/ySurface.js', 'build/zSurface.js',  'build/Board.js',
     // elements/ All XML parsing classes
-    'elements/element.js', 'elements/yas.js', 'elements/figures-composite.js',
+    'elements/element.js', 'elements/yas.js',  'elements/pente.js',
+    'elements/figures-composite.js',
     'elements/figures-planar.js', 'elements/figures-polygon.js',
     'elements/figures-spacial.js', 'elements/figures-surface.js',
     'elements/ambient.js', 'elements/animations.js', 'elements/components.js',

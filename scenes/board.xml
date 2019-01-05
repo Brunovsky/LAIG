@@ -57,6 +57,9 @@
     
     <textures>
         <texture id="go" file="images/go.png"/>
+        <texture id="snow" file="images/snow.jpg"/>
+        <texture id="white" file="images/white.png"/>
+        <texture id="black" file="images/black.png"/>
     </textures>
     
     
@@ -67,12 +70,140 @@
             <diffuse  r="0.80" g="0.90" b="0.90" a="1"/>
             <specular r="0.90" g="0.95" b="0.95" a="1"/>
         </material>
+        <material id="white" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.70" g="0.70" b="0.70" a="1"/>
+            <diffuse  r="0.80" g="0.90" b="0.90" a="1"/>
+            <specular r="0.90" g="0.90" b="0.90" a="1"/>
+        </material>
+        <material id="black" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.05" g="0.05" b="0.05" a="1"/>
+            <diffuse  r="0.05" g="0.05" b="0.05" a="1"/>
+            <specular r="0.25" g="0.25" b="0.25" a="1"/>
+        </material>
     </materials>
     
     
     <transformations>
         <transformation id="no">
             <translate x="0" y="0" z="0"/>
+        </transformation>
+
+        <transformation id="row-1">
+            <translate x="-9" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-2">
+            <translate x="-8" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-3">
+            <translate x="-7" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-4">
+            <translate x="-6" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-5">
+            <translate x="-5" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-6">
+            <translate x="-4" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-7">
+            <translate x="-3" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-8">
+            <translate x="-2" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-9">
+            <translate x="-1" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-10">
+            <translate x="0" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-11">
+            <translate x="1" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-12">
+            <translate x="2" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-13">
+            <translate x="3" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-14">
+            <translate x="4" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-15">
+            <translate x="5" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-16">
+            <translate x="6" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-17">
+            <translate x="7" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-18">
+            <translate x="8" y="0" z="0"/>
+        </transformation>
+        <transformation id="row-19">
+            <translate x="9" y="0" z="0"/>
+        </transformation>
+
+        <transformation id="col-1">
+            <translate x="0" y="0" z="-9"/>
+        </transformation>
+        <transformation id="col-2">
+            <translate x="0" y="0" z="-8"/>
+        </transformation>
+        <transformation id="col-3">
+            <translate x="0" y="0" z="-7"/>
+        </transformation>
+        <transformation id="col-4">
+            <translate x="0" y="0" z="-6"/>
+        </transformation>
+        <transformation id="col-5">
+            <translate x="0" y="0" z="-5"/>
+        </transformation>
+        <transformation id="col-6">
+            <translate x="0" y="0" z="-4"/>
+        </transformation>
+        <transformation id="col-7">
+            <translate x="0" y="0" z="-3"/>
+        </transformation>
+        <transformation id="col-8">
+            <translate x="0" y="0" z="-2"/>
+        </transformation>
+        <transformation id="col-9">
+            <translate x="0" y="0" z="-1"/>
+        </transformation>
+        <transformation id="col-10">
+            <translate x="0" y="0" z="0"/>
+        </transformation>
+        <transformation id="col-11">
+            <translate x="0" y="0" z="1"/>
+        </transformation>
+        <transformation id="col-12">
+            <translate x="0" y="0" z="2"/>
+        </transformation>
+        <transformation id="col-13">
+            <translate x="0" y="0" z="3"/>
+        </transformation>
+        <transformation id="col-14">
+            <translate x="0" y="0" z="4"/>
+        </transformation>
+        <transformation id="col-15">
+            <translate x="0" y="0" z="5"/>
+        </transformation>
+        <transformation id="col-16">
+            <translate x="0" y="0" z="6"/>
+        </transformation>
+        <transformation id="col-17">
+            <translate x="0" y="0" z="7"/>
+        </transformation>
+        <transformation id="col-18">
+            <translate x="0" y="0" z="8"/>
+        </transformation>
+        <transformation id="col-19">
+            <translate x="0" y="0" z="9"/>
         </transformation>
     </transformations>
     
@@ -83,23 +214,106 @@
     
     <primitives>
         <primitive id="board">
-            <board  idtexture="go" vertOffset="0.5" horOffset="0.5"/>
+            <board idtexture="go" topOffset="0.031" leftOffset="0.036"
+                rightOffset="0.026" botOffset="0.031" size="19"/>
+        </primitive>
+        <primitive id="piece">
+            <piece/>
         </primitive>
     </primitives>
     
     
     <components>
         <component id="root">
-            <transformation></transformation>
-            
+            <transformation>
+            </transformation>
             <materials>
                 <material id="default"/>
             </materials>
             <texture id="go"  length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="board"/>
+                <componentref id="piece-1"/>
+                <componentref id="piece-2"/>
+                <componentref id="piece-3"/>
+                <componentref id="piece-4"/>
             </children>
         </component>
 
+        <component id="piece-1">
+            <transformation>
+                <transformationref id="row-1"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="black-piece"/>
+            </children>
+        </component>
+
+        <component id="piece-2">
+            <transformation>
+                <transformationref id="row-19"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="black-piece"/>
+            </children>
+        </component>
+
+        <component id="piece-3">
+            <transformation>
+                <transformationref id="col-1"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="white-piece"/>
+            </children>
+        </component>
+
+        <component id="piece-4">
+            <transformation>
+                <transformationref id="col-19"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="white-piece"/>
+            </children>
+        </component>
+
+        <component id="white-piece">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="white"/>
+            </materials>
+            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="piece"/>
+            </children>
+        </component>
+
+        <component id="black-piece">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="black"/>
+            </materials>
+            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="piece"/>
+            </children>
+        </component>
     </components>
 </yas>

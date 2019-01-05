@@ -61,6 +61,8 @@ class MyScene extends CGFscene {
         this.initShaders();
         this.initInterface();
 
+        //this.initPente();
+
         console.log("Axis", this.axis);
         console.log("Views", this.views);
         console.log("Ambient", this.bg);
@@ -71,6 +73,8 @@ class MyScene extends CGFscene {
         console.log("Primitives", this.primitives);
         console.log("Shaders", this.shaders);
         console.log("Interface", this.gui);
+
+        //console.log("Pente", this.pente);
 
         this.graphLoaded = true;
         console.groupEnd();
@@ -304,8 +308,6 @@ class MyScene extends CGFscene {
 
             this.primitives[id] = buildPrimitive(this, prim);
         }
-
-
     }
 
     initShaders() {
@@ -346,6 +348,10 @@ class MyScene extends CGFscene {
         }
 
         this.gui.populate(this, this.graph.yas);
+    }
+
+    initPente() {
+
     }
 
     /**
@@ -448,8 +454,7 @@ class MyScene extends CGFscene {
     }
 
     display() {
-
-        //setting up picking
+        // setting up picking
         this.logPicking();
         this.clearPickRegistration();
 
@@ -478,20 +483,15 @@ class MyScene extends CGFscene {
 
         if (this.graphLoaded) {
             this.displaySceneGraph();
-        
         }
 
-
         this.popMatrix();
-
-
     }
 
     /**
      * Entry point for the depth first traversal of the scene graph
      */
     displaySceneGraph() {
-
         this.traverser(this.graph.yas.root, null, null, 1.0, 1.0);
     }
 

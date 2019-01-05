@@ -119,18 +119,3 @@ class XMLWater extends XMLElement {
         this.type = "water";
     }
 }
-
-
-/**
- * XML Parsing Class
- * Parses yas > primitives > primitive > board
- */
-class XMLBoard extends XMLElement {
-    constructor(node) {
-        super(node, {
-            idtexture: "ss", vertOffset: "pp", horOffset: "pp"
-        });
-
-        this.type = "board";
-    }
-}

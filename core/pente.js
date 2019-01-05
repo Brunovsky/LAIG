@@ -84,7 +84,7 @@ class Pente {
     }
 }
 
-Pente.prototype.fromBot = function(response) {
+Pente.fromBot = function(response) {
     const board = response[0];
     const next = response[1];
     const cap = response[2];
@@ -94,7 +94,7 @@ Pente.prototype.fromBot = function(response) {
     return new Pente(board, next, cap, turn, move);
 }
 
-Pente.prototype.fromMove = function(response) {
+Pente.fromMove = function(response) {
     if (response === "invalid_move") {
         return null;
     }
@@ -108,7 +108,7 @@ Pente.prototype.fromMove = function(response) {
     return new Pente(board, next, cap, turn, move);
 }
 
-Pente.prototype.fromValid = function(response) {
+Pente.fromValid = function(response) {
     return response;
 }
 
