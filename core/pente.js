@@ -129,7 +129,7 @@ Pente.empty = function(size, Options) {
 }
 
 class PenteQueue {
-    constructor(scene, white, black, size, Options) {
+    constructor(scene, white, black, size = 19, Options = []) {
         this.scene = scene;
         this.whiteKind = white;
         this.blackKind = black;

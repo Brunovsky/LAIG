@@ -351,7 +351,7 @@ class MyScene extends CGFscene {
     }
 
     initPente() {
-        this.pente = new PenteQueue(scene, 'bot', 'bot', 19, []);
+        this.pente = new PenteQueue(this, 'bot', 'bot', 19, []);
     }
 
     setPiece(i, row, col, color) {

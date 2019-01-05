@@ -1,7 +1,7 @@
-const PICKING_RADIUS = 0.4; // should be < 0.5
+const PICKING_RADIUS = 0.45; // should be < 0.5
 const CONTAINER_SIDES = 4;
-const PIECE_RADIUS = 0.40;
-const PIECE_HEIGHT = 0.1;
+const PIECE_RADIUS = 0.5;
+const PIECE_HEIGHT = 0.185;
 
 class Board extends CGFobject {
     constructor(scene, texture, left, right, top, bot, size = 19) {
@@ -154,7 +154,7 @@ class Piece extends Prism {
 
     display() {        
         this.scene.pushMatrix();
-        this.scene.translate(0, PIECE_HEIGHT / 2, 0);
+        this.scene.translate(0, PIECE_HEIGHT, 0);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.disc.display();
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
