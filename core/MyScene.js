@@ -61,7 +61,7 @@ class MyScene extends CGFscene {
         this.initShaders();
         this.initInterface();
 
-        this.initPente();
+        this.initPente('bot', 'player');
 
         console.log("Axis", this.axis);
         console.log("Views", this.views);
@@ -350,8 +350,9 @@ class MyScene extends CGFscene {
         this.gui.populate(this, this.graph.yas);
     }
 
-    initPente() {
-        this.pente = new PenteQueue(this, 'bot', 'bot', 19, []);
+    initPente(white, black, options = []) {
+        this.removeAllPieces();
+        this.pente = new PenteQueue(this, white, black, 19, options);
     }
 
     setPiece(i, row, col, color) {
@@ -513,9 +514,30 @@ class MyScene extends CGFscene {
 
     }
 
+    movePicking() {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (let i = 0; i < this.pickResults.length; ++i) {
+                    let pick = this.pickResults[i];
+                    console.log(pick);
+
+                    let obj = pick[0];
+                    if (obj) {
+                        let id = pick[1];
+                        console.log("Picked object: %d %o", id, obj);
+
+                        let move = [Math.floor(id / 100), id % 100];
+                        this.pente.pick(move);
+                    }
+                }
+                this.pickResults.length = 0;
+            }
+        }
+    }
+
     display() {
         // setting up picking
-        this.logPicking();
+        this.movePicking();
         this.clearPickRegistration();
 
         // OpenGL setup, similar to super.display()
