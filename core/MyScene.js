@@ -1,3 +1,6 @@
+const X_CONTAINER = 13
+const Z_CONTAINER = 13
+
 /**
  * XMLscene class, representing the scene that is to be rendered.
  */
@@ -63,6 +66,7 @@ class MyScene extends CGFscene {
         this.initSceneries();
         this.initInterface();
 
+        this.scores = new GameScorer(this,0,0)
         //this.initPente('bot', 'player');
 
         console.log("Axis", this.axis);
@@ -391,7 +395,7 @@ class MyScene extends CGFscene {
         const animRef = `anim-${compid}`;
         const components = this.graph.yas.components;
         const parent = components.get('game-pieces');
-        const bowlPos = (color === "white") ? -13 : 13
+        const bowlPos = {x: (color === "white") ? -X_CONTAINER : X_CONTAINER, z:  (color === "white") ? -Z_CONTAINER : Z_CONTAINER}
         const div = document.createElement('div'),
             div2 = document.createElement('div');
 
@@ -436,8 +440,8 @@ class MyScene extends CGFscene {
             max: 0
         };
 
-        const anim = new LinearAnimation(this, TIME_ANIMATION, [{x: begin,y: 0.1, z: begin},
-            {x: begin, y: 2, z: begin}, 
+        const anim = new LinearAnimation(this, TIME_ANIMATION, [{x: begin.x,y: 0.1, z: begin.z},
+            {x: begin.x, y: 2, z: begin.z}, 
             {x: col - 10, y: 2, z: row - 10},
             {x: col - 10, y: 0.1, z: row - 10}])
 
@@ -471,24 +475,26 @@ class MyScene extends CGFscene {
     }
 
     removeFromBoard(turns){
-        const compid0 = `game-piece-${turns[0].turn + 1}`
-        const compid1 = `game-piece-${turns[1].turn + 1}`
+        const end = {x:turns[0].color === 'w' ? X_CONTAINER : -X_CONTAINER, z: turns[0].color === 'w' ? Z_CONTAINER : -Z_CONTAINER }
+      
+       
+        for(const piece of turns){
+            const x = between( end.x - (CONTAINER_RADIUS - PIECE_RADIUS*2), end.x + (CONTAINER_RADIUS - PIECE_RADIUS*2))
+            const z = between( end.z - (CONTAINER_RADIUS - PIECE_RADIUS*2), end.z + (CONTAINER_RADIUS - PIECE_RADIUS*2))
+            
+            const compid = `game-piece-${piece.turn + 1}`
+            const col = piece.index[0]
+            const row = piece.index[1]
+            const linear = new LinearAnimation(this, TIME_ANIMATION,[{x:col-10, y:0.1, z: row-10}, {x:col-10, y:2, z: row-10}, {x:-x, y:2, z: z}, {x:-x, y:0.1, z: z}])
+      
+            this.animations[compid].animations.push(linear)
+            this.animations[compid].max++ 
+        }
 
-        const end = turns[0].color === 'w' ? 13 : -13
-
-        let col = turns[0].index[0]
-        let row = turns[0].index[1]
-        const linear0 = new LinearAnimation(this, TIME_ANIMATION,[{x:col-10, y:0.1, z: row-10}, {x:col-10, y:2, z: row-10}, {x:-end, y:2, z: end}, {x:-end, y:0.1, z: end}])
-        col = turns[1].index[0]
-        row = turns[1].index[1]
-        const linear1 = new LinearAnimation(this, TIME_ANIMATION,[{x:col-10, y:0.1, z: row-10}, {x:col-10, y:2, z: row-10}, {x:-end, y:2, z: end}, {x:-end, y:0.1, z: end}])
-
-        this.animations[compid0].animations.push(linear0)
-        this.animations[compid1].animations.push(linear1)
-        this.animations[compid0].max++ 
-        this.animations[compid1].max++
+       this.scores.updateScore(turns.length, turns[0].color === 'w' ? 'b':'w')
     }
 
+    
     /**
      * Select or unselect light and index i
      */
@@ -577,7 +583,7 @@ class MyScene extends CGFscene {
             if (this.pickResults != null && this.pickResults.length > 0) {
                 for (let i = 0; i < this.pickResults.length; ++i) {
                     let pick = this.pickResults[i];
-                    console.log(pick);
+                    //console.log(pick);
 
                     let obj = pick[0];
                     if (obj && this.pente) {
@@ -624,6 +630,7 @@ class MyScene extends CGFscene {
 
         if (this.graphLoaded) {
             this.displaySceneGraph();
+            this.scores.display()
         }
 
         this.popMatrix();

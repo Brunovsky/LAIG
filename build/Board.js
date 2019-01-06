@@ -1,5 +1,7 @@
 const PICKING_RADIUS = 0.45; // should be < 0.5
-const CONTAINER_SIDES = 4;
+const CONTAINER_RADIUS = 2;
+const CONTAINER_HEIGHT = 2.5;
+
 const PIECE_RADIUS = 0.5;
 const PIECE_HEIGHT = 0.185;
 
@@ -11,6 +13,10 @@ class Board extends CGFobject {
         this.texture = texture
         this.size = size
 
+        this.material = new CGFappearance(scene)
+        const texture1 = new  CGFtexture(scene, '../images/pente.jpg')
+        this.material.setTexture(texture1)
+       // this.material.setTextureWrap('REPEAT','REPEAT')
         // Texture offset
         this.leftOffset = left
         this.rightOffset = right
@@ -36,10 +42,10 @@ class Board extends CGFobject {
         this.plane = new Plane(scene, 1, 1)
 
         // Bowls
-        this.piecesBlack = new PieceContainer(scene, CONTAINER_SIDES)
-        this.piecesWhite = new PieceContainer(scene, CONTAINER_SIDES)
-        this.capturedPiecesBlack = new PieceContainer(scene, CONTAINER_SIDES)
-        this.capturedPiecesWhite = new PieceContainer(scene, CONTAINER_SIDES)
+        this.piecesBlack = new PieceContainer(scene, CONTAINER_RADIUS, CONTAINER_HEIGHT)
+        this.piecesWhite = new PieceContainer(scene, CONTAINER_RADIUS, CONTAINER_HEIGHT)
+        this.capturedPiecesBlack = new PieceContainer(scene, CONTAINER_RADIUS + 0.2, CONTAINER_HEIGHT/5)
+        this.capturedPiecesWhite = new PieceContainer(scene, CONTAINER_RADIUS +0.2, CONTAINER_HEIGHT/5)
     }
 
     display() {
@@ -48,30 +54,29 @@ class Board extends CGFobject {
             this.scene.pushMatrix()
             this.scene.scale(this.xScale, 1, this.yScale)
             this.plane.display()
-            this.scene.popMatrix()
-
+            this.scene.popMatrix() 
+ 
             //block of pieces
+            this.material.apply()
             this.scene.pushMatrix()
-            this.scene.translate(-7, 0, -4)
+            this.scene.translate(-X_CONTAINER, 0, -Z_CONTAINER)
             this.piecesBlack.display()
             this.scene.popMatrix()
 
             this.scene.pushMatrix()
-            this.scene.translate(7, 0, 4)
+            this.scene.translate(X_CONTAINER, 0, Z_CONTAINER)
             this.piecesWhite.display()
             this.scene.popMatrix()
-
+           
             this.scene.pushMatrix()
-            this.scene.scale(1, 0.3, 1)
-            this.scene.translate(7, 0, -4)
+            this.scene.translate(X_CONTAINER, 0, -Z_CONTAINER)
             this.capturedPiecesBlack.display()
             this.scene.popMatrix()
 
             this.scene.pushMatrix()
-            this.scene.scale(1, 0.3, 1)
-            this.scene.translate(-7, 0, 4)
+            this.scene.translate(-X_CONTAINER, 0, Z_CONTAINER)
             this.capturedPiecesWhite.display()
-            this.scene.popMatrix()
+            this.scene.popMatrix() 
 
         } else {
             for (let i = 1; i <= this.size; i++) {
@@ -171,25 +176,25 @@ class Piece extends Prism {
 }
 
 class PieceContainer extends CGFobject {
-    constructor(scene, sides, radius = 1, height = 1, stacks = 1, coords = [0, 1, 0, 1]) {
+    constructor(scene, radius = 1, height = 1, slices,  stacks = 1, coords = [0, 1, 0, 1]) {
         super(scene);
-        this.prism = new Prism(scene, sides, radius, height, stacks, coords);
-        this.base = new Regular(scene, sides, radius);
+        this.prism = new Cylinder(scene, radius, height, slices, stacks, coords);
+        this.base = new Circle(scene, radius, slices);
         this.height = height;
         this.initBuffers();
     }
 
     display() {
         this.scene.pushMatrix();
+        this.scene.translate(0,this.height,0)
 
-        this.scene.rotate(-Math.PI / 2, 1, 0, 0)
-
+        this.scene.rotate(Math.PI, 1,0,0)
         this.prism.display();
-        if (DOWN_SPACIAL) this.scene.rotate(Math.PI / 2, 1, 0, 0);
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI, 1, 0, 0);
-        this.base.display();
         this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI, 1,0,0)
+        this.base.display();
         this.scene.popMatrix();
     }
 }
@@ -309,4 +314,153 @@ class Clock extends CGFobject {
             this.countdownNumber = countdown
         }
     }
+}
+
+class GameScorer extends CGFobject{
+    constructor(scene, white = 0, black = 0){
+        super(scene)
+        this.scene = scene
+        this.white = white
+        this.black = black
+
+        this.blackScorer = new ScorerBody(scene, black)
+        this.whiteScorer = new ScorerBody(scene, white)
+    }
+
+    display(){
+        //white
+        this.scene.pushMatrix()
+       this.scene.translate(X_CONTAINER + 3, 1, -Z_CONTAINER)
+       
+        this.scene.rotate(Math.PI/2, 0, -1, 0)
+        this.whiteScorer.display()
+        this.scene.popMatrix()
+        this.scene.pushMatrix()
+
+        //black
+        this.scene.translate(-X_CONTAINER-3, 1, Z_CONTAINER)
+        this.scene.rotate(Math.PI/2, 0, 1, 0)
+        this.blackScorer.display()
+
+        this.scene.popMatrix()
+    }
+
+    updateScore(value, player){
+        if(player === 'b') this.blackScorer.updateScore(value)
+        else this.whiteScorer.updateScore(value)
+
+    }
+
+    setScore(white, black){
+        this.whiteScorer.setScore(white)
+        this.blackScorer.setScore(black)
+    }
+
+}
+
+class ScorerBody extends CGFobject{
+    constructor(scene, score = 0){
+        super(scene)
+        this.scene = scene
+        this.box = new Block(scene, 2.2, 1.4, 1)
+        this.bar1 = new Block(scene, 2.2, 0.2, 0.2)//higher
+        this.bar2 = new Block(scene, 0.2, 1, 0.2)
+        this.scorer = new Scorer(scene, score)
+
+        this.material = new CGFappearance(scene)
+        const texture = new  CGFtexture(scene, '../images/wood1.jpg')
+        this.material.setTexture(texture)
+        this.material2 = new CGFappearance(scene)
+        this.material2.setTexture(new  CGFtexture(scene, '../images/wood2.jpg'))
+    }
+
+    display(){
+        this.scene.pushMatrix()
+        this.scene.translate(0,0,0.6)
+        this.scorer.display()
+        this.scene.popMatrix()
+
+        this.material.apply()
+        this.scene.pushMatrix()
+        this.box.display()
+        this.scene.popMatrix()
+    
+        this.scene.pushMatrix()
+        this.scene.translate(0, 0.6, 0.6)
+        this.bar1.display()
+        this.scene.translate(0, -1.2, 0)
+        this.bar1.display()
+        this.scene.popMatrix()
+        
+        this.scene.pushMatrix()
+        this.scene.translate(1, 0, 0.6)
+        this.bar2.display()
+        this.scene.translate(-2, 0, 0)
+        this.bar2.display()
+        this.scene.popMatrix()
+        
+    }
+
+    updateScore(value){
+        this.scorer.updateScore(value)
+    }
+
+    setScore(score){
+        this.scorer.setScore(score)
+    }
+}
+
+class Scorer extends CGFobject {
+    constructor(scene, score = 0){
+        super(scene)
+
+        this.scene = scene
+        this.score = score
+       
+        this.textures = [
+            new CGFtexture(scene, '../images/number0.png'),
+            new CGFtexture(scene, '../images/number1.png'),
+            new CGFtexture(scene, '../images/number2.png'),
+            new CGFtexture(scene, '../images/number3.png'),
+            new CGFtexture(scene, '../images/number4.png'),
+            new CGFtexture(scene, '../images/number5.png'),
+            new CGFtexture(scene, '../images/number6.png'),
+            new CGFtexture(scene, '../images/number7.png'),
+            new CGFtexture(scene, '../images/number8.png'),
+            new CGFtexture(scene, '../images/number9.png'),
+        ]
+        this.material = new CGFappearance(scene)
+        this.scorer = new Square(scene)
+    }
+
+    display(){
+
+
+
+        this.scene.pushMatrix()
+        this.scene.translate(0.5, 0, 0)
+        this.scene.rotate(Math.PI/2, 1,0, 0)
+        this.material.setTexture(this.textures[Math.trunc(this.score%10)])
+        this.material.apply()
+        this.scorer.display()
+        this.scene.popMatrix()
+
+        this.scene.pushMatrix()
+        this.scene.translate(-0.5, 0, 0)
+        this.scene.rotate(Math.PI/2, 1,0, 0)
+        this.material.setTexture(this.textures[Math.trunc(this.score/10)])
+        this.material.apply()
+        this.scorer.display()
+        this.scene.popMatrix()
+
+    }
+
+    updateScore(value){
+        this.score += value
+    }
+
+    setScore(score){
+        this.score = score
+    }
+
 }
