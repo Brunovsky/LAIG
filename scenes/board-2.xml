@@ -254,7 +254,7 @@
 
         <component id="game">
             <transformation>
-                <translate x="0" y="10" z="0"/>
+                <translate x="0" y="5" z="0"/>
             </transformation>
             <materials>
                 <material id="default"/>
@@ -267,7 +267,7 @@
 
         <component id="game-pieces">
             <transformation>
-                <translate x="0" y="10" z="0"/>
+                <translate x="0" y="5" z="0"/>
             </transformation>
             <materials>
                 <material id="default"/>
@@ -310,17 +310,13 @@
             <texture id="inherit" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="table-top"/>
-                <componentref id="table-pillar-top-left"/>
-                <componentref id="table-pillar-top-right"/>
-                <componentref id="table-pillar-bot-left"/>
-                <componentref id="table-pillar-bot-right"/>
             </children>
         </component>
 
         <component id="table-top">
             <transformation>
-                <translate x="0" y="7.995" z="0"/>
-                <scale x="19.2" y="4" z="19.2"/>
+                <translate x="0" y="2.495" z="0"/>
+                <scale x="19.2" y="5" z="19.2"/>
             </transformation>
             <materials>
                 <material id="default"/>
@@ -328,72 +324,6 @@
             <texture id="goside" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="cube"/>
-            </children>
-        </component>
-
-        <component id="table-central-pillar">
-            <transformation>
-                <scale x="2.2" y="6" z="2.2"/>
-                <translate x="0" y="0.5" z="0"/>
-            </transformation>
-            <materials>
-                <material id="wood-1"/>
-            </materials>
-            <texture id="goside" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="cube"/>
-            </children>
-        </component>
-
-        <component id="table-pillar-top-left">
-            <transformation>
-                <translate x="-8.5" y="0" z="-8.5"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="table-central-pillar"/>
-            </children>
-        </component>
-
-        <component id="table-pillar-top-right">
-            <transformation>
-                <translate x="8.5" y="0" z="-8.5"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="table-central-pillar"/>
-            </children>
-        </component>
-
-        <component id="table-pillar-bot-left">
-            <transformation>
-                <translate x="-8.5" y="0" z="8.5"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="table-central-pillar"/>
-            </children>
-        </component>
-
-        <component id="table-pillar-bot-right">
-            <transformation>
-                <translate x="8.5" y="0" z="8.5"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="table-central-pillar"/>
             </children>
         </component>
     </components>

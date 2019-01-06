@@ -31,6 +31,7 @@ class MyInterface extends CGFinterface {
         this.addViewsGroup(yas.views);
         this.addStartGaming()
         this.addOptions()
+        this.addSceneries()
         this.gaming()
     }
 
@@ -44,6 +45,19 @@ class MyInterface extends CGFinterface {
 
         optionsGroup.add(this.control.options, "Difficulty", 1, 5).step(1);
         optionsGroup.add(this.control.options, "Tournament Rule");
+    }
+
+    addSceneries() {
+        this.control['Scenes'] = 'scenery-1';
+
+        const sceneriesList = [];
+
+        for (const id in this.scene.sceneries) {
+            sceneriesList.push(id); 
+        }
+
+        const sceneriesGroup = this.datgui.add(this.control, 'Scenes', sceneriesList)
+            .onChange(id => this.scene.selectScenery(id));
     }
 
     addStartGaming() {

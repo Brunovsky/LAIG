@@ -50,7 +50,6 @@ class MyScene extends CGFscene {
     onGraphLoaded() {
         console.groupCollapsed("MyScene Init (onGraphLoaded)");
 
-
         this.firstSelect = null;
         this.initAxis();
         this.initViews();
@@ -61,6 +60,7 @@ class MyScene extends CGFscene {
         this.initAnimations();
         this.initPrimitives();
         this.initShaders();
+        this.initSceneries();
         this.initInterface();
 
         //this.initPente('bot', 'player');
@@ -74,6 +74,7 @@ class MyScene extends CGFscene {
         console.log("Animations", this.animations);
         console.log("Primitives", this.primitives);
         console.log("Shaders", this.shaders);
+        console.log("Sceneries", this.sceneries);
         console.log("Interface", this.gui);
 
         // console.log("Pente", this.pente);
@@ -338,6 +339,18 @@ class MyScene extends CGFscene {
         this.wavePeriod = WAVE_PERIOD;
     }
 
+    initSceneries() {
+        const components = this.graph.yas.components;
+
+        this.sceneries = {};
+
+        for (const id in components.elements) {
+            if (/scenery-\d+/.test(id)) {
+                this.sceneries[id] = components.get(id);
+            }
+        }
+    }
+
     initInterface() {
         this.keymap = {
             KeyN: "leftMaterial",
@@ -355,6 +368,21 @@ class MyScene extends CGFscene {
     initPente(white, black, options = []) {
         this.removeAllPieces();
         this.pente = new PenteQueue(this, white, black, 19, options);
+    }
+
+    selectScenery(compid) {
+        const components = this.graph.yas.components;
+
+        const gamescenery = components.get('game-scenery');
+
+        console.log(gamescenery, gamescenery.children.elements);
+
+        for (const id in gamescenery.children.elements) {
+            const scenery = gamescenery.children.get(id);
+            scenery.id = compid;
+            scenery.ref = components.get(compid);
+            break;
+        }
     }
 
     setPiece(i, row, col, color) {

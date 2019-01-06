@@ -58,7 +58,7 @@ const TIME_ANIMATION = 0.5
 
 
 // Target yas file, in folder scenes/
-const DEFAULT_YAS_FILE = "board-2.xml";
+const DEFAULT_YAS_FILE = "board.xml";
 
 // Shader files, in folder shaders/
 const SHADER_FILES = {
