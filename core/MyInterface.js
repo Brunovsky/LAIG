@@ -47,22 +47,10 @@ class MyInterface extends CGFinterface {
         const startGameGroup = this.datgui.addFolder("Start Game")
         startGameGroup.open()
         const obj = {
-            HumanxHuman: function humanhuman() {
-                console.log("Initiate Human vs Human")
-                console.log("HumanxHuman")
-            },
-            HumanxBot: function humanbot() {
-                console.log("Initiate Human vs Bot")
-                console.log("HumanxBot")
-            },
-            BotxHuman: function bothuman() {
-                console.log("Initiate Bot vs Human")
-                console.log("BotxHuman")
-            },
-            BotxBot: function botbot() {
-                console.log("Initiate Bot vs Bot")
-                scene.initPente()
-            }
+            HumanxHuman: () => this.scene.initPente('player', 'player'),
+            HumanxBot: () => this.scene.initPente('player', 'bot'),
+            BotxHuman: () => this.scene.initPente('bot', 'player'),
+            BotxBot: () => this.scene.initPente('bot', 'bot') 
         };
 
         startGameGroup.add(obj, "HumanxHuman")

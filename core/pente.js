@@ -44,8 +44,8 @@ class Pente {
         return url;
     }
 
-    urlMove(move) {
-        const move = JSON.stringify(move);
+    urlMove(Move) {
+        const move = JSON.stringify(Move);
         const board = this.boardString();
         const p = this.pString();
         const cap = this.capString();
@@ -129,7 +129,7 @@ Pente.empty = function(size, Options) {
 }
 
 class PenteQueue {
-    constructor(scene, white, black, size, Options) {
+    constructor(scene, white, black, size = 19, Options = []) {
         this.scene = scene;
         this.whiteKind = white;
         this.blackKind = black;
@@ -143,15 +143,41 @@ class PenteQueue {
     }
 
     addMove(pente) {
+        // If there are captures, reset the board
+        const cap1 = pente.cap;
+        const cap2 = this.current().cap;
+
+        const reset = cap1.white !== cap2.white || cap1.black !== cap2.black;
+
+        console.log(cap1, cap2, reset);
+
         this.pentes.push(pente);
 
-        const turn = pente.turn;
-        const move = pente.move;
-        const next = pente.next;
-        if (next === 'b' || next === 'win-w') var color = 'white';
-        if (next === 'w' || next === 'win-b') var color = 'black';
+        if (reset) {
+            this.scene.removeAllPieces();
 
-        this.scene.setPiece(turn, move[0], move[1], color);
+            let counter = 0;
+
+            for (let i = 0; i < this.size; ++i) {
+                for (let j = 0; j < this.size; ++j) {
+                    const row = i + 1, col = j + 1;
+                    const cell = pente.board[i][j];
+
+                    if (cell !== 'c') {
+                        const color = cell === 'w' ? 'white' : 'black';
+                        this.scene.setPiece(counter++, row, col, color);
+                    }
+                }
+            }
+        } else {
+            const turn = pente.turn;
+            const move = pente.move;
+            const next = pente.next;
+            if (next === 'b' || next === 'win-w') var color = 'white';
+            if (next === 'w' || next === 'win-b') var color = 'black';
+
+            this.scene.setPiece(turn, move[0], move[1], color);
+        }
 
         return this;
     }
@@ -198,7 +224,7 @@ class PenteQueue {
         return this;
     }
 
-    async move(move) {
+    move(move) {
         this.status = "serving-move";
 
         const cur = this.current();
@@ -212,7 +238,7 @@ class PenteQueue {
         });
     }
 
-    async bot() {
+    bot() {
         this.status = "serving-bot";
 
         const cur = this.current();
@@ -222,6 +248,18 @@ class PenteQueue {
 
             return this.addMove(nextPente).update();
         });
+    }
+
+    pick(move) {
+        switch (this.status) {
+        case 'w':
+        case 'b':
+            this.move(move);
+        default:
+            break;
+        }
+
+        return this;
     }
 }
 
