@@ -64,14 +64,18 @@ class MyInterface extends CGFinterface {
 
         const obj = {
             undo: function undo() {
-                if (scene.pente)
+                if (scene.pente) {
                     scene.pente.undo()
-                else {
-                    alert("You cant undo if you are not playing")
+                } else {
+                    alert("You can't undo if you are not playing")
                 }
             },
             replay: function replay() {
-                console.log("replay")
+                if (scene.pente) {
+                    scene.pente.replay()
+                } else {
+                    alert("You can't replay if you are not playing");
+                }
             }
         }
 

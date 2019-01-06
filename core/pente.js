@@ -1,3 +1,5 @@
+const REPLAY_INTERVAL = 3000;
+
 class Pente {
     constructor(Board, P, Cap, Turn = 0, Move = null, Options = []) {
         this.board = Board;
@@ -137,9 +139,10 @@ class PenteQueue {
         this.size = size;
         this.options = Options;
 
-        this.pentes = [Pente.empty(size, Options)];
+        this.pentes = [Pente.empty(this.size, this.options)];
 
-        this.update();
+        this.prepare();
+        this.inc = 0;
     }
 
     addMove(pente) {
@@ -156,7 +159,6 @@ class PenteQueue {
         if (next === 'w' || next === 'win-b') var color = 'black';
 
         if (reset) {
-            
             let turns = this.searchTurn(pente, this.current());
             if(turns[0] === null || turns[1] ===null )
                 throw "Problem on removing pieces"
@@ -173,10 +175,9 @@ class PenteQueue {
         return this;
     }
 
-    subtractMatrix(newPente, oldPente){
+    subtractMatrix(newPente, oldPente) {
         const newBoard = newPente.board
         const oldBoard = oldPente.board
-
 
         let indexesRemoved = []
         for(let i = 0; i < newBoard.length; i++){
@@ -190,7 +191,7 @@ class PenteQueue {
         }
     }
 
-    searchTurn(newPente, oldPente){
+    searchTurn(newPente, oldPente) {
         const indexesRemoved = this.subtractMatrix(newPente, oldPente)
         const previous  = this.pentes
         let turns = [null, null]
@@ -215,13 +216,17 @@ class PenteQueue {
                 return turns
             } 
         }
-
     }
 
     undo() {
-        const cur = this.pentes.pop();
+        this.status = "undo";
 
-        this.scene.removePiece(cur.turn);
+        if (this.pentes.length > 1) {
+            const cur = this.pentes.pop();
+            this.scene.removePiece(cur.turn);
+        }
+
+        this.prepare();
 
         return this;
     }
@@ -234,7 +239,7 @@ class PenteQueue {
         return this.pentes;
     }
 
-    update() {
+    prepare() {
         const cur = this.current();
 
         this.status = cur.next;
@@ -260,29 +265,66 @@ class PenteQueue {
         return this;
     }
 
+    replay() {
+        this.status = "replay";
+
+        const history = this.pentes;
+
+        this.pentes = [Pente.empty(this.size, this.options)];
+
+        function timeout(ms) {
+            new Promise(r => setTimeout(r, ms));
+        }
+
+        let i = 1, that = this;
+        
+        function show() {
+            console.log(i);
+            that.addMove(history[i++]);
+            if (i < history.length) {
+                setTimeout(show, 2000);
+            } else {
+                that.prepare();
+            }
+        };
+
+        this.scene.removeAllPieces();
+
+        setTimeout(show, 2000);
+    }
+
     move(move) {
-        this.status = "serving-move";
+        const mystatus = `serving-move-${++this.inc}`;
+        this.status = mystatus;
 
         const cur = this.current();
 
         return cur.fetchMove(move).then(json => {
             const nextPente = Pente.fromMove(json);
 
-            if (nextPente == null) return null;
+            if (nextPente == null) {
+                this.prepare();
+                return null;
+            }
 
-            return this.addMove(nextPente).update();
+            if (this.status === mystatus) {
+                return this.addMove(nextPente).prepare();
+            }
         });
     }
 
     bot() {
-        this.status = "serving-bot";
+        const mystatus = `serving-bot-${++this.inc}`;
+        this.status = mystatus;
 
         const cur = this.current();
 
         return cur.fetchBot().then(json => {
             const nextPente = Pente.fromBot(json);
 
-            return this.addMove(nextPente).update();
+            if (this.status === mystatus) {
+                return this.addMove(nextPente).prepare();
+            }
         });
     }
 
