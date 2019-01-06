@@ -30,26 +30,51 @@ class MyInterface extends CGFinterface {
         this.addLightsGroup(yas.lights);
         this.addViewsGroup(yas.views);
         this.addStartGaming()
+        this.addOptions()
         this.gaming()
-        //    this.addFactor()
     }
 
-    /*     addFactor(){
+    addOptions() {
+        const optionsGroup = this.datgui.addFolder("Options")
+        optionsGroup.open()
+        this.control.options = {
+            "Difficulty": 3,
+            "Tournament Rule": true
+        };
 
-            this.datgui.add(this.scene,"factor", -5, 5).onChange(factor => this.scene.changeFactor(factor));
-
-        }
-     */
-
+        optionsGroup.add(this.control.options, "Difficulty", 1, 5).step(1);
+        optionsGroup.add(this.control.options, "Tournament Rule");
+    }
 
     addStartGaming() {
         const startGameGroup = this.datgui.addFolder("Start Game")
         startGameGroup.open()
+
         const obj = {
-            HumanxHuman: () => this.scene.initPente('player', 'player'),
-            HumanxBot: () => this.scene.initPente('player', 'bot'),
-            BotxHuman: () => this.scene.initPente('bot', 'player'),
-            BotxBot: () => this.scene.initPente('bot', 'bot') 
+            HumanxHuman: () => {
+                const diff = this.control.options["Difficulty"]
+                const rule = this.control.options["Tournament Rule"]
+                const opt = ['difficulty(' + diff + ')', 'rule(' + rule + ')']
+                this.scene.initPente('player', 'player', opt)
+            },
+            HumanxBot: () => {
+                const diff = this.control.options["Difficulty"]
+                const rule = this.control.options["Tournament Rule"]
+                const opt = ['difficulty(' + diff + ')', 'rule(' + rule + ')']
+                this.scene.initPente('player', 'bot', opt)
+            },
+            BotxHuman: () => {
+                const diff = this.control.options["Difficulty"]
+                const rule = this.control.options["Tournament Rule"]
+                const opt = ['difficulty(' + diff + ')', 'rule(' + rule + ')']
+                this.scene.initPente('bot', 'player', opt)
+            },
+            BotxBot: () => {
+                const diff = this.control.options["Difficulty"]
+                const rule = this.control.options["Tournament Rule"]
+                const opt = ['difficulty(' + diff + ')', 'rule(' + rule + ')']
+                this.scene.initPente('bot', 'bot', opt)
+            }
         };
 
         startGameGroup.add(obj, "HumanxHuman")

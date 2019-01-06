@@ -272,10 +272,6 @@ class PenteQueue {
 
         this.pentes = [Pente.empty(this.size, this.options)];
 
-        function timeout(ms) {
-            new Promise(r => setTimeout(r, ms));
-        }
-
         let i = 1, that = this;
         
         function show() {
@@ -293,11 +289,20 @@ class PenteQueue {
         setTimeout(show, 2000);
     }
 
+    timeout(ms) {
+        const mystatus = this.status;
+        setTimeout(function() {
+            if (this.status === mystatus) this.update();
+        }, ms);
+    }
+
     move(move) {
         const mystatus = `serving-move-${++this.inc}`;
         this.status = mystatus;
 
         const cur = this.current();
+
+        this.timeout(2000);
 
         return cur.fetchMove(move).then(json => {
             const nextPente = Pente.fromMove(json);
@@ -308,6 +313,7 @@ class PenteQueue {
             }
 
             if (this.status === mystatus) {
+                nextPente.options = this.options;
                 return this.addMove(nextPente).prepare();
             }
         });
@@ -319,10 +325,13 @@ class PenteQueue {
 
         const cur = this.current();
 
+        this.timeout(8000);
+
         return cur.fetchBot().then(json => {
             const nextPente = Pente.fromBot(json);
 
             if (this.status === mystatus) {
+                nextPente.options = this.options;
                 return this.addMove(nextPente).prepare();
             }
         });
