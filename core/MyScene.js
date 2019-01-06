@@ -347,7 +347,7 @@ class MyScene extends CGFscene {
         this.keys = {
             leftMaterial: false,
             rightMaterial: false
-        }
+        };
 
         this.gui.populate(this, this.graph.yas);
     }
