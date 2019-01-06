@@ -425,6 +425,7 @@ class MyScene extends CGFscene {
 
         delete components.elements[compid];
         delete parent.children.elements[compid];
+        delete this.animations[compid]
     }
 
     removeAllPieces() {
