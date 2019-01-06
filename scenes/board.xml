@@ -7,11 +7,14 @@
             <from x="10.0" y="20.0" z="30.0"/>
             <to x="0.0" y="0.0" z="0.0"/>
         </perspective>
-        <ortho id="general-ortho" near="0.1" far="500"
-            left="-18" right="18" bottom="-10" top="10">
-            <from x="10.0" y="20.0" z="30.0"/>
-            <to x="0.0" y="0.0" z="0.0"/>
-        </ortho>
+        <perspective id="front" angle="50" near="0.1" far="500">
+            <from x="0.0" y="25.0" z="15.0"/>
+            <to x="0.0" y="8.0" z="0.0"/>
+        </perspective>
+        <perspective id="back" angle="50" near="0.1" far="500">
+            <from x="0.0" y="25.0" z="-15.0"/>
+            <to x="0.0" y="8.0" z="0.0"/>
+        </perspective>
     </views>
     
     
@@ -57,6 +60,7 @@
     
     <textures>
         <texture id="go" file="images/go.png"/>
+        <texture id="goside" file="images/goside.png"/>
         <texture id="snow" file="images/snow.jpg"/>
     </textures>
     
@@ -79,6 +83,12 @@
             <ambient  r="0.05" g="0.05" b="0.05" a="1"/>
             <diffuse  r="0.05" g="0.05" b="0.05" a="1"/>
             <specular r="0.25" g="0.25" b="0.25" a="1"/>
+        </material>
+        <material id="wood-1" shininess="10">
+            <emission r="0.00" g="0.00" b="0.00" a="1"/>
+            <ambient  r="0.20" g="0.20" b="0.20" a="1"/>
+            <diffuse  r="0.35" g="0.35" b="0.35" a="1"/>
+            <specular r="0.49" g="0.49" b="0.49" a="1"/>
         </material>
     </materials>
     
@@ -218,6 +228,12 @@
         <primitive id="piece">
             <piece/>
         </primitive>
+        <primitive id="cube">
+            <cube side="1"/>
+        </primitive>
+        <primitive id="cylinder">
+            <cylinder height="1" base="1" top="1" slices="64" stacks="64"/>
+        </primitive>
     </primitives>
     
     
@@ -228,8 +244,9 @@
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
+                <componentref id="table"/>
                 <componentref id="game-pieces"/>
                 <componentref id="game"/>
             </children>
@@ -237,11 +254,12 @@
 
         <component id="game">
             <transformation>
+                <translate x="0" y="10" z="0"/>
             </transformation>
             <materials>
                 <material id="default"/>
             </materials>
-            <texture id="go"  length_s="1.0" length_t="1.0"/>
+            <texture id="go" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="board"/>
             </children>
@@ -249,6 +267,7 @@
 
         <component id="game-pieces">
             <transformation>
+                <translate x="0" y="10" z="0"/>
             </transformation>
             <materials>
                 <material id="default"/>
@@ -258,67 +277,13 @@
             </children>
         </component>
 
-        <!--
-        <component id="piece-1">
-            <transformation>
-                <transformationref id="row-1"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="snow"  length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="black-piece"/>
-            </children>
-        </component>
-
-        <component id="piece-2">
-            <transformation>
-                <transformationref id="row-19"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="snow"  length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="black-piece"/>
-            </children>
-        </component>
-
-        <component id="piece-3">
-            <transformation>
-                <transformationref id="col-1"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="snow"  length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="white-piece"/>
-            </children>
-        </component>
-
-        <component id="piece-4">
-            <transformation>
-                <transformationref id="col-19"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="snow"  length_s="1.0" length_t="1.0"/>
-            <children>
-                <componentref id="white-piece"/>
-            </children>
-        </component>
-        -->
-
         <component id="white-piece">
             <transformation>
             </transformation>
             <materials>
                 <material id="white"/>
             </materials>
-            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="piece"/>
             </children>
@@ -330,9 +295,65 @@
             <materials>
                 <material id="black"/>
             </materials>
-            <texture id="snow"  length_s="1.0" length_t="1.0"/>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="piece"/>
+            </children>
+        </component>
+
+        <component id="table">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="table-top"/>
+                <componentref id="table-central-pillar"/>
+                <componentref id="table-base"/>
+            </children>
+        </component>
+
+        <component id="table-top">
+            <transformation>
+                <translate x="0" y="7.995" z="0"/>
+                <scale x="19.2" y="4" z="19.2"/>
+            </transformation>
+            <materials>
+                <material id="default"/>
+            </materials>
+            <texture id="goside" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cube"/>
+            </children>
+        </component>
+
+        <component id="table-central-pillar">
+            <transformation>
+                <scale x="5" y="6" z="5"/>
+                <translate x="0" y="0.5" z="0"/>
+            </transformation>
+            <materials>
+                <material id="wood-1"/>
+            </materials>
+            <texture id="goside" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cube"/>
+            </children>
+        </component>
+
+        <component id="table-base">
+            <transformation>
+                <scale x="5" y="1" z="5"/>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="wood-1"/>
+            </materials>
+            <texture id="snow" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cylinder"/>
             </children>
         </component>
     </components>
