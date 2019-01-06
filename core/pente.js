@@ -160,8 +160,6 @@ class PenteQueue {
 
         if (reset) {
             let turns = this.searchTurn(pente, this.current());
-            if(turns[0] === null || turns[1] ===null )
-                throw "Problem on removing pieces"
 
             this.scene.removeFromBoard(turns);
             this.scene.setPiece(turn, move[0], move[1], color)
@@ -183,47 +181,42 @@ class PenteQueue {
         for(let i = 0; i < newBoard.length; i++){
             for(let j = 0; j < newBoard.length; j++){
                 if(newBoard[i][j] === 'c' && oldBoard[i][j] === 'w' || newBoard[i][j] === 'c'&& oldBoard[i][j] === 'b'){
-                        indexesRemoved.push([i,j])
-                        if(indexesRemoved.length === 2) return indexesRemoved;
-
+                        indexesRemoved.push([i,j]) 
                 }
             }
         }
+        return indexesRemoved;
     }
 
     searchTurn(newPente, oldPente) {
         const indexesRemoved = this.subtractMatrix(newPente, oldPente)
         const previous  = this.pentes
-        let turns = [null, null]
-
+        let turns = Array(indexesRemoved.length).fill(null)
+    
         for(let i = previous.length - 1; i >= 0; i--){
             const board = previous[i].board;
-          
-            if(board[indexesRemoved[0][0]][indexesRemoved[0][1]] === 'c') {
-                let tmp1 = {turn: previous[i].turn, index: indexesRemoved[0]}
-                turns[0] = turns[0] || tmp1
-            
+            for(const id in indexesRemoved){
+                if(board[indexesRemoved[id][0]][indexesRemoved[id][1]] === 'c' && turns[id]===null){
+                    turns[id] = {turn: previous[i].turn, index: indexesRemoved[id]}
+                } 
             }
-           
-            if(board[indexesRemoved[1][0]][indexesRemoved[1][1]] === 'c'){
-                let tmp2 = {turn: previous[i].turn, index: indexesRemoved[1]}
-                turns[1] = turns[1] || tmp2
-            }
-            
-            if(turns[0] !== null && turns[1] !== null){
-                turns[0].color = newPente.next
-                turns[1].color = newPente.next
-                return turns
-            } 
+            /* if(!turns.includes(null)) {
+                    turns[0].color = newPente.next
+                    return turns
+            } */
         }
-    }
 
+        turns[0].color = newPente.next
+        return turns
+    }
     undo() {
         this.status = "undo";
 
         if (this.pentes.length > 1) {
             const cur = this.pentes.pop();
             this.scene.removePiece(cur.turn);
+           
+            //TODO updatee do marcador TODO
         }
 
         this.prepare();

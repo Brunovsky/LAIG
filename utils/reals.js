@@ -118,3 +118,8 @@ function protoHermitePolynomial(w, I, F) {
     console.log(u4, u3, u2, u1, u0);
     return poly;
 }
+
+function between(min,max) // min and max included
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
