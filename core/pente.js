@@ -146,40 +146,76 @@ class PenteQueue {
         // If there are captures, reset the board
         const cap1 = pente.cap;
         const cap2 = this.current().cap;
-
-        const reset = cap1.white !== cap2.white || cap1.black !== cap2.black;
-
-        console.log(cap1, cap2, reset);
-
-        this.pentes.push(pente);
+    
+        const reset = cap1.white !== cap2.white || cap1.black !== cap2.black;   
+        const turn = pente.turn;
+        const move = pente.move;
+        const next = pente.next;
+       
+        if (next === 'b' || next === 'win-w') var color = 'white';
+        if (next === 'w' || next === 'win-b') var color = 'black';
 
         if (reset) {
-            this.scene.removeAllPieces();
+            
+            let turns = this.searchTurn(pente, this.current());
+            if(turns[0] === null || turns[1] ===null )
+                throw "Problem on removing pieces"
 
-            let counter = 0;
+            this.scene.removeFromBoard(turns);
+            this.scene.setPiece(turn, move[0], move[1], color)
 
-            for (let i = 0; i < this.size; ++i) {
-                for (let j = 0; j < this.size; ++j) {
-                    const row = i + 1, col = j + 1;
-                    const cell = pente.board[i][j];
-
-                    if (cell !== 'c') {
-                        const color = cell === 'w' ? 'white' : 'black';
-                        this.scene.setPiece(counter++, row, col, color);
-                    }
-                }
-            }
         } else {
-            const turn = pente.turn;
-            const move = pente.move;
-            const next = pente.next;
-            if (next === 'b' || next === 'win-w') var color = 'white';
-            if (next === 'w' || next === 'win-b') var color = 'black';
-
+            
             this.scene.setPiece(turn, move[0], move[1], color);
         }
 
+        this.pentes.push(pente);
         return this;
+    }
+
+    subtractMatrix(newPente, oldPente){
+        const newBoard = newPente.board
+        const oldBoard = oldPente.board
+
+
+        let indexesRemoved = []
+        for(let i = 0; i < newBoard.length; i++){
+            for(let j = 0; j < newBoard.length; j++){
+                if(newBoard[i][j] === 'c' && oldBoard[i][j] === 'w' || newBoard[i][j] === 'c'&& oldBoard[i][j] === 'b'){
+                        indexesRemoved.push([i,j])
+                        if(indexesRemoved.length === 2) return indexesRemoved;
+
+                }
+            }
+        }
+    }
+
+    searchTurn(newPente, oldPente){
+        const indexesRemoved = this.subtractMatrix(newPente, oldPente)
+        const previous  = this.pentes
+        let turns = [null, null]
+
+        for(let i = previous.length - 1; i >= 0; i--){
+            const board = previous[i].board;
+          
+            if(board[indexesRemoved[0][0]][indexesRemoved[0][1]] === 'c') {
+                let tmp1 = {turn: previous[i].turn, index: indexesRemoved[0]}
+                turns[0] = turns[0] || tmp1
+            
+            }
+           
+            if(board[indexesRemoved[1][0]][indexesRemoved[1][1]] === 'c'){
+                let tmp2 = {turn: previous[i].turn, index: indexesRemoved[1]}
+                turns[1] = turns[1] || tmp2
+            }
+            
+            if(turns[0] !== null && turns[1] !== null){
+                turns[0].color = newPente.next
+                turns[1].color = newPente.next
+                return turns
+            } 
+        }
+
     }
 
     undo() {

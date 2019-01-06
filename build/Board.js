@@ -80,7 +80,7 @@ class Board extends CGFobject {
 
                     const horz = i - (this.size + 1) / 2
                     const vert = j - (this.size + 1) / 2
-                    const id = this.id(i, j)
+                    const id = this.id(j, i)
                     this.scene.pushMatrix()
                     this.scene.translate(horz, 0.1, vert)
                     

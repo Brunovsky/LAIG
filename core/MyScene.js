@@ -411,8 +411,8 @@ class MyScene extends CGFscene {
 
         const anim = new LinearAnimation(this, TIME_ANIMATION, [{x: begin,y: 0.1, z: begin},
             {x: begin, y: 2, z: begin}, 
-            {x: row - 10, y: 2, z: col - 10},
-            {x: row - 10, y: 0.1, z: col - 10}])
+            {x: col - 10, y: 2, z: row - 10},
+            {x: col - 10, y: 0.1, z: row - 10}])
 
         chain.animations.push(anim)
         return chain
@@ -442,6 +442,25 @@ class MyScene extends CGFscene {
         this.animations = {}
     }
 
+    removeFromBoard(turns){
+        const compid0 = `game-piece-${turns[0].turn + 1}`
+        const compid1 = `game-piece-${turns[1].turn + 1}`
+
+        const end = turns[0].color === 'w' ? 13 : -13
+        
+        let col = turns[0].index[0]
+        let row = turns[0].index[1]
+        const linear0 = new LinearAnimation(this, TIME_ANIMATION,[{x:col-10, y:0.1, z: row-10}, {x:col-10, y:2, z: row-10}, {x:-end, y:2, z: end}, {x:-end, y:0.1, z: end}])
+        col = turns[1].index[0]
+        row = turns[1].index[1]
+        const linear1 = new LinearAnimation(this, TIME_ANIMATION,[{x:col-10, y:0.1, z: row-10}, {x:col-10, y:2, z: row-10}, {x:-end, y:2, z: end}, {x:-end, y:0.1, z: end}])
+        
+        this.animations[compid0].animations.push(linear0)
+        this.animations[compid1].animations.push(linear1)
+        this.animations[compid0].max++ 
+        this.animations[compid1].max++
+        
+    }
 
     /**
      * Select or unselect light and index i
@@ -531,15 +550,15 @@ class MyScene extends CGFscene {
             if (this.pickResults != null && this.pickResults.length > 0) {
                 for (let i = 0; i < this.pickResults.length; ++i) {
                     let pick = this.pickResults[i];
-                    console.log(pick);
+                   // console.log(pick);
 
                     let obj = pick[0];
                     if (obj && this.pente) {
                         let id = pick[1];
-                        console.log("Picked object: %d %o", id, obj);
+                       // console.log("Picked object: %d %o", id, obj);
 
                         let move = [Math.floor(id / 100), id % 100];
-                        console.log(move)
+                        //console.log(move)
                         this.pente.pick(move);
                     }
                 }

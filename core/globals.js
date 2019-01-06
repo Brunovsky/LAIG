@@ -54,7 +54,7 @@ const ANIMATION_BETWEEN = "single";
 const ANIMATION_UPDATE = "simple";
 
 //Time in seconds to the piece go to the place
-const TIME_ANIMATION = 2
+const TIME_ANIMATION = 0.5
 
 
 // Target yas file, in folder scenes/
