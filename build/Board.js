@@ -80,10 +80,13 @@ class Board extends CGFobject {
 
                     const horz = i - (this.size + 1) / 2
                     const vert = j - (this.size + 1) / 2
-
+                    const id = this.id(i, j)
                     this.scene.pushMatrix()
                     this.scene.translate(horz, 0.1, vert)
-                    this.scene.registerForPick(this.id(i, j), circle)
+                    
+                    circle[id] = {x:horz, y:0.1, z:vert}
+                    this.scene.registerForPick(id, circle)
+                    
                     circle.display()
                     this.scene.popMatrix()
                 }
@@ -207,6 +210,9 @@ class Clock extends CGFobject {
         this.clockSecondsr = 0
         this.clockSecondsl = 0
 
+        this.countdownNumber = 15
+        this.timeElapsed = 0
+
         this.textures = [
             new CGFtexture(scene, '../images/number0.png'),
             new CGFtexture(scene, '../images/number1.png'),
@@ -223,9 +229,6 @@ class Clock extends CGFobject {
         this.colon = new CGFtexture(scene, '../images/colon.png')
 
         this.clockMaterial = new CGFappearance(scene)
-
-        this.countdownNumber = 15
-        this.timeElapsed = 0
     }
 
     display() {

@@ -8,7 +8,7 @@ class MyScene extends CGFscene {
         this.gui = gui;
         gui.scene = this;
 
-        window.scene = this; 
+        window.scene = this;
     }
 
     /**
@@ -49,7 +49,9 @@ class MyScene extends CGFscene {
      */
     onGraphLoaded() {
         console.groupCollapsed("MyScene Init (onGraphLoaded)");
+      
 
+        this.firstSelect = null;
         this.initAxis();
         this.initViews();
         this.initAmbient();
@@ -61,7 +63,7 @@ class MyScene extends CGFscene {
         this.initShaders();
         this.initInterface();
 
-        this.initPente();
+        //this.initPente();
 
         console.log("Axis", this.axis);
         console.log("Views", this.views);
@@ -74,7 +76,7 @@ class MyScene extends CGFscene {
         console.log("Shaders", this.shaders);
         console.log("Interface", this.gui);
 
-        console.log("Pente", this.pente);
+        // console.log("Pente", this.pente);
 
         this.graphLoaded = true;
         console.groupEnd();
@@ -357,16 +359,20 @@ class MyScene extends CGFscene {
     setPiece(i, row, col, color) {
         const compid = `game-piece-${i}`;
         const colorpiece = `${color}-piece`;
-
+        const animRef = `anim-${compid}`;
         const components = this.graph.yas.components;
         const parent = components.get('game-pieces');
-
-        const div = document.createElement('div'), div2 = document.createElement('div');
+        const bowlPos = (color === "white") ? -13 : 13
+        const div = document.createElement('div'),
+            div2 = document.createElement('div');
 
         const xml = `<component id="${compid}">
                 <transformation>
-                    <translate x="${row-10}" y="0" z="${col-10}"></translate>
+                    <translate x="0" y="0" z="0"></translate> 
                 </transformation>
+                <animations>
+                    <animationref id="${animRef}"/>
+                </animations>
                 <materials>
                     <material id="inherit"/>
                 </materials>
@@ -389,6 +395,26 @@ class MyScene extends CGFscene {
 
         components.elements[compid] = piece;
         parent.children.elements[compid] = pieceref;
+
+        this.animations[compid] = this.createAnimation(row,col, bowlPos)
+
+    }
+
+    createAnimation(row, col, begin) {
+
+        const chain = { //acho que a chain nao pode ser assim tao simples
+            index: 0,
+            animations: [],
+            max: 0
+        };
+
+        const anim = new LinearAnimation(this, TIME_ANIMATION, [{x: begin,y: 0.1, z: begin},
+                {x: begin, y: 2, z: begin}, 
+                {x: row - 10, y: 2, z: col - 10},
+                {x: row - 10, y: 0.1, z: col - 10}])
+
+        chain.animations.push(anim)
+        return chain
     }
 
     removePiece(i) {
@@ -413,6 +439,7 @@ class MyScene extends CGFscene {
             }
         }
     }
+
 
     /**
      * Select or unselect light and index i
@@ -503,8 +530,16 @@ class MyScene extends CGFscene {
                 for (let i = 0; i < this.pickResults.length; i++) {
                     let obj = this.pickResults[i][0];
                     if (obj) {
-                        let customId = this.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                        let id = this.pickResults[i][1];
+                        if (this.firstSelect) {
+
+                        } else {
+                            this.firstSelect = {
+                                obj: obj,
+                                id: id
+                            }
+                            console.log(this.firstSelect)
+                        }
                     }
                 }
                 this.pickResults.splice(0, this.pickResults.length);
@@ -668,7 +703,7 @@ class MyScene extends CGFscene {
                 break;
             case "continuous":
                 anim = chain.animations[chain.index];
-
+              
                 // This should always be false. We'll keep it for now.
                 if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
                 anim = chain.animations[chain.index]

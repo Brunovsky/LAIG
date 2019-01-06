@@ -49,7 +49,7 @@ class Animation {
 class LinearAnimation extends Animation {
     constructor(scene, span, controlPoints) {
         super(scene, span);
-
+        
         if (controlPoints.length === 0) throw "INTERNAL: Empty control points";
             
             // Repeat the control point if the list is singular
