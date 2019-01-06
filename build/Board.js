@@ -14,7 +14,7 @@ class Board extends CGFobject {
         this.size = size
 
         this.material = new CGFappearance(scene)
-        const texture1 = new  CGFtexture(scene, '../images/pente.jpg')
+        const texture1 = new  CGFtexture(scene, 'images/pente.jpg')
         this.material.setTexture(texture1)
        // this.material.setTextureWrap('REPEAT','REPEAT')
         // Texture offset
@@ -219,19 +219,19 @@ class Clock extends CGFobject {
         this.timeElapsed = 0
 
         this.textures = [
-            new CGFtexture(scene, '../images/number0.png'),
-            new CGFtexture(scene, '../images/number1.png'),
-            new CGFtexture(scene, '../images/number2.png'),
-            new CGFtexture(scene, '../images/number3.png'),
-            new CGFtexture(scene, '../images/number4.png'),
-            new CGFtexture(scene, '../images/number5.png'),
-            new CGFtexture(scene, '../images/number6.png'),
-            new CGFtexture(scene, '../images/number7.png'),
-            new CGFtexture(scene, '../images/number8.png'),
-            new CGFtexture(scene, '../images/number9.png'),
+            new CGFtexture(scene, 'images/number0.png'),
+            new CGFtexture(scene, 'images/number1.png'),
+            new CGFtexture(scene, 'images/number2.png'),
+            new CGFtexture(scene, 'images/number3.png'),
+            new CGFtexture(scene, 'images/number4.png'),
+            new CGFtexture(scene, 'images/number5.png'),
+            new CGFtexture(scene, 'images/number6.png'),
+            new CGFtexture(scene, 'images/number7.png'),
+            new CGFtexture(scene, 'images/number8.png'),
+            new CGFtexture(scene, 'images/number9.png'),
         ]
 
-        this.colon = new CGFtexture(scene, '../images/colon.png')
+        this.colon = new CGFtexture(scene, 'images/colon.png')
 
         this.clockMaterial = new CGFappearance(scene)
     }
@@ -368,10 +368,10 @@ class ScorerBody extends CGFobject{
         this.scorer = new Scorer(scene, score)
 
         this.material = new CGFappearance(scene)
-        const texture = new  CGFtexture(scene, '../images/wood1.jpg')
+        const texture = new  CGFtexture(scene, 'images/wood1.jpg')
         this.material.setTexture(texture)
         this.material2 = new CGFappearance(scene)
-        this.material2.setTexture(new  CGFtexture(scene, '../images/wood2.jpg'))
+        this.material2.setTexture(new  CGFtexture(scene, 'images/wood2.jpg'))
     }
 
     display(){
@@ -418,16 +418,16 @@ class Scorer extends CGFobject {
         this.score = score
        
         this.textures = [
-            new CGFtexture(scene, '../images/number0.png'),
-            new CGFtexture(scene, '../images/number1.png'),
-            new CGFtexture(scene, '../images/number2.png'),
-            new CGFtexture(scene, '../images/number3.png'),
-            new CGFtexture(scene, '../images/number4.png'),
-            new CGFtexture(scene, '../images/number5.png'),
-            new CGFtexture(scene, '../images/number6.png'),
-            new CGFtexture(scene, '../images/number7.png'),
-            new CGFtexture(scene, '../images/number8.png'),
-            new CGFtexture(scene, '../images/number9.png'),
+            new CGFtexture(scene, 'images/number0.png'),
+            new CGFtexture(scene, 'images/number1.png'),
+            new CGFtexture(scene, 'images/number2.png'),
+            new CGFtexture(scene, 'images/number3.png'),
+            new CGFtexture(scene, 'images/number4.png'),
+            new CGFtexture(scene, 'images/number5.png'),
+            new CGFtexture(scene, 'images/number6.png'),
+            new CGFtexture(scene, 'images/number7.png'),
+            new CGFtexture(scene, 'images/number8.png'),
+            new CGFtexture(scene, 'images/number9.png'),
         ]
         this.material = new CGFappearance(scene)
         this.scorer = new Square(scene)
