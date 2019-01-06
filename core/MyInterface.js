@@ -43,7 +43,6 @@ class MyInterface extends CGFinterface {
 
 
     addStartGaming() {
-        let scene = this.scene
         const startGameGroup = this.datgui.addFolder("Start Game")
         startGameGroup.open()
         const obj = {

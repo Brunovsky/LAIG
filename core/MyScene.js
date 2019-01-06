@@ -49,7 +49,7 @@ class MyScene extends CGFscene {
      */
     onGraphLoaded() {
         console.groupCollapsed("MyScene Init (onGraphLoaded)");
-      
+
 
         this.firstSelect = null;
         this.initAxis();
@@ -397,7 +397,7 @@ class MyScene extends CGFscene {
         components.elements[compid] = piece;
         parent.children.elements[compid] = pieceref;
 
-        this.animations[compid] = this.createAnimation(row,col, bowlPos)
+        this.animations[compid] = this.createAnimation(row, col, bowlPos)
 
     }
 
@@ -410,9 +410,9 @@ class MyScene extends CGFscene {
         };
 
         const anim = new LinearAnimation(this, TIME_ANIMATION, [{x: begin,y: 0.1, z: begin},
-                {x: begin, y: 2, z: begin}, 
-                {x: row - 10, y: 2, z: col - 10},
-                {x: row - 10, y: 0.1, z: col - 10}])
+            {x: begin, y: 2, z: begin}, 
+            {x: row - 10, y: 2, z: col - 10},
+            {x: row - 10, y: 0.1, z: col - 10}])
 
         chain.animations.push(anim)
         return chain
@@ -439,6 +439,7 @@ class MyScene extends CGFscene {
                 delete components.elements[id];
             }
         }
+        this.animations = {}
     }
 
 
@@ -525,30 +526,6 @@ class MyScene extends CGFscene {
         }
     }
 
-    logPicking() {
-        if (this.pickMode == false) {
-            if (this.pickResults != null && this.pickResults.length > 0) {
-                for (let i = 0; i < this.pickResults.length; i++) {
-                    let obj = this.pickResults[i][0];
-                    if (obj) {
-                        let id = this.pickResults[i][1];
-                        if (this.firstSelect) {
-
-                        } else {
-                            this.firstSelect = {
-                                obj: obj,
-                                id: id
-                            }
-                            console.log(this.firstSelect)
-                        }
-                    }
-                }
-                this.pickResults.splice(0, this.pickResults.length);
-            }
-        }
-
-    }
-
     movePicking() {
         if (this.pickMode == false) {
             if (this.pickResults != null && this.pickResults.length > 0) {
@@ -557,11 +534,12 @@ class MyScene extends CGFscene {
                     console.log(pick);
 
                     let obj = pick[0];
-                    if (obj) {
+                    if (obj && this.pente) {
                         let id = pick[1];
                         console.log("Picked object: %d %o", id, obj);
 
                         let move = [Math.floor(id / 100), id % 100];
+                        console.log(move)
                         this.pente.pick(move);
                     }
                 }
@@ -725,7 +703,7 @@ class MyScene extends CGFscene {
                 break;
             case "continuous":
                 anim = chain.animations[chain.index];
-              
+
                 // This should always be false. We'll keep it for now.
                 if (anim.hasEnded() && chain.index < chain.max) ++chain.index;
                 anim = chain.animations[chain.index]
