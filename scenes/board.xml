@@ -2,17 +2,13 @@
     <scene axis_length="10.0" root="root"/>
     
     
-    <views default="general-view">
-        <perspective id="general-view" angle="50" near="0.1" far="500">
-            <from x="10.0" y="20.0" z="30.0"/>
-            <to x="0.0" y="0.0" z="0.0"/>
-        </perspective>
+    <views default="front">
         <perspective id="front" angle="50" near="0.1" far="500">
-            <from x="0.0" y="25.0" z="15.0"/>
+            <from x="0.0" y="30.0" z="22.0"/>
             <to x="0.0" y="8.0" z="0.0"/>
         </perspective>
         <perspective id="back" angle="50" near="0.1" far="500">
-            <from x="0.0" y="25.0" z="-15.0"/>
+            <from x="0.0" y="30.0" z="-22.0"/>
             <to x="0.0" y="8.0" z="0.0"/>
         </perspective>
     </views>
