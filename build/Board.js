@@ -46,11 +46,12 @@ class Board extends CGFobject {
         this.piecesWhite = new PieceContainer(scene, CONTAINER_RADIUS, CONTAINER_HEIGHT)
         this.capturedPiecesBlack = new PieceContainer(scene, CONTAINER_RADIUS + 0.2, CONTAINER_HEIGHT/5)
         this.capturedPiecesWhite = new PieceContainer(scene, CONTAINER_RADIUS +0.2, CONTAINER_HEIGHT/5)
+        
     }
 
     display() {
         if (!this.scene.pickMode) {
-            //board
+             //board
             this.scene.pushMatrix()
             this.scene.scale(this.xScale, 1, this.yScale)
             this.plane.display()
@@ -76,7 +77,8 @@ class Board extends CGFobject {
             this.scene.pushMatrix()
             this.scene.translate(-X_CONTAINER, 0, Z_CONTAINER)
             this.capturedPiecesWhite.display()
-            this.scene.popMatrix() 
+            this.scene.popMatrix()  
+            
 
         } else {
             for (let i = 1; i <= this.size; i++) {
@@ -461,6 +463,76 @@ class Scorer extends CGFobject {
 
     setScore(score){
         this.score = score
+    }
+
+}
+
+
+class Info extends CGFobject {
+    constructor(scene, string){
+        super(scene)
+
+        this.scene = scene
+        this.string = string
+       
+        this.textures = {
+             a: new CGFtexture(scene, 'images/A.jpg'),
+             b: new CGFtexture(scene, 'images/B.jpg'),
+             c: new CGFtexture(scene, 'images/C.jpg'),
+             d: new CGFtexture(scene, 'images/D.jpg'),
+             e: new CGFtexture(scene, 'images/E.jpg'),
+             f: new CGFtexture(scene, 'images/F.jpg'),
+             g: new CGFtexture(scene, 'images/G.jpg'),
+             h: new CGFtexture(scene, 'images/H.jpg'),
+             i: new CGFtexture(scene, 'images/I.jpg'),
+             j: new CGFtexture(scene, 'images/J.jpg'),
+             k: new CGFtexture(scene, 'images/K.jpg'),
+             l: new CGFtexture(scene, 'images/L.jpg'),
+             m: new CGFtexture(scene, 'images/M.jpg'),
+             n: new CGFtexture(scene, 'images/N.jpg'),
+             o: new CGFtexture(scene, 'images/O.jpg'),
+             p: new CGFtexture(scene, 'images/P.jpg'),
+             q: new CGFtexture(scene, 'images/Q.jpg'),
+             r: new CGFtexture(scene, 'images/R.jpg'),
+             s: new CGFtexture(scene, 'images/S.jpg'),
+             t: new CGFtexture(scene, 'images/T.jpg'),
+             u: new CGFtexture(scene, 'images/U.jpg'),
+             v: new CGFtexture(scene, 'images/V.jpg'),
+             w: new CGFtexture(scene, 'images/W.jpg'),
+             x: new CGFtexture(scene, 'images/X.jpg'),
+             y: new CGFtexture(scene, 'images/Y.jpg'),
+             z: new CGFtexture(scene, 'images/Z.jpg'),
+             space: new CGFtexture(scene, 'images/space.jpg')
+
+        }
+        this.material = new CGFappearance(scene)
+        this.planes = []
+        
+        for(let i = 0; i< string.length; i++){
+            this.planes.push(new Square(scene))
+        }
+    }
+
+    display(){
+        const str = this.string
+        this.scene.pushMatrix()
+        
+        this.scene.rotate(Math.PI/2,1,0,0)
+        for(let i= 0; i< str.length; i++){
+            let a
+            if(str[i] === " ") a = "space" 
+            else a  = str[i] 
+            this.scene.pushMatrix()
+            this.scene.translate(i, 0,0)
+            this.material.setTexture(this.textures[a])
+            this.material.apply()
+            this.planes[i].display()
+            this.scene.popMatrix()
+
+        }
+
+        this.scene.popMatrix()
+
     }
 
 }
