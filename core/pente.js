@@ -162,11 +162,11 @@ class PenteQueue {
             let turns = this.searchTurn(pente, this.current());
 
             this.scene.removeFromBoard(turns);
-            this.scene.setPiece(turn, move[0], move[1], color)
+            this.scene.setPiece(move[0], move[1], color)
 
         } else {
             
-            this.scene.setPiece(turn, move[0], move[1], color);
+            this.scene.setPiece(move[0], move[1], color);
         }
 
         this.pentes.push(pente);
@@ -188,6 +188,22 @@ class PenteQueue {
         return indexesRemoved;
     }
 
+    diffMatrix(board1, board2) {
+        const diff = JSON.parse(JSON.stringify(board1));
+
+        for (let i = 0; i < this.size; ++i) {
+            for (let j = 0; j < this.size; ++j) {
+                if (board1[i][j] !== board2[i][j]) {
+                    diff[i][j] = 'c';
+                } else {
+                    diff[i][j] = 'n';
+                }
+            }
+        }
+
+        return diff;
+    }
+
     searchTurn(newPente, oldPente) {
         const indexesRemoved = this.subtractMatrix(newPente, oldPente)
         const previous  = this.pentes
@@ -200,23 +216,38 @@ class PenteQueue {
                     turns[id] = {turn: previous[i].turn, index: indexesRemoved[id]}
                 } 
             }
-            /* if(!turns.includes(null)) {
-                    turns[0].color = newPente.next
-                    return turns
-            } */
         }
 
         turns[0].color = newPente.next
         return turns
     }
+
     undo() {
         this.status = "undo";
 
         if (this.pentes.length > 1) {
-            const cur = this.pentes.pop();
-            this.scene.removePiece(cur.turn);
+            const oldPente = this.pentes.pop();
+            const newPente = this.current();
+
+            const oldBoard = oldPente.board;
+            const newBoard = newPente.board;
+
+            const diff = this.diffMatrix(oldBoard, newBoard);
+
+            for (let i = 0; i < this.size; ++i) {
+                for (let j = 0; j < this.size; ++j) {
+                    if (diff[i][j] === 'c') continue;
+
+                    if (oldBoard[i][j] === 'c' && newBoard[i][j] !== 'c') {
+                        this.scene.removePiece(i + 1, j + 1);
+                    } else {
+                        const color = newBoard[i][j] === 'w' ? 'white' : 'black';
+                        this.scene.setPiece(i + 1, j + 1, color);
+                    }
+                }
+            }
            
-            //TODO updatee do marcador TODO
+            this.scene.scores.setScore(newPente.cap.white, newPente.cap.black);
         }
 
         this.prepare();
