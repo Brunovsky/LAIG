@@ -1,5 +1,5 @@
 const X_CONTAINER = 13
-const Z_CONTAINER = 13
+const Z_CONTAINER = 10
 
 /**
  * XMLscene class, representing the scene that is to be rendered.

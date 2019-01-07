@@ -335,13 +335,15 @@ class GameScorer extends CGFobject{
         this.scene.translate(X_CONTAINER + 3, 1, -Z_CONTAINER)
        
         this.scene.rotate(Math.PI/2, 0, -1, 0)
-        this.whiteScorer.display()
+        this.scene.scale(2,2,2)
+        this.whiteScorer.display(2,2,2)
         this.scene.popMatrix()
         this.scene.pushMatrix()
 
         //black
         this.scene.translate(-X_CONTAINER-3, 1, Z_CONTAINER)
         this.scene.rotate(Math.PI/2, 0, 1, 0)
+        this.scene.scale(2,2,2)
         this.blackScorer.display()
 
         this.scene.popMatrix()
