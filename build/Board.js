@@ -332,7 +332,7 @@ class GameScorer extends CGFobject{
     display(){
         //white
         this.scene.pushMatrix()
-       this.scene.translate(X_CONTAINER + 3, 1, -Z_CONTAINER)
+        this.scene.translate(X_CONTAINER + 3, 1, -Z_CONTAINER)
        
         this.scene.rotate(Math.PI/2, 0, -1, 0)
         this.whiteScorer.display()
@@ -350,14 +350,12 @@ class GameScorer extends CGFobject{
     updateScore(value, player){
         if(player === 'b') this.blackScorer.updateScore(value)
         else this.whiteScorer.updateScore(value)
-
     }
 
     setScore(white, black){
         this.whiteScorer.setScore(white)
         this.blackScorer.setScore(black)
     }
-
 }
 
 class ScorerBody extends CGFobject{

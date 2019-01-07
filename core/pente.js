@@ -146,9 +146,14 @@ class PenteQueue {
     }
 
     addMove(pente) {
+        const cur = this.current();
+
+        const newBoard = pente.board;
+        const oldBoard = cur.board;
+
         // If there are captures, reset the board
         const cap1 = pente.cap;
-        const cap2 = this.current().cap;
+        const cap2 = cur.cap;
     
         const reset = cap1.white !== cap2.white || cap1.black !== cap2.black;   
         const turn = pente.turn;
@@ -158,34 +163,26 @@ class PenteQueue {
         if (next === 'b' || next === 'win-w') var color = 'white';
         if (next === 'w' || next === 'win-b') var color = 'black';
 
-        if (reset) {
-            let turns = this.searchTurn(pente, this.current());
+        const diff = this.diffMatrix(newBoard, oldBoard);
 
-            this.scene.removeFromBoard(turns);
-            this.scene.setPiece(turn, move[0], move[1], color)
+        for (let i = 0; i < this.size; ++i) {
+            for (let j = 0; j < this.size; ++j) {
+                if (diff[i][j] === 'c') continue;
 
-        } else {
-            
-            this.scene.setPiece(turn, move[0], move[1], color);
-        }
-
-        this.pentes.push(pente);
-        return this;
-    }
-
-    subtractMatrix(newPente, oldPente) {
-        const newBoard = newPente.board
-        const oldBoard = oldPente.board
-
-        let indexesRemoved = []
-        for(let i = 0; i < newBoard.length; i++){
-            for(let j = 0; j < newBoard.length; j++){
-                if(newBoard[i][j] === 'c' && oldBoard[i][j] === 'w' || newBoard[i][j] === 'c'&& oldBoard[i][j] === 'b'){
-                        indexesRemoved.push([i,j]) 
+                if (newBoard[i][j] !== 'c') {
+                    const color = newBoard[i][j] === 'w' ? 'white' : 'black';
+                    this.scene.setPiece(i + 1, j + 1, color);
+                } else {
+                    const color = oldBoard[i][j] === 'w' ? 'white' : 'black';
+                    this.scene.removeFromBoard(i + 1, j + 1, color);
                 }
             }
         }
-        return indexesRemoved;
+
+        this.scene.scores.setScore(pente.cap.white, pente.cap.black);
+
+        this.pentes.push(pente);
+        return this;
     }
 
     diffMatrix(board1, board2) {
@@ -193,7 +190,7 @@ class PenteQueue {
 
         for (let i = 0; i < this.size; ++i) {
             for (let j = 0; j < this.size; ++j) {
-                if (board1[i][j] !== board2[i][j]) {
+                if (board1[i][j] === board2[i][j]) {
                     diff[i][j] = 'c';
                 } else {
                     diff[i][j] = 'n';
@@ -201,26 +198,9 @@ class PenteQueue {
             }
         }
 
+        console.log(board1, board2, diff);
         return diff;
     }
-
-     searchTurn(newPente, oldPente) {
-        const indexesRemoved = this.subtractMatrix(newPente, oldPente)
-        const previous  = this.pentes
-        let turns = Array(indexesRemoved.length).fill(null)
-    
-        for(let i = previous.length - 1; i >= 0; i--){
-            const board = previous[i].board;
-            for(const id in indexesRemoved){
-                if(board[indexesRemoved[id][0]][indexesRemoved[id][1]] === 'c' && turns[id]===null){
-                    turns[id] = {turn: previous[i].turn + 1, index: indexesRemoved[id]}
-                } 
-            }
-        }
-
-        turns[0].color = newPente.next
-        return turns
-    } 
 
     undo() {
         this.status = "undo";
@@ -238,11 +218,12 @@ class PenteQueue {
                 for (let j = 0; j < this.size; ++j) {
                     if (diff[i][j] === 'c') continue;
 
-                    if (oldBoard[i][j] === 'c' && newBoard[i][j] !== 'c') {
-                        this.scene.removePiece(oldPente.turn, i + 1, j + 1);
+                    if (oldBoard[i][j] !== 'c' && newBoard[i][j] === 'c') {
+                        this.scene.removePiece(i + 1, j + 1);
                     } else {
                         const color = newBoard[i][j] === 'w' ? 'white' : 'black';
-                        this.scene.setPiece(oldPente.turn , i + 1, j + 1, color);
+                        this.scene.setPiece(i + 1, j + 1, color);
+                        this.scene.removeDeleted(color);
                     }
                 }
             }

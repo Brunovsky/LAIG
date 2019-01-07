@@ -66,7 +66,8 @@ class MyScene extends CGFscene {
         this.initSceneries();
         this.initInterface();
 
-        this.scores = new GameScorer(this,0,0)
+        this.scores = new GameScorer(this,0,0);
+        this.deletedCounter = 0;
         //this.initPente('bot', 'player');
 
         console.log("Axis", this.axis);
@@ -390,23 +391,23 @@ class MyScene extends CGFscene {
         }
     }
 
-    setPiece(turn, row, col, color) {
-        const compid = `game-piece-${row}-${col}-${turn}`;
+    setPiece(row, col, color) {
+        const compid = `game-piece-${row}-${col}`;
         const colorpiece = `${color}-piece`;
-        const animRef = `anim-${compid}`;
+        //const animRef = `anim-${this.animPieceCounter++}`;
         const components = this.graph.yas.components;
         const parent = components.get('game-pieces');
-        const bowlPos = {x: (color === "white") ? -X_CONTAINER : X_CONTAINER, z:  (color === "white") ? -Z_CONTAINER : Z_CONTAINER}
+        const bowlPos = {
+            x: (color === "white") ? -X_CONTAINER : X_CONTAINER,
+            z: (color === "white") ? -Z_CONTAINER : Z_CONTAINER
+        };
         const div = document.createElement('div'),
-            div2 = document.createElement('div');
+             div2 = document.createElement('div');
 
         const xml = `<component id="${compid}">
                 <transformation>
                     <translate x="0" y="0" z="0"></translate> 
                 </transformation>
-                <animations>
-                    <animationref id="${animRef}"/>
-                </animations>
                 <materials>
                     <material id="inherit"/>
                 </materials>
@@ -414,7 +415,7 @@ class MyScene extends CGFscene {
                 <children>
                     <componentref id="${colorpiece}"/>
                 </children>
-                <!-- row=${row}, col=${col}, color=${color}, turn =${turn} -->
+                <!-- row=${row}, col=${col}, color=${color} -->
             </component>`;
 
         const xmlref = `<componentref id="${compid}"></componentref>`;
@@ -430,28 +431,57 @@ class MyScene extends CGFscene {
         components.elements[compid] = piece;
         parent.children.elements[compid] = pieceref;
 
-        this.animations[compid] = this.createAnimation(row, col, bowlPos)
+        this.animations[compid] = this.createSetAnimation(row, col, bowlPos)
     }
 
-    createAnimation(row, col, begin) {
-
+    createSetAnimation(row, col, begin) {
         const chain = { //acho que a chain nao pode ser assim tao simples
             index: 0,
             animations: [],
             max: 0
         };
 
-        const anim = new LinearAnimation(this, TIME_ANIMATION, [{x: begin.x,y: 0.1, z: begin.z},
-            {x: begin.x, y: 2, z: begin.z}, 
-            {x: col - 10, y: 2, z: row - 10},
-            {x: col - 10, y: 0.1, z: row - 10}])
+        const anim = new LinearAnimation(this, TIME_ANIMATION, [
+            {x: begin.x,  y: 0.1, z: begin.z},
+            {x: begin.x,  y: 2,   z: begin.z}, 
+            {x: col - 10, y: 2,   z: row - 10},
+            {x: col - 10, y: 0.1, z: row - 10}
+        ])
+
+        chain.animations.push(anim)
+        return chain
+    }
+
+    createRemoveAnimation(row, col, color) {
+        const end = {
+            x: color === 'white' ? X_CONTAINER : -X_CONTAINER,
+            z: color === 'white' ? Z_CONTAINER : -Z_CONTAINER
+        }
+
+        const x = between(end.x - (CONTAINER_RADIUS - PIECE_RADIUS*2),
+            end.x + (CONTAINER_RADIUS - PIECE_RADIUS*2))
+        const z = between(end.z - (CONTAINER_RADIUS - PIECE_RADIUS*2),
+            end.z + (CONTAINER_RADIUS - PIECE_RADIUS*2))
+
+        const chain = {
+            index: 0,
+            animations: [],
+            max: 0
+        }
+
+        const anim = new LinearAnimation(this, TIME_ANIMATION, [
+            {x:col-10, y:0.1, z: row-10},
+            {x:col-10, y:2,   z: row-10},
+            {x:-x,     y:2,   z: z},
+            {x:-x,     y:0.1, z: z}
+        ])
 
         chain.animations.push(anim)
         return chain
     }
 
     removePiece(row, col) {
-        const compid = `game-piece-${row}-${col}-${turn}`;
+        const compid = `game-piece-${row}-${col}`;
 
         const components = this.graph.yas.components;
         const parent = components.get('game-pieces');
@@ -468,37 +498,51 @@ class MyScene extends CGFscene {
         parent.children.elements = {};
 
         for (const id in components.elements) {
-            if (/game-piece-\d+/.test(id)) {
+            if (/game-piece-.+/.test(id)) {
                 delete components.elements[id];
             }
         }
         this.animations = {}
     }
 
-    removeFromBoard(turns){
-        const end = {x:turns[0].color === 'w' ? X_CONTAINER : -X_CONTAINER, z: turns[0].color === 'w' ? Z_CONTAINER : -Z_CONTAINER }
-      
-       console.log(turns)
-        for(const piece of turns){
-            const x = between( end.x - (CONTAINER_RADIUS - PIECE_RADIUS*2), end.x + (CONTAINER_RADIUS - PIECE_RADIUS*2))
-            const z = between( end.z - (CONTAINER_RADIUS - PIECE_RADIUS*2), end.z + (CONTAINER_RADIUS - PIECE_RADIUS*2))
-            
-            console.log(piece)
-            const row = piece.index[0] + 1
-            const col = piece.index[1] + 1
-            const turn = piece.turn 
-            const compid = `game-piece-${row}-${col}-${turn}`
-            console.log(compid)
-            console.log( this.animations)
-            const linear = new LinearAnimation(this, TIME_ANIMATION,[{x:col-10, y:0.1, z: row-10}, {x:col-10, y:2, z: row-10}, {x:-x, y:2, z: z}, {x:-x, y:0.1, z: z}])
-      
-            this.animations[compid].animations.push(linear)
-            this.animations[compid].max++ 
-        }
+    removeFromBoard(row, col, color) {
+        const compid = `game-piece-${row}-${col}`;
+        const deletedid = `game-piece-deleted-${color}-${this.deletedCounter++}`;
 
-       this.scores.updateScore(turns.length, turns[0].color === 'w' ? 'b' : 'w')
+        const components = this.graph.yas.components;
+        const comp = components.get(compid);
+        comp.id = deletedid;
+
+        const parent = components.get('game-pieces');
+        const compref = parent.children.get(compid);
+        compref.id = deletedid;
+
+        this.removePiece(row, col);
+
+        this.animations[deletedid] = this.createRemoveAnimation(row, col, color);
+
+        components.elements[deletedid] = comp;
+        parent.children.elements[deletedid] = compref;
     }
 
+    removeDeleted(color) {
+        const components = this.graph.yas.components;
+        const parent = components.get('game-pieces');
+
+        if (color === 'white') {
+            var regex = /game-piece-deleted-white-.+/;
+        } else {
+            var regex = /game-piece-deleted-black-.+/;
+        }
+
+        for (const id in components.elements) {
+            if (regex.test(id)) {
+                delete components.elements[id];
+                delete parent.children.elements[id];
+                break;
+            }
+        }
+    }
     
     /**
      * Select or unselect light and index i
