@@ -390,8 +390,8 @@ class MyScene extends CGFscene {
         }
     }
 
-    setPiece(row, col, color) {
-        const compid = `game-piece-${row}-${col}`;
+    setPiece(turn, row, col, color) {
+        const compid = `game-piece-${row}-${col}-${turn}`;
         const colorpiece = `${color}-piece`;
         const animRef = `anim-${compid}`;
         const components = this.graph.yas.components;
@@ -414,7 +414,7 @@ class MyScene extends CGFscene {
                 <children>
                     <componentref id="${colorpiece}"/>
                 </children>
-                <!-- row=${row}, col=${col}, color=${color} -->
+                <!-- row=${row}, col=${col}, color=${color}, turn =${turn} -->
             </component>`;
 
         const xmlref = `<componentref id="${compid}"></componentref>`;
@@ -451,7 +451,7 @@ class MyScene extends CGFscene {
     }
 
     removePiece(row, col) {
-        const compid = `game-piece-${row}-${col}`;
+        const compid = `game-piece-${row}-${col}-${turn}`;
 
         const components = this.graph.yas.components;
         const parent = components.get('game-pieces');
@@ -478,14 +478,18 @@ class MyScene extends CGFscene {
     removeFromBoard(turns){
         const end = {x:turns[0].color === 'w' ? X_CONTAINER : -X_CONTAINER, z: turns[0].color === 'w' ? Z_CONTAINER : -Z_CONTAINER }
       
-       
+       console.log(turns)
         for(const piece of turns){
             const x = between( end.x - (CONTAINER_RADIUS - PIECE_RADIUS*2), end.x + (CONTAINER_RADIUS - PIECE_RADIUS*2))
             const z = between( end.z - (CONTAINER_RADIUS - PIECE_RADIUS*2), end.z + (CONTAINER_RADIUS - PIECE_RADIUS*2))
             
-            const compid = `game-piece-${piece.row}-${piece.col}`
-            const col = piece.index[0]
-            const row = piece.index[1]
+            console.log(piece)
+            const row = piece.index[0] + 1
+            const col = piece.index[1] + 1
+            const turn = piece.turn 
+            const compid = `game-piece-${row}-${col}-${turn}`
+            console.log(compid)
+            console.log( this.animations)
             const linear = new LinearAnimation(this, TIME_ANIMATION,[{x:col-10, y:0.1, z: row-10}, {x:col-10, y:2, z: row-10}, {x:-x, y:2, z: z}, {x:-x, y:0.1, z: z}])
       
             this.animations[compid].animations.push(linear)
@@ -589,10 +593,10 @@ class MyScene extends CGFscene {
                     let obj = pick[0];
                     if (obj && this.pente) {
                         let id = pick[1];
-                        console.log("Picked object: %d %o", id, obj);
+                      //  console.log("Picked object: %d %o", id, obj);
 
                         let move = [Math.floor(id / 100), id % 100];
-                        console.log(move)
+                       // console.log(move)
                         this.pente.pick(move);
                     }
                 }

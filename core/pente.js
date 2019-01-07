@@ -154,7 +154,7 @@ class PenteQueue {
         const turn = pente.turn;
         const move = pente.move;
         const next = pente.next;
-       
+    
         if (next === 'b' || next === 'win-w') var color = 'white';
         if (next === 'w' || next === 'win-b') var color = 'black';
 
@@ -162,11 +162,11 @@ class PenteQueue {
             let turns = this.searchTurn(pente, this.current());
 
             this.scene.removeFromBoard(turns);
-            this.scene.setPiece(move[0], move[1], color)
+            this.scene.setPiece(turn, move[0], move[1], color)
 
         } else {
             
-            this.scene.setPiece(move[0], move[1], color);
+            this.scene.setPiece(turn, move[0], move[1], color);
         }
 
         this.pentes.push(pente);
@@ -204,7 +204,7 @@ class PenteQueue {
         return diff;
     }
 
-    searchTurn(newPente, oldPente) {
+     searchTurn(newPente, oldPente) {
         const indexesRemoved = this.subtractMatrix(newPente, oldPente)
         const previous  = this.pentes
         let turns = Array(indexesRemoved.length).fill(null)
@@ -213,14 +213,14 @@ class PenteQueue {
             const board = previous[i].board;
             for(const id in indexesRemoved){
                 if(board[indexesRemoved[id][0]][indexesRemoved[id][1]] === 'c' && turns[id]===null){
-                    turns[id] = {turn: previous[i].turn, index: indexesRemoved[id]}
+                    turns[id] = {turn: previous[i].turn + 1, index: indexesRemoved[id]}
                 } 
             }
         }
 
         turns[0].color = newPente.next
         return turns
-    }
+    } 
 
     undo() {
         this.status = "undo";
@@ -239,10 +239,10 @@ class PenteQueue {
                     if (diff[i][j] === 'c') continue;
 
                     if (oldBoard[i][j] === 'c' && newBoard[i][j] !== 'c') {
-                        this.scene.removePiece(i + 1, j + 1);
+                        this.scene.removePiece(oldPente.turn, i + 1, j + 1);
                     } else {
                         const color = newBoard[i][j] === 'w' ? 'white' : 'black';
-                        this.scene.setPiece(i + 1, j + 1, color);
+                        this.scene.setPiece(oldPente.turn , i + 1, j + 1, color);
                     }
                 }
             }
