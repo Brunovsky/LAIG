@@ -371,6 +371,7 @@ class MyScene extends CGFscene {
 
     initPente(white, black, options = []) {
         this.removeAllPieces();
+        this.scores.setScore(0, 0);
         this.pente = new PenteQueue(this, white, black, 19, options);
     }
 
@@ -389,8 +390,8 @@ class MyScene extends CGFscene {
         }
     }
 
-    setPiece(i, row, col, color) {
-        const compid = `game-piece-${i}`;
+    setPiece(row, col, color) {
+        const compid = `game-piece-${row}-${col}`;
         const colorpiece = `${color}-piece`;
         const animRef = `anim-${compid}`;
         const components = this.graph.yas.components;
@@ -413,7 +414,7 @@ class MyScene extends CGFscene {
                 <children>
                     <componentref id="${colorpiece}"/>
                 </children>
-                <!-- i=${i}, row=${row}, col=${col}, color=${color} -->
+                <!-- row=${row}, col=${col}, color=${color} -->
             </component>`;
 
         const xmlref = `<componentref id="${compid}"></componentref>`;
@@ -449,8 +450,8 @@ class MyScene extends CGFscene {
         return chain
     }
 
-    removePiece(i) {
-        const compid = `game-piece-${i}`;
+    removePiece(row, col) {
+        const compid = `game-piece-${row}-${col}`;
 
         const components = this.graph.yas.components;
         const parent = components.get('game-pieces');
@@ -482,7 +483,7 @@ class MyScene extends CGFscene {
             const x = between( end.x - (CONTAINER_RADIUS - PIECE_RADIUS*2), end.x + (CONTAINER_RADIUS - PIECE_RADIUS*2))
             const z = between( end.z - (CONTAINER_RADIUS - PIECE_RADIUS*2), end.z + (CONTAINER_RADIUS - PIECE_RADIUS*2))
             
-            const compid = `game-piece-${piece.turn + 1}`
+            const compid = `game-piece-${piece.row}-${piece.col}`
             const col = piece.index[0]
             const row = piece.index[1]
             const linear = new LinearAnimation(this, TIME_ANIMATION,[{x:col-10, y:0.1, z: row-10}, {x:col-10, y:2, z: row-10}, {x:-x, y:2, z: z}, {x:-x, y:0.1, z: z}])
@@ -491,7 +492,7 @@ class MyScene extends CGFscene {
             this.animations[compid].max++ 
         }
 
-       this.scores.updateScore(turns.length, turns[0].color === 'w' ? 'b':'w')
+       this.scores.updateScore(turns.length, turns[0].color === 'w' ? 'b' : 'w')
     }
 
     
