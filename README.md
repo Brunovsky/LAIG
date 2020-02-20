@@ -1,5 +1,7 @@
 # LAIG
 
+Project partner: [Daniel Gomes](https://github.com/cdanielgomes)
+
 ### Initial setup
 
 On the zip's root directory (above LAIG/) initiate the HTTP server,
